@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="contents">
+        <h:form>
+            <h:panelGrid columns="2" cellpadding="10">
+                <p:selectOneMenu value="#{venueScheduleManagedBean.venue}">
+                    <f:selectItem itemLabel="Select One" itemValue=""/>
+                    <f:selectItems value="#{venueScheduleManagedBean.venues}" />
+                    <p:ajax update="venueschedule" listener="#{venueScheduleManagedBean.createEventModel}"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+            
+            <p:schedule id="venueschedule" value="#{venueScheduleManagedBean.eventmodel}" widgetVar="venueschedule">
+                
+            </p:schedule>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

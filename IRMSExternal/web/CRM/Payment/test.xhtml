@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Member Workspace</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../Templates/subpageFull.xhtml">
+            <ui:define name="content1">
+                   <h:form>
+                        <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+                        <table width="600">
+                            <tr>
+                                <td width="150" height="50">&nbsp;* Subject: </td>
+                                <td width="449">
+                                    <p>  <p:selectOneMenu value="#{feedbackManagedBean.fsubject}" required="true" >  
+                                        <f:selectItem itemLabel="Select One" itemValue="" />
+                                        <f:selectItems value="#{feedbackManagedBean.subjects}"/>
+                                        <p:ajax listener="#{feedbackManagedBean.handleSubjectChange}" update="subject2"/>               
+                                    </p:selectOneMenu> </p>
+
+                                    <p>
+                                    <p:selectOneMenu id="subject2" value="#{feedbackManagedBean.fsubject2}" required="true">
+                                        <f:selectItem itemLabel="Select More Details" itemValue=""/>
+                                        <f:selectItems value="#{feedbackManagedBean.subjects2}"/>
+                                    </p:selectOneMenu></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="150"  height="50">&nbsp;* Rating:</td>
+                                <td>
+                                    <p:rating value="#{feedbackManagedBean.feedback.rating}" stars="10" cancel="false" onRate="alert('You rated ' + value)"/> 
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>&nbsp;* Feedback: </td>
+                                <td>
+                                    <p:inputTextarea rows="10" cols="100" counter="counter" maxlength="300"       
+                                                     counterTemplate="{0} characters remaining." autoResize="false" value="#{feedbackManagedBean.feedback.content}"/>  
+
+                                    <p> <h:outputText id="counter" />  </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td><p:commandButton value="Submit" styleClass="submit_btn float_l" action="#{feedbackManagedBean.createFeedback(action)}" type="submit"/>
+
+                                    <p:button value="Back" styleClass="submit_btn float_l" href="afterLogin.xhtml" style=" float: right"/>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+
+                        </table>
+                    </h:form>
+
+            </ui:define>
+
+   
+        </ui:composition>
+
+    </h:body>
+</html>
+

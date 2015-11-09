@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+
+        <title>Package Mgt</title>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="../../Templates/InternalAggregateTemplate.xhtml">
+            <ui:define name="contents">
+                <h:form id="form">
+
+
+                    <p:panel header="Create a new package" style="margin-bottom:10px;">
+                        <table>
+                            <tr>
+                                <td width="180" height="35">Package Name : </td>
+                                <td><h:inputText value="#{packageManagedBean.pkg.packageName}" required="true"/></td>
+                            </tr>
+
+                            <tr>
+                                <td height="35">Add Hotel :</td>
+                                <td>
+                                    <p:selectOneMenu id="hotel" value="#{packageManagedBean.hotel}" required="true">
+                                        <f:selectItem itemLabel="Select Hotel" itemValue=""/>                                
+                                        <f:selectItems value="#{packageManagedBean.hotels}"/>
+                                        <p:ajax listener="#{packageManagedBean.handleHotelChange}" update="room1" />                                            
+                                    </p:selectOneMenu>
+
+                                    &nbsp;&nbsp;
+
+                                    <p:selectOneMenu id="room1" value="#{packageManagedBean.roomtype}" required="true">
+                                        <f:selectItem itemLabel="Select Room Type" itemValue=""/>
+                                        <f:selectItems value="#{packageManagedBean.roomtypes}"/>                               
+                                    </p:selectOneMenu>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="35">Hotel Nights :</td>
+                                <td>
+                                    <p:selectOneMenu value="#{packageManagedBean.quantity}" required="true">
+                                        <f:selectItem itemLabel="Select" itemValue=""/>
+                                        <f:selectItem itemLabel="1" itemValue="1"/>
+                                        <f:selectItem itemLabel="2" itemValue="2"/>
+                                        <f:selectItem itemLabel="3" itemValue="3"/>
+                                        <f:selectItem itemLabel="4" itemValue="4"/>
+                                        <f:selectItem itemLabel="5" itemValue="5"/>
+                                        <f:selectItem itemLabel="6" itemValue="6"/>
+                                    </p:selectOneMenu>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="35">Add Restaurant Voucher</td>
+                                <td>
+                                    <p:commandButton id="effectsDialogButton" value="Add" icon="ui-icon-pencil" oncomplete="dlg3.show();"/>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="35">Add Ticket: </td>
+                                <td>
+                                    <p:selectOneMenu id="attraction" value="#{packageManagedBean.attraction}" required="true">
+                                        <f:selectItem itemLabel="Select Attraction" itemValue=""/>
+                                        <f:selectItems value="#{packageManagedBean.attractions}"/>
+                                        <p:ajax listener="#{packageManagedBean.handleTicketChange}" update="ticket"/> 
+                                    </p:selectOneMenu>
+
+                                    &nbsp;&nbsp;
+
+                                    <p:selectOneMenu id="ticket" value="#{packageManagedBean.ticketType}" required="true">
+                                        <f:selectItem itemLabel="Select Ticket Type" itemValue=""/>
+                                        <f:selectItems value="#{packageManagedBean.ticketTypes}"/>
+                                    </p:selectOneMenu>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td height="35">Ticket Quantity :</td>
+                                <td>
+                                    <p:selectOneMenu value="#{packageManagedBean.quantity2}" required="true">
+                                        <f:selectItem itemLabel="Select" itemValue=""/>
+                                        <f:selectItem itemLabel="1" itemValue="1"/>
+                                        <f:selectItem itemLabel="2" itemValue="2"/>
+                                        <f:selectItem itemLabel="3" itemValue="3"/>
+                                        <f:selectItem itemLabel="4" itemValue="4"/>
+                                        <f:selectItem itemLabel="5" itemValue="5"/>
+                                        <f:selectItem itemLabel="6" itemValue="6"/>
+                                    </p:selectOneMenu>
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+                                <td height="35">Price</td>
+                                <td><h:inputText value="#{packageManagedBean.pkg.price}" required="true"/></td>
+                            </tr>
+                            <tr>
+                                <td height="35">Expire Date</td>
+                                <td><p:calendar  yearRange="2013:2020" value="#{packageManagedBean.pkg.expireDate}" id="cal" navigator="true" showButtonPanel="true" required="true"/></td>
+                            </tr>
+
+                            <tr>
+                                <td height="35">Post on Website?</td>
+                                <td>
+
+                                    <p:selectOneMenu value="#{packageManagedBean.pkg.postToWeb}">
+                                        <f:selectItem itemLabel="Select One" itemValue=""/>
+                                        <f:selectItem itemLabel="Yes" itemValue="true"/>
+                                        <f:selectItem itemLabel="No" itemValue="false"/>
+                                    </p:selectOneMenu>
+                                </td>
+                            </tr>
+
+                        </table>
+                        <p:separator />
+                        <p:button value="Back" href="packageType.xhtml"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <p:growl autoUpdate="true" showDetail="false" globalOnly="true"/> 
+                        <p:commandButton  value="Submit" id="submit" action="#{packageManagedBean.createPackage2()}"/>
+
+                    </p:panel>
+
+
+                    <p:dialog id="dddd" header="Restaurant Voucher" widgetVar="dlg3" showEffect="explode" width="500" height="300" >
+                        <h:form>
+                            <table width="350">
+                                <tr>
+                                    <td height="50">Voucher Name : </td>
+                                    <td><h:inputText value="#{packageManagedBean.packageItem2.itemName}" /></td>
+                                </tr>
+                                <tr>
+                                    <td height="50">Voucher Value :</td>
+                                    <td><h:inputText value="#{packageManagedBean.packageItem2.price}" /></td>
+                                </tr>
+                                <tr>
+                                    <td> </td>
+                                    <td align="left"><p:commandButton id="effectsDialogButton" oncomplete="dlg3.hide();" value="submit"/></td>
+                                </tr>
+
+                            </table>
+                        </h:form>
+                    </p:dialog>
+
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

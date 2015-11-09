@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="contents">
+               <h1>
+                    Welcome to Integrated Client Bill Management SubSystem
+                </h1>
+                <h:body>
+                    <h:form id="formMain">
+                    <p:tabMenu activeIndex="2">
+                        <p:menuitem value="Home" url="/ConventionExhibitionWeb/ClientBill/allBills.xhtml"/>
+                        <p:menuitem value="View All Unpaid Bills" url="/ConventionExhibitionWeb/ClientBill/allUnpaidBills.xhtml"/>
+                        <p:menuitem value="View By Client" url="/ConventionExhibitionWeb/ClientBill/allClients.xhtml"/>
+                        <p:menuitem value="View All Receipts" url="/ConventionExhibitionWeb/ClientBill/allReceipts.xhtml"/>
+                    </p:tabMenu>
+                    <p:panel> 
+                        <h:outputText styleClass="STYLE2" value="Here lists bills by client in the integrated billing system of Convention Exhibition Event, Banquet Event, and EntertainmentShow Event. You can export billing information, record bill payment and send bills."/>
+                        <br></br>
+                    </p:panel>
+                        <p:dataTable id="bill" var="bill" value="#{clientBillingManagedBean.myBills}" emptyMessage="No Client Bills Found.">
+                            <p:column  headerText="BillNum" sortBy="#{bill.id}" filterBy="#{bill.id}" filterStyle="width: 55px;" >
+                            <h:outputText value="#{bill.id}" />
+                        </p:column>
+
+                            <p:column headerText="BillDate"  filterBy="#{bill.billDateString}" filterStyle="width: 60px;">
+                            <h:outputText value="#{bill.billDateString}" />
+                        </p:column>
+
+                            <p:column headerText="Client" sortBy="#{bill.client.lastname}" filterBy="#{bill.client.lastname}" filterStyle="width: 60px;">
+                            <h:outputText value="#{bill.client.firstname}" /><h:outputText value="#{bill.client.lastname}" />
+                        </p:column> 
+
+                        <p:column headerText="TotalPrice"  filterBy="#{bill.totalprice}">
+                            <h:outputText value="#{bill.totalprice}" />
+                        </p:column> 
+
+                            <p:column headerText="OutstandingCharges" filterBy="#{bill.totalcharges}" filterStyle="width: 80px;">
+                            <h:outputText value="#{bill.totalcharges}">
+                            </h:outputText>          
+                        </p:column>       
+
+                        <p:column headerText="Status" sortBy="#{bill.status}" filterBy="#{bill.status}" filterStyle="width: 65px;">
+                            <h:outputText value="#{bill.status}" />
+                        </p:column>
+                            
+                        <p:column headerText="Details">
+                            <p:commandButton value="View" ajax="true" actionListener="#{clientBillingManagedBean.navigateBillOrders}">
+                               <f:attribute name="viewBill" value="#{bill}"/>
+                            </p:commandButton>
+                        </p:column>  
+                            
+                    <p:column headerText="Send" >   
+                        <p:commandButton value="Send" onstart="dialog1.show();" oncomplete="dialog1.hide();" ajax="true" type="submit" actionListener="#{clientBillingManagedBean.sendBill}">
+                              <f:attribute name="sendBill" value="#{bill}"/>
+                        </p:commandButton>
+                    </p:column>    
+                </p:dataTable>
+                <p:dialog id="dialog1" widgetVar="dialog1" modal="true" appendToBody="true">
+                    Email is being sent to the client, please wait...
+                </p:dialog>
+                    <p:growl id="msg" globalOnly="true" autoUpdate="true"/>
+                    <h:panelGrid columns="1" style="float: right">
+                        <p:panel header="Export Page Data" >
+                            <h:commandLink>  
+                                <p:graphicImage value="/resources/images/pdf.png" />  
+                                <p:dataExporter type="pdf" target="bill" fileName="clientBills" />  
+                            </h:commandLink>
+                            <h:commandLink>  
+                                <p:graphicImage value="/resources/images/xml.png" />  
+                                <p:dataExporter type="xml" target="bill" fileName="clientBills" />  
+                            </h:commandLink>
+                            <h:commandLink>  
+                                <p:graphicImage value="/resources/images/csv.png" />  
+                                <p:dataExporter type="csv" target="bill" fileName="clientBills" />  
+                            </h:commandLink>
+                            <h:commandLink>  
+                                <p:graphicImage value="/resources/images/excel.png" />  
+                                <p:dataExporter type="xls" target="bill" fileName="clientBills" />  
+                            </h:commandLink>
+                        </p:panel>
+                    </h:panelGrid>
+                    <p:commandButton style="float: left" value="Back" actionListener="#{clientBillingManagedBean.navigateAllClients}">
+                    </p:commandButton>
+                </h:form>
+            </h:body>
+     
+    </ui:define>
+
+    <ui:define name="footer">
+        footer
+    </ui:define>
+
+</ui:composition>

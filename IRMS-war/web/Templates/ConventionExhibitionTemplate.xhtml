@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+         <link href="../../resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <title>Facelets Template</title>
+    </h:head>
+
+    <h:body>
+
+        <p:layout fullPage="true">
+<!--            <p:layoutUnit position="north" header="#{staffManagedBean.welcome}" style="font-size: 30px">                
+            </p:layoutUnit>-->
+
+            <p:layoutUnit position="west" size="170"  header="Function">
+                <ui:insert name="leftpanel">
+                    <h:form>
+                        <p:menu>
+                            <p:menuitem value="Search Venue Avaliability" url="/ConventionExhibitionWeb/SearchVenue.xhtml"/> 
+                            <p:menuitem value="View Unread Enquiry" url="/ConventionExhibitionWeb/EnquiryManagement/viewUnreadEnquiry.xhtml"/>
+                            <p:menuitem value="Add Enquiry" url="/ConventionExhibitionWeb/AddProposal.xhtml"/>
+                            <p:menuitem value="Add Facility Type" url="/ConventionExhibitionWeb/FacilityManagement/AddCEfacilityType.xhtml"/>
+                            <p:menuitem value="Add Facility" url="/ConventionExhibitionWeb/FacilityManagement/AddCEfacility.xhtml"/>
+                            <p:menuitem value="View All Facility" url="/ConventionExhibitionWeb/FacilityManagement/ViewAllFacility.xhtml"/>
+                            <p:menuitem value="Add Event" url="/ConventionExhibitionWeb/EventManagement/EventSearchVenue.xhtml"/>
+                            <p:menuitem value="View Event" url="/ConventionExhibitionWeb/EventManagement/ViewAllEvent.xhtml"/>
+                            <p:menuitem value="View Today Event" url="/ConventionExhibitionWeb/EventManagement/ViewTodayEvents.xhtml"/>
+                            <p:menuitem value="Client Bill Management" url="/ConventionExhibitionWeb/ClientBill/allBills.xhtml"/>               
+                        </p:menu>
+                    </h:form>
+                </ui:insert>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center">
+<!--                <ui:include src="staffCommonFunc.xhtml" />-->
+                <ui:insert name="contents">
+                    display your contents here
+                </ui:insert>
+            </p:layoutUnit>
+<!--
+            <p:layoutUnit position="east" header="Common Functions">
+                <ui:insert name="rightpanel">
+                    
+                    <ui:include src="StaffWidgets.xhtml" />
+                </ui:insert>
+            </p:layoutUnit>-->
+            
+            <p:layoutUnit position="south">
+                <ui:insert name="footer">
+                    <ui:include src="IntranetFooter.xhtml" />
+                </ui:insert>
+            </p:layoutUnit>
+
+        </p:layout>
+    </h:body>
+
+</html>

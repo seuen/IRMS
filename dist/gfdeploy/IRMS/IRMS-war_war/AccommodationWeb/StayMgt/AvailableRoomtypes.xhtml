@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+   
+    <ui:define name="contents">
+        
+                <h:form id="form">
+                    <p:tabMenu>
+            <p:menuitem value="Check Reservation" url="/AccommodationWeb/StayMgt/searchReservation.xhtml"/>
+            <p:menuitem value="Search Room Availability" url="/AccommodationWeb/StayMgt/RoomTypeSearch.xhtml"/>
+            <p:menuitem value="Block Room List" url="/AccommodationWeb/ReservationMgt/AddGuestBlock.xhtml"/>
+        </p:tabMenu>
+                    <p:growl autoUpdate="true" globalOnly="true"/>
+                    <p:panel>
+                        <p:dataTable var="roomType" value="#{checkInManagedBean.roomtypes}" emptyMessage="No Room Type Available"
+                                 paginator="true" rows="20" rowKey="#{roomType.roomtypeId}" >
+
+                            <p:column sortBy="#{roomType.hotel.name}" filterBy="#{roomType.hotel.name}" headerText="Hotel Name"> 
+                            <h:outputText value="#{roomType.hotel.name}" /> 
+                        </p:column>
+
+                            <p:column filterBy="#{roomType.type}" headerText="Room Type"> 
+                            <h:outputText value="#{roomType.type}" /> 
+                        </p:column> 
+
+                            <p:column sortBy="#{roomType.price_l}" filterBy="#{roomType.price_l}" headerText="Price_L"> 
+                            <h:outputText value="#{roomType.price_l}" /> 
+                        </p:column>  
+                            <p:column sortBy="#{roomType.price_h}" filterBy="#{roomType.price_h}" headerText="Price_H">
+                            #{roomType.price_h}
+                            </p:column>
+
+                            <p:column width="100" sortBy="#{roomType.totalNum}" headerText="Room Available Number"> 
+                            
+                            <h:outputText value="#{roomType.totalNum}" /> 
+                        </p:column>
+
+                    </p:dataTable>  
+                    <br/>
+                    <p:button value="Back" outcome="/AccommodationWeb/StayMgt/RoomTypeSearch.xhtml" />
+                    
+                  </p:panel>
+                </h:form>
+    </ui:define>
+
+</ui:composition>

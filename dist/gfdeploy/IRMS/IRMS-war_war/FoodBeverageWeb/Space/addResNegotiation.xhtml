@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+
+    <ui:define name="contents">
+        <h1>
+            Welcome to Shopping Mall Space Management SubSystem
+        </h1>
+        <h:form>
+            <p:tabMenu activeIndex="2">
+                <p:menuitem value="Home" url="/FoodBeverageWeb/Space/viewAllResVenues.xhtml"/>
+                <p:menuitem value="View Venue Negotiators" url="/FoodBeverageWeb/Space/viewResVenueNegotiators.xhtml"/>
+                <p:menuitem value="Create Negotiation" url="/FoodBeverageWeb/Space/addResNegotiation.xhtml"/>
+            </p:tabMenu>
+        </h:form>
+
+        <h:form id="mainNego">
+            <p:ajaxStatus style="width:30px;height: 20px;">
+                <f:facet name="start">     <h:graphicImage value="../design/ajaxloading.gif" />   </f:facet>
+                <f:facet name="complete">  <h:outputText value="" />                              </f:facet>
+            </p:ajaxStatus>  
+            <p:panel> 
+                <h:outputText styleClass="STYLE3" value="Negotiation Management of Venue:  #{resVenueManagedBean.negoVenue.building}-#{resVenueManagedBean.negoVenue.id}."/>
+                <br></br> 
+                <br></br> 
+                <h:outputText styleClass="STYLE2" value="Please select from negotiators repository or create new negotiator to form a negotiation."/>
+                <br></br>
+            </p:panel>
+
+            <p:panel id="panel">
+                <p:growl autoUpdate="true" globalOnly="true" />
+
+                <p:dataTable id="datatable" var="negotiator" value="#{resVenueManagedBean.allNegotiators}" rowKey="#{negotiator.email}" selection="#{resVenueManagedBean.selectedNegotiators}" selectionMode="multiple" paginator="true" emptyMessage="No negotiators.">
+
+                    <p:column headerText="Name"  sortBy="#{negotiator.negotiatorName}" filterBy="#{negotiator.negotiatorName}" filterStyle="width: 40px;" >
+                        <f:facet name="header">  
+                            <h:outputText value="Name" />  
+                        </f:facet>
+                        <h:outputText value="#{negotiator.negotiatorName}" />
+                    </p:column>
+
+                    <p:column headerText="Email" sortBy="#{negotiator.email}" filterBy="#{negotiator.email}" filterStyle="width: 40px;" >
+                        <f:facet name="header">  
+                            <h:outputText value="Email" />  
+                        </f:facet>
+                        <h:outputText value="#{negotiator.email}" />
+                    </p:column>
+
+                    <p:column headerText="Phone" sortBy="#{negotiator.telNum}" filterBy="#{negotiator.telNum}" filterStyle="width: 40px;" >
+                        <f:facet name="header">  
+                            <h:outputText value="Phone" />  
+                        </f:facet>
+                        <h:outputText value="#{negotiator.telNum}" />
+                    </p:column>
+
+                    <p:column headerText="Category" sortBy="#{negotiator.shopCategory}" filterBy="#{negotiator.shopCategory}" filterStyle="width: 50px;">
+                        <f:facet name="header">  
+                            <h:outputText value="Category" />  
+                        </f:facet>                     
+                        <h:outputText value="#{negotiator.shopCategory}" />
+                    </p:column>   
+
+                    <p:column headerText="Shop" sortBy="#{negotiator.shopName}" filterBy="#{negotiator.shopName}" filterStyle="width: 50px;">
+                        <f:facet name="header">  
+                            <h:outputText value="Shop" />  
+                        </f:facet>                     
+                        <h:outputText value="#{negotiator.shopName}" />
+                    </p:column>  
+                </p:dataTable>
+            </p:panel>
+            <p:commandButton value="Form negotiation" style="float: right" actionListener="#{resVenueManagedBean.createNewNegotiations}" ajax="true"/>
+            <p:commandButton value="Create New Negotiator" update="datatable"  style="float: right" onclick="newNego.show();" ajax="true"/>
+            <p:commandButton  id="back" value="Back to Space Homepage" actionListener="#{resVenueManagedBean.navigateSpaceVenues}"/>
+        </h:form>
+
+        <p:dialog widgetVar="newNego" id="createBox" header="Create New Negotiator in Repository" closable="true" modal="true"  appendToBody="true" >
+            <p:growl autoUpdate="true" globalOnly="true"/>
+            <h:form id="subForm">
+                <h2>Please fill up all fields below.</h2>
+                <h:panelGrid id="createForm" columns="3" cellpadding="10">  
+                    <p:outputLabel for="name" style="font-weight: bold;" value="Name: "/>
+                    <h:inputText id="name" required="true" requiredMessage="Negotiator name is requried." style="font-weight: bold; color: #D20005" value="#{resVenueManagedBean.newNego.negotiatorName}">
+                    </h:inputText>
+                    <p:message for="name"/>
+
+                    <p:outputLabel for="email" style="font-weight: bold" value="Email: " />
+                    <p:inputText label="email" id="email" value="#{resVenueManagedBean.newNego.email}" required="true" requiredMessage="Negotiator email is requried."/>
+                    <p:message for="email"/>
+
+                    <p:outputLabel for="phone" style="font-weight: bold" value="Phone: " />                            
+                    <p:inputText required="true" label="phone" requiredMessage="Phone number is required." id="phone" value="#{resVenueManagedBean.newNego.telNum}">
+                    </p:inputText>
+                    <p:message for="phone"/>
+
+                    <p:outputLabel for="category" style="font-weight: bold" value="Restaurant Category: " />
+                    <p:selectOneMenu required="true" label="category" requiredMessage="Restaurant category is required." id="category" value="#{resVenueManagedBean.newNego.shopCategory}">
+                        <f:selectItem itemLabel="Chinese Cuisine" itemValue="Chinese Cuisine"/>
+                        <f:selectItem itemLabel="Korean Cuisine" itemValue="Korean Cuisine"/>
+                        <f:selectItem itemLabel="Japanese Cuisine" itemValue="Japanese Cuisine" />
+                        <f:selectItem itemLabel="Western Cuisine" itemValue="Western Cuisine" />
+                        <f:selectItem itemLabel="Stacks" itemValue="Stacks" />
+                        <f:selectItem itemLabel="Bar and Drinks" itemValue="Bar and Drinks" />
+                    </p:selectOneMenu>
+                    <p:message for="category"/>
+
+                    <p:outputLabel for="shopName" style="font-weight: bold" value="Potential Restaurant Name: " />
+                    <p:inputText required="true"  label="shopName" requiredMessage="Shop name is required." id="shopName" value="#{resVenueManagedBean.newNego.shopName}">
+                    </p:inputText>
+                    <p:message for="shopName"/>
+
+                    <p:commandButton  id="createSubmit" value="Create" update=":mainNego"  actionListener="#{resVenueManagedBean.createNewNegotiator}" oncomplete="newNego.hide();">
+                    </p:commandButton>
+
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>

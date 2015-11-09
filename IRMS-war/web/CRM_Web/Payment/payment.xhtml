@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../crmTemplates/afterLoginTemplate.xhtml">
+            <ui:define name="contents">
+                <span class="STYLE2"> Payment Successful! </span>
+                <br></br><br></br>
+                <div>
+                    <table width="600" border="1">
+                        <tr>
+                            <td width="200">
+                            <img src="../../resources/cr/images/CRM/website/smile.jpg" width="200" height="200"/>  
+                            </td>
+                            <td>
+                                <table border="1" width="400" >
+                                    <tr>
+                                        <td width="150">Total Amount : </td>
+                                        <td>$ #{paymentManagedBean.totalAmount}</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+         
+                </div>
+                
+                <div class="cleaner h40"></div>
+
+                <div class="cleaner"></div>
+
+                <div class="cleaner"></div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

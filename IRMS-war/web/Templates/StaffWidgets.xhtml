@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <div style="width: 250px" >
+        <h:form>
+            <p:calendar value="#{loginManagedBean.dateToday}" mode="inline"/>
+            <p:dataTable id="dataTable" var="task" value="#{staffManagedBean.staffTasks}">
+                <f:facet name="header">
+                    To Do List
+                </f:facet>
+                <p:column>
+                    <h:outputText value="#{task.taskName}" />
+                </p:column>
+                <f:facet name="footer">
+                    <p:button value="Manage Tasks" outcome="../../CommonInfraWeb/Message/TaskManagement.xhtml" />                   
+                </f:facet>
+            </p:dataTable>
+            <p:panel header="Message Management">
+                <span > You have <strong> <h:outputText value="#{messageManagedBean.countUnread(actionEvent)}" /> </strong> unreaded Messages.
+                    <strong><a href="../../CommonInfraWeb/Message/UnreadMessage.xhtml"> [see more] </a></strong>
+                </span>
+            </p:panel>
+        </h:form>
+    </div>
+</html>

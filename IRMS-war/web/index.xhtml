@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition template="/Templates/IntranetDefaultTemplate.xhtml" 
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="head-title">
+        <title>CIR Login</title>
+        
+    </ui:define>
+    <ui:define name="contents">
+        <h:form>
+            <div style="float: left; width: 600px; height: 420px; margin-left: 4%;" >
+                <p:imageSwitch effect="fade" style="float: inside">  
+                    <ui:repeat value="#{loginManagedBean.images}" var="image">      
+                        <p:graphicImage value="/resources/images/#{image}"/>  
+                    </ui:repeat>  
+                </p:imageSwitch> 
+            </div>
+
+
+            <p:panel style="text-align: center; width: 30%; height: 60%; float: right; margin-right: 4%; margin-top: 1%">
+
+                <span id="countdown" class="italic "></span>
+                <p:messages id="messages" showDetail="false"/>
+
+                <p:graphicImage style="width: 300px; height: 150px" value="/resources/images/Logo.png" />
+                <br/><br/>
+                <p:outputLabel value="StaffId: *        " />
+                <p:inputText id="username" value="#{loginManagedBean.username}" required="true" requiredMessage="please input staffId" validator="#{validationManagedBean.checkLongID}" /> 
+                <p:messages for="username" />
+
+                <br/>
+
+                <p:outputLabel value="Password: *" />
+                <h:inputSecret id="password" value="#{loginManagedBean.password}" required="true" requiredMessage="please input password"/>
+                <p:messages for="password" />
+
+
+                <br/>
+
+                <p:commandButton value="Login" actionListener="#{loginManagedBean.login()}" type="submit" update="messages"/>
+            </p:panel>
+
+
+<!--                    <p:commandButton value="Test" rendered="#{loginManagedBean.showButton}" />-->
+
+        </h:form>
+
+
+    </ui:define>
+</ui:composition>

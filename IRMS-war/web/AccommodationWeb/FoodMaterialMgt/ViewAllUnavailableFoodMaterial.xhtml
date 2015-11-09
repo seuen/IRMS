@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+        <ui:composition template="../../Templates/InternalAggregateTemplate.xhtml">
+
+            <ui:define name="contents">
+                <h:form id="form">
+                    <p:growl autoUpdate="true" showDetail="false" globalOnly="true"/> 
+
+                    <p:dataTable rowKey="#{foodMaterial.id}" var="foodMaterial" value="#{foodMaterialManagedBean.listAllUnavailableFoodMaterials()}"
+                                 paginator="true" rows="10" selection="#{foodMaterialManagedBean.selectedMaterials}" emptyMessage="No Raw Material found">
+
+                        <f:facet name="header">
+                            View all Unavailable Raw Materials
+                        </f:facet>
+
+                        <p:column selectionMode="multiple" style="width:0.05%" />
+
+                        <p:column style="width: 3%" sortBy="#{foodMaterial.id}"> 
+                            <f:facet name="header">       
+                                <h:outputText value="Raw Material #" />  
+                            </f:facet>
+                            <h:outputText value="#{foodMaterial.id}"/> 
+                        </p:column>
+
+                        <p:column style="width: 7%" sortBy="#{foodMaterial.name}" filterBy="#{foodMaterial.name}"> 
+                            <f:facet name="header">       
+                                <h:outputText value="Name" />                        
+                            </f:facet>
+                            <h:outputText value="#{foodMaterial.name}" />  
+                        </p:column>
+
+                        <p:column style="width: 7%;" > 
+                            <f:facet name="header">       
+                                <h:outputText value="Raw Material Amount" />  
+                            </f:facet>
+                                <h:outputText value="#{foodMaterial.amount} KG"/>
+                        </p:column>
+                        
+                        <p:column style="width: 7%" filterBy="#{foodMaterial.status}" > 
+                            <f:facet name="header">       
+                                <h:outputText value="Status" />                        
+                            </f:facet>  
+                            <h:outputText value="#{foodMaterial.status}" /> 
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Delete" actionListener="#{foodMaterialManagedBean.deleteFoodMaterial()}"/>
+                        </f:facet>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton value="Create Order" actionListener="#{foodMaterialManagedBean.deleteFoodMaterial()}"/>
+                        </f:facet>
+                        
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

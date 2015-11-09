@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../Templates/InternalAggregateTemplate.xhtml">
+
+            <ui:define name="contents">          
+            <h:form>                
+             <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />    
+                <p:panel id="panel" header="Ticket Type Detailed Ionformation">
+                   
+                                        
+                    <h:panelGrid columns="2" columnClasses="column" cellpadding="9">
+                        
+                        <h:outputLabel value="Name"/>
+                        <p:inplace id="ticketName" editor="true" style="font-weight: bold; color: #036fab">
+                            <p:ajax event="save" listener="#{attractionTicketManagedBean.updateTicketType}" update="ticketName" />  
+                            <p:inputText value="#{attractionTicketManagedBean.theTicketType.name}" required="true"/>
+                        </p:inplace>
+                        
+                        <h:outputLabel value="Price"/>
+                        <p:inplace id="ticketPrice" editor="true" style="font-weight: bold; color: #036fab">
+                            <p:ajax event="save" listener="#{attractionTicketManagedBean.updateTicketType}" update="ticketPrice" />  
+                            <p:inputText value="#{attractionTicketManagedBean.theTicketType.price}" required="true"/>
+                        </p:inplace>
+                       
+                        <h:outputLabel value="Max Number"/>
+                        <p:inplace id="maxNum" editor="true" style="font-weight: bold; color: #036fab">
+                            <p:ajax event="save" listener="#{attractionTicketManagedBean.updateTicketType}" update="maxNum" />  
+                            <p:inputText value="#{attractionTicketManagedBean.theTicketType.maxNumber}" required="true"/>
+                        </p:inplace>
+                        
+                        <h:outputLabel value="Purchased Number"/>
+                        <h:outputText value="#{attractionTicketManagedBean.theTicketType.purchaseNum}" />
+                            
+                        </h:panelGrid>
+                </p:panel>
+             
+                <p:commandButton update="panel" value="Delete TicketType" style="float:left" actionListener="#{attractionTicketManagedBean.deleteTicketType}">
+                    <f:attribute name="ticketTypeId" value="#{attractionTicketManagedBean.theTicketType.id}" />
+                </p:commandButton>
+                    
+                <br></br><br></br>
+                
+                
+                        
+             </h:form>
+</ui:define>
+        </ui:composition>
+
+    </body>
+</html>

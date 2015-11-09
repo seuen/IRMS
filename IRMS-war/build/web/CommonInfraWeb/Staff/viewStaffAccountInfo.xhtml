@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>View Account</title>
+
+        <style type="text/css">
+            table.hovertable {
+                font-family: verdana,arial,sans-serif;
+                font-size:11px;
+                color:#333333;
+                border-width: 1px;
+                border-color: #999999;
+                border-collapse: collapse;
+            }
+            table.hovertable th {
+                background-color:#c3dde0;
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                border-color: #a9c6c9;
+            }
+            table.hovertable tr {
+                background-color:#d4e3e5;
+            }
+            table.hovertable td {
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                border-color: #a9c6c9;
+            }
+        </style>
+
+    </h:head>
+
+    <h:body>
+        <ui:composition template="/Templates/InternalAggregateTemplate.xhtml">
+            <ui:define name="contents">
+                <br></br>
+                <table class="hovertable">
+
+                    <tr height="30" onmouseover="this.style.backgroundColor = '#ffff66';" onmouseout="this.style.backgroundColor = '#d4e3e5';">
+                        <td><strong>Staff Name</strong></td>
+                        <td>#{staffAccountManagedBean.findStaff().firstName} #{staffAccountManagedBean.findStaff().lastName}</td>
+                    </tr>
+                    <tr height="30" onmouseover="this.style.backgroundColor = '#ffff66';" onmouseout="this.style.backgroundColor = '#d4e3e5';">
+                        <td><strong>Staff Id</strong></td>
+                        <td>#{staffAccountManagedBean.findStaff().id}</td>
+                    </tr>
+                    <tr height="30" onmouseover="this.style.backgroundColor = '#ffff66';" onmouseout="this.style.backgroundColor = '#d4e3e5';">
+                        <td><strong>Staff Email Address</strong></td>
+                        <td>#{staffAccountManagedBean.findStaff().email}</td>
+                    </tr>
+
+                    <tr height="30" onmouseover="this.style.backgroundColor = '#ffff66';" onmouseout="this.style.backgroundColor = '#d4e3e5';">
+                        <td><strong>Staff NetId</strong></td>
+                        <td>#{staffAccountManagedBean.staffAccountId}</td>
+                    </tr>
+                    <tr onmouseover="this.style.backgroundColor = '#ffff66';" onmouseout="this.style.backgroundColor = '#d4e3e5';">
+                        <td><strong>Titles</strong></td>
+                        <td> <p:commandButton id="effectsDialogButton" update="dddd" icon="ui-icon-circle-triangle-e" oncomplete="dlg3.show();"/> 
+                            <p:dialog id="dddd" header="Titles" widgetVar="dlg3" showEffect="explode" height="100">  
+                                <p:dataTable var="title" value="#{staffAccountManagedBean.titles}" id="titleList">
+                                    <p:column headerText="Position">
+                                        <h:outputText value="#{title.position}"/>
+                                    </p:column>
+                                    <p:column headerText="Work Location">
+                                        <h:outputText value="#{title.workLocation}"/>
+                                    </p:column>
+                                    <p:column headerText="Department">
+                                        <h:outputText value="#{title.department.departmentName}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </p:dialog>
+                        </td>
+                    </tr>
+                </table>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+
+</html>
+

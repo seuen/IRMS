@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <title>Facelets Template</title>
+    </h:head>
+
+    <h:body>
+
+        <ui:composition template="/Templates/hotelExternalTemplate.xhtml" >
+            <!--        <div id="top" class="top">
+                        <ui:define name="top">Coral Island Resort Hotel</ui:define>
+                    </div>-->
+
+            <div>
+                <div id="left">
+                       <ui:define name="left">
+                        <h:form>
+                            <p:menu>
+                                <p:menuitem value="Singland Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">                    <f:attribute name="hotelId" value="Singland Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="Coral Bay Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="Coral Bay Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="Crone Plaza Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="Crone Plaza Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="Grand Park Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="Grand Park Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="City Club Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="City Club Hotel"/>
+                                </p:menuitem>
+                            </p:menu>
+                        </h:form>
+
+                    </ui:define>
+                </div>
+ <div id="content" class="left_content">
+    <ui:define name="content">
+         <h:form>
+                    <p:tabMenu activeIndex="2">  
+                        <p:menuitem value="Search" url="customerAddReservationSearch.xhtml" />  
+                        <p:menuitem value="Room details" url="CustomerAddReservationRoom.xhtml" />
+                        <p:menuitem value="Guest info" url="CustomerAddReservationGuest.xhtml" />  
+                        <p:menuitem value="Payment info" url="CustomerAddReservationPayment.xhtml" />  
+                        <p:menuitem value="Display Reservation" url="customerViewAllReservations.xhtml"/>
+                    </p:tabMenu> 
+                    
+                    <p:growl autoUpdate="true" globalOnly="true"/> 
+                    <!--<p:messages id="messages" escape="true" showDetail="false" autoUpdate="true" closable="true" />-->
+                    <p:panel  id="panel" >
+                        <f:facet name="header">
+                            Guest Information
+                        </f:facet> 
+                        <h:panelGrid columns="3" cellpadding="9">
+
+                            <p:outputLabel value="First Name: *" />
+                            <p:inputText id="firstname" label="First Name" value="#{externalReservationManagedBean.guest.firstName}" required="true"/> 
+                            <p:message for="firstname" /> 
+                            
+                            <p:outputLabel value="Last Name: *" />
+                            <p:inputText id="lastname" label="Last Name" value="#{externalReservationManagedBean.guest.lastName}" required="true"/> 
+                            <p:message for="lastname" />
+
+                            <p:outputLabel value="Title: *" />
+                            <p:selectOneMenu id="title" label="Title" value="#{externalReservationManagedBean.guest.title}" required="true">   
+                                <f:selectItem itemLabel="Mr" itemValue="Mr" />  
+                                <f:selectItem itemLabel="Mrs" itemValue="Mrs" />  
+                                <f:selectItem itemLabel="Miss" itemValue="Miss" />  
+                            </p:selectOneMenu>
+                            <p:message for="title"/>
+                            
+                            <p:outputLabel value="Date of Birth: *" />
+                            <p:calendar yearRange="1900:2020" value="#{externalReservationManagedBean.guest.dob}" id="dob" label="DateOfBirth" required="true" navigator="true"/>
+                            <p:messages for="dob"/>
+                            
+                            <p:outputLabel value="NRIC/Passport: *" />
+                            <p:inputText id="IC" label="NRIC/Passport" value="#{externalReservationManagedBean.guest.ic}" required="true"/> 
+                            <p:message for="IC" /> 
+                            
+                            <p:outputLabel value="Email Address: *" />
+                            <p:inputText id="email" label="Email Address" value="#{externalReservationManagedBean.guest.emailAddress}" required="true"/> 
+                            <p:message for="email" /> 
+                            
+                            <p:button value="Back" outcome="addReservationRoom.xhtml" />
+                            <p:commandButton update="panel" ajax="true" type="submit" value="Next" action="#{externalReservationManagedBean.addReservation3()}" />
+
+                        </h:panelGrid>
+                    </p:panel>      
+                </h:form>
+    </ui:define>
+</div>
+            </div>
+        </ui:composition>
+    </h:body>
+
+</html>

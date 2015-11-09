@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <f:view beforePhase="#{facesViewManagedBean.defaultBeforePhaseListener}">
+        <body>
+
+            <ui:composition template="./../Templates/attraction2.xhtml">
+
+            <ui:define name="content1">
+            <h:form id="form1">
+
+
+                <p:tabView id="tabView" var="attractionTicketSale" value="#{exTicketManagedBean.attractionTicketSales}">
+                    <p:tab id="attractionTab" title="#{attractionTicketSale.attraction.name}" >
+
+                        <h:outputText value="Choose Date: " />  
+
+                        <p:inputMask value="#{exTicketManagedBean.stringDate}" mask="99/99/9999">  
+                            <p:ajax listener="#{exTicketManagedBean.assignDate()}" />
+                        </p:inputMask>
+
+                        <p:growl id="growl" autoUpdate="true"  globalOnly="false"/>  
+
+                        <p:fieldset legend="Bundles: Click here to see more details" toggleable="true" collapsed ="true" toggleSpeed="500">  
+                            <p:panel id="panel2" header="Bundle Tickets"> 
+                                <p:dataTable var="bundleOrder" value="#{exTicketManagedBean.retrievenNBundleOrders()}">
+                                    <p:column headerText="Bundle Name">
+                                        <h:outputText value="#{bundleOrder.bunlde.name}" />
+                                    </p:column>
+
+                                    <p:column headerText="Bundle Price">
+                                        <h:outputText value="#{bundleOrder.bunlde.price}" />
+                                    </p:column>
+
+                                    <p:column>
+                                        <p:selectOneMenu  required="false"  label="bundleQuantity"   id="bundleQuantity"  value="#{exTicketManagedBean.quantityString}">
+
+                                            <f:selectItem itemLabel="0" itemValue="0" />
+                                            <f:selectItem itemLabel="1" itemValue="1" />
+                                            <f:selectItem itemLabel="2" itemValue="2" />
+                                            <f:selectItem itemLabel="3" itemValue="3" />
+                                            <f:selectItem itemLabel="4" itemValue="4" />
+                                            <f:selectItem itemLabel="5" itemValue="5" />
+                                            <p:ajax listener ="#{exTicketManagedBean.assignNBundleQuantity(bundleOrder)}"  />
+
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                </p:dataTable>
+                            </p:panel>
+                        </p:fieldset>
+
+
+                        <p:fieldset legend="Express bundles: Click here to see more details" toggleable="true" collapsed ="true" toggleSpeed="500">  
+                            <p:panel id="panel3" header="Express bundles"> 
+                                <p:dataTable var="ebundleOrder" value="#{exTicketManagedBean.retrievenEBundleOrders(attractionTicketSale.attraction)}">
+                                    <p:column headerText="Bundle Name">
+                                        <h:outputText value="#{ebundleOrder.bunlde.name}" />
+                                    </p:column>
+
+                                    <p:column headerText="Bundle Price">
+                                        <h:outputText value="#{ebundleOrder.bunlde.price}" />
+                                    </p:column>
+
+                                    <p:column>
+                                        <p:selectOneMenu  required="false"  label="ebundleQuantity"   id="ebundleQuantity"  value="#{attractionTicketManagedBean.quantityString}">
+
+                                            <f:selectItem itemLabel="0" itemValue="0" />
+                                            <f:selectItem itemLabel="1" itemValue="1" />
+                                            <f:selectItem itemLabel="2" itemValue="2" />
+                                            <f:selectItem itemLabel="3" itemValue="3" />
+                                            <f:selectItem itemLabel="4" itemValue="4" />
+                                            <f:selectItem itemLabel="5" itemValue="5" />
+                                            <p:ajax listener ="#{exTicketManagedBean.assignEBundleQuantity(ebundleOrder)}"  />
+
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                </p:dataTable>
+                            </p:panel>
+                        </p:fieldset>
+
+                        <p:panel id="panel" header="Standalone Tickets"> 
+                            <p:dataTable var="attractionTicketSaleEntry" value="#{attractionTicketSale.exAttractionTicketSaleEntries}">
+                                <p:column>
+                                    <h:outputText value="#{attractionTicketSaleEntry.attractionTicketOrder.type}" />
+                                </p:column>
+
+                                <p:column>
+                                    <h:outputText value="#{attractionTicketSaleEntry.attractionTicketOrder.price}" />
+                                </p:column>
+
+                                <p:column>
+                                    <p:selectOneMenu  required="false"  label="ticketQuantity"  requiredMessage="Quantity is required."  id="ticketQuantity"  value="#{exTicketManagedBean.quantityString}">
+
+                                        <f:selectItem itemLabel="0" itemValue="0" />
+                                        <f:selectItem itemLabel="1" itemValue="1" />
+                                        <f:selectItem itemLabel="2" itemValue="2" />
+                                        <f:selectItem itemLabel="3" itemValue="3" />
+                                        <f:selectItem itemLabel="4" itemValue="4" />
+                                        <f:selectItem itemLabel="5" itemValue="5" />
+                                        <p:ajax listener ="#{exTicketManagedBean.assignQuantity(attractionTicketSaleEntry.attractionTicketOrder)}"  />
+
+                                    </p:selectOneMenu>
+                                </p:column>
+                                <h:form>
+                                <f:facet name="footer">
+                                    <p:commandButton id="multiViewButton" ajax="true" value="Add to Shopping Cart" actionListener="#{shoppingCartManagedBean.createAttractionItem}" update=":form1:tabView:growl" type="submit" />
+                                </f:facet>
+                                </h:form>
+                            </p:dataTable>
+
+                        </p:panel>
+
+
+                    </p:tab>
+                </p:tabView>
+
+            </h:form>
+                        </ui:define>
+<!--                        <ui:define name="content1">
+            
+                        </ui:define>    -->
+            
+                    </ui:composition>-->
+
+        </body>
+    </f:view>  
+</html>

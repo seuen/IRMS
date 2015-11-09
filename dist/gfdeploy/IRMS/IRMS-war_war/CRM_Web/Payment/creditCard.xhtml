@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../crmTemplates/afterLoginTemplate.xhtml">
+            <ui:define name="contents">
+                Hello, #{paymentManagedBean.member.title} #{paymentManagedBean.member.lastName}
+                <br></br>
+                <span class="STYLE2">&nbsp;&nbsp;&nbsp;Credit Card Details </span>
+                <br></br>
+                <br></br>
+                <div>
+                    <h:form>
+                        <p:growl autoUpdate="true" showDetail="false" globalOnly="true"/> 
+                        <table width="600"> 
+                            <tr>
+                                <td width="190" height="30">
+                                    <strong>&nbsp;&nbsp;&nbsp; Card Holder</strong>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{paymentManagedBean.creditCard.cardHolder}" required="true"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td  height="30">
+                                    <strong>&nbsp;&nbsp;&nbsp; Credit Card No</strong> 
+                                </td>
+                                <td>
+                                    <p:inputMask value="#{paymentManagedBean.creditCard.creditCardNum}" mask="9999/9999/9999/9999" required="true"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td  height="30">
+                                    <strong> &nbsp;&nbsp;&nbsp; Credit Card Issue Bank </strong>
+                                </td>
+                                <td>
+                                    <p:inputText value="#{paymentManagedBean.creditCard.issueBank}" required="true"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td  height="30">
+                                    <strong>&nbsp;&nbsp;&nbsp; Credit Card Expiry Date </strong>
+                                </td>
+                                <td>
+                                    <p:selectOneMenu id="month" label="Expriy Month" value="#{paymentManagedBean.creditCard.dateMonth}" >  
+                                        <f:selectItem itemLabel="Month" itemValue="Month" />  
+                                        <f:selectItem itemLabel="Janaury" itemValue="Janaury" />  
+                                        <f:selectItem itemLabel="February" itemValue="February" />  
+                                        <f:selectItem itemLabel="March" itemValue="March" />  
+                                        <f:selectItem itemLabel="April" itemValue="April" /> 
+                                        <f:selectItem itemLabel="May" itemValue="May" /> 
+                                        <f:selectItem itemLabel="June" itemValue="June" /> 
+                                        <f:selectItem itemLabel="July" itemValue="July" /> 
+                                        <f:selectItem itemLabel="August" itemValue="August" /> 
+                                        <f:selectItem itemLabel="September" itemValue="September" /> 
+                                        <f:selectItem itemLabel="October" itemValue="October" /> 
+                                        <f:selectItem itemLabel="November" itemValue="November" /> 
+                                        <f:selectItem itemLabel="December" itemValue="December" /> 
+                                    </p:selectOneMenu>/
+                                    <p:selectOneMenu id="year" label="Expriy Year" value="#{paymentManagedBean.creditCard.dateYear}" >  
+                                        <f:selectItem itemLabel="Year" itemValue="Year" />  
+                                        <f:selectItem itemLabel="2013" itemValue="2013" />  
+                                        <f:selectItem itemLabel="2014" itemValue="2014" />  
+                                        <f:selectItem itemLabel="2015" itemValue="2015" />  
+                                        <f:selectItem itemLabel="2016" itemValue="2016" /> 
+                                        <f:selectItem itemLabel="2018" itemValue="2018" /> 
+                                        <f:selectItem itemLabel="2019" itemValue="2019" /> 
+                                        <f:selectItem itemLabel="2020" itemValue="2020" /> 
+                                        <f:selectItem itemLabel="2021" itemValue="2021" /> 
+                                        <f:selectItem itemLabel="2022" itemValue="2022" /> 
+                                        <f:selectItem itemLabel="2023" itemValue="2023" /> 
+                                        <f:selectItem itemLabel="2024" itemValue="2024" /> 
+                                        <f:selectItem itemLabel="2025" itemValue="2025" /> 
+                                        <f:selectItem itemLabel="2026" itemValue="2026" />  
+                                        <f:selectItem itemLabel="2027" itemValue="2027" />  
+                                        <f:selectItem itemLabel="2028" itemValue="2028" />  
+                                        <f:selectItem itemLabel="2029" itemValue="2029" /> 
+                                        <f:selectItem itemLabel="2030" itemValue="2030" /> 
+                                        <f:selectItem itemLabel="2031" itemValue="2031" /> 
+                                        <f:selectItem itemLabel="2032" itemValue="2032" /> 
+                                        <f:selectItem itemLabel="2033" itemValue="2033" /> 
+                                        <f:selectItem itemLabel="2034" itemValue="2034" /> 
+                                        <f:selectItem itemLabel="2035" itemValue="2035" /> 
+                                        <f:selectItem itemLabel="2036" itemValue="2036" /> 
+                                        <f:selectItem itemLabel="2037" itemValue="2037" /> 
+                                    </p:selectOneMenu>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td  height="30"><strong>&nbsp;&nbsp;&nbsp; CVV2/CVC2(<a href="https://payment.gv.com.sg/Booking/CVC2.htm">What's this?</a>)</strong></td>
+                                <td>
+                                    <p:inputMask value="#{paymentManagedBean.creditCard.cvv}" mask="999" required="true"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <p:commandButton value="Submit" action="#{paymentManagedBean.addCreditCard()}" type="submit"/>
+                                </td>
+                            </tr>
+
+
+                        </table>
+                    </h:form>
+                </div>
+
+                <div class="cleaner h40"></div>
+
+                <div class="cleaner"></div>
+
+                <div class="cleaner"></div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

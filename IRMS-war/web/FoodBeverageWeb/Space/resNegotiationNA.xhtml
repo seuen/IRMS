@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+
+    <ui:define name="contents">
+        <h1>
+            Welcome to Food and Beverage Management SubSystem
+        </h1>
+        <h:form>
+                    <p:tabMenu activeIndex="0">
+                        <p:menuitem value="View All Venues" url="/FoodBeverageWeb/Space/viewAllResVenues.xhtml"/>
+                        <p:menuitem value="Negotiation Status Check" url="/FoodBeverageWeb/Space/resNegotiationNA.xhtml" />
+                    </p:tabMenu>
+        </h:form>
+
+        <h:form>
+            <p:ajaxStatus style="width:30px;height: 20px;">
+                <f:facet name="start">     <h:graphicImage value="../design/ajaxloading.gif" />   </f:facet>
+                <f:facet name="complete">  <h:outputText value="" />                              </f:facet>
+            </p:ajaxStatus>  
+            <p:panel> 
+                <h:outputText styleClass="STYLE3" value="Sorry, negotiation is still not available now for venue at #{resVenueManagedBean.negoVenue.building}-#{resVenueManagedBean.negoVenue.id}."/>
+                <br></br>
+                <br></br>
+                <h:outputText styleClass="STYLE2" value="Negotiation will be open when venue is not occupied or the occupying restaurant's contract will lapse within 6 months."/>
+                <br></br>
+                <br></br>
+                <p:commandButton  id="back" value="Back" actionListener="#{resVenueManagedBean.navigateSpaceVenues}"/>
+  
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

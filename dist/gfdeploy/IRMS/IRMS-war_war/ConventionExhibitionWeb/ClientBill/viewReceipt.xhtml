@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="contents">
+        <h1>
+            Welcome to Integrated Client Bill Management SubSystem
+        </h1>
+        <h:body>
+            <h:form id="formMain">
+                <p:tabMenu activeIndex="4">
+                    <p:menuitem value="Home" url="/ConventionExhibitionWeb/ClientBill/allBills.xhtml"/>
+                    <p:menuitem value="View All Unpaid Bills" url="/ConventionExhibitionWeb/ClientBill/allUnpaidBills.xhtml"/>
+                    <p:menuitem value="View By Client" url="/ConventionExhibitionWeb/ClientBill/allClients.xhtml"/>
+                    <p:menuitem value="View All Receipts" url="/ConventionExhibitionWeb/ClientBill/allReceipts.xhtml"/>
+                    <p:menuitem value="ViewingReceipt" url="/ConventionExhibitionWeb/ClientBill/viewReceipt.xhtml"/>
+                </p:tabMenu>
+                <p:panel> 
+                    <h:outputText styleClass="STYLE2" value="Here lists client receipt of a client bill in the integrated billing system of Convention Exhibition Event, Banquet Event, and EntertainmentShow Event."/>
+                    <br></br>
+                </p:panel>
+                <p:dataTable id="order" var="order" value="#{clientBillingManagedBean.viewReceipt.clientBill.events}" emptyMessage="No Bill Orders Found.">
+                    <p:column  headerText="OrderID" sortBy="#{order.id}" filterBy="#{order.id}" filterStyle="width: 55px;" >
+                        <h:outputText value="#{order.id}" />
+                    </p:column>
+
+                    <p:column  headerText="Type" sortBy="#{order.type}" filterBy="#{order.type}" filterStyle="width: 55px;" >
+                        <h:outputText value="#{order.type}" />
+                    </p:column>
+
+                    <p:column  headerText="Description" sortBy="#{order.description}" filterBy="#{order.description}" filterStyle="width: 55px;" >
+                        <h:outputText value="#{order.description}" />
+                    </p:column>
+
+                    <p:column headerText="OrderDate">
+                        <h:outputText id="createDate" value="#{order.createDate}">
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="EventVenue">
+                        <h:outputText id="eventVenue"  value="#{order.venuetype} #{order.roomnum}">
+                        </h:outputText> 
+                    </p:column>
+
+                    <p:column headerText="Price">
+                        <h:outputText id="totalPrice" value="#{order.totalprice}">
+                        </h:outputText> 
+                    </p:column>
+                </p:dataTable>
+                <h:panelGrid columns="2">
+                    <p:panel header="Payment Date">
+                        <h:outputText value="#{clientBillingManagedBean.viewReceipt.receiptDateString}"/>
+                    </p:panel>
+                    <p:panel header="Outstanding Bill Charge">
+                        <h:outputText value="#{clientBillingManagedBean.viewReceipt.totalPayment}"/>
+                    </p:panel>
+                    <p:panel header="Total Payment">
+                        <h:outputText value="#{clientBillingManagedBean.viewReceipt.totalPayment}"/>
+                    </p:panel>
+                </h:panelGrid>
+                <p:growl id="msg" globalOnly="true" autoUpdate="true"/>
+            </h:form>
+        </h:body>
+
+    </ui:define>
+
+    <ui:define name="footer">
+        footer
+    </ui:define>
+
+</ui:composition>

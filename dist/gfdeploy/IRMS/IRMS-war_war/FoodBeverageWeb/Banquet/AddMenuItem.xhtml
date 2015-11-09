@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+   
+
+    <ui:define name="contents">
+        <h:form>
+            
+            <p:growl autoUpdate="true" globalOnly="true"/>
+            <p:panel>
+                <h:panelGrid columns="2" cellpadding="8">
+                    
+                    <p:outputLabel for="name" value="Name: *" />
+                    <p:inputText id="name" value="#{menuItemManagedBean.menuitem.name}" label="Name" required="true"/> 
+
+
+                    <p:outputLabel for="price" value="Price: *" />
+                    <p:inputText id="price" value="#{menuItemManagedBean.menuitem.price}" label="Price" required="true"/>
+                    
+                     <p:outputLabel for="description" value="Description: *" />
+                     <p:inputText id="description" value="#{menuItemManagedBean.menuitem.description}" label="Description" required="true"/>
+                     <p:commandButton value="Add MenuItem" actionListener="#{menuItemManagedBean.createmenuitem}"/>
+                
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+
+</ui:composition>

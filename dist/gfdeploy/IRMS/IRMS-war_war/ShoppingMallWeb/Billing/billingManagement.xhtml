@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Home</title>
+        <style type="text/css">
+            .gritter-notice-wrapper {
+                left:200px;
+                top: 50px; }
+            </style>
+        </h:head>
+        <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                        template="../../Templates/InternalAggregateTemplate.xhtml"
+                        xmlns:h="http://java.sun.com/jsf/html"
+                        xmlns:p="http://primefaces.org/ui">
+            <ui:define name="contents">
+                <h1>
+                    Welcome to Billing Management SubSystem
+                </h1>
+                <h:body>
+                    <h:form id="formMain">
+                    <p:tabMenu activeIndex="0">
+                        <p:menuitem value="Home" url="/ShoppingMallWeb/Billing/billingManagement.xhtml"/>
+                        <p:menuitem value="View All Unpaid Bills" url="/ShoppingMallWeb/Billing/viewAllUnpaidBills.xhtml"/>
+                        <p:menuitem value="View All Bills" url="/ShoppingMallWeb/Billing/viewAllHistoricalBills.xhtml"/>
+                        <p:menuitem value="View Bad Debts" url="/ShoppingMallWeb/Billing/viewBadDebts.xhtml"/>
+                        <p:menuitem value="View All Receipts" url="/ShoppingMallWeb/Billing/viewAllReceipts.xhtml"/>
+                    </p:tabMenu>
+                    <p:panel> 
+                        <h:outputText styleClass="STYLE2" value="Here lists all current month bills of shops. You can export billing information, record bill payment and send bills."/>
+                        <br></br>
+                    </p:panel>
+                    <p:dataTable id="bill" var="bill" value="#{billingManagedBean.reportingBills}" emptyMessage="No Bills Found.">
+                        <p:column  headerText="BillNum" sortBy="#{bill.rentalReports.name}" filterBy="#{bill.rentalReports.name}" filterStyle="width: 55px;" >
+                            <h:outputText value="#{bill.rentalReports.name}" />
+                        </p:column>
+
+                        <p:column headerText="ShopName"  filterBy="#{bill.rentalReports.contract.shop.shopName}" filterStyle="width: 60px;">
+                            <h:outputText value="#{bill.rentalReports.contract.shop.shopName}" />
+                        </p:column>
+
+                        <p:column headerText="Contact" sortBy="#{bill.rentalReports.contract.shop.telNum}" filterBy="#{bill.rentalReports.contract.shop.telNum}" filterStyle="width: 60px;">
+                            <h:outputText value="#{bill.rentalReports.contract.shop.telNum}" />
+                        </p:column> 
+
+                        <p:column headerText="ShopLocation"  filterBy="#{bill.rentalReports.contract.venue}">
+                            <h:outputText value="#{bill.rentalReports.contract.venue}" />
+                        </p:column> 
+
+                        <p:column headerText="GenerateDate" filterBy="#{bill.billDateString}" filterStyle="width: 80px;">
+                            <h:outputText value="#{bill.billDateString}">
+                            </h:outputText>          
+                        </p:column>       
+
+                        <p:column headerText="Deadline">
+                            <h:outputText value="#{bill.deadLine}" >
+                                <f:convertDateTime pattern="EEE yyyy/MMM/dd" timeZone="GMT+8"/>
+                            </h:outputText>
+                        </p:column> 
+
+                        <p:column headerText="Status" sortBy="#{bill.status}" filterBy="#{bill.status}" filterStyle="width: 65px;">
+                            <h:outputText value="#{bill.status}" />
+                        </p:column>   
+                        <p:column headerText="Details">
+                            <p:commandButton value="View" ajax="true" actionListener="#{billingManagedBean.navigateBillInfo}">
+                                <f:attribute name="billid" value="#{bill.id}"/>
+                            </p:commandButton>
+                        </p:column>  
+                        <p:column headerText="BillSend" >   
+                            <p:commandButton value="Send" actionListener="#{billingManagedBean.sendBill}">
+                                <f:attribute name="bb" value="#{bill}"/>
+                            </p:commandButton>
+                        </p:column>   
+
+                    </p:dataTable>
+                    <p:growl id="msg" globalOnly="true" autoUpdate="true"/>
+                    <h:panelGrid columns="1">
+                        <p:panel header="Export Page Data">
+                            <h:commandLink>  
+                                <p:graphicImage value="/resources/images/pdf.png" />  
+                                <p:dataExporter type="pdf" target="bill" fileName="monthlyBills" />  
+                            </h:commandLink>
+                            <h:commandLink>  
+                                <p:graphicImage value="/resources/images/xml.png" />  
+                                <p:dataExporter type="xml" target="bill" fileName="monthlyBills" />  
+                            </h:commandLink>
+                            <h:commandLink>  
+                                <p:graphicImage value="/resources/images/csv.png" />  
+                                <p:dataExporter type="csv" target="bill" fileName="monthlyBills" />  
+                            </h:commandLink>
+                            <h:commandLink>  
+                                <p:graphicImage value="/resources/images/excel.png" />  
+                                <p:dataExporter type="xls" target="bill" fileName="monthlyBills" />  
+                            </h:commandLink>
+                        </p:panel>
+                    </h:panelGrid>
+                </h:form>
+            </h:body>
+        </ui:define>
+
+        <ui:define name="foot">
+            foot
+        </ui:define>
+
+    </ui:composition>
+</html>

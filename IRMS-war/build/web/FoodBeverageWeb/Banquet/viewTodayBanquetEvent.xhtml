@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <ui:define name="contents">
+            <h:form>
+                <p:dataTable id="events" var="event" value="#{banquetOperationManagedBean.todayeventorders}" rowKey="#{event.id}"
+                         selection="#{banquetOperationManagedBean.selecteventorder}">
+                <f:facet name="header">
+                    List of Events
+                </f:facet>
+                <p:column selectionMode="single" style="width: 2%"/>
+                <p:column headerText="Ic">
+                    #{event.id}
+                </p:column>
+                <p:column headerText="EventName">
+                    #{event.description}
+                </p:column>
+                <p:column headerText="Event Venue">
+                    #{event.venuetype}
+                </p:column>
+                <p:column headerText="Location">
+                    #{event.roomnum}
+                </p:column>
+                <p:column headerText="Capacity">
+                    #{event.capacity}
+                </p:column>
+                <p:column headerText="Total Price">
+                    #{event.totalprice}
+                </p:column>
+                <p:column headerText="Client Ic">
+                    #{event.client.ic}
+                </p:column>
+                <f:facet name="footer">
+                    <p:commandButton value="Employee Detail" type="submit" action="BanquetEventEmployee.xhtml"/>
+                    <p:commandButton value="Facility Detail" type="submit" action="BanquetEventFacility.xhtml"/>
+
+                </f:facet>
+            </p:dataTable>
+          </h:form>
+    </ui:define>
+
+
+</ui:composition>

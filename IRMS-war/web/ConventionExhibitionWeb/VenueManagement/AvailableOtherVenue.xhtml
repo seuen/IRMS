@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="contents">
+         <h:form>
+             <p:dataTable id="availableOtherVenues" value="#{venueManagedBean.othervenues}" var="otherVenues"
+                          paginator="true" rows="5" sortMode="multiple" rowKey="#{otherVenues.id}" selection="#{venueManagedBean.selectothervenue}">
+                <f:facet name="header">
+                    Available #{otherVenues.type}                   
+                </f:facet>
+                 <p:column selectionMode="single" style="width: 2%"/>
+                 <p:column headerText="RoomNum" filterBy="#{otherVenues.roomNo}" sortBy="#{otherVenues.roomNo}">
+                    #{otherVenues.roomNo}
+                </p:column>
+                
+                 <p:column headerText="Room Capacity" sortBy="#{otherVenues.capacity}" filterBy="#{otherVenues.capacity}">
+                #{otherVenues.capacity}
+                </p:column>
+               
+                 <p:column headerText="Day Price" sortBy="#{otherVenues.dayprice}" filterBy="#{otherVenues.dayprice}">
+                #{otherVenues.dayprice}
+                </p:column>
+                 
+                 <p:column headerText="Halfday Price" sortBy="#{otherVenues.halfdayprice}" filterBy="#{otherVenues.halfdayprice}">
+                 #{otherVenues.halfdayprice}
+                 </p:column>
+                 
+                 <p:column headerText="Hour Price" sortBy="#{otherVenues.hourprice}" filterBy="#{otherVenues.hourprice}">
+                 #{otherVenues.hourprice}
+                 </p:column>
+                 
+                  <f:facet name="footer">
+                      <p:commandButton id="QuotationButton" value="CreateQuotation" actionListener="#{venueManagedBean.createOtherVenueQuotation}"/>
+                        </f:facet>
+               
+            </p:dataTable>
+        </h:form>
+            </ui:define>
+
+</ui:composition>

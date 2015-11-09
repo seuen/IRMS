@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Home</title>
+        <style type="text/css">
+            .gritter-notice-wrapper {
+                left:200px;
+                top: 50px; }
+            </style>
+        </h:head>
+        <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                        template="../../Templates/InternalAggregateTemplate.xhtml"
+                        xmlns:h="http://java.sun.com/jsf/html"
+                        xmlns:p="http://primefaces.org/ui">
+            <ui:define name="contents">
+                <h1>
+                    Welcome to Entertainment Show Revenue Management SubSystem
+                </h1>
+                <h:body>
+                    <h:form id="formRenew">
+                    <p:tabMenu activeIndex="1">
+                        <p:menuitem value="Internal Ticket Revenue" url="/EntertainmentShowWeb/Revenue/internalTktRevenue.xhtml"/>
+                        <p:menuitem value="External Ticket Revenue" url="/EntertainmentShowWeb/Revenue/externalTktRevenue.xhtml"/>
+                        <p:menuitem value="Event Revenue" url="/EntertainmentShowWeb/Revenue/enRevenue.xhtml"/>
+                   </p:tabMenu>
+
+                    <p:ajaxStatus style="width:30px;height: 20px;">
+                        <f:facet name="start">     <h:graphicImage value="../design/ajaxloading.gif" />   </f:facet>
+                        <f:facet name="complete">  <h:outputText value="" />                              </f:facet>
+                    </p:ajaxStatus> 
+                    <p:panel> 
+                        <h:outputText styleClass="STYLE2" value="This page lists all external entertainment shows sales and revenue report."/>
+                    </p:panel>
+                        <p:dataTable id="order" var="order" value="#{enRevenueManagedBean.exst}" emptyMessage="No Ticket Sales Orders Found.">
+                            <p:column  headerText="OrderID" sortBy="#{order.id}" filterBy="#{order.id}" filterStyle="width: 55px;" >
+                            <h:outputText value="#{order.id}" />
+                        </p:column>
+
+                            <p:column  headerText="Type" sortBy="#{order.show.showInfo.name}" filterBy="#{order.show.showInfo.name}" filterStyle="width: 55px;" >
+                            <h:outputText value="#{order.show.showInfo.name}" />
+                        </p:column>
+
+                            <p:column  headerText="Unit Price" sortBy="#{order.price}" filterBy="#{order.price}" filterStyle="width: 55px;" >
+                            <h:outputText value="#{order.price}" />
+                        </p:column>                            
+                            
+                            <p:column  headerText="Sales" sortBy="#{order.seatSection.totalNum-order.availableNum}" filterBy="#{order.seatSection.totalNum-order.availableNum}" filterStyle="width: 55px;" >
+                            <h:outputText value="#{order.seatSection.totalNum-order.availableNum}" />
+                        </p:column>
+
+                        <p:column headerText="TotalPrice"  filterBy="#{order.price*(order.seatSection.totalNum-order.availableNum)}">
+                            <h:outputText value="#{order.price*(order.seatSection.totalNum-order.availableNum)}" />
+                        </p:column> 
+                    </p:dataTable>
+                    <p:panel header="Total Revenue">
+                        <h:outputText value="#{enRevenueManagedBean.calculateExternalRevenue()}">
+                            <f:convertNumber maxFractionDigits="2" groupingUsed="false" />
+                        </h:outputText>
+                    </p:panel>
+                </h:form>
+            </h:body>
+        </ui:define>
+        <ui:define name="foot">
+            foot
+        </ui:define>
+
+    </ui:composition>
+</html>

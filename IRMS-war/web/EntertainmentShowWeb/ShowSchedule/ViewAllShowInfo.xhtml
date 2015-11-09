@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <ui:define name="contents">
+        <h:form id="form1">
+            <p:growl autoUpdate="true" globalOnly="true" />
+            <p:dataTable rowKey="#{showInfo.id}" var="showInfo" value="#{showInfoManagedBean.allShowInfos}"
+                         paginator="true" rows="10" selection="#{showInfoManagedBean.theShowInfo}" selectionMode="single" emptyMessage="No Show Information Found">
+                <f:facet name ="header">
+                    View All Show Information
+                </f:facet>    
+
+                <p:column headerText="ID" >
+                    <h:outputText value="#{showInfo.id}" />
+                </p:column>
+
+                <p:column headerText="Name" sortBy="#{showInfo.name}" filterBy="#{showInfo.name}" > 
+                    <h:outputText value="#{showInfo.name}" />
+                </p:column>
+
+
+                <p:column headerText="Start Date" sortBy="#{showInfo.startDate}" filterBy="#{showInfo.startDate}" > 
+                    <h:outputText value="#{showInfo.startDate}" />
+                </p:column>
+
+                <p:column headerText="End Date" sortBy="#{showInfo.endDate}" filterBy="#{showInfo.endDate}" > 
+                    <h:outputText value="#{showInfo.endDate}" />
+                </p:column>
+
+                <p:column headerText="Duration" sortBy="#{showInfo.duration}" filterBy="#{showInfo.duration}" > 
+                    <h:outputText value="#{showInfo.duration}" />
+                </p:column>
+
+
+                <f:facet name="footer">
+                    <p:commandButton id="viewButton" value="Update Information" update=":form1 :form2" oncomplete="showInfoDialog.show()" />
+                   \
+                </f:facet>
+            </p:dataTable>             
+        </h:form>
+
+        <p:dialog id="dialog" header="Show Information Detail" widgetVar="showInfoDialog"  resizable="false" width="700" position="center" closable="true" modal="true" appendToBody="true" >
+            <h:form id="form2"> 
+                <p:panel id="display">
+                    <h:panelGrid columns="2" cellpadding="9">
+                        <h:outputLabel for="showId" style="font-weight: bold" value="Show ID: " />
+                        <h:outputText  value="#{showInfoManagedBean.theShowInfo.id}" />
+
+                        <h:outputLabel for="showName" style="font-weight: bold" value="Show Name: " />
+                        <p:inplace id="showName" editor="true" style=" font-weight: bold; color: #036fab">
+                            <p:ajax event="save" listener="#{showInfoManagedBean.updateShowInfo}" update="showName" />
+                            <p:inputText value="#{showInfoManagedBean.theShowInfo.name}" label="text" />
+                        </p:inplace>
+
+
+
+                        <h:outputLabel for="showType" style="font-weight: bold" value="Show Type: " />
+                        <p:inplace id="showType" editor="true" style=" font-weight: bold; color: #036fab">
+                            <p:ajax event="save" listener="#{showInfoManagedBean.updateShowInfo}" update="showType" />
+                            <p:selectOneMenu  required="true"   requiredMessage="Show Type is required."   value="#{showInfoManagedBean.theShowInfo.type}">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItem itemLabel="CIR Owned" itemValue="CIR Owned" />
+                                <f:selectItem itemLabel="3rd Party Conducted" itemValue="3rd Party Conducted" />              
+                            </p:selectOneMenu>                           
+                        </p:inplace>
+
+                        <h:outputLabel for="startDate" style="font-weight: bold" value="Start Date: " />
+                        <h:outputText value="#{showInfo.startDate}" />
+
+                        <h:outputLabel for="endDate" style="font-weight: bold" value="End Date: " />
+                        <h:outputText value="#{showInfo.endDate}" />
+
+                        <h:outputLabel for="duration" style="font-weight: bold" value="Duration: " />
+                        <h:outputText value="#{showInfo.duration}" />
+
+
+                        <p:commandButton ajax="true" type="submit" value="Update" update=":form2" actionListener="#{showInfoManagedBean.reloadShowInfo}"/>
+                    </h:panelGrid>
+                </p:panel>     
+            </h:form>
+        </p:dialog>
+
+    </ui:define>
+
+</ui:composition>

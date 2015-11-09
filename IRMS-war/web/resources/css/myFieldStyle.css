@@ -1,0 +1,13 @@
+/* 
+    Document   : newCascadeStyleSheet
+    Created on : Oct 3, 2013, 10:18:48 PM
+    Author     : xing zhe
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+myFieldset .ui-fieldset, .ui-fieldset .ui-fieldset-legend {
+background-color: transparent;
+border-color: transparent;
+}
+

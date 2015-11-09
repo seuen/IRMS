@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="contents">
+         <h:form>
+            <p:growl autoUpdate="true" globalOnly="true">
+                <p:dataTable id="itemmenus" value="#{eventOperationManagedBean.items}" var="itemmenu"
+                             rowKey="#{itemmenu.id}" selection="#{eventOperationManagedBean.selectitems}">
+                    <p:column selectionMode="multiple" style="width: 2%"/>
+                    
+                    <p:column headerText="Item Name">
+                        #{itemmenu.name}
+                    </p:column>
+                    
+                    <p:column headerText="Price">
+                        #{itemmenu.price}
+                    </p:column>
+                    
+                    <f:facet name="footer">
+                        <p:outputLabel value="Amount: "/>
+                        <h:inputText value="#{eventOperationManagedBean.banquetitem.quantity}"/>
+                        <p:commandButton value="Add Menu" actionListener="#{eventOperationManagedBean.setBanquetMenu}"/>
+                    </f:facet>
+                
+                </p:dataTable>
+            </p:growl>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

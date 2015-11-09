@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+        <ui:composition template="../../Templates/InternalAggregateTemplate.xhtml" >
+
+            <ui:define name="contents">
+                <p:tabMenu activeIndex="0">
+                <p:menuitem value="Check Reservation" url="/AccommodationWeb/StayMgt/searchReservation.xhtml"/>
+                <p:menuitem value="Search Room Availability" url="/AccommodationWeb/StayMgt/RoomTypeSearch.xhtml"/>
+                <!--<p:menuitem value="Block Room List" url="AddGuestBlock.xhtml"/>-->
+                <p:menuitem value="Display Stay" url="/AccommodationWeb/StayMgt/DisplaytodayStay.xhtml"/>
+                </p:tabMenu>
+                <h:form>
+                    <p:growl showDetail="true" autoUpdate="true" globalOnly="true"/>                    
+                    <p:panel  id="panel" >
+                        <f:facet name="header">
+                            Search Reservation
+                        </f:facet> 
+                        <h:panelGrid columns="3" cellpadding="9">
+                            <p:inputText   label="Reservation Number" value="#{reservationManagedBean.reservationNum}" />
+
+                            <p:commandButton update="panel" ajax="true" type="submit" value="Search by Confirm Numer" action="#{reservationManagedBean.searchReservationBN()}" />
+                            <br/>
+                            <p:inputText  label="Guest IC" value="#{reservationManagedBean.ic}" />
+                            <p:commandButton update="panel" ajax="true" type="submit" value="Search by Guest IC" action="#{reservationManagedBean.searchReservationBI()}" />
+
+                        </h:panelGrid>
+                    </p:panel>   
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

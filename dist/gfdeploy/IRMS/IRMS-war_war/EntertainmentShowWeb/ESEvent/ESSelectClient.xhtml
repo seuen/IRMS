@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../Templates/InternalAggregateTemplate.xhtml">
+
+
+            <ui:define name="contents">
+                <h:form id="form">
+
+            <p:growl id="messages" autoUpdate="true" globalOnly="true"/>
+            <p:dataTable id="clients" var="client" value="#{eSEventManagedBean.clients}" paginator="true" rows="10"
+                         rowKey="#{client.ic}" selection="#{eSEventManagedBean.selectClient}" editable="true">
+            
+            <f:facet name="header">
+                Client Info
+            </f:facet>
+                
+                <p:ajax event="rowEdit" listener="#{eSEventManagedBean.onEdit}" update=":form:messages"/>  
+                <p:ajax event="rowEditCancel" listener="#{eSEventManagedBean.onCancel}" update=":form:messages"/>
+                
+            <p:column selectionMode="single" style="width: 2%"/>
+            
+            <p:column headerText="IC" filterBy="#{client.ic}">
+                #{client.ic}
+            </p:column>
+            
+            <p:column headerText="Name" filterBy="#{client.firstname}">
+                #{client.firstname} #{client.lastname}
+            </p:column>
+            
+            <p:column headerText="Email Address" filterBy="#{client.emailAddr}">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{client.emailAddr}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText value="#{client.emailAddr}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            
+            <p:column headerText="Address" filterBy="#{client.addr}">
+                <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value=" #{client.addr}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText value=" #{client.addr}"/>
+                    </f:facet>
+                </p:cellEditor>
+           
+            </p:column>
+            
+            <p:column headerText="Phone">
+                 <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{client.phoneNum}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText value="#{client.phoneNum}"/>
+                    </f:facet>
+                </p:cellEditor>
+                
+            </p:column>
+            
+            <p:column headerText="Company" filterBy="#{client.company}">
+                 <p:cellEditor>
+                    <f:facet name="output">
+                        <h:outputText value="#{client.company}"/>
+                    </f:facet>
+                    <f:facet name="input">
+                        <p:inputText value="#{client.company}"/>
+                    </f:facet>
+                </p:cellEditor>
+            </p:column>
+            
+            <p:column>
+                <p:rowEditor/>
+            </p:column>
+            
+            <f:facet name="footer">
+                <p:commandButton  id="AddDetail" value="Next" actionListener="#{eSEventManagedBean.setEventClient}"/>
+                <p:commandButton id="AddClient" value="Add New Client" actionListener="#{eSEventManagedBean.emptyselectclient}"/>
+            </f:facet>
+            </p:dataTable>
+        </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

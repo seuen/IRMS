@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="../crmTemplates/contentTemplate.xhtml">
+            <ui:define name="contents">
+                <table width="900"  >
+                    <tr>
+                        <td></td><td></td>
+                        <td width="300"  align="top" style=" background: url(bb.png) ">
+                          <p class="STYLE3" >&nbsp;&nbsp;Member Login </p>
+                            <div class="half float_l">
+                                <br></br>
+
+                                <div id="contact_form">
+                                    <h:form>
+                                        <p:messages id="messages"  showDetail="false" autoUpdate="true" closable="true" />
+
+                                       <label for="author"><strong>&nbsp;&nbsp; * Member ID:</strong></label> 
+                     
+                                       &nbsp;&nbsp; <p:inputText value="#{memberAccountManagedBean.member.id}" style=" width: 200px" required="true" /> 
+                                        <br></br>
+                                        <br></br>
+                                        <div class="cleaner h10"></div>
+                                        <label for="email">&nbsp;&nbsp;<strong>* Password:</strong></label> 
+                                   
+                                        &nbsp;&nbsp;&nbsp;<h:inputSecret value="#{memberAccountManagedBean.membership.password}" style=" width: 200px" required="true" />
+                                        <p><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;Forgot Your Password? </a></p>
+                                        <div class="cleaner h10"></div>
+                                        <table>
+                                            <tr><td></td><td></td><td></td><td align=" left">
+                                             <p:button styleClass="submit_btn float_l" value="Back" /></td>
+                                                <td></td><td></td>
+                                                <td align="left"> &nbsp;&nbsp;<p:commandButton  value="Login" styleClass="submit_btn float_l" action="#{memberAccountManagedBean.login(action)}" type="submit"/></td>
+                                            </tr>
+                                        </table>
+
+
+                                    </h:form>
+                                </div>
+                            </div></td>
+                        <td></td><td></td>
+         
+                        <td  align="top">
+                         
+                            <p:graphicImage width="450" height="280" value="/resources/cr/images/CRM/website/login.png"/> 
+                            <br></br><br></br>
+                            <p class="STYLE4">Welcome to your Coral Island Resort </p>
+                            <br></br>
+                            <strong> Please sign in </strong> to your workspace and enjoy the wonderful experience with us! 
+                            <p><a href="#"><strong>Find more</strong></a> exciting information about our loyalty program.</p>
+                            <br></br>
+                            <br></br>
+                            Not a Coral Island Resort member?  Come and <a href="#"><strong>join us</strong></a> Now.
+                        </td>
+                    </tr>
+                </table>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

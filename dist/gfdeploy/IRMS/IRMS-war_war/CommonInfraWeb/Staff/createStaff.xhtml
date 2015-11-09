@@ -1,0 +1,85 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/Templates/InternalAggregateTemplate.xhtml">
+            <ui:define name="head-title">
+                <title>
+                    CIR Intranet | Staff Management
+                </title>
+            </ui:define>
+            <ui:define name="contents"> 
+
+                <h:form>
+                    <p:dialog id="dialog1" widgetVar="dialog1" modal="true" appendToBody="true">
+                        Email is being sent to the staff, please wait...
+                    </p:dialog>
+                    <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+
+                    <p:panel id ="panel">
+                        <p:panelGrid columns="3" id="panelStaff">
+                            <f:facet name="header">
+                                Staff Information
+                            </f:facet>
+
+                            <h:outputLabel for="firstname" value="Firstname: *" />
+                            <p:inputText id="firstname" value="#{staffAdminManagedBean.staff.firstName}" label="Firstname" required="true" >
+                                <f:validateLength minimum="4" maximum="25" />
+                                <p:watermark for="firstname" value="Input First Name" />
+                            </p:inputText>                        
+                            <p:messages for="firstname" />
+
+                            <h:outputLabel for="lastname" value="Lastname: *" />
+                            <p:inputText id="lastname" value="#{staffAdminManagedBean.staff.lastName}" label="Lastname" required="true" >
+                                <p:watermark for="lastname" value="Input Last Name" />
+                            </p:inputText>
+                            <p:messages for="lastname" />
+
+                            <h:outputLabel for="email" value="E-mail: *" />
+                            <p:inputText id="email" value="#{staffAdminManagedBean.staff.email}" label="Email" required="true">
+                                <!--<f:validateRegex pattern="" />-->
+                                <p:watermark for="email" value="Input Valid Email Address" />
+                            </p:inputText>
+                            <p:messages for="email" />
+
+                            <h:outputLabel for="department" value="Department: *" />
+                            <p:selectOneMenu id="department" value="#{staffAdminManagedBean.department}" required="true">
+                                <f:selectItems value="#{staffAdminManagedBean.departments}" />
+                                <p:ajax listener="#{staffAdminManagedBean.retrieveDynamicWorkLocaitonsForCIR(true)}" update="workLocation position" />
+                            </p:selectOneMenu>
+                            <p:messages for="department" />
+
+                            <h:outputLabel for="workLocation" value="Work Location: *" />                        
+                            <p:selectOneMenu id="workLocation" value="#{staffAdminManagedBean.title.workLocation}" required="true" >
+                                <f:selectItems value="#{staffAdminManagedBean.workLocations}" />
+                                <p:ajax listener="#{staffAdminManagedBean.retrieveDynamicPositionsForCIR(true)}" update="position" />
+                            </p:selectOneMenu>
+                            <p:messages for="workLocation" />
+
+                            <h:outputLabel for="position" value="Position: *" />
+                            <p:selectOneMenu id="position" value="#{staffAdminManagedBean.title.position}" required="true">
+                                <f:selectItems value="#{staffAdminManagedBean.positions}" />
+                            </p:selectOneMenu>
+                            <p:messages for="position" />
+
+                            <h:outputLabel for="account" value="Create Account For the Staff?" />
+                            <p:selectBooleanCheckbox id="account" value="#{staffAdminManagedBean.createAccount}" />
+                            <p:messages for="account" />
+                        </p:panelGrid>
+
+                        <f:facet name="footer">
+                            <p:commandButton onstart="dialog1.show()" oncomplete="dialog1.hide()" update="panel" ajax="true" type="submit" value="Create" actionListener="#{staffAdminManagedBean.saveNewStaff}" />
+                        </f:facet>
+                    </p:panel>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

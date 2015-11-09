@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+        <ui:composition template="../../Templates/InternalAggregateTemplate.xhtml">
+
+            <ui:define name="contents">
+                <h:form id="form">
+                    <p:growl autoUpdate="true" globalOnly="true"/> 
+
+                    <p:dataTable rowKey="#{outlet.id}" var="outlet" value="#{equipmentManagedBean.initViewOutlet()}" 
+                                 selection="#{equipmentManagedBean.outlet}" selectionMode="single" emptyMessage="No Food Outlet info found">
+
+                        <f:facet name="header">
+                            View all Food Outlet Information
+                        </f:facet>  
+
+                        <p:column style="width: 7%" headerText="Outlet Number"> 
+                            <h:outputText value="#{outlet.id}"/> 
+                        </p:column>
+                        
+                        <p:column style="width: 7%" headerText="Name"> 
+                            <h:outputText value="#{outlet.name}"/> 
+                        </p:column>
+                        
+                        <p:column style="width: 7%" headerText="Type"> 
+                            <h:outputText value="#{outlet.type}"/> 
+                        </p:column>
+                        
+                        <p:column style="width: 7%" headerText="Address"> 
+                            <h:outputText value="#{outlet.address}"/> 
+                            &nbsp;&nbsp;
+                            <p:inputText value="#{outlet.address}"/>
+                            <p:commandButton value="Update" actionListener="#{equipmentManagedBean.updateOutlet(outlet)}"/>
+                        </p:column>
+
+                    </p:dataTable>   
+                    
+                    <br/>
+                    <br/>
+                    <br/>
+                    
+                    <p:dataTable rowKey="#{retailOutlet.id}" var="retailOutlet" value="#{equipmentManagedBean.initViewRetailOutlet()}" 
+                                 selection="#{equipmentManagedBean.retailOutlet}" selectionMode="single" emptyMessage="No Retail Outlet info found">
+
+                        <f:facet name="header">
+                            View all Retail Outlet Information
+                        </f:facet>  
+
+                        <p:column style="width: 7%" headerText="Outlet Number"> 
+                            <h:outputText value="#{retailOutlet.id}"/> 
+                        </p:column>
+                        
+                        <p:column style="width: 7%" headerText="Name"> 
+                            <h:outputText value="#{retailOutlet.name}"/> 
+                        </p:column>
+                        
+                        <p:column style="width: 7%" headerText="Type"> 
+                            <h:outputText value="#{retailOutlet.type}"/> 
+                        </p:column>
+                        
+                        <p:column style="width: 7%" headerText="Address"> 
+                            <h:outputText value="#{retailOutlet.address}"/>
+                            &nbsp;&nbsp;
+                            <p:inputText value="#{retailOutlet.address}"/>
+                            <p:commandButton value="Update" actionListener="#{equipmentManagedBean.updateRetailOutlet(retailOutlet)}"/>
+                        </p:column>
+
+                    </p:dataTable> 
+                    
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

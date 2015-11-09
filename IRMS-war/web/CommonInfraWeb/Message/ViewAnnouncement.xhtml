@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>History Messages</title>
+    </h:head>
+
+    <h:body>
+        <ui:composition template="/Templates/InternalAggregateTemplate.xhtml">
+            <ui:define name="contents">
+                <h:form id="form">
+                    <p:growl id="announcement" showDetail="false" />
+                    <p:dataTable var="announcement" value="#{messageManagedBean.allAnnouncement}" id="announcementList">
+                        <f:facet name="header">
+                            Announcement List
+                        </f:facet>
+
+                        <p:column headerText="Sender ID" filterBy="#{announcement.staffAccount.staffId}" filterMatchMode="contains">                          
+                            <h:outputText value="#{announcement.staffAccount.staffId}" />                          
+                        </p:column>
+
+                        <p:column headerText="Sender First Name" filterBy="#{announcement.staffAccount.staff.firstName}"  filterMatchMode='contains'>                         
+                            <h:outputText value="#{announcement.staffAccount.staff.firstName}" />
+
+                        </p:column>
+
+                        <p:column headerText="Sender Last Name" filterBy="#{announcement.staffAccount.staff.lastName}" filterMatchMode='contains'>                          
+                            <h:outputText value="#{announcement.staffAccount.staff.lastName}" />        
+                        </p:column>
+
+                        <p:column headerText="Announcement Time" sortBy='#{announcement.announcementTime}' filterBy="#{announcement.announcementTime}" filterMatchMode='contains'>                       
+                            <h:outputText value="#{announcement.announcementTime}" >
+
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Announcement Title" filterBy="#{announcement.title}" filterMatchMode='contains'>
+                            <h:outputText value="#{announcement.title}" />
+
+                        </p:column>
+
+                        <p:column>
+
+                            <p:commandButton id="effectsDialogButton" update=":form:dddd" value="Read More" oncomplete="dlg3.show();">
+                                <f:setPropertyActionListener target="#{messageManagedBean.selectedAnnouncement}" value="#{announcement}" />
+                            </p:commandButton>
+
+
+
+                            <p:commandButton value="Delete" update="announcementList" id="remove" actionListener="#{messageManagedBean.removeAnnouncement(announcement)}" />
+                        </p:column>
+
+
+                    </p:dataTable> 
+
+                    <p:dialog id="dddd" header="Announcement" widgetVar="dlg3" showEffect="explode" height="200" width="200">  
+                        <strong> Announcement Title: </strong>
+                        <br></br>
+                        <h:outputText value="#{messageManagedBean.selectedAnnouncement.title}" />
+                        <br></br>
+                        <br></br>
+                        <strong>From: </strong>
+                        <br></br>
+                        <h:outputText value="#{messageManagedBean.selectedAnnouncement.staffAccount.staff.firstName}"/>
+                        &nbsp;<h:outputText value="#{messageManagedBean.selectedAnnouncement.staffAccount.staff.lastName}"/>
+                        <br></br>
+                        <br></br>
+                        <strong>Announcement Content: </strong>
+                        <br></br>
+                        <h:outputText value="#{messageManagedBean.selectedAnnouncement.content}" />
+                        <br></br>
+                    </p:dialog>  
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+
+</html>
+

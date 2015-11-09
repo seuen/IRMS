@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Customer Workspace</title>
+        <style type="text/css">
+            table.hovertable {
+                font-family: verdana,arial,sans-serif;
+                font-size:11px;
+                color:#333333;
+                border-width: 1px;
+                border-color: #999999;
+                border-collapse: collapse;
+            }
+            table.hovertable th {
+                background-color:#c3dde0;
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                border-color: #a9c6c9;
+            }
+            table.hovertable tr {
+                background-color:#d4e3e5;
+            }
+            table.hovertable td {
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                border-color: #a9c6c9;
+            }
+            .STYLE9 {
+	color: #FF7575;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: large;
+	font-weight: bold;
+}
+        </style>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../crmTemplates/afterLoginTemplate.xhtml">
+            <ui:define name="contents">
+
+                <h3>Welcome back to your workspace! </h3>
+                <div>
+                    <table width="800" border="0">
+                        <tr>
+                            <td width="600">      
+                                <h4><p:tabMenu activeIndex="3"  >  
+                                        <p:menuitem value="My Profile" styleClass="STYLE2" url="../AccountManagement/afterLogin.xhtml" icon="ui-icon-star"/>  
+                                        <p:menuitem value="Search Transaction" styleClass="STYLE2" url="../AccountManagement/viewTransactionRecords.xhtml" icon="ui-icon-search" />  
+                                        <p:menuitem value="View Report" styleClass="STYLE2" url="/ui/tabMenuDocumentation.jsf" icon="ui-icon-document"/>  
+                                        <p:menuitem value="Edit Profile" styleClass="STYLE2"   url="../AccountManagement/editProfile.xhtml" icon="ui-icon-wrench"/>  
+                                        <p:menuitem value="Feedback" styleClass="STYLE2" url="../AccountManagement/feedback.xhtml" icon="ui-icon-person" />  
+                                    </p:tabMenu> </h4>
+                                <table width="600" >
+                                    <tr>
+                                        <span class="STYLE9"> Hi! Dear <h:outputText value="#{memberAccountManagedBean.member.title}" /><h:outputText value="#{memberAccountManagedBean.member.lastName}" />,
+                                            here is your profile information.</span>
+                                    </tr>
+                                    <tr></tr>
+                                    <tr></tr>
+                                    <tr></tr>
+                                    <tr></tr>
+
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+
+                                        </td>
+                                    </tr>
+
+                                </table>
+
+
+                            </td>
+
+                            <td width="200">&nbsp;</td>
+                        </tr>
+                    </table>
+
+                </div>
+
+
+
+                <table class="hovertable">
+                    <h:form prependId='false'>
+
+                        <tr height="30" onmouseover="this.style.backgroundColor = '#ffff66';" onmouseout="this.style.backgroundColor = '#d4e3e5';">
+                            <td><strong>Member ID</strong></td>
+                            <td  width="420">
+                                <p:inplace id="memberId" editor="true">
+                                    <p:ajax event="save" listener="#{memberAccountManagedBean.save}" update="memberId"/>  
+                                    <p:inputText value="#{memberAccountManagedBean.member.id}" required="true" label="text"/>                                        
+                                </p:inplace>   
+                            </td>
+                        </tr>
+                        <tr height="30" onmouseover="this.style.backgroundColor = '#ffff66';" onmouseout="this.style.backgroundColor = '#d4e3e5';">
+                            <td><strong>Password</strong></td>
+                            <td>
+                                <p:inplace id="password" editor="true">
+                                    <p:ajax event="save" listener="#{memberAccountManagedBean.save}" update="password"/>  
+                                    <p:inputText value="#{memberAccountManagedBean.member.membership.password}" required="true" label="text"/>                                        
+                                </p:inplace>
+                            </td>
+                        </tr>
+                        <tr height="30" onmouseover="this.style.backgroundColor = '#ffff66';" onmouseout="this.style.backgroundColor = '#d4e3e5';">
+                            <td><strong>Email Address</strong></td>
+                            <td>
+                                <p:inplace id="emailAddr" editor="true">
+                                    <p:ajax event="save" listener="#{memberAccountManagedBean.save}" update="emailAddr"/>
+                                    <p:inputText value="#{memberAccountManagedBean.member.emailAddr}" required="true" label="text"/>
+                                </p:inplace>
+                            </td>
+                        </tr>
+
+                        <tr height="30" onmouseover="this.style.backgroundColor = '#ffff66';" onmouseout="this.style.backgroundColor = '#d4e3e5';">
+                            <td><strong>Phone Number </strong></td>
+                            <td>
+                                <p:inplace id="phoneNum" editor="true">
+                                    <p:ajax event="save" listener="#{memberAccountManagedBean.save}" update="phoneNum"/>
+                                    <p:inputText value="#{memberAccountManagedBean.member.phoneNum}" required="true" label="text"/>
+                                </p:inplace>
+                            </td>
+                        </tr>
+                        <tr height="30" onmouseover="this.style.backgroundColor = '#ffff66';" onmouseout="this.style.backgroundColor = '#d4e3e5';">
+                            <td><strong>Address Line1 </strong></td>
+                            <td>
+                                <p:inplace id="address1" editor="true">
+                                    <p:ajax event='save' listener="#{memberAccountManagedBean.save}" update="address1"/>                                            
+                                    <p:inputText value="#{memberAccountManagedBean.member.address.line1}" required="true" label="text" />
+                                </p:inplace>
+                            </td>
+
+                        </tr>
+                        <tr height="30" onmouseover="this.style.backgroundColor = '#ffff66';" onmouseout="this.style.backgroundColor = '#d4e3e5';">
+                            <td><strong>Address Line2 </strong></td>
+                            <td>
+                                <p:inplace id='address2' editor='true'>
+                                    <p:ajax event='save' listener='#{memberAccountManagedBeans.save}' update='address2'/>
+                                    <p:inputText value="#{memberAccountManagedBean.member.address.line2}" required='true' label='text' />
+                                </p:inplace>
+                            </td>
+
+                        </tr>
+                        <tr height="30" onmouseover="this.style.backgroundColor = '#ffff66';" onmouseout="this.style.backgroundColor = '#d4e3e5';">
+                            <td><strong>Address Country &nbsp; </strong></td>
+                            <td>
+                                <p:inplace id='country' editor='true'>
+                                    <p:ajax event='save' listener="#{memberAccountManagedBean.save}" update='country'/>
+                                    <p:inputText value="#{memberAccountManagedBean.member.address.country}" required="true" label='text' />
+                                </p:inplace>
+                            </td>
+
+                        </tr>
+                        <tr height="30" onmouseover="this.style.backgroundColor = '#ffff66';" onmouseout="this.style.backgroundColor = '#d4e3e5';">
+                            <td><strong>Postcode </strong></td>
+                            <td>
+                                <p:inplace id='postcode' editor='true'>
+                                    <p:ajax event="save" listener='#{memberAccountManagedBean.save}' update="postcode"/>
+                                    <p:inputText value="#{memberAccountManagedBean.member.address.postCode}" required='true' label="text"/>
+                                </p:inplace>
+                            </td>
+
+                        </tr>
+                    </h:form>
+
+                </table>
+
+
+                <div class="cleaner h40"></div>
+
+                <div class="cleaner"></div>
+
+                <div class="cleaner"></div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

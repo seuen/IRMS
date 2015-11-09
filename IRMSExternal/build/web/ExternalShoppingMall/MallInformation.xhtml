@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../Templates/foodTemplate2.xhtml">
+
+            <ui:define name="content1">
+                <h:form>
+                    <p:fieldset toggleable="false" collapsed="false" legend="Mixture of products provide widest range of choice">  
+                        <h:panelGrid columns="1">  
+                            <p:graphicImage value="/images/mall/2.jpg"/>
+                        </h:panelGrid>  
+                    </p:fieldset>
+                    <p:dataTable id="datatable" var="shop" value="#{shopManagedBean.activeShops}" paginator="true" emptyMessage="No shop in Shopping Centre yet.">
+
+                        <p:column headerText="Name"  filterBy="#{shop.shopName}">
+                            <h:outputText value="#{shop.shopName}" />
+                        </p:column>
+
+                        <p:column headerText="Type" sortBy="#{shop.shopType}" filterBy="#{shop.shopType}" >
+                            <h:outputText value="#{shop.shopType}" />
+                        </p:column>
+
+                        <p:column headerText="Category" sortBy="#{shop.category}" filterBy="#{shop.category}">
+                            <h:outputText value="#{shop.category}" />
+                        </p:column> 
+
+                        <p:column headerText="Venue">
+                            <h:outputText value="#{shopManagedBean.getVenueString(shop.currentVenues)}" />
+                        </p:column> 
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

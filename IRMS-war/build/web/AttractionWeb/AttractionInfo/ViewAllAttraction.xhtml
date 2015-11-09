@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+        <ui:composition template="../../Templates/InternalAggregateTemplate.xhtml">
+
+            <ui:define name="contents">
+                <h:form id="form">
+                    <p:growl autoUpdate="true" globalOnly="true"/> 
+
+                    <p:dataTable rowKey="#{attraction.name}" var="attraction" value="#{equipmentManagedBean.viewAttractions()}" 
+                                 selection="#{equipmentManagedBean.attraction}" selectionMode="single" emptyMessage="No attraction info found">
+
+                        <f:facet name="header">
+                            View all Attraction Information
+                        </f:facet>  
+
+                        <p:column style="width: 7%" filterBy="#{attraction.name}" > 
+                            <f:facet name="header">       
+                                <h:outputText value="Attraction Name" />  
+                            </f:facet>
+                            <h:outputText value="#{attraction.name}"/> 
+                        </p:column>
+
+                        <p:column style="width: 7%" > 
+                            <f:facet name="header">       
+                                <h:outputText value="Address" />  
+                            </f:facet>
+                            <h:outputText value="#{attraction.address}"/> 
+                        </p:column>
+
+                        <p:column style="width: 7%" > 
+                            <f:facet name="header">       
+                                <h:outputText value="Openning Hour" />  
+                            </f:facet>
+                            <h:outputText value="From #{attraction.openTime} to #{attraction.closeTime}"/> 
+                        </p:column>
+
+                        <p:column style="width: 7%" > 
+                            <f:facet name="header">       
+                                <h:outputText value="Detail" />  
+                            </f:facet>
+                            <h:outputText value="#{attraction.detail}"/>
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton id="viewButton" value="Update detail"
+                                             update=":form:display" oncomplete="attractionDialog.show()"/>  
+                        </f:facet>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton value="View Outlets" action="#{equipmentManagedBean.viewOutlets}">
+                                <f:attribute name="attraction" value="#{attraction}" />
+                            </p:commandButton>
+                        </f:facet>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="View Equipments" actionListener="#{equipmentManagedBean.viewEquipments}">
+                                <f:attribute name="attraction" value="#{attraction}" />
+                            </p:commandButton>
+                        </f:facet>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton value="View Sections" actionListener="#{equipmentManagedBean.viewAttraSections}">
+                                <f:attribute name="attraction" value="#{attraction}" />
+                            </p:commandButton>
+                        </f:facet>
+
+                    </p:dataTable>      
+
+
+                    <p:dialog id="dialog" header="Attraction Information Detail" widgetVar="attractionDialog" resizable="false"  
+                              width="500" position="center">  
+                        <p:panel id="display">  
+                            <h:panelGrid columns="3" cellpadding="5" border="1" style=" border-collapse: collapse" >
+                                <h:outputText style="width:50%" value="Name: " />
+                                <h:outputText style="width:50%" value="#{equipmentManagedBean.attraction.name}" /> 
+                                <br/>
+
+                                <h:outputText style="width:50%" value="Address: " /> 
+                                <h:outputText value="#{equipmentManagedBean.attraction.address}"/>
+                                <p:column style="width: 3%">
+                                    &nbsp;
+                                    <p:inputText style="width:50%" value="#{equipmentManagedBean.address}" />
+                                </p:column>
+
+                                <h:outputText style="width:20%" value="Open Time: " />
+                                <h:outputText style="width:20%" value="#{equipmentManagedBean.attraction.openTime}"/>
+                                <p:column style="width: 3%">
+                                    &nbsp;
+                                    <p:selectOneMenu id="openTime1" value="#{equipmentManagedBean.openTime1}">  
+                                        <f:selectItem itemLabel="00" itemValue="00" /> 
+                                        <f:selectItem itemLabel="01" itemValue="01" /> 
+                                        <f:selectItem itemLabel="02" itemValue="02" /> 
+                                        <f:selectItem itemLabel="03" itemValue="03" /> 
+                                        <f:selectItem itemLabel="04" itemValue="04" /> 
+                                        <f:selectItem itemLabel="05" itemValue="05" /> 
+                                        <f:selectItem itemLabel="06" itemValue="06" />  
+                                        <f:selectItem itemLabel="07" itemValue="07" />  
+                                        <f:selectItem itemLabel="08" itemValue="08" />  
+                                        <f:selectItem itemLabel="09" itemValue="09" />
+                                        <f:selectItem itemLabel="10" itemValue="10" />
+                                        <f:selectItem itemLabel="11" itemValue="11" />
+                                        <f:selectItem itemLabel="12" itemValue="12" />
+                                        <f:selectItem itemLabel="13" itemValue="13" />
+                                        <f:selectItem itemLabel="14" itemValue="14" />
+                                        <f:selectItem itemLabel="15" itemValue="15" />
+                                        <f:selectItem itemLabel="16" itemValue="16" />
+                                        <f:selectItem itemLabel="17" itemValue="17" />
+                                        <f:selectItem itemLabel="18" itemValue="18" />
+                                        <f:selectItem itemLabel="19" itemValue="19" />
+                                        <f:selectItem itemLabel="20" itemValue="20" />
+                                        <f:selectItem itemLabel="21" itemValue="21" />
+                                        <f:selectItem itemLabel="22" itemValue="22" />
+                                        <f:selectItem itemLabel="23" itemValue="23" />
+                                    </p:selectOneMenu>
+                                    &nbsp;
+                                    <p:selectOneMenu id="openTime2" value="#{equipmentManagedBean.openTime2}">  
+                                        <f:selectItem itemLabel="00" itemValue="00" />  
+                                        <f:selectItem itemLabel="15" itemValue="15" />  
+                                        <f:selectItem itemLabel="30" itemValue="30" />  
+                                        <f:selectItem itemLabel="45" itemValue="45" />
+                                    </p:selectOneMenu>
+                                </p:column>
+
+                                <h:outputText style="width:20%" value="Close Time: " />
+                                <h:outputText style="width:20%" value="#{equipmentManagedBean.attraction.closeTime}"/>
+                                <p:column style="width: 3%">
+                                    &nbsp;
+                                    <p:selectOneMenu id="closeTime1" value="#{equipmentManagedBean.closeTime1}">  
+                                        <f:selectItem itemLabel="00" itemValue="00" /> 
+                                        <f:selectItem itemLabel="01" itemValue="01" /> 
+                                        <f:selectItem itemLabel="02" itemValue="02" /> 
+                                        <f:selectItem itemLabel="03" itemValue="03" /> 
+                                        <f:selectItem itemLabel="04" itemValue="04" /> 
+                                        <f:selectItem itemLabel="05" itemValue="05" /> 
+                                        <f:selectItem itemLabel="06" itemValue="06" />  
+                                        <f:selectItem itemLabel="07" itemValue="07" />  
+                                        <f:selectItem itemLabel="08" itemValue="08" />  
+                                        <f:selectItem itemLabel="09" itemValue="09" />
+                                        <f:selectItem itemLabel="10" itemValue="10" />
+                                        <f:selectItem itemLabel="11" itemValue="11" />
+                                        <f:selectItem itemLabel="12" itemValue="12" />
+                                        <f:selectItem itemLabel="13" itemValue="13" />
+                                        <f:selectItem itemLabel="14" itemValue="14" />
+                                        <f:selectItem itemLabel="15" itemValue="15" />
+                                        <f:selectItem itemLabel="16" itemValue="16" />
+                                        <f:selectItem itemLabel="17" itemValue="17" />
+                                        <f:selectItem itemLabel="18" itemValue="18" />
+                                        <f:selectItem itemLabel="19" itemValue="19" />
+                                        <f:selectItem itemLabel="20" itemValue="20" />
+                                        <f:selectItem itemLabel="21" itemValue="21" />
+                                        <f:selectItem itemLabel="22" itemValue="22" />
+                                        <f:selectItem itemLabel="23" itemValue="23" />
+                                    </p:selectOneMenu>
+                                    &nbsp;
+                                    <p:selectOneMenu id="closeTime2" value="#{equipmentManagedBean.closeTime2}">  
+                                        <f:selectItem itemLabel="00" itemValue="00" />  
+                                        <f:selectItem itemLabel="15" itemValue="15" />  
+                                        <f:selectItem itemLabel="30" itemValue="30" />  
+                                        <f:selectItem itemLabel="45" itemValue="45" />
+                                    </p:selectOneMenu>
+                                </p:column>
+
+                                <h:outputText style="width:20%" value="Detail: " />
+                                <h:outputText style="width:20%" value="#{equipmentManagedBean.attraction.detail}"/>
+                                <p:inputTextarea value="#{equipmentManagedBean.detail}" />
+
+                            </h:panelGrid> 
+                            <br/>
+                            <p:commandButton ajax="true" type="submit" value="Update" actionListener="#{equipmentManagedBean.updateAttractionInfo(event)}"/>
+
+                        </p:panel>
+                    </p:dialog>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

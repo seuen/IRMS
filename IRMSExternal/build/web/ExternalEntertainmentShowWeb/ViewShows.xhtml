@@ -1,0 +1,282 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<f:view beforePhase="#{facesViewManagedBean.defaultBeforePhaseListener}">
+    <body>
+
+        <ui:composition template="./../Templates/EStemplate.xhtml">
+
+            <ui:define name="contents">      
+                <div id="shows">
+                    <p:panel>
+
+                        <div style="width: 80%; background: transparent; border: transparent;">
+                            <p:growl autoUpdate="true" globalOnly="true"/>
+
+                            <h:form id="form1">
+                                <h2><strong><h:outputText value="Step 1: Here are all our shows"/></strong></h2>
+                                <p:dataTable rowKey="#{showInfo.id}" var="showInfo" value="#{externalTicketManagedBean.viewAllShowInfo()}"
+                                             selection="#{externalTicketManagedBean.selectShowInfo}" emptyMessage="No Show info found">
+
+                                    <p:column selectionMode="single" style="width: 7%"/>
+
+                                    <p:column style="width: 7%" headerText="Show Info Name" > 
+                                        <h:outputText value="#{showInfo.name}"/> 
+                                    </p:column>
+
+                                    <p:column style="width: 7%" headerText="Type"> 
+                                        <h:outputText value="#{showInfo.type}"/> 
+                                    </p:column>
+
+                                    <p:column style="width: 20%" headerText="Date From"> 
+                                        <h:outputText value="#{showInfo.startDate}">
+                                            <f:convertDateTime timeZone="GSM+8" pattern="EEE yyyy/MM/dd"/>
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column style="width: 20%" headerText="Date To"> 
+                                        <h:outputText value="#{showInfo.endDate}">
+                                            <f:convertDateTime timeZone="GSM+8" pattern="EEE yyyy/MM/dd"/>
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column style="width: 7%" headerText="Address" > 
+                                        <h:outputText value="#{showInfo.auditorium.roomNo}"/>
+                                        <h:outputText value="#{showInfo.theater.roomNo}"/> 
+                                    </p:column>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton style="font-size: small" value="View Available Slots" update=":form1 :form2" actionListener="#{externalTicketManagedBean.viewAllShow()}"/>   
+                                    </f:facet>
+
+                                </p:dataTable>   
+                            </h:form>  
+                        </div>
+
+                        <div style="width: 80%; background: transparent; border: transparent;">
+                            <h:form id="form2" rendered="#{externalTicketManagedBean.displayShow}">
+
+                                <h2><strong><h:outputText value="Step 2: Select one time"/></strong></h2>
+                                <h5>Please select your preferred section:</h5><br/>
+                                <p:growl autoUpdate="true" globalOnly="true"/>                       
+                                <p:selectOneMenu id="sections" value="#{externalTicketManagedBean.selectTime}" >
+                                    <f:selectItem itemLabel="Select show time"/>
+                                    <f:selectItems value="#{externalTicketManagedBean.myShows}" var="s"/>
+                                    <p:ajax listener="#{externalTicketManagedBean.viewAllSectionTicket()}" update=":form2 :form3"/>
+
+                                </p:selectOneMenu>
+                                <p:messages for="sections" />
+
+
+                            </h:form>
+
+                        </div>     
+
+                        <br/>
+
+                        <div style="width: 80%; background: transparent; border: transparent;"> 
+                            <h:form id="form3" rendered="#{externalTicketManagedBean.displaySection}">  
+                                <p:growl autoUpdate="true" globalOnly="true"/>
+                                <h2><strong><h:outputText value="Step 3: View all sections and choose your preferred place"/></strong></h2>   
+                                <div id="displaySections" align="center" >
+                                    <table id="list" class="test">
+
+                                        <tr height="50">
+                                            <td width="60" style="cursor: pointer" 
+                                                ondblclick="this.style.backgroundColor = '#d4e3e5';">
+
+                                                <div id="showtext" ><strong>
+                                                        <h:outputText value="Section: #{externalTicketManagedBean.sectionTickets.get(0).seatSection.num}"/> 
+                                                        <br/>
+                                                        <h:outputText value="Price: #{externalTicketManagedBean.sectionTickets.get(0).price}"/>
+                                                        <br/>
+                                                        <h:outputText value="Status: #{externalTicketManagedBean.sectionTickets.get(0).status}"/>
+                                                        <br/><br/>
+                                                    </strong></div>
+                                            </td>
+
+                                            <td width="60" style="cursor: pointer"  ondblclick="this.style.backgroundColor = '#d4e3e5';">
+                                                <div id="showtext"><strong>
+                                                        <h:outputText value="Section: #{externalTicketManagedBean.sectionTickets.get(1).seatSection.num}"/> 
+                                                        <br/>
+                                                        <h:outputText value="Price: #{externalTicketManagedBean.sectionTickets.get(1).price}"/>
+                                                        <br/>
+                                                        <h:outputText value="Status: #{externalTicketManagedBean.sectionTickets.get(1).status}"/>
+                                                        <br/><br/>
+                                                    </strong></div>
+                                            </td>
+
+                                            <td width="60" style="cursor: pointer"  ondblclick="this.style.backgroundColor = '#d4e3e5';">
+                                                <div id="showtext"><strong>
+                                                        <h:outputText value="Section: #{externalTicketManagedBean.sectionTickets.get(2).seatSection.num}"/> 
+                                                        <br/>
+                                                        <h:outputText value="Price: #{externalTicketManagedBean.sectionTickets.get(2).price}"/>
+                                                        <br/>
+                                                        <h:outputText value="Status: #{externalTicketManagedBean.sectionTickets.get(2).status}"/>
+                                                        <br/><br/>
+                                                    </strong></div>
+                                            </td>
+
+                                            <td width="60" style="cursor: pointer"  ondblclick="this.style.backgroundColor = '#d4e3e5';">                                    <div id="showtext"><strong>
+                                                        <h:outputText value="Section: #{externalTicketManagedBean.sectionTickets.get(3).seatSection.num}"/> 
+                                                        <br/>
+                                                        <h:outputText value="Price: #{externalTicketManagedBean.sectionTickets.get(3).price}"/>
+                                                        <br/>
+                                                        <h:outputText value="Status: #{externalTicketManagedBean.sectionTickets.get(3).status}"/>
+                                                        <br/><br/>
+                                                    </strong></div>
+                                            </td>
+                                        </tr>
+
+
+                                        <tr height="50">
+                                            <td width="60" style="cursor: pointer"  ondblclick="this.style.backgroundColor = '#d4e3e5';">                                    <div id="showtext"><strong>
+                                                        <h:outputText value="Section: #{externalTicketManagedBean.sectionTickets.get(4).seatSection.num}"/> 
+                                                        <br/>
+                                                        <h:outputText value="Price: #{externalTicketManagedBean.sectionTickets.get(4).price}"/>
+                                                        <br/>
+                                                        <h:outputText value="Status: #{externalTicketManagedBean.sectionTickets.get(4).status}"/>
+                                                        <br/><br/>
+                                                    </strong></div>
+                                            </td>
+
+                                            <td width="60" style="cursor: pointer"  ondblclick="this.style.backgroundColor = '#d4e3e5';">                                    <div id="showtext"><strong>
+                                                        <h:outputText value="Section: #{externalTicketManagedBean.sectionTickets.get(5).seatSection.num}"/> 
+                                                        <br/>
+                                                        <h:outputText value="Price: #{externalTicketManagedBean.sectionTickets.get(5).price}"/>
+                                                        <br/>
+                                                        <h:outputText value="Status: #{externalTicketManagedBean.sectionTickets.get(5).status}"/>
+                                                        <br/><br/>
+                                                    </strong></div>
+                                            </td>
+
+                                            <td width="60" style="cursor: pointer"  ondblclick="this.style.backgroundColor = '#d4e3e5';">                                    <div id="showtext"><strong>
+                                                        <h:outputText value="Section: #{externalTicketManagedBean.sectionTickets.get(6).seatSection.num}"/> 
+                                                        <br/>
+                                                        <h:outputText value="Price: #{externalTicketManagedBean.sectionTickets.get(6).price}"/>
+                                                        <br/>
+                                                        <h:outputText value="Status: #{externalTicketManagedBean.sectionTickets.get(6).status}"/>
+                                                        <br/><br/>
+                                                    </strong></div>
+                                            </td>
+
+                                            <td width="60" style="cursor: pointer"  ondblclick="this.style.backgroundColor = '#d4e3e5';">                                    <div id="showtext"><strong>
+                                                        <h:outputText value="Section: #{externalTicketManagedBean.sectionTickets.get(7).seatSection.num}"/> 
+                                                        <br/>
+                                                        <h:outputText value="Price: #{externalTicketManagedBean.sectionTickets.get(7).price}"/>
+                                                        <br/>
+                                                        <h:outputText value="Status: #{externalTicketManagedBean.sectionTickets.get(7).status}"/>
+                                                        <br/>
+                                                    </strong></div>
+                                            </td>
+                                        </tr>
+
+                                        <tr height="50">
+                                            <td width="60" style="cursor: pointer"  ondblclick="this.style.backgroundColor = '#d4e3e5';">                                    <div id="showtext"><strong>
+                                                        <h:outputText value="Section: #{externalTicketManagedBean.sectionTickets.get(8).seatSection.num}"/> 
+                                                        <br/>
+                                                        <h:outputText value="Price: #{externalTicketManagedBean.sectionTickets.get(8).price}"/>
+                                                        <br/>
+                                                        <h:outputText value="Status: #{externalTicketManagedBean.sectionTickets.get(8).status}"/>
+                                                        <br/>
+                                                    </strong></div>
+                                            </td>
+
+                                            <td width="60" style="cursor: pointer"  ondblclick="this.style.backgroundColor = '#d4e3e5';">                                    <div id="showtext"><strong>
+                                                        <h:outputText value="Section: #{externalTicketManagedBean.sectionTickets.get(9).seatSection.num}"/> 
+                                                        <br/>
+                                                        <h:outputText value="Price: #{externalTicketManagedBean.sectionTickets.get(9).price}"/>
+                                                        <br/>
+                                                        <h:outputText value="Status: #{externalTicketManagedBean.sectionTickets.get(9).status}"/>
+                                                        <br/>
+                                                    </strong></div>
+                                            </td>
+
+                                            <td width="60" style="cursor: pointer"  ondblclick="this.style.backgroundColor = '#d4e3e5';">                                    <div id="showtext"><strong>
+                                                        <h:outputText value="Section: #{externalTicketManagedBean.sectionTickets.get(10).seatSection.num}"/> 
+                                                        <br/>
+                                                        <h:outputText value="Price: #{externalTicketManagedBean.sectionTickets.get(10).price}"/>
+                                                        <br/>
+                                                        <h:outputText value="Status: #{externalTicketManagedBean.sectionTickets.get(10).status}"/>
+                                                        <br/><br/>
+                                                    </strong></div>
+                                            </td>
+
+                                            <td width="60" style="cursor: pointer"  ondblclick="this.style.backgroundColor = '#d4e3e5';">                                    <div id="showtext"><strong>
+                                                        <h:outputText value="Section: #{externalTicketManagedBean.sectionTickets.get(11).seatSection.num}"/> 
+                                                        <br/>
+                                                        <h:outputText value="Price: #{externalTicketManagedBean.sectionTickets.get(11).price}"/>
+                                                        <br/>
+                                                        <h:outputText value="Status: #{externalTicketManagedBean.sectionTickets.get(11).status}"/>
+                                                        <br/><br/>
+                                                    </strong></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <br/>
+                                <div style="width: 80%; background: transparent; border: transparent;">
+                                    <h5>Please select your preferred section:</h5>
+
+                                    <p:growl autoUpdate="true" globalOnly="true"/>                        
+                                    <p:selectOneMenu style="width: 170px" id="sections" value="#{externalTicketManagedBean.selectSectionNum}">
+                                        <f:selectItem itemLabel="Select section"/>
+                                        <f:selectItems value="#{externalTicketManagedBean.sectionTickets}" var="sectionTicket" itemLabel="#{sectionTicket.seatSection.num}" itemValue="#{sectionTicket.seatSection.num}"/>
+                                        <p:ajax listener="#{externalTicketManagedBean.viewAllSeat()}" update=":form3 :form4"/>
+                                    </p:selectOneMenu>
+                                </div>
+                               
+                                
+                            </h:form>
+
+                        </div>     
+
+                        <h2><strong><h:outputText rendered="#{externalTicketManagedBean.displaySeat}" value="Step 4: Choose your seats"/></strong></h2>
+                        <div align="left" style="width: 80%; background: transparent; border: transparent;">       
+                            <h:form id="form4" rendered="#{externalTicketManagedBean.displaySeat}">
+
+                                <p:growl autoUpdate="true" globalOnly="true"/>
+                                <p:dataTable rowKey="#{seat.id}" var="seat" value="#{externalTicketManagedBean.seats}"
+                                             selection="#{externalTicketManagedBean.selectSeats}" emptyMessage="No Seat info found">
+
+                                    <f:facet name="header">
+                                        View all [#{externalTicketManagedBean.selectSectionTicket.seatSection.num}] Seat Info
+                                    </f:facet> 
+
+                                    <p:column selectionMode="multiple" style="width:0.05%" />
+
+                                    <p:column style="width: 7%" headerText="Seat number" > 
+                                        <h:outputText value="row #{seat.rowNum}:  seat #{seat.seatNum}"/> 
+                                    </p:column>
+
+                                    <p:column style="width: 7%" headerText="Price" > 
+                                        <h:outputText value="#{externalTicketManagedBean.selectSectionTicket.price}"/> 
+                                    </p:column>
+
+                                    <f:facet name="footer">
+                                        <p:growl autoUpdate="true" showDetail="false" globalOnly="true"/> 
+                                        <p:commandButton style="font-size:small" value="Add to Shopping Cart" actionListener="#{shoppingCartManagedBean.createBuyShowItem(event)}" />
+                                        <!--                                                <p:commandButton style="font-size: small" value="Buy Tickets" actionListener=""/>-->
+                                        <!--<p:commandButton value="Buy Tickets" update=":form5 :form6" actionListener=""/>-->
+                                    </f:facet>
+                                </p:dataTable>
+
+                            </h:form>
+
+                        </div>         
+                    </p:panel>
+                </div>
+
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</f:view> 
+</html>

@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+
+    <ui:define name="contents">
+        
+        <h1>
+            Welcome to Shopping Mall Tenant Information SubSystem
+        </h1>
+        <h:form>
+            <p:tabMenu activeIndex="0">
+                <p:menuitem value="Home" url="/ShoppingMallWeb/TenantInfo/viewAllTenants.xhtml"/>
+                <p:menuitem value="Current Shops" url="/ShoppingMallWeb/TenantInfo/viewAllActiveShops.xhtml"/>
+                <p:menuitem value="History Shops" url="/ShoppingMallWeb/TenantInfo/viewAllHistoryShops.xhtml"/>
+            </p:tabMenu>
+        </h:form>
+
+        <h:form>
+            <p:ajaxStatus style="width:30px;height: 20px;">
+                <f:facet name="start">     <h:graphicImage value="../design/ajaxloading.gif" />   </f:facet>
+                <f:facet name="complete">  <h:outputText value="" />                              </f:facet>
+            </p:ajaxStatus>  
+
+            <p:panel > 
+                <h:outputText styleClass="STYLE2" value="Here lists all current tenants in Shopping Mall. You can view detailed information as well as update contact information of each tenant or shop."/>
+                <br></br>
+            </p:panel>
+            <p:panel id="panel">
+                <p:growl autoUpdate="true" />
+
+                <p:dataTable id="datatable" var="shop" value="#{shopVenueManagedBean.allShops}" paginator="true" emptyMessage="No active shop in Shopping Centre yet.">
+                <p:column headerText="ID" sortBy="#{shop.shopId}" filterBy="#{shop.shopId}" filterStyle="width: 30px;" >
+                    <h:outputText value="#{shop.shopId}" />
+                </p:column>
+
+                <p:column headerText="Name"  filterBy="#{shop.shopName}">
+                    <h:outputText value="#{shop.shopName}" />
+                </p:column>
+
+                <p:column headerText="Type" sortBy="#{shop.shopType}" filterBy="#{shop.shopType}" >
+                    <h:outputText value="#{shop.shopType}" />
+                </p:column>
+                
+                <p:column headerText="Category" sortBy="#{shop.category}" filterBy="#{shop.category}">
+                    <h:outputText value="#{shop.category}" />
+                </p:column>
+                
+                <p:column headerText="Area" sortBy="#{shop.area}" filterBy="#{shop.area}" >
+                    <h:outputText value="#{shop.area}" />
+                </p:column>
+                
+                <p:column headerText="ContractStatus" sortBy="#{shop.contractStatus}" filterBy="#{shop.contractStatus}" >
+                    <h:outputText value="#{shop.contractStatus}" />
+                </p:column>
+                
+                <p:column id="details" headerText="Details">
+                    <p:commandButton  value="view details" style="float: right" actionListener="#{shopVenueManagedBean.navigateShopInfo}">
+                     <f:attribute name="viewShop" value="#{shop}" />
+                    </p:commandButton>                                            
+                </p:column>
+                    
+                </p:dataTable>
+            </p:panel>
+            <h:panelGrid columns="1">
+                <p:panel header="Export Page Data">
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/images/pdf.png" />  
+                        <p:dataExporter type="pdf" target="datatable" fileName="Shops" />  
+                    </h:commandLink>
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/images/xml.png" />  
+                        <p:dataExporter type="xml" target="datatable" fileName="Shops" />  
+                    </h:commandLink>
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/images/csv.png" />  
+                        <p:dataExporter type="csv" target="datatable" fileName="Shops" />  
+                    </h:commandLink>
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/images/excel.png" />  
+                        <p:dataExporter type="xls" target="datatable" fileName="Shops" />  
+                    </h:commandLink>
+                </p:panel>
+            </h:panelGrid>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <style>
+            .ui-panelgrid{
+                color: red;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <ui:composition template="/Templates/InternalAggregateTemplate.xhtml">
+            <ui:define name="contents">
+                <h:form>
+                    <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+
+                    
+                    <p:panelGrid columns="3" id="panel">
+
+                        <f:facet name="header">
+                            Create Schedule for Title
+                        </f:facet>
+
+                        <h:outputLabel for="department" value="Department: " />
+                        <p:selectOneMenu id="department" value="#{staffManagedBean.department}" required="true">
+                            <f:selectItems value="#{staffManagedBean.departments}" />
+                            <p:ajax listener="#{staffManagedBean.retrieveDynamicWorkLocaitonsForCIR(false)}" update="workLocation position" />
+                        </p:selectOneMenu>
+                        <p:messages for="department" />
+
+                        <h:outputLabel for="workLocation" value="Work Location: " />                        
+                        <p:selectOneMenu id="workLocation" value="#{staffManagedBean.title.workLocation}" required="true" >
+                            <f:selectItems value="#{staffManagedBean.workLocations}" />
+                            <p:ajax listener="#{staffManagedBean.retrieveDynamicPositionsForCIR(false)}" update="position" />
+                        </p:selectOneMenu>
+                        <p:messages for="workLocation" />
+
+                        <h:outputLabel for="position" value="Position: " />
+                        <p:selectOneMenu id="position" value="#{staffManagedBean.title.position}" required="true">
+                            <f:selectItems value="#{staffManagedBean.positions}" />
+                        </p:selectOneMenu>
+                        <p:messages for="position" /> 
+                        
+                        <h:outputLabel for="schedulMonth" value="For which month:" />
+                        <p:selectOneMenu id="schedulMonth" value="#{scheduleManagedBean.offsetSelected}" required="true">
+                            <f:selectItems value="#{scheduleManagedBean.scheduleOffset}" />
+                        </p:selectOneMenu>
+                        <p:messages for="schedulMonth" />
+                        
+                        <h:outputLabel for="ShiftPattern" value="Shift Pattern" />
+                        <p:selectOneMenu id="ShiftPattern" value="#{scheduleManagedBean.newHotelShiftPattern}" >
+                            <f:selectItems value="#{scheduleManagedBean.hotelShiftPatterns}" />
+                        </p:selectOneMenu>
+                        <p:messages for="ShiftPattern" />
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Create" action="#{scheduleManagedBean.createHotelSchedule()}" />
+                        </f:facet>
+                    </p:panelGrid>                       
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

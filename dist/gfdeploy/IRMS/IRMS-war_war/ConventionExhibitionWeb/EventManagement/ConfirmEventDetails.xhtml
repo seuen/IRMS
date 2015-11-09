@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+   
+    <ui:define name="contents">
+        <h:form>
+            <p:growl autoUpdate="true" globalOnly="true"/>
+            <h:panelGrid id="eventdetails" columns="2" cellpadding="8">
+                <f:facet name="header">
+                    Event Details
+                </f:facet>
+                
+                <p:outputLabel value="Event Venue"/>
+                <h:outputText value="#{eventManagedBean.event.venuetype} #{eventManagedBean.event.roomnum}"/>
+                
+                <p:outputLabel value="Capacity"/>
+                <h:outputText value="#{eventManagedBean.event.capacity}"/>
+                
+                <p:outputLabel value="Venue Price"/>
+                <h:outputText value="#{eventManagedBean.event.venueprice}"/>
+                
+                <p:outputLabel value="Date Type"/>
+                <h:outputText value="#{eventManagedBean.event.datetype}"/>
+                
+                <p:outputLabel value="Start Date"/> 
+                <h:outputText value="#{eventManagedBean.startingDate}">
+                    <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8"/>
+                </h:outputText>
+                
+                <p:outputLabel value="End Date"/>
+                <h:outputText value="#{eventManagedBean.endingDate}">
+                    <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8"/>
+                </h:outputText>
+                
+                <p:outputLabel value="Event Date"/>
+                <h:outputText value="#{eventManagedBean.eventdate}">
+                    <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8"/>
+                </h:outputText>
+                
+                <p:outputLabel value="TimeSlot"/>
+                <h:outputText value="#{eventManagedBean.timeslot}"/>
+                
+                <p:outputLabel value="Start Time"/>
+                <h:outputText value="#{eventManagedBean.startTime}">
+                    <f:convertDateTime pattern="mm/HH/dd/MM/yyyy" timeZone="GMT+8"/>
+                </h:outputText>
+                
+                <p:outputLabel value="End Time"/>
+                <h:outputText value="#{eventManagedBean.endTime}">
+                    <f:convertDateTime pattern="mm/HH/dd/MM/yyyy" timeZone="GMT+8"/>
+                </h:outputText>
+                
+                <p:outputLabel value="Client IC"/>
+                <h:outputText value="#{eventManagedBean.event.client.ic}"/>
+                
+                <p:outputLabel value="Client Name"/>
+                <h:outputText value="#{eventManagedBean.event.client.firstname} #{eventManagedBean.event.client.lastname}"/>
+            </h:panelGrid>
+            <h:panelGrid columns="1" cellpadding="20">
+                <p:dataTable id="facilityies" var="facility" value="#{eventManagedBean.event.facilitiesNeed}">
+                    <p:column headerText="Type">
+                        #{facility.type}
+                    </p:column>
+                    
+                    <p:column headerText="Quantity">
+                        #{facility.amount}
+                    </p:column>
+                    
+                    <p:column headerText="Unit Price">
+                        #{facility.price}
+                    </p:column>
+                    
+                    <p:column headerText="Facility Price">
+                        #{facility.totalprice}
+                    </p:column>
+                    
+                    <p:summaryRow>
+                        <p:column colspan="3" style="text-align: right">
+                            Facility Total Price:
+                        </p:column>
+                        <p:column>
+                            #{eventManagedBean.event.facilityprice}
+                        </p:column>
+                    </p:summaryRow>
+                </p:dataTable>
+                <p:dataTable id="employees" var="employee" value="#{eventManagedBean.event.employeesNeed}">
+                    <p:column headerText="Type">
+                        #{employee.type}
+                    </p:column>
+                    
+                    <p:column headerText="Quantity">
+                        #{employee.amount}
+                    </p:column>
+                    
+                    <p:column headerText="Employee Price">
+                        #{employee.price}
+                    </p:column>
+                    
+                    <p:summaryRow>
+                        <p:column colspan="2" style="text-align: right">
+                            Employee Total Price:
+                        </p:column>
+                        <p:column>
+                            #{eventManagedBean.event.employeeprice}
+                        </p:column>
+                    </p:summaryRow>
+                </p:dataTable>
+            </h:panelGrid>
+            <h:panelGrid columns="2" cellpadding="8">
+                <p:outputLabel value="Event Total Price"/>
+                <h:outputText value="#{eventManagedBean.event.totalprice}"/>
+                
+                <p:outputLabel value="Deposit Amout"/>
+                <h:inputText value="#{eventManagedBean.deposit}" required="true" requiredMessage="Deposit Amount cannot be empty"/>
+                
+                <p:outputLabel value="Event Description"/>
+                <h:inputTextarea value="#{eventManagedBean.event.description}"/>
+                
+                <f:facet name="footer">
+                    <p:commandButton value="Pay Deposit" actionListener="#{eventManagedBean.createEvent}"/>
+                </f:facet>
+            </h:panelGrid>
+            
+            
+           
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+
+    <ui:define name="contents">
+        <h1>
+            Welcome to Shopping Mall Management SubSystem
+        </h1>   
+        <p:panel> 
+            <h:outputText styleClass="STYLE2" value="Here lists notifications for important events in system such as contract creation, contract renew, etc."/>
+            <br></br>
+        </p:panel>
+        <h:form id="form">
+
+            <p:dataTable var="notification" value="#{notificationManagedBean.allRecords}" id='notificationList'>
+                <f:facet name='header'>
+                    Notification Records
+                </f:facet>
+                <p:column headerText='Sender ID' width="100" filterBy="#{notification.sender}" filterMatchMode="contains">
+                    <h:outputText value='#{notification.sender}'/>
+                </p:column>
+
+                <p:column headerText='Sender Name' filterBy="#{notification.senderName}" filterMatchMode="contains">
+                    <h:outputText value='#{notification.senderName}'/>
+                </p:column>
+
+                <p:column headerText='Notification' width="400" filterBy="#{notification.content}" filterMatchMode="contains">
+                    <h:outputText value='#{notification.content}'/> 
+                </p:column>
+
+                <p:column headerText='Time' filterBy="#{notification.receiveTime}" filterMatchMode="contains">
+                    <h:outputText value='#{notification.receiveTime}'/>
+                </p:column>
+
+
+            </p:dataTable>
+        </h:form>
+
+
+
+
+    </ui:define>
+
+    <ui:define name="foot">
+        foot
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <ui:define name="contents">
+        <p:tabMenu activeIndex="2">
+            <p:menuitem value="Check Reservation" url="/AccommodationWeb/StayMgt/searchReservation.xhtml"/>
+            <p:menuitem value="Search Room Availability" url="/AccommodationWeb/StayMgt/RoomTypeSearch.xhtml"/>
+            <!--<p:menuitem value="Block Room List" url="AddGuestBlock.xhtml"/>-->
+            <p:menuitem value="Display Stay" url="/AccommodationWeb/StayMgt/DisplaytodayStay.xhtml"/>
+        </p:tabMenu>
+        
+        <p:dataTable var="stay" value="#{checkInManagedBean.checkinStays}" id="stayList" paginator="true" rows="12">
+                <f:facet name="header">
+                    List of Stays Checking In Today
+                </f:facet>
+                <p:column headerText="Starting Date">
+                    <h:outputText value="#{stay.dateFrom}">
+                        <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Leaving Date">
+                    <h:outputText value="#{stay.dateTo}">
+                        <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8"/>
+                    </h:outputText>
+                </p:column>
+                
+                <p:column headerText="Room Type">
+                    #{stay.room.roomtype.type}
+                </p:column>
+
+                <p:column headerText="Room Num" filterBy="#{stay.room.roomNum}">
+                    <h:outputText value="#{stay.room.roomNum}"/>
+                </p:column>
+
+                <p:column headerText="Room Status">
+                    <h:outputText value="#{stay.room.status}"/>
+                </p:column>
+
+                <p:column headerText="Charges">
+                    <h:outputText value="#{stay.totalCharges}"/>
+                </p:column>
+                
+                <p:column headerText="Stay Status">
+                    #{stay.status}
+                </p:column>
+
+
+            </p:dataTable>
+    </ui:define>
+</ui:composition>

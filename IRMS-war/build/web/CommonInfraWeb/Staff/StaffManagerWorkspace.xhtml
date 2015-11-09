@@ -1,0 +1,24 @@
+<ui:composition template="/Templates/InternalAggregateTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="contents">
+        <h:graphicImage value="/resources/images/friends.jpg" style="width: 800px; height: 480px"/>
+        <h:form>
+            <p:idleMonitor timeout="5000" onidle="idleDialog.show()" />
+
+            <p:dialog header="Session Timeout" widgetVar="idleDialog" modal="false" resizable="false"  >
+                <h:outputText value="Dear Staff, your session is timeout, please login again!" />
+                <br/>
+                <p:commandButton value="Back to Login" actionListener="#{loginManagedBean.onStaffIdle()}" action="#{staffManagedBean.backToLogin()}" />
+            </p:dialog>
+
+            <br/>                                        
+            
+        </h:form>
+    </ui:define>
+</ui:composition>
+
+

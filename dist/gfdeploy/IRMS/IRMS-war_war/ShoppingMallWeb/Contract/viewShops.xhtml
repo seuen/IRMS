@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+
+    <ui:define name="contents">
+
+        <h1>
+            Welcome to Shopping Mall Contract Management SubSystem
+        </h1>
+
+        <p:tabMenu activeIndex="1">
+            <p:menuitem value="Home" url="/ShoppingMallWeb/Contract/viewAllContracts.xhtml"/>
+            <p:menuitem value="Shops" url="/ShoppingMallWeb/Contract/viewShops.xhtml"/>
+            <p:menuitem value="Inactivated" url="/ShoppingMallWeb/Contract/viewAllInactiveContracts.xhtml"/>
+            <p:menuitem value="Activated" url="/ShoppingMallWeb/Contract/viewActiveContracts.xhtml"/>
+            <p:menuitem value="CreateContract" url="/ShoppingMallWeb/Contract/viewAllNegotiators.xhtml"/>
+        </p:tabMenu>
+
+        <h:form>
+            <p:ajaxStatus style="width:30px;height: 20px;">
+                <f:facet name="start">     <h:graphicImage value="../design/ajaxloading.gif" />   </f:facet>
+                <f:facet name="complete">  <h:outputText value="" />                              </f:facet>
+            </p:ajaxStatus>  
+
+            <p:panel> 
+                <h:outputText styleClass="STYLE2" value="Here lists all current shops in Shopping Mall. You can view detailed information as well as update contact information of each tenant or shop."/>
+                <br></br>
+            </p:panel>
+            <p:panel id="panel">
+                <p:growl autoUpdate="true" />
+
+                <p:dataTable id="datatable" var="shop" value="#{contractManagedBean.allShops}" style="table-layout: fixed" paginator="true" emptyMessage="No active shop in Shopping Centre yet.">
+                    <p:column headerText="ShopID" sortBy="#{shop.shopId}" width="10%" filterBy="#{shop.shopId}" filterStyle="width: 30px;" >
+                        <h:outputText value="#{shop.shopId}" />
+                    </p:column>
+
+                    <p:column headerText="Name"  filterBy="#{shop.shopName}" width="10%">
+                        <h:outputText value="#{shop.shopName}" />
+                    </p:column>
+
+                    <p:column headerText="Type" sortBy="#{shop.shopType}" width="10%" filterBy="#{shop.shopType}" >
+                        <h:outputText value="#{shop.shopType}" />
+                    </p:column>
+
+                    <p:column headerText="Category" sortBy="#{shop.category}" width="10%" filterBy="#{shop.category}">
+                        <h:outputText value="#{shop.category}" />
+                    </p:column>
+
+                    <p:column headerText="Area" sortBy="#{shop.area}" width="10%" filterBy="#{shop.area}" >
+                        <h:outputText value="#{shop.area}" />
+                    </p:column>
+
+                    <p:column headerText="Email" sortBy="#{shop.email}" width="10%" filterBy="#{shop.email}" >
+                        <h:outputText value="#{shop.email}" />
+                    </p:column>    
+
+                    <p:column headerText="ContractStatus" sortBy="#{shop.contractStatus}" width="10%" filterBy="#{shop.contractStatus}" >
+                        <h:outputText value="#{shop.contractStatus}" />
+                    </p:column>
+
+                    <p:column id="details" headerText="Contracts" width="30%">
+                        <p:commandButton  value="View List" style="float: right" actionListener="#{contractManagedBean.navigateShopContracts}">
+                            <f:attribute name="viewContractShop" value="#{shop}" />
+                        </p:commandButton>                                            
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="contents">
+        
+<!--        <h:form>
+        <p:tabMenu activeIndex="2">
+                <p:menuitem value="Check Reservation" url="searchReservation.xhtml"/>
+                <p:menuitem value="Search Room Availability" url="RoomTypeSearch.xhtml"/>
+                <p:menuitem value="Block Room List" url="AddGuestBlock.xhtml"/>
+                <p:menuitem value="Display Stay" url="DisplaytodayStay.xhtml"/>
+        </p:tabMenu>
+        </h:form>-->
+         <h:form>
+            <p:growl id="messages" globalOnly="true" autoUpdate="true"/>
+
+                     
+                    <p:panel id="panel">
+                   
+                        <f:facet name="header">
+                            Guest Information for Blocking Room
+                        </f:facet> 
+                        
+                        <h:panelGrid columns="3" cellpadding="9">
+                     
+                        <p:outputLabel for="firstname" value="FirstName: " />
+                        <p:inputText id="firstname" value="#{roomManagedBean.guest.firstName}" label="FirstName" required="true" requiredMessage="firstname cannot be empty"/>
+                        <p:message for="firstname"/>
+
+                    
+                    <p:outputLabel for="lastname" value="LastName: " />
+                    <p:inputText id="lastname" value="#{roomManagedBean.guest.lastName}" label="LastName" required="true" />
+                    <p:message for="lastname"/>
+
+                    
+                    <p:outputLabel for="ic" value="NIRC/PassPort No.: " />
+                    <p:inputText id="ic" value="#{roomManagedBean.guest.ic}" label="IC" required="true"/>  
+                    <p:message for="ic"/>
+
+                    <p:commandButton update="panel" ajax="true" type="submit" value="Block Room" action="/AccommodationWeb/ReservationMgt/BlockRoom.xhtml"/>
+
+                        </h:panelGrid>
+                    </p:panel>
+                    </h:form>
+    </ui:define>
+
+</ui:composition>

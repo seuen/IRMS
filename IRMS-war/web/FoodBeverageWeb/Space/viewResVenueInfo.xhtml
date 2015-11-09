@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+    <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                    template="../../Templates/InternalAggregateTemplate.xhtml"
+                    xmlns:h="http://java.sun.com/jsf/html"
+                    xmlns:p="http://primefaces.org/ui">
+        <ui:define name="contents">
+            <h:head>
+                <style type="text/css">
+                    .ui-growl {
+                        right:50px;
+                        top:100px;
+                    }
+                </style>
+            </h:head>
+            <h:body>
+
+                <h:form id="formMain">
+
+                    <p:tabMenu activeIndex="1">
+                        <p:menuitem value="Home" url="/FoodBeverageWeb/Space/viewAllResVenues.xhtml"/>
+                        <p:menuitem value="View Venue Information" url="/FoodBeverageWeb/Space/viewResVenueInfo.xhtml"/>
+                    </p:tabMenu>
+
+                    <p:panel header="View Venue Information:  #{resVenueManagedBean.viewVenue.building}-#{resVenueManagedBean.viewVenue.id}"> 
+                        <p:ajaxStatus style="width:16px;height:16px;">
+                            <f:facet name="start">
+                                <h:graphicImage value="http://www.primefaces.org:8080/showcase/design/ajaxloading.gif" /> 
+                            </f:facet>
+                            <f:facet name="complete">
+                                <h:outputText value="" />
+                            </f:facet>
+                        </p:ajaxStatus>
+                        <p:panel> 
+                            <h:outputText styleClass="STYLE2" value="Here dislays venue's detailed information including the current shop, historical shops and current negotiators. You can  double click on fields to edit area and ranking."/>
+                            <br></br>
+                        </p:panel>
+                        <p:growl id="message" autoUpdate="true" globalOnly="true" />
+                        <h:panelGrid id="venueForm" columns="3" cellpadding="10">   
+                            <h:outputText  style="font-size: larger; font-weight:  bold" value="Venue Location: " />
+                            <h:outputText style="font-size: larger; font-weight:  bold" value="#{resVenueManagedBean.viewVenue.building}" />
+                            <h:outputLabel value=""/>
+                            <h:outputText  style="font-size: larger; font-weight:  bold" value="Venue Floor: " />
+                            <h:outputText style="font-size: larger; font-weight:  bold" value="#{resVenueManagedBean.viewVenue.floor}" />
+                            <h:outputLabel value=""/>
+
+                            <h:outputText  style="font-size: larger; font-weight:  bold" value="Address: " />
+                            <h:outputText style="font-size: larger; font-weight:  bold" value="#{resVenueManagedBean.viewVenue.id}" />
+                            <h:outputLabel value=""/>
+
+                            <h:outputText style="font-size: larger; font-weight:  bold" value="Venue Area (Double Click to Edit): " />
+                            <p:inplace id="Area"  editor="true" effectSpeed="fast" event="dblclick">  
+                                <h:selectOneMenu  required="true"  requiredMessage="Venue area is required."  id="area"  value="#{resVenueManagedBean.viewVenue.area}">
+                                    <f:selectItem itemLabel="100 m*m" itemValue="100" />
+                                    <f:selectItem itemLabel="200 m*m" itemValue="200" />
+                                    <f:selectItem itemLabel="300 m*m" itemValue="300" />
+                                    <f:selectItem itemLabel="400 m*m"  itemValue="400" />
+                                </h:selectOneMenu>
+                            </p:inplace>    
+                            <p:message for="area" />                       
+
+                            <h:outputText  style="font-size: larger; font-weight:  bold" value="Venue Ranking (Double Click to Edit): " />
+                            <p:inplace id="Rank"  editor="true" effectSpeed="fast" event="dblclick">
+                                <h:selectOneMenu  required="true"   requiredMessage="Venue ranking is required."  id="rank"  value="#{resVenueManagedBean.viewVenue.sector}">
+                                    <f:selectItem itemLabel="Tier A" itemValue="A" />
+                                    <f:selectItem itemLabel="Tier B" itemValue="B" />
+                                    <f:selectItem itemLabel="Tier C"  itemValue="C" />
+                                    <f:selectItem itemLabel="Tier D"  itemValue="D" />
+                                    <f:selectItem itemLabel="Tier E"  itemValue="E" />
+                                </h:selectOneMenu>
+                            </p:inplace>
+                            <p:message for="rank" />       
+                        </h:panelGrid>
+                        <p:separator /> 
+                        <p:commandButton  style=' float: contour' id="back" value="Back" actionListener="#{resVenueManagedBean.navigateSpaceVenues}"/>
+                        <p:commandButton style=' float: right'  id="updateVenue" value="Update Venue Info" actionListener="#{resVenueManagedBean.updateVenueInfo(event)}" ajax="true"/>
+                    </p:panel>
+                </h:form>
+                   <p:fieldset legend="Current shop occupying the venue (empty indicates no shop is occupying the venue)" toggleable="true" toggleSpeed="500" collapsed="true" style=" background: transparent" > 
+                        <h:panelGrid  columns="2" cellpadding="10">
+                            <h:outputText  style="font-size: larger; font-weight:  bold" value="Shop Name: " />
+                            <h:outputText style="font-size: larger; font-weight:  bold" value="#{shopVenueManagedBean.viewVenue.shop.shopName}" />
+                        </h:panelGrid>
+                    </p:fieldset>
+
+                    <p:fieldset legend="Hostorical shops occupied the venue" toggleable="true" toggleSpeed="500" collapsed="true" style=" background: transparent" > 
+
+                        <p:dataTable id="historyShop" var="shop" value="#{shopVenueManagedBean.viewVenue.shops}" style="table-layout: fixed" paginator="true" emptyMessage="No shop history.">
+                    <p:column headerText="ShopID" sortBy="#{shop.shopId}" width="10%" filterBy="#{shop.shopId}" filterStyle="width: 30px;" >
+                        <h:outputText value="#{shop.shopId}" />
+                    </p:column>
+
+                    <p:column headerText="Name"  filterBy="#{shop.shopName}" width="10%">
+                        <h:outputText value="#{shop.shopName}" />
+                    </p:column>
+
+                    <p:column headerText="Type" sortBy="#{shop.shopType}" width="10%" filterBy="#{shop.shopType}" >
+                        <h:outputText value="#{shop.shopType}" />
+                    </p:column>
+
+                    <p:column headerText="Category" sortBy="#{shop.category}" width="10%" filterBy="#{shop.category}">
+                        <h:outputText value="#{shop.category}" />
+                    </p:column>
+
+                    <p:column headerText="Area" sortBy="#{shop.area}" width="10%" filterBy="#{shop.area}" >
+                        <h:outputText value="#{shop.area}" />
+                    </p:column>
+
+                    <p:column headerText="Email" sortBy="#{shop.email}" width="10%" filterBy="#{shop.email}" >
+                        <h:outputText value="#{shop.email}" />
+                    </p:column>    
+
+                    <p:column headerText="ContractStatus" sortBy="#{shop.contractStatus}" width="10%" filterBy="#{shop.contractStatus}" >
+                        <h:outputText value="#{shop.contractStatus}" />
+                    </p:column>
+                </p:dataTable>
+                    </p:fieldset>
+                    <p:fieldset legend="Current negotiators of the venue" toggleable="true" toggleSpeed="500" collapsed="true" style=" background: transparent" > 
+                        <p:dataTable id="negotable" var="negotiator" value="#{resVenueManagedBean.myNegotiators}" paginator="true" emptyMessage="No negotiators for venue: Shopping Mall #{resVenueManagedBean.negoVenue.id}.">
+
+                            <p:column headerText="Name"  sortBy="#{negotiator.negotiatorName}" filterBy="#{negotiator.negotiatorName}" filterStyle="width: 40px;" >
+                                <f:facet name="header">  
+                                    <h:outputText value="Name" />  
+                                </f:facet>
+                                <h:outputText value="#{negotiator.negotiatorName}" />
+                            </p:column>
+
+                            <p:column headerText="Email" sortBy="#{negotiator.email}" filterBy="#{negotiator.email}" filterStyle="width: 40px;" >
+                                <f:facet name="header">  
+                                    <h:outputText value="Email" />  
+                                </f:facet>
+                                <h:outputText value="#{negotiator.email}" />
+                            </p:column>
+
+                            <p:column headerText="Phone" sortBy="#{negotiator.telNum}" filterBy="#{negotiator.telNum}" filterStyle="width: 40px;" >
+                                <f:facet name="header">  
+                                    <h:outputText value="Phone" />  
+                                </f:facet>
+                                <h:outputText value="#{negotiator.telNum}" />
+                            </p:column>
+
+                            <p:column headerText="Type" sortBy="#{negotiator.shopType}" filterBy="#{negotiator.shopType}" filterStyle="width: 50px;" >
+                                <f:facet name="header">  
+                                    <h:outputText value="Type" />  
+                                </f:facet>
+                                <h:outputText value="#{negotiator.shopType}" />
+                            </p:column>
+
+                            <p:column headerText="Category" sortBy="#{negotiator.shopCategory}" filterBy="#{negotiator.shopCategory}" filterStyle="width: 50px;">
+                                <f:facet name="header">  
+                                    <h:outputText value="Category" />  
+                                </f:facet>                     
+                                <h:outputText value="#{negotiator.shopCategory}" />
+                            </p:column>   
+
+                            <p:column headerText="Shop" sortBy="#{negotiator.shopName}" filterBy="#{negotiator.shopName}" filterStyle="width: 50px;">
+                                <f:facet name="header">  
+                                    <h:outputText value="Shop" />  
+                                </f:facet>                     
+                                <h:outputText value="#{negotiator.shopName}" />
+                            </p:column>  
+                        </p:dataTable>
+                    </p:fieldset>
+            </h:body>
+        </ui:define>
+
+        <ui:define name="foot">
+            foot
+        </ui:define>
+
+    </ui:composition>
+</html>

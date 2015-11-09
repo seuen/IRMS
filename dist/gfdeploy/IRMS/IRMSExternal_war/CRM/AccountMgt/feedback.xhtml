@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Member Workspace</title>
+        <style type="text/css">
+            <!--
+
+            .STYLE4 {font-family: Verdana, Arial, Helvetica, sans-serif; font-weight: bold; color: #006699; font-size: medium; }
+            .STYLE5 {
+                font-family: Verdana, Arial, Helvetica, sans-serif;
+                color: #666666;
+                font-size: large;
+                font-weight: bold;
+            }
+            -->
+        </style>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../Templates/subpage2A.xhtml">
+            <ui:define name="content1">
+           <p:graphicImage width="140" height="150" url="http://172.28.179.192:8080/images/CRM/customerPhoto/#{photoUploadManagedBean.member.membership.profilePhoto}.#{photoUploadManagedBean.member.membership.imageType}" />
+
+                <p></p>
+                <p>Name  : #{accountManagedBean.saveMember.firstName} #{accountManagedBean.saveMember.lastName}</p>
+                <p>Email : #{accountManagedBean.saveMember.emailAddr}</p>
+                <br />
+
+            </ui:define>
+
+            <ui:define name="content2">
+                <p style=" font-size:  large; font-weight:  bolder; color:  coral">Member Feedback</p>
+                <p class="STYLE4">Your say matters! Let us know how we're doing. </p>
+                <p>Please tell us how we can improve our ways in serving you. Your feedback is valuable for us, and it will take 2 to 5 minutes to complete this form.</p>
+                <p>Or you may reach us via email at it05aaa@gmail.com  </p>
+
+                <h:form>
+                    <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+                    <p><strong>* Subject:</strong></p>
+                    <p:selectOneMenu value="#{memberFeedbackManagedBean.fsubject}" required="true" >  
+                        <f:selectItem itemLabel="Select One" itemValue="" />
+                        <f:selectItems value="#{memberFeedbackManagedBean.subjects}"/>
+                        <p:ajax listener="#{memberFeedbackManagedBean.handleSubjectChange}" update="subject2"/>               
+                    </p:selectOneMenu>
+                    <br /><br />
+                    <p><strong>* Further Subject:</strong></p>
+                    <p:selectOneMenu id="subject2" value="#{memberFeedbackManagedBean.fsubject2}" required="true">
+                        <f:selectItem itemLabel="Select More Details" itemValue=""/>
+                        <f:selectItems value="#{memberFeedbackManagedBean.subjects2}"/>
+                    </p:selectOneMenu>
+                    <br /><br />
+                    <p><strong>* Rating:</strong></p>
+                    <p:rating value="#{memberFeedbackManagedBean.feedback.rating}" stars="10" cancel="false" onRate="alert('You rated ' + value)"/> 
+                    <br /><br />
+                    <p><strong>* Feedback Details:</strong></p>
+                    <p:inputTextarea rows="10" cols="200" counter="counter"  maxlength="600"       
+                                     counterTemplate="{0} characters remaining." autoResize="false" value="#{memberFeedbackManagedBean.feedback.content}"/>  
+
+                    <p> <h:outputText id="counter" />  </p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <p:commandButton value="Submit" styleClass="submit_btn float_l" action="#{memberFeedbackManagedBean.createFeedback(action)}" type="submit"/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <p:button value="Back"  href="afterLogin.xhtml" />
+
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

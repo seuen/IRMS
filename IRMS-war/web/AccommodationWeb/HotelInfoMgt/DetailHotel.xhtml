@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"            
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="contents">
+     
+        <h:form>
+          <p:menubar>
+                <p:submenu label="Singland Hotel">
+                    
+                    <p:menuitem value="Hotel Info" actionListener="#{hotelManagedBean.navigateHotelInfo}">
+                        <f:attribute name="hotelId" value="Singland Hotel" />
+                     </p:menuitem>
+                        
+                    <p:menuitem value="RoomType Info" actionListener="#{hotelManagedBean.navigateRoomTypeInfo}">
+                        <f:attribute name="hotelId" value="Singland Hotel"/>
+                    </p:menuitem>
+                    
+                    <p:menuitem value="Room Info" actionListener="#{hotelManagedBean.navigateRoomInfo}">
+                        <f:attribute name="hotelId" value="Singland Hotel"/>
+                    </p:menuitem>
+                    
+                    <p:submenu label="Item Info">
+                        <p:menuitem value="Display Item Info" actionListener="#{hotelManagedBean.navigateItemInfo}">
+                        <f:attribute name="hotelId" value="Singland Hotel"/>
+                    </p:menuitem>
+                        <p:menuitem value="Add Item Info" actionListener="#{itemManagedBean.navigateItemInfo}">
+                        <f:attribute name="hotelId" value="Singland Hotel"/>
+                    </p:menuitem>
+                    </p:submenu> 
+                </p:submenu>
+           
+                <p:submenu label="Coral Bay Hotel">
+              
+                    <p:menuitem value="Hotel Info" actionListener="#{hotelManagedBean.navigateHotelInfo}">
+                        <f:attribute name="hotelId" value="Coral Bay Hotel"/>
+                    </p:menuitem>
+                    
+                     <p:menuitem value="RoomType Info" actionListener="#{hotelManagedBean.navigateRoomTypeInfo}">
+                        <f:attribute name="hotelId" value="Coral Bay Hotel"/>
+                    </p:menuitem>
+                    
+                    <p:menuitem value="Room Info" actionListener="#{hotelManagedBean.navigateRoomInfo}">
+                        <f:attribute name="hotelId" value="Coral Bay Hotel"/>
+                    </p:menuitem>
+                    
+                     <p:submenu label="Item Info">
+                        <p:menuitem value="Display Item Info" actionListener="#{hotelManagedBean.navigateItemInfo}">
+                        <f:attribute name="hotelId" value="Singland Hotel"/>
+                    </p:menuitem>
+                        <p:menuitem value="Add Item Info" actionListener="#{itemManagedBean.navigateItemInfo}">
+                        <f:attribute name="hotelId" value="Singland Hotel"/>
+                    </p:menuitem>
+                    </p:submenu>
+                </p:submenu>
+                
+                <p:submenu label="Grand Park Hotel">
+                    <p:menuitem value="Hotel Info" actionListener="#{hotelManagedBean.navigateHotelInfo}">
+                        <f:attribute name="hotelId" value="Grand Park Hotel"/>
+                    </p:menuitem>
+                    
+                    <p:menuitem value="RoomType Info" actionListener="#{hotelManagedBean.navigateRoomTypeInfo}">
+                        <f:attribute name="hotelId" value="Grand Park Hotel"/>
+                    </p:menuitem>
+                    
+                    <p:menuitem value="Room Info" actionListener="#{hotelManagedBean.navigateRoomInfo}">
+                        <f:attribute name="hotelId" value="Grand Park Hotel"/>
+                    </p:menuitem>
+                    
+                      <p:submenu label="Item Info">
+                        <p:menuitem value="Display Item Info" actionListener="#{hotelManagedBean.navigateItemInfo}">
+                        <f:attribute name="hotelId" value="Singland Hotel"/>
+                    </p:menuitem>
+                        <p:menuitem value="Add Item Info" actionListener="#{itemManagedBean.navigateItemInfo}">
+                        <f:attribute name="hotelId" value="Singland Hotel"/>
+                    </p:menuitem>
+                    </p:submenu>
+                </p:submenu>
+                
+                <p:submenu label="City Club Hotel">
+                    <p:menuitem value="Hotel Info" actionListener="#{hotelManagedBean.navigateHotelInfo}">
+                        <f:attribute name="hotelId" value="City Club Hotel"/>
+                    </p:menuitem>
+                    
+                    <p:menuitem value="RoomType Info" actionListener="#{hotelManagedBean.navigateRoomTypeInfo}">
+                        <f:attribute name="hotelId" value="City Club Hotel"/>
+                    </p:menuitem>
+                    
+                    <p:menuitem value="Room Info" actionListener="#{hotelManagedBean.navigateRoomInfo}">
+                        <f:attribute name="hotelId" value="City Club Hotel"/>
+                    </p:menuitem>
+                    
+                      <p:submenu label="Item Info">
+                        <p:menuitem value="Display Item Info" actionListener="#{hotelManagedBean.navigateItemInfo}">
+                        <f:attribute name="hotelId" value="Singland Hotel"/>
+                    </p:menuitem>
+                        <p:menuitem value="Add Item Info" actionListener="#{itemManagedBean.navigateItemInfo}">
+                        <f:attribute name="hotelId" value="Singland Hotel"/>
+                    </p:menuitem>
+                    </p:submenu>
+                </p:submenu>
+                
+                <p:submenu label="Crone Plaza Hotel">
+                    <p:menuitem value="Hotel Info" actionListener="#{hotelManagedBean.navigateHotelInfo}">
+                        <f:attribute name="hotelId" value="Crone Plaza Hotel"/>
+                    </p:menuitem>
+                    
+                    <p:menuitem value="RoomType Info" actionListener="#{hotelManagedBean.navigateRoomTypeInfo}">
+                        <f:attribute name="hotelId" value="Crone Plaza Hotel"/>
+                    </p:menuitem>
+                    
+                    <p:menuitem value="Room Info" actionListener="#{hotelManagedBean.navigateRoomInfo}">
+                        <f:attribute name="hotelId" value="Crone Plaza Hotel"/>
+                    </p:menuitem>
+                    
+                    <p:submenu label="Item Info">
+                        <p:menuitem value="Display Item Info" actionListener="#{hotelManagedBean.navigateItemInfo}">
+                        <f:attribute name="hotelId" value="Singland Hotel"/>
+                    </p:menuitem>
+                        <p:menuitem value="Add Item Info" actionListener="#{itemManagedBean.navigateItemInfo}">
+                        <f:attribute name="hotelId" value="Singland Hotel"/>
+                    </p:menuitem>
+                    </p:submenu>
+                </p:submenu>
+            </p:menubar>          
+        </h:form>
+      
+
+<h:form prependId="false">
+    <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true"/>
+    <p:panel header="#{hotelManagedBean.hotelId} Detailed Information" >
+        <h:panelGrid columns="2" columnClasses="column" cellpadding="7">
+        <h:outputText value="Name: " />
+        <h:outputText value="#{hotelManagedBean.hotelId}"/>
+      
+        <h:outputText value="Address* : "/>
+        <p:inplace id="address" editor="true">
+            <p:ajax event="save" listener="#{hotelManagedBean.save}" update="address"/>
+            <p:inputText value="#{hotelManagedBean.hotel.address}" required="true"  label="text"/>
+        </p:inplace>
+        
+        
+        <h:outputText value="Description* : "/>
+        <p:inplace id="description" editor="true">
+            <p:ajax event="save" listener="#{hotelManagedBean.save}" update="description"/>
+            <p:inputTextarea rows="10" cols="50" value="#{hotelManagedBean.hotel.description}" required="true" label="text"/>
+        </p:inplace>
+        </h:panelGrid>
+        <br/><br/><br/><br/><br/><br/>
+        <h:outputText value="menu with * can be edit"/>
+    </p:panel>
+
+</h:form>
+
+
+   
+    </ui:define>
+
+</ui:composition>

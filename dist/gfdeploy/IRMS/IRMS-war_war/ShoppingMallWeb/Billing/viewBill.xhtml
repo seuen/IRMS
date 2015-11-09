@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Home</title>
+        <style type="text/css">
+            .gritter-notice-wrapper {
+                left:200px;
+                top: 50px; }
+            </style>
+        </h:head>
+        <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                        template="../../Templates/InternalAggregateTemplate.xhtml"
+                        xmlns:h="http://java.sun.com/jsf/html"
+                        xmlns:p="http://primefaces.org/ui">
+            <ui:define name="contents">
+                <h1>
+                    Welcome to Billing Management SubSystem
+                </h1>
+                <h:body>
+                    <h:form id="formMain">
+                    <p:tabMenu activeIndex="5">
+                        <p:menuitem value="Home" url="/ShoppingMallWeb/Billing/billingManagement.xhtml"/>
+                        <p:menuitem value="View All Unpaid Bills" url="/ShoppingMallWeb/Billing/viewAllUnpaidBills.xhtml"/>
+                        <p:menuitem value="View All Bills" url="/ShoppingMallWeb/Billing/viewAllHistoricalBills.xhtml"/>
+                        <p:menuitem value="View Bad Debts" url="/ShoppingMallWeb/Billing/viewBadDebts.xhtml"/>
+                        <p:menuitem value="View All Receipts" url="/ShoppingMallWeb/Billing/viewAllReceipts.xhtml"/>
+                        <p:menuitem value="Bill Information" url="/ShoppingMallWeb/Billing/viewBill.xhtml"/>
+                    </p:tabMenu>
+                    <p:panel> 
+                        <h:outputText styleClass="STYLE2" value="Here lists detailed information of the selected bill. You can update its payment status, deadline, as well as create receipt for paid bills."/>
+                        <br></br>
+                    </p:panel>
+                    <p:panel>
+                        <p:growl id="growl" showDetail="true" />  
+                        <h:panelGrid id="panelGrid" columns="2" cellpadding="10" >  
+                            <h:outputText style="font-weight: bold; font-size: 20px" value="Shop Name: #{billingManagedBean.bill.rentalReports.contract.shop.shopName}"/>
+                            <h:outputText style="font-weight: bold; font-size: 20px" value="Bill Number: #{billingManagedBean.bill.rentalReports.name}"/>
+                            <h:outputText style="font-weight: bold; font-size: 12px" value="Contract ID: #{billingManagedBean.bill.rentalReports.contract.id}"/>
+                            <h:outputText style="font-weight: bold; font-size: 12px" value="Bill Date: #{billingManagedBean.bill.billDateString}"/>
+                            <h:outputText style="font-weight: bold; font-size: 12px" value="Payment Deadline: #{billingManagedBean.bill.deadLine}"/>
+                            <h:outputText style="font-weight: bold; font-size: 12px" value="Sent By: #{billingManagedBean.bill.rentalReports.contract.lessor}"/>
+                            <p:commandButton value="Send Bill" actionListener="#{billingManagedBean.sendBill}" >
+                                <f:attribute name="bb" value="#{billingManagedBean.bill}"/>
+                            </p:commandButton>
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:panel>
+                        <p:panelGrid   style="margin-top:20px; margin-bottom: 20px; border-color: black; width: 80%" > 
+                            <p:row>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 15px" value="Rental Charge"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 15px" value="#{billingManagedBean.bill.rentalCharges} SGD"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 15px" value="Deposit"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 15px" value="#{billingManagedBean.bill.depost} SGD"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 15px" value="Commission Fee"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 15px" value="#{billingManagedBean.bill.commissionCharges} SGD"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 15px" value="Adhoc Charges"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 15px" value="#{billingManagedBean.bill.adhocCharges} SGD"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 15px" value="Total"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 15px" value="#{billingManagedBean.bill.totalCharges} SGD"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>  
+                    </p:panel>             
+
+                    <p:panel>
+                        <h4>Elaborations</h4>
+                        <h:outputText value="Commission Information" style="font-weight: bold"/>    
+                        <p:panelGrid style="margin-top:20px; margin-bottom: 20px; border-color: black; width: 60%; float: outside; alignment-baseline: middle; background: transparent; border: transparent">  
+
+                            <p:row>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 12px" value="Total Sales"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 12px" value="#{billingManagedBean.bill.totalSales} SGD"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 12px" value="Commission Rate"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 12px" value="#{billingManagedBean.bill.commissionRate}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 12px" value="Commission Charges"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 12px" value="#{billingManagedBean.bill.commissionCharges} SGD"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+
+                        <h:outputText value="Adhoc Event Charges Information" style="font-weight: bold" />                        
+                        <p:panel style=" width: 80%;  background: transparent; border: transparent">
+
+                            <p:dataTable var="adhocEvent" value="#{billingManagedBean.historyMonthlyAdhoc}" emptyMessage="No adhoc event" style="background: transparent;  background: transparent; border: transparent">
+                                <p:column  headerText="Event ID"> 
+                                    <h:outputText value="#{adhocEvent.id}" /> 
+                                </p:column>               
+
+                                <p:column   headerText="Shop Name" >
+                                    <h:outputText value="#{adhocEvent.shop.shopName}" /> 
+                                </p:column>
+
+                                <p:column  headerText="Event Type">                        
+                                    <h:outputText value="#{adhocEvent.eventType}" /> 
+                                </p:column>
+
+                                <p:column  headerText="Event Date">
+                                    <h:outputText value="#{adhocEvent.eventDate}" /> 
+                                </p:column>
+
+                                <p:column headerText="Enter Date"> 
+                                    <h:outputText value="#{adhocEvent.enterDate}" /> 
+                                </p:column>
+
+                                <p:column  headerText="Charge"> 
+                                    <h:outputText value="#{adhocEvent.charge}" /> 
+                                </p:column>  
+                            </p:dataTable> 
+                            <br></br>
+                            <h:outputText value="Total Adhoc Charges: #{billingManagedBean.bill.adhocCharges}" ></h:outputText>                  </p:panel>  
+                    </p:panel>
+
+                    <p:panel>
+                        <h:panelGrid>
+                            <h:outputText style="font-weight: bold; font-size: 15px" value=""/>
+                            <h:outputText style="font-weight: bold; font-size: 15px" value="[Notices]"/>
+                            <h:outputText style="font-weight: bold; font-size: 15px" value="* The bill is inclusive of all charges incurred during one billing month marked by Bill Date #{billingManagedBean.bill.billDateString} as the last day of month."/>
+                            <h:outputText style="font-weight: bold; font-size: 15px" value="* Four main types of charges are included in the bill: rental, deposit, commission and adhoc charges."/>
+                            <h:outputText style="font-weight: bold; font-size: 15px" value="* Bill Payment should be before payment deadline: #{billingManagedBean.bill.deadLine}."/>
+                        </h:panelGrid>
+                    </p:panel>  
+                </h:form>
+
+                <h:form prependId="false">
+                    <p:panel header="Edit Billing Information" style="width: 100%">
+                        <h:panelGrid columns="1" columnClasses="column" cellpadding="10">
+
+                            <h:outputText value="Deadline: " style=" font-size: larger; font-weight: bold"/>
+                            <p:inplace id="deadline" editor="true" style=" font-size: larger; font-weight: bold; color: #036fab">
+                                <p:ajax event="save" listener="#{billingManagedBean.update()}" update="deadline"/>
+                                <p:calendar label="Deadline" id="Deadline" value="#{billingManagedBean.bill.deadLine}" required="true" requiredMessage="Deadline is required.">
+                                </p:calendar>
+                                <p:message for="Deadline"/>
+                            </p:inplace> 
+                            <h:outputText value="Status: " style=" font-size: larger; font-weight: bold"/>
+                            <p:inplace id="status" editor="true" style=" font-size: larger; font-weight: bold; color: #036fab">
+                                <p:ajax event="save" listener="#{billingManagedBean.update()}" update="status"/>
+                                <p:selectOneMenu label="Status" id="Status" value="#{billingManagedBean.bill.status}" required="true" requiredMessage="Status is required.">
+                                    <f:selectItem itemLabel="Select One" itemValue="" />  
+                                    <f:selectItem itemLabel="Paid" itemValue="Paid" />  
+                                    <f:selectItem itemLabel="Unpaid" itemValue="Unpaid" />  
+                                </p:selectOneMenu>
+                                <p:message for="Status"/>
+                            </p:inplace> 
+                        </h:panelGrid>
+                        <h:panelGrid columns="2">
+                            <p:commandButton value="Create Receipt" actionListener="#{billingManagedBean.createReceipt}" >
+                                <f:attribute name="b" value="#{billingManagedBean.bill}"/>
+                            </p:commandButton>
+                            <p:commandButton value="Send Receipt" actionListener="#{billingManagedBean.sendReceipt}" >
+                                <f:attribute name="b2" value="#{billingManagedBean.bill}"/>
+                            </p:commandButton>
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:growl id="msg" globalOnly="true" autoUpdate="true" sticky="true"/>
+                </h:form>
+            </h:body>
+        </ui:define>
+
+
+        <ui:define name="foot">
+            foot
+        </ui:define>
+
+    </ui:composition>
+</html>

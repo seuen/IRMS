@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    
+    <ui:define name="contents">
+           <h:form>
+               <p:dataTable var="enquiry" value="#{fBEnquiryManagedBean.unreadEnquiries}" rowKey="#{enquiry.id}"
+                         id="enquiry">
+                
+                <f:facet name="header">
+                    List of all Unread Enquiries
+                </f:facet>
+                
+                <p:column headerText="Id">
+                    #{enquiry.id}
+                </p:column>
+                
+                <p:column headerText="Budget" filterBy="#{enquiry.budget}">
+                #{enquiry.budget}
+                </p:column>
+                
+                <p:column headerText="RoomType" filterBy="#{enquiry.roomtype}">
+                #{enquiry.roomtype}
+                </p:column>
+                
+                <p:column headerText="Capacity" filterBy="#{enquiry.peopleNo}">
+                #{enquiry.peopleNo}
+                </p:column>
+                
+                <p:column headerText="Client Ic" filterBy="#{enquiry.client.ic}">
+                #{enquiry.client.ic}
+                </p:column>
+            
+                <p:column headerText="Enquiry Date">
+                    <h:outputText value="#{enquiry.enquiryDate}">
+                    <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8"/>
+                    </h:outputText>
+                </p:column>
+                
+                <p:column headerText="Date Type" filterBy="#{enquiry.datetype}">
+                #{enquiry.datetype}
+                </p:column>
+                
+                 <p:column headerText="Start Date">
+                     <h:outputText value="#{enquiry.startingDate}">
+                    <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT+8"/>
+                    </h:outputText>
+                </p:column>
+<!--                
+                 <p:column headerText="End Date">
+                     <h:outputText value="#{enquiry.endingDate}">
+                    <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT+8"/>
+                    </h:outputText>
+                </p:column>
+                
+                 <p:column headerText="Event Date">
+                     <h:outputText value="#{enquiry.eventDate}">
+                    <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT+8"/>
+                    </h:outputText>
+                </p:column>
+                
+                <p:column headerText="Timeslot" filterBy="#{enquiry.timeslot}">
+                    #{enquiry.timeslot}
+                </p:column>
+                
+                 <p:column headerText="Start Time">
+                     <h:outputText value="#{enquiry.startTime}">
+                    <f:convertDateTime pattern="mm/HH/dd/MM/yyyy" timeZone="GMT+8"/>
+                    </h:outputText>
+                </p:column>
+                
+                 <p:column headerText="End Time">
+                     <h:outputText value="#{enquiry.endTime}">
+                    <f:convertDateTime pattern="mm/HH/dd/MM/yyyy" timeZone="GMT+8"/>
+                    </h:outputText>
+                </p:column>-->
+        
+
+                <p:column>
+                    <p:commandButton value="View Details" actionListener="#{fBEnquiryManagedBean.navigatorEnquiry(enquiry1)}"/>
+                </p:column>
+                          "
+                
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

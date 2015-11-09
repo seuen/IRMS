@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="contents">
+        <h:form>
+            <p:dataTable id="guests" var="guest" value="#{checkOutManagedBean.guests}">
+                <f:facet name="header">
+                    Guest Info 
+                </f:facet>
+                <p:column headerText="FirstName">
+                    #{guest.firstName}
+                </p:column>
+
+                <p:column headerText="LastName">
+                    #{guest.lastName}
+                </p:column>
+
+                <p:column headerText="NIRC/Passport">
+                    #{guest.ic}
+                </p:column>
+
+            </p:dataTable>
+<br/><br/><br/><br/><br/>
+
+            <p:commandButton value="Back" actionListener="#{checkOutManagedBean.clear}"/>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

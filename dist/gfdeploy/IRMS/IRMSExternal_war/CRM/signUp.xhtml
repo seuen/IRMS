@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Sign Up</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../Templates/subpage1.xhtml">
+            <ui:define name="contents">
+                <h:form id="form">
+                     <p:growl id="growl" autoUpdate="true" showDetail="false" globalOnly="false" />  
+                    <p style=" font-size:  large; font-weight:  bolder">Membership Sign Up</p>
+                    <p:fieldset legend="Basic Personal Info" toggleable="true" toggleSpeed="500">
+                        <table>
+                            <tr>
+                                <td width="100" height="s25">* Title : </td>
+                                <td width="300">
+                                    <p:selectOneMenu value="#{accountManagedBean.member.title}" required="true" >  
+                                        <f:selectItem itemLabel="Select One" itemValue="" />  
+                                        <f:selectItem itemLabel="Mr." itemValue="Mr." />  
+                                        <f:selectItem itemLabel="Miss." itemValue="Miss" />  
+                                        <f:selectItem itemLabel="Mrs." itemValue="Mrs." />  
+                                    </p:selectOneMenu>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="25">* Firt Name :</td>
+                                <td>
+                                    <p:inputText value="#{accountManagedBean.member.firstName}" required="true" requiredMessage="First Name is requiered!"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="25">* Last Name :</td>
+                                <td>
+                                    <p:inputText value="#{accountManagedBean.member.lastName}" required="true" requiredMessage="Last Name is requiered!"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="25">* Email Address :</td>
+                                <td>
+                                    <p:inputText value="#{accountManagedBean.member.emailAddr}" required="true" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="25">* Date of Birth :</td>
+                                <td>
+                                    <p:calendar value="#{accountManagedBean.member.dateOfBirth}"  yearRange="1900:2020" navigator="true" showButtonPanel="true" required="true"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="25">* Phone Number :</td>
+                                <td><p:inputText required="true" value="#{accountManagedBean.member.phoneNum}" /></td>
+                            </tr>
+                            <tr>
+                                <td height="25">* Nationality :</td>
+                                <td><p:inputText required="true" value="#{accountManagedBean.member.nationality}" /></td>
+                            </tr>
+
+                        </table>
+
+                    </p:fieldset>
+                    <p:fieldset legend="Additional Information" toggleable="true" toggleSpeed="500">
+                        <table>
+                            <tr>
+                                <td height="25"> Address Line1 :</td>
+                                <td><p:inputText required="true" value="#{accountManagedBean.address.line1}" /></td>
+                            </tr>
+                            <tr>
+                                <td height="25"> Address Line2 :</td>
+                                <td> <p:inputText required="true" value="#{accountManagedBean.address.line2}" /></td>
+                            </tr>
+                            <tr>
+                                <td height="25"> Post Country :</td>
+                                <td><p:inputText required="true" value="#{accountManagedBean.address.country}" /></td>
+                            </tr>
+                            <tr>
+                                <td height="25"> Postcode :</td>
+                                <td> <p:inputText required="true" value="#{accountManagedBean.address.postCode}"/></td>
+                            </tr>
+                        </table>
+                    </p:fieldset> 
+                    <p align="center"><p:commandButton  value="Submit" update="growl form" onstart="dialog1.show();" oncomplete="dialog1.hide();" ajax="true" type="submit" actionListener="#{accountManagedBean.signUp(action)}"/></p>
+
+                </h:form>
+                    <p:dialog id="dialog1" widgetVar="dialog1" modal="true" appendToBody="true">
+                        Email is being sent to the client, please wait...
+                    </p:dialog>
+                                   
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+        <ui:composition template="../../Templates/InternalAggregateTemplate.xhtml" >
+
+            <ui:define name="contents">
+                <h:form id="form">
+                    <p:growl autoUpdate="true" globalOnly="true"/> 
+
+                    <p:dataTable rowKey="#{reservation.reservationNum}" var="reservation" value="#{reservationManagedBean.listAllReservation()}" 
+                                 paginator="true" rows="12" selection="#{reservationManagedBean.reservation}" selectionMode="single" emptyMessage="No reservation available">
+
+                        <f:facet name="header">
+                            View all reservations
+                        </f:facet>   
+                        <p:column style="width: 7%" filterBy="#{reservation.reservationNum}" > 
+                            <f:facet name="header">       
+                                <h:outputText value="Reservation Number" />                        
+                            </f:facet>
+                            <h:outputText value="#{reservation.reservationNum}" /> 
+                        </p:column>
+
+                        <p:column style="width: 7%" filterBy="#{reservation.roomtype.type}" sortBy="#{reservation.roomtype.type}" > 
+                            <f:facet name="header">       
+                                <h:outputText value="Room Type" />                        
+                            </f:facet>
+                            <h:outputText value="#{reservation.roomtype.type}" /> 
+                        </p:column>
+
+                        <p:column style="width: 7%" sortBy="#{reservation.dateFrom}" > 
+                            <f:facet name="header">       
+                                <h:outputText value="Date From" />  
+                            </f:facet>
+                            <h:outputText value="#{reservation.dateFrom}"> 
+                                <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8" />
+                            </h:outputText>  
+                        </p:column>
+
+                        <p:column style="width: 7%">
+                            <f:facet name="header">       
+                                <h:outputText value="Date To" />                        
+                            </f:facet>
+                            <h:outputText value="#{reservation.dateTo}"> 
+                                <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8" />
+                            </h:outputText> 
+                        </p:column>
+
+                        <p:column style="width: 7%">
+                            <f:facet name="header">       
+                                <h:outputText value="Room Quantity" />                        
+                            </f:facet>
+                            <h:outputText value="#{reservation.roomQuantity}" />
+                        </p:column>
+
+                        <p:column style="width: 7%">
+                            <f:facet name="header">       
+                                <h:outputText value="Guest IC" />                        
+                            </f:facet>
+                            <h:outputText value="#{reservation.guest.ic}" />
+                        </p:column>
+
+                        <p:column style="width: 7%" sortBy="#{reservation.status}">
+                            <f:facet name="header">       
+                                <h:outputText value="Status" />                        
+                            </f:facet>
+                            <h:outputText value="#{reservation.status}" />
+                        </p:column>    
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Delete" actionListener="#{reservationManagedBean.deleteReservation()}"/>
+                        </f:facet>>
+
+                        <f:facet name="footer">
+                            <p:commandButton id="viewButton1" value="View Reservation"
+                                             update=":form:display1" oncomplete="reservationDialog.show()"/>  
+                        </f:facet>
+
+                        <f:facet name="footer">
+                            <p:commandButton id="viewButton2" value="View Guest"
+                                             update=":form:display2" oncomplete="guestDialog.show()"/>  
+                        </f:facet>
+
+
+                    </p:dataTable>             
+
+                    <p:dialog id="dialog1" header="Reservation Detail" widgetVar="reservationDialog" resizable="false"  
+                              width="500" position="center"  >  
+
+                        <h:panelGrid id="display1" columns="3" cellpadding="4">  
+
+                            <h:outputText value="Reservation number:" />  
+                            <h:outputText value="#{reservationManagedBean.reservation.reservationNum}"/>
+                            <br/>
+                            
+                            <h:outputText value="Checkin date:" />  
+                            <h:outputText value="#{reservationManagedBean.reservation.dateFrom}"> 
+                                <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8" />
+                            </h:outputText>
+                            <p:calendar value="#{reservationManagedBean.dateFrom}" label="DateFrom"/>
+                            
+                            <h:outputText value="Checkout date:" />  
+                            <h:outputText value="#{reservationManagedBean.reservation.dateTo}"> 
+                                <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8" />
+                            </h:outputText>
+                            <p:calendar value="#{reservationManagedBean.dateTo}" label="DateTo"/>
+                            
+                            <h:outputText value="Reservation date:" />  
+                            <h:outputText value="#{reservationManagedBean.reservation.reserveDate}">
+                                <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8" />
+                            </h:outputText>
+                            <br/>
+                            
+                            <h:outputText value="Reservation roomType:"/>
+                            <h:outputText value="#{reservationManagedBean.reservation.roomtype.type}"/>
+                            <br/>
+                            
+                            <h:outputText value="Room quantity:" />  
+                            <h:outputText value="#{reservationManagedBean.reservation.roomQuantity}"/>
+                            <h:inputText value="#{reservationManagedBean.roomQuantity}"/>
+                            
+                            <p:commandButton type="submit" ajax="update" value="Update" actionListener="#{reservationManagedBean.updateReservation()}"/>
+                            
+                        </h:panelGrid>  
+                    </p:dialog>  
+
+                    <p:dialog id="dialog2" header="Reservation Detail" widgetVar="guestDialog" resizable="false"  
+                              width="500" position="center" >  
+
+                        <h:panelGrid id="display2" columns="2" cellpadding="4">  
+
+                            <h:outputText value="Guest Name:" />  
+                            <h:outputText value="#{reservationManagedBean.reservation.guest.title}.#{reservationManagedBean.reservation.guest.lastName} #{reservationManagedBean.reservation.guest.firstName}" />
+
+                            <h:outputText value="Guest IC:" />  
+                            <h:outputText value="#{reservationManagedBean.reservation.guest.ic}"/>
+
+                            <h:outputText value="Guest date of birth"/>
+                            <h:outputText value="#{reservationManagedBean.reservation.guest.dob}">
+                                <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8" />
+                            </h:outputText>
+                            
+                            <h:outputText value="Guest Email:" />  
+                            <h:outputText value="#{reservationManagedBean.reservation.guest.emailAddress}"/>
+
+                        </h:panelGrid>  
+                    </p:dialog>  
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

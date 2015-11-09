@@ -1,0 +1,13 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <ui:define name="header">
+        <h:outputLabel value="#{staffManagedBean.curStaff.firstName} #{staffManagedBean.curStaff.lastName}" />
+        <h:outputLabel value="#{staffManagedBean.curStaffPrimaryTitle.workLocation} #{staffManagedBean.curStaffPrimaryTitle.position}" />
+    </ui:define>
+    
+    <ui:define name="contents">
+        <h:graphicImage value="/resources/images/accommondationbg.jpg" style="width: 820px; height: 480px"/>
+    </ui:define>
+
+</ui:composition>

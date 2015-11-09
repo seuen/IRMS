@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <style type="text/css">
+            table.hovertable {
+                font-family: verdana,arial,sans-serif;
+                font-size:11px;
+                color:#333333;
+                border-width: 1px;
+                border-color: #999999;
+                border-collapse: collapse;
+            }
+            table.hovertable th {
+                background-color:#c3dde0;
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                border-color: #a9c6c9;
+            }
+            table.hovertable tr {
+                background-color:#d4e3e5;
+            }
+            table.hovertable td {
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                border-color: #a9c6c9;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../crmTemplates/afterLoginTemplate.xhtml">
+            <ui:define name="contents">
+                
+                <h3>Welcome back to your workspace! </h3>
+                <div>
+                    <table width="900" border="1">
+                        <tr>
+                            <td width="600">      
+                                <h4><p:tabMenu activeIndex="0"  >  
+                                        <p:menuitem value="My Profile" styleClass="STYLE2" url="../AccountManagement/afterLogin.xhtml" icon="ui-icon-star"/>  
+                                        <p:menuitem value="Search Transaction" styleClass="STYLE2" url="../AccountManagement/viewTransactionRecords.xhtml" icon="ui-icon-search" />  
+                                        <p:menuitem value="View Report" styleClass="STYLE2" url="/ui/tabMenuDocumentation.jsf" icon="ui-icon-document"/>  
+                                        <p:menuitem value="Edit Profile" styleClass="STYLE2"  url="../AccountManagement/editProfile.xhtml" icon="ui-icon-wrench"/>  
+                                        <p:menuitem value="Feedback" styleClass="STYLE2" url="../AccountManagement/feedback.xhtml" icon="ui-icon-person" />  
+                                    </p:tabMenu> </h4>
+
+                            </td>
+
+                            <td width="300">
+                                <p:button value="View My Shopping Cart" style="background-color:#4E9DBC"  href="../Payment/shoppingCart.xhtml" icon="ui-icon-cart"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <h:form>
+                    
+
+                        <table width="600">
+                            <tr>
+                                <td width="250" height="30">Your Current Card Value : </td>
+                                <td><h:outputText value="#{buyItemManagedBean.memberAccount.membership.cardValue}" /></td>
+                            </tr>
+                            <tr>
+                                <td>Please select the value package: </td>
+                                <td>
+                                    <p:selectOneMenu value="#{buyItemManagedBean.buyCardValue.topupType}" >  
+                                        <f:selectItem itemLabel="Select One" itemValue="" />  
+                                        <f:selectItem itemLabel="1000" itemValue="1000" />  
+                                        <f:selectItem itemLabel="2000 (2% off)" itemValue="2000" />  
+                                        <f:selectItem itemLabel="3000 (5% off)" itemValue="3000" />  
+                                        <f:selectItem itemLabel="5000 (8% off)" itemValue="5000" />  
+                                        <f:selectItem itemLabel="8000 (10% off)" itemValue="8000" />  
+                                        <f:selectItem itemLabel="1000 (12% off)" itemValue="1000" /> 
+                                    </p:selectOneMenu>  
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>
+                                     <p:growl autoUpdate="true" showDetail="false" globalOnly="true"/> 
+                                     &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <p:commandButton value="Top Up" actionListener="#{buyItemManagedBean.createBuyCardItem(event)}" type="submit"/>
+
+                                </td>
+                            </tr>
+                        </table>
+                    </h:form>
+
+
+
+                </div>
+
+
+
+                <div class="cleaner h40"></div>
+
+                <div class="cleaner"></div>
+
+                <div class="cleaner"></div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

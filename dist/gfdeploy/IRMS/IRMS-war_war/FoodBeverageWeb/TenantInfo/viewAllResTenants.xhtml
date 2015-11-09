@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+
+    <ui:define name="contents">
+        
+        <h1>
+            Welcome to Food and Beverage Tenant Information SubSystem
+        </h1>
+            <p:tabMenu activeIndex="0">
+                <p:menuitem value="Home" url="/FoodBeverageWeb/TenantInfo/viewAllResTenants.xhtml"/>
+                <p:menuitem value="Current Restaurants" url="/FoodBeverageWeb/TenantInfo/viewActiveRes.xhtml"/>
+                <p:menuitem value="History Restaurants" url="/FoodBeverageWeb/TenantInfo/viewHistoryRes.xhtml"/>
+            </p:tabMenu>
+
+        <h:form>
+            <p:ajaxStatus style="width:30px;height: 20px;">
+                <f:facet name="start">     <h:graphicImage value="../design/ajaxloading.gif" />   </f:facet>
+                <f:facet name="complete">  <h:outputText value="" />                              </f:facet>
+            </p:ajaxStatus>  
+
+            <p:panel > 
+                <h:outputText styleClass="STYLE2" value="Here lists all restaurants under food and beverage subsystem. You can view detailed information as well as update contact information of each restaurant."/>
+                <br></br>
+            </p:panel>
+            <p:panel id="panel">
+                <p:growl autoUpdate="true" />
+
+                <p:dataTable id="datatable" var="shop" value="#{resVenueManagedBean.allRes}" paginator="true" emptyMessage="No restaurant yet.">
+                <p:column headerText="ID" sortBy="#{shop.shopId}" filterBy="#{shop.shopId}" filterStyle="width: 30px;" >
+                    <h:outputText value="#{shop.shopId}" />
+                </p:column>
+
+                <p:column headerText="Name"  filterBy="#{shop.shopName}">
+                    <h:outputText value="#{shop.shopName}" />
+                </p:column>
+
+                
+                <p:column headerText="Cuisine" sortBy="#{shop.category}" filterBy="#{shop.category}">
+                    <h:outputText value="#{shop.category}" />
+                </p:column>
+                
+                <p:column headerText="Area" sortBy="#{shop.area}" filterBy="#{shop.area}" >
+                    <h:outputText value="#{shop.area}" />
+                </p:column>
+                
+                <p:column headerText="ContractStatus" sortBy="#{shop.contractStatus}" filterBy="#{shop.contractStatus}" >
+                    <h:outputText value="#{shop.contractStatus}" />
+                </p:column>
+                
+                <p:column id="details" headerText="Details">
+                    <p:commandButton  value="view details" style="float: right" actionListener="#{resVenueManagedBean.navigateShopInfo}">
+                     <f:attribute name="viewShop" value="#{shop}" />
+                    </p:commandButton>                                            
+                </p:column>
+
+                </p:dataTable>
+            </p:panel>
+            <h:panelGrid columns="2">
+                <p:panel header="Export Page Data">
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/images/pdf.png" />  
+                        <p:dataExporter type="pdf" target="datatable" fileName="restaurants" />  
+                    </h:commandLink>
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/images/xml.png" />  
+                        <p:dataExporter type="xml" target="datatable" fileName="restaurants" />  
+                    </h:commandLink>
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/images/csv.png" />  
+                        <p:dataExporter type="csv" target="datatable" fileName="restaurants" />  
+                    </h:commandLink>
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/images/excel.png" />  
+                        <p:dataExporter type="xls" target="datatable" fileName="restaurants" />  
+                    </h:commandLink>
+                </p:panel>
+            </h:panelGrid>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

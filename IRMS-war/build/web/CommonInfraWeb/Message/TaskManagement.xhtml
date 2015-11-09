@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/Templates/InternalAggregateTemplate.xhtml">
+            <ui:define name="contents">
+                <h:form id="form">
+                    <p:messages id="messages" autoUpdate="true" showDetail="false" />
+                    <p:dataTable id="dataTable" var="task" value="#{staffManagedBean.staffTasks}" >
+
+                        <p:column headerText="Task Name">
+                            <h:outputText value="#{task.taskName}" />
+                        </p:column>
+
+                        <p:column headerText="Task Status" filterBy="#{task.status}" filterMatchMode="exact" filterOptions="#{staffManagedBean.staffTaskOptions}" >
+                            <h:outputText value="#{task.status}" />
+                        </p:column>
+
+                        <p:column id ="taskStatus" headerText="Update Status">
+                            <p:selectOneMenu value="#{staffManagedBean.newTaskStatus}" >
+                                <f:selectItems value="#{staffManagedBean.staffTaskStatus}" />
+                            </p:selectOneMenu>
+                            <p:commandButton value="Update" actionListener="#{staffManagedBean.updateTaskStatus(task)}" update="dataTable" />
+                        </p:column>
+
+                        <p:column headerText="Delete Task">
+                            <p:commandButton value="Delete" actionListener="#{staffManagedBean.deleteTask(task)}" update="dataTable" />
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <p:outputLabel value="Create New Task" />
+                    <p:inputText id="input" value="#{staffManagedBean.newTask.taskName}" />
+                    <p:commandButton value="Create" actionListener="#{staffManagedBean.addNewTask()}" update="dataTable input" />
+                </h:form>
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+</html>
+

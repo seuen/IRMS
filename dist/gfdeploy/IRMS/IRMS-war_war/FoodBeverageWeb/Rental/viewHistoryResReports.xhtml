@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+    <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                    template="../../Templates/InternalAggregateTemplate.xhtml"
+                    xmlns:h="http://java.sun.com/jsf/html"
+                    xmlns:p="http://primefaces.org/ui">
+        <ui:define name="contents">
+
+            <h:body>
+                <h:form id="formMain">
+
+                    <p:tabMenu activeIndex="2">
+                        <p:menuitem value="Home" url="/FoodBeverageWeb/Rental/resRentalManagement.xhtml" />
+                        <p:menuitem value="Instant Report" url="/FoodBeverageWeb/Rental/rentalResReports.xhtml" />
+                        <p:menuitem value="History" url="/FoodBeverageWeb/Rental/viewHistoryResReports.xhtml"/>
+                    </p:tabMenu>
+                    <p:panel> 
+                        <h:outputText styleClass="STYLE2" value="Here lists records of all history monthly rental reports of the selected restaurant."/>
+                        <br></br>
+                    </p:panel>
+                    <p:panel>
+                        <p:growl id="growl" showDetail="true" />  
+                        <h:panelGrid id="panelGrid" columns="3" cellpadding="10" style="width: 150%" >  
+                            <h:outputText style="font-weight: bold; font-size: 20px" value="Shop Name: #{resChargesManagedBean.contract.shop.shopName}"/>
+                        </h:panelGrid>
+                        <p:dataTable var="report" value="#{resChargesManagedBean.contract.rentalReports}">
+                            <p:column headerText="ContractID" sortBy="#{report.contract.id}" filterBy="#{report.contract.id}">
+                                <h:outputText value="#{report.contract.id}" />
+                            </p:column>
+                            <p:column headerText="ReportID" sortBy="#{report.name}" filterBy="#{report.name}">
+                                <h:outputText value="#{report.name}" />
+                            </p:column>
+                            <p:column headerText="ReportDate" sortBy="#{report.generationDate}" filterBy="#{report.generationDate}">
+                                <h:outputText value="#{report.generationDate}" >
+                                <f:convertDateTime pattern="EEE yyyy/MMM/dd" timeZone="GMT+8"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Rental" sortBy="#{report.monthlyRental}" filterBy="#{report.monthlyRental}" filterStyle="width: 70px;">
+                                <h:outputText value="#{report.monthlyRental}" />
+                            </p:column>
+                            <p:column headerText="Commission" sortBy="#{report.commissionFee}" filterBy="#{report.commissionFee}" filterStyle="width: 70px;">
+                                <h:outputText value="#{report.commissionFee}" />
+                            </p:column>
+                            <p:column headerText="Adhoc" sortBy="#{report.adhocCharges}" filterBy="#{report.adhocCharges}" filterStyle="width: 70px;">
+                                <h:outputText value="#{report.adhocCharges}" />
+                            </p:column>
+                            <p:column headerText="Deposit" sortBy="#{report.deposit}" filterBy="#{report.deposit}" filterStyle="width: 70px;">
+                                <h:outputText value="#{report.deposit}" />
+                            </p:column>
+                            <p:column headerText="Total" sortBy="#{report.totalCharges}" filterBy="#{report.totalCharges}" filterStyle="width: 70px;">
+                                <h:outputText value="#{report.totalCharges}" />
+                            </p:column>
+                            <p:column headerText="Details" >
+                                <p:commandButton value="View Report" actionListener="#{resChargesManagedBean.navigateHistoryReport}">
+                                    <f:attribute name="reportID" value="#{report.id}"/>
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+            </h:body>
+        </ui:define>
+
+        <ui:define name="foot">
+            foot
+        </ui:define>
+
+    </ui:composition>
+
+</html>

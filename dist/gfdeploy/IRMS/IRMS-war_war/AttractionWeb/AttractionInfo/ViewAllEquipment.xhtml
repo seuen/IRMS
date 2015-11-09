@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+        <ui:composition template="../../Templates/InternalAggregateTemplate.xhtml">
+
+            <ui:define name="contents">
+                <h:form id="form">
+                    <p:growl autoUpdate="true" globalOnly="true"/> 
+
+                    <p:dataTable rowKey="#{equipment.id}" var="equipment" value="#{equipmentManagedBean.initView1()}" 
+                                 paginator="true" rows="10" selection="#{equipmentManagedBean.equipment}" selectionMode="single" emptyMessage="No equipment info found">
+
+                        <f:facet name="header">
+                            View all [ #{equipmentManagedBean.attraction.name} ] Equipments
+                        </f:facet>  
+
+                        <p:column style="width: 7%" headerText="Equip ID"> 
+                            <h:outputText value="#{equipment.id}"/> 
+                        </p:column>
+
+                        <p:column style="width: 7%" headerText="Name"> 
+                            <h:outputText value="#{equipment.name}"/> 
+                        </p:column>
+
+                        <p:column style="width: 7%" headerText="Detail"> 
+                            <h:outputText value="#{equipment.detail}"/> 
+                        </p:column>
+
+                        <p:column style="width: 7%" headerText="Section"> 
+                            <h:outputText value="#{equipment.attraSection.num}"/> 
+                        </p:column>
+                        
+                        <p:column style="width: 20%" headerText="Maintain Date"> 
+                            <h:outputText value="#{equipment.nextDate}">
+                                <f:convertDateTime timeZone="GSM+8" pattern="EEE yyyy/MM/dd"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column style="width: 7%" headerText="Status"> 
+                            <h:outputText value="#{equipment.status}"/> 
+                            &nbsp;
+                            <p:commandButton value="Maintain" actionListener="#{equipmentManagedBean.maintainEquipment(equipment)}"/>
+                            <p:commandButton value="Activate" actionListener="#{equipmentManagedBean.activateEquipment(equipment)}"/>
+                        </p:column>
+                        
+                        <f:facet name="footer">
+                            <p:button value="Back" outcome="ViewAllAttraction.xhtml"/>
+                        </f:facet>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton id="viewButton1" value="Update detail"
+                                             update=":form:display1" oncomplete="equipmentDetailDialog.show()"/>  
+                        </f:facet>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton id="viewButton2" value="Update Maintain Date"
+                                             update=":form:display2" oncomplete="maintainDateDetailDialog.show()"/>  
+                        </f:facet>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton value="Refresh" actionListener="#{equipmentManagedBean.refresh1()}"/>
+                        </f:facet>
+
+                    </p:dataTable>      
+
+
+
+                    <p:dialog id="dialog1" header="Equipment Detail" widgetVar="equipmentDetailDialog" resizable="false"  
+                              width="500" position="center">  
+                        <p:panel id="display1">  
+                            <h:panelGrid columns="2" cellpadding="5" border="1" style=" border-collapse: collapse" >
+                                <h:outputText style="width:50%" value="Name: " />
+                                <h:outputText style="width:50%" value="#{equipmentManagedBean.equipment.name}" /> 
+                                
+                                <h:outputText style="width:50%" value="Detail: " />
+                                <h:inputTextarea style="width:50%" value="#{equipmentManagedBean.detail}" /> 
+                            </h:panelGrid> 
+                            <br/>
+                            <p:commandButton ajax="true" type="submit" value="Update" actionListener="#{equipmentManagedBean.updateEquipmentDetail()}"/>
+
+                        </p:panel>
+                    </p:dialog>
+                    
+                    <p:dialog id="dialog2" header="Equipment Maintainence Date" widgetVar="maintainDateDetailDialog" resizable="false"  
+                              width="500" position="center">  
+                        <p:panel id="display2">  
+                            <h:panelGrid columns="2" cellpadding="5" border="1" style=" border-collapse: collapse" >
+                                <h:outputText style="width:50%" value="Name: " />
+                                <h:outputText style="width:50%" value="#{equipmentManagedBean.equipment.name}" /> 
+                                
+                                <p:outputLabel value="Checkout Date: *" />
+                                <p:calendar value="#{equipmentManagedBean.nextDate}" id="nextDate" label="Next Date"/>
+
+                            </h:panelGrid> 
+                            <br/>
+                            <p:commandButton ajax="true" type="submit" value="Update" actionListener="#{equipmentManagedBean.updateEquipmentDate()}"/>
+
+                        </p:panel>
+                    </p:dialog>
+                    
+                </h:form>    
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

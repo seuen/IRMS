@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Home</title>
+        <style type="text/css">
+            .gritter-notice-wrapper {
+                left:200px;
+                top: 50px; }
+            </style>
+        </h:head>
+        <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                        template="../../Templates/InternalAggregateTemplate.xhtml"
+                        xmlns:h="http://java.sun.com/jsf/html"
+                        xmlns:p="http://primefaces.org/ui">
+            <ui:define name="contents">
+
+                <h:form id="formMain">
+                <h1>
+                    Welcome to Food and Beverage Contract Management SubSystem
+                </h1>
+                <p:tabMenu activeIndex="2">
+                    <p:menuitem value="Home" url="/FoodBeverageWeb/Contract/viewAllResContracts.xhtml"/>
+                    <p:menuitem value="Restaurants" url="/FoodBeverageWeb/Contract/viewRestaurants.xhtml"/>
+                    <p:menuitem value="Inactivated" url="/FoodBeverageWeb/Contract/viewAllResInactiveContracts.xhtml"/>
+                    <p:menuitem value="Activated" url="/FoodBeverageWeb/Contract/viewAllResActiveContracts.xhtml"/>
+                    <p:menuitem value="CreateContract" url="/FoodBeverageWeb/Contract/viewAllResNegotiators.xhtml"/>
+                </p:tabMenu>
+
+                <p:ajaxStatus style="width:30px;height: 20px;">
+                    <f:facet name="start">     <h:graphicImage value="../design/ajaxloading.gif" />   </f:facet>
+                    <f:facet name="complete">  <h:outputText value="" />                              </f:facet>
+                </p:ajaxStatus> 
+                <p:panel> 
+                    <h:outputText styleClass="STYLE2" value="Here lists contracts that are not activated yet. You can still edit the contract (on view), view contract information as well as send the contract to tenants."/>
+                    <br></br>
+                </p:panel>
+                <h:form>
+                    <p:dataTable  var="contract" value="#{resContractManagedBean.inactiveContracts}" paginator="true" emptyMessage="No contracts at all.">
+                        <p:column width="200px" headerText="ContractID" sortBy="#{contract.id}" filterBy="#{contract.id}">
+                            <h:outputText value="#{contract.id}" />
+                        </p:column>
+
+                        <p:column width="300px" headerText="ShopName" sortBy="#{contract.shop.shopName}" filterBy="#{contract.shop.shopName}">
+                            <h:outputText value="#{contract.shop.shopName}" />
+                        </p:column>
+
+                        <p:column  width="300px" headerText="TermFrom" sortBy="#{contract.dateFrom}" filterBy="#{contract.dateFrom}" filterStyle="width: 80px;">
+                            <h:outputText value="#{contract.dateFrom}" >
+                            </h:outputText>
+                        </p:column> 
+
+                        <p:column headerText="TermTo" sortBy="#{contract.dateTo}" filterBy="#{contract.dateTo}" filterStyle="width: 80px;">
+                            <h:outputText value="#{contract.dateTo}" >
+                            </h:outputText>
+                        </p:column> 
+
+                        <p:column headerText="Status" sortBy="#{contract.activated}" filterBy="#{contract.activated}" filterStyle="width: 70px;">
+                            <h:outputText value="#{contract.activated}" />
+                        </p:column>                              
+                        <p:column headerText="Delete">
+                            <p:commandButton  value="Delete" style="float: right" actionListener="#{resContractManagedBean.removeInTable}" ajax="true">
+                                <f:attribute name="contracte" value="#{contract}"/>
+                            </p:commandButton>
+                        </p:column>
+                        <p:column headerText="Details">
+                            <p:commandButton type="submit" ajax="true" value="Details" style="float: right" actionListener="#{resContractManagedBean.navigateContractInfo}">
+                                <f:attribute name="viewContract" value="#{contract}" />
+                            </p:commandButton>
+                        </p:column>
+                        <p:column headerText="Send">
+
+                            <p:commandButton style="float: right" onstart="dialog1.show();" oncomplete="dialog1.hide();" value="Send" ajax="true" type="submit" actionListener="#{resContractManagedBean.sendContract}">
+                                <f:attribute name="c" value="#{contract}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                    <p:dialog id="dialog1" widgetVar="dialog1" modal="true" appendToBody="true">
+                        Email is being sent to the tenant, please wait...
+                    </p:dialog>
+                </h:form>
+                <p:growl id="msg" globalOnly="true" autoUpdate="true"/>
+            </h:form>
+
+        </ui:define>
+
+        <ui:define name="foot">
+            foot
+        </ui:define>
+
+    </ui:composition>
+</html>

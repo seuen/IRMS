@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Member Workspace</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../Templates/subpageFull.xhtml">
+
+            <ui:define name="content1">
+
+                <p style=" font-size: large;color: coral; font-weight: bold" >Congradulations, your payment is successful!</p>
+                <table width="600">
+<!--                    <tr>
+                        <td width="200">Pay by membership card: </td>
+                        <td width="400">$ #{externalPaymentManagedBean.payByCard}</td>
+                    </tr>-->
+                    <tr>
+                        <td>Pay by credit card: </td>
+                        <td>$ #{externalPaymentManagedBean.totalAmount}</td>
+                    </tr>
+                    <tr>
+                        <td>Total Amount: </td>
+                        <td>$ #{externalPaymentManagedBean.payByCard+externalPaymentManagedBean.totalAmount}</td>
+                    </tr>
+                    
+                </table>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

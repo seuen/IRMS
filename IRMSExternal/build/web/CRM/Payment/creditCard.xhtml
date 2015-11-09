@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Member Workspace</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../Templates/subpage2A.xhtml">
+            <ui:define name="content1">
+
+
+            </ui:define>
+
+            <ui:define name="content2">
+                <h:form id="form">
+
+                    <p style=" font-size: large;color: coral; font-weight: bold" >Please enter your credit card info</p>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Amount need to pay</td>
+                                <td>#{externalPaymentManagedBean.totalAmount}</td>
+                            </tr>    
+                            <tr>
+                                <td>Choose type of your credit card</td>
+                                <td>
+                                    <p:selectOneMenu value="#{externalPaymentManagedBean.cardType}" required="true" >  
+                                        <f:selectItem itemLabel="Select One" itemValue="" />  
+                                        <f:selectItem itemLabel="Visa" itemValue="Visa" />  
+                                        <f:selectItem itemLabel="Master Card" itemValue="MasterCard" />  
+                                    </p:selectOneMenu>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Card Holder</td>
+                                <td><h:inputText value="#{externalPaymentManagedBean.lastName}" label="Last Name"/>
+                                    <h:inputText value="#{externalPaymentManagedBean.firstName}" label="First Name"/> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Card Number</td>
+                                <td> <p:inputMask value="#{externalPaymentManagedBean.cardNum}" mask="9999/9999/9999/9999" required="true"/></td>
+                            </tr>
+                            <tr>
+                                <td> CVV2/CVC2(<a href="https://payment.gv.com.sg/Booking/CVC2.htm">What's this?</a>)</td>
+                                <td><p:inputMask value="#{externalPaymentManagedBean.cvv}" mask="999" required="true" /></td>
+                            </tr>
+                            <tr>
+                                <td>Expire Date</td>
+                                <td>                                   
+                                    <p:selectOneMenu style="width: 100px" id="month" label="Expriy Month" value="#{externalPaymentManagedBean.expireDateMM}" >  
+                                        <f:selectItem itemLabel="Month" itemValue="" />  
+                                        <f:selectItem itemLabel="Janaury" itemValue="01" />  
+                                        <f:selectItem itemLabel="February" itemValue="02" />  
+                                        <f:selectItem itemLabel="March" itemValue="03" />  
+                                        <f:selectItem itemLabel="April" itemValue="04" /> 
+                                        <f:selectItem itemLabel="May" itemValue="05" /> 
+                                        <f:selectItem itemLabel="June" itemValue="06" /> 
+                                        <f:selectItem itemLabel="July" itemValue="07" /> 
+                                        <f:selectItem itemLabel="August" itemValue="08" /> 
+                                        <f:selectItem itemLabel="September" itemValue="09" /> 
+                                        <f:selectItem itemLabel="October" itemValue="10" /> 
+                                        <f:selectItem itemLabel="November" itemValue="11" /> 
+                                        <f:selectItem itemLabel="December" itemValue="12" /> 
+                                    </p:selectOneMenu>/
+                                    <p:selectOneMenu style="width: 100px" id="year" label="Expriy Year" value="#{externalPaymentManagedBean.expireDateYYYY}" >  
+                                        <f:selectItem itemLabel="Year" itemValue="" />  
+                                        <f:selectItem itemLabel="2013" itemValue="2013" />  
+                                        <f:selectItem itemLabel="2014" itemValue="2014" />  
+                                        <f:selectItem itemLabel="2015" itemValue="2015" />  
+                                        <f:selectItem itemLabel="2016" itemValue="2016" /> 
+                                        <f:selectItem itemLabel="2018" itemValue="2018" /> 
+                                        <f:selectItem itemLabel="2019" itemValue="2019" /> 
+                                        <f:selectItem itemLabel="2020" itemValue="2020" /> 
+                                        <f:selectItem itemLabel="2021" itemValue="2021" /> 
+                                        <f:selectItem itemLabel="2022" itemValue="2022" /> 
+                                        <f:selectItem itemLabel="2023" itemValue="2023" /> 
+                                        <f:selectItem itemLabel="2024" itemValue="2024" /> 
+                                        <f:selectItem itemLabel="2025" itemValue="2025" /> 
+                                        <f:selectItem itemLabel="2026" itemValue="2026" />  
+                                        <f:selectItem itemLabel="2027" itemValue="2027" />  
+                                        <f:selectItem itemLabel="2028" itemValue="2028" />  
+                                        <f:selectItem itemLabel="2029" itemValue="2029" /> 
+                                        <f:selectItem itemLabel="2030" itemValue="2030" /> 
+                                        <f:selectItem itemLabel="2031" itemValue="2031" /> 
+                                        <f:selectItem itemLabel="2032" itemValue="2032" /> 
+                                        <f:selectItem itemLabel="2033" itemValue="2033" /> 
+                                        <f:selectItem itemLabel="2034" itemValue="2034" /> 
+                                        <f:selectItem itemLabel="2035" itemValue="2035" /> 
+                                        <f:selectItem itemLabel="2036" itemValue="2036" /> 
+                                        <f:selectItem itemLabel="2037" itemValue="2037" /> 
+                                    </p:selectOneMenu>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td><h:inputText value="#{externalPaymentManagedBean.email}"/></td>
+                            </tr>
+<!--                            <tr>
+                                <td></td>
+                                <td><p:commandButton value="Confirm Payment" onclick="confirmation.show()" /> 
+
+                                </td>
+                            </tr>-->
+                        </tbody>
+                    </table>
+                    <p:growl autoUpdate="true" showDetail="false" globalOnly="true"/> 
+                    <p:confirmDialog id="confirmDialog" message="Make the payment?" header="Payment confirmation"
+                                     severity="alert" widgetVar="confirmation">
+                        <p:commandButton id="confirm1" value="Yes, processed" onclick="process();"/>
+                        <p:commandButton id="decline" value="Not Yet" onclick="cancel();" type="button"/> 
+                    </p:confirmDialog>
+
+                    <p:confirmDialog id="confirm2" message="Please be patient while we process your transaction. This might take from a few seconds to a minute. Please do not navigate away from this page to avoid duplicate transactions."
+                                     header="Processing payment" severity="alert" widgetVar="wait" closable="false" height="200" width="500">
+                    </p:confirmDialog>
+                    <p:commandButton value="Confirm Payment" actionListener="#{externalPaymentManagedBean.doPaypalPayment()}"/>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

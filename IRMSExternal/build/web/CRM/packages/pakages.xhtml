@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+      <f:view beforePhase="#{facesViewManagedBean.defaultBeforePhaseListener}">
+    <h:head>
+        <title>Member Workspace</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../Templates/subpageFull.xhtml">
+
+            <ui:define name="content1">
+                <h:form id="form">
+
+                    <p style=" font-size: large;color: coral; font-weight: bold" >Here are hot sales packages for you!</p>
+                    <p:dataGrid var="pkg" value="#{exPackageManagedBean.listPkg}" columns="3" paginator="true"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                                rowsPerPageTemplate="9,12,15"> 
+                        <p:panel id="pkgg" header="Package ID: #{pkg.id}" style=" width: 50; height: 250;text-align: center">
+                            <p:graphicImage width="70" height="60" url="http://172.28.179.192:8080/images/Packages/#{pkg.picName}.#{pkg.imageType}" />
+                            <p align="center">Package Name: #{pkg.packageName}</p>
+                            <p align="center">Price: $ #{pkg.price}</p>
+                            
+                            <p:commandLink update=":form:ddd" oncomplete="pkgDialog.show();" title="View Package Details">
+                                <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
+                                <f:setPropertyActionListener value="#{pkg}" target="#{exPackageManagedBean.selectPkg}" />
+                            </p:commandLink>
+
+                        </p:panel>
+                    </p:dataGrid>
+            
+                    <p:dialog id="ddd" header="Package Details" widgetVar="pkgDialog" modal="true">
+                      
+                    <p:dataTable var="pkgItem" value="#{exPackageManagedBean.selectPkg.packageItems}" id="pkgg">
+                        <p:column headerText="Item Name">#{pkgItem.itemName}</p:column>
+                        <p:column headerText="Item Price">#{pkgItem.price}</p:column>
+                        <p:column headerText="Quantity">#{pkgItem.quantity}</p:column>
+                        <p:column headerText="Department">#{pkgItem.department}</p:column>
+                    </p:dataTable>
+                       
+                    <br />
+                    <p:separator />
+
+                    <p:commandButton id="effectsDialogButton"  oncomplete="pkgDialog.hide();" value="Confirm"/>
+                     
+                    <br />
+                    </p:dialog>
+  </h:form>
+                <br /><br />
+                <p:button value="Back" href="../AccountMgt/afterLogin.xhtml"/>
+              
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+      </f:view>
+</html>
+

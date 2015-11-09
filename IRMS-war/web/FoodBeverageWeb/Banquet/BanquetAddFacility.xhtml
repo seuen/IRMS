@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../../Templates/InternalAggregateTemplate.xhtml">
+
+          
+            <ui:define name="contents">
+                  <h:form>
+               <p:growl autoUpdate="true" globalOnly="true"/>
+              
+             <p:panel id="panel">
+                <p:messages autoUpdate="true" closable="true"/>
+                 
+                 <h:panelGrid columns="2">
+                     <f:facet name="header">
+                         Add Facility Needed
+                     </f:facet>
+                     
+                     <p:outputLabel value="Facility Type: *"/>
+                     <p:selectOneMenu id="facilityType" value="#{banquetManagedBean.facilityneed.type}" required="true" requiredMessage="Facility Type cannot be empty">
+                         <f:selectItem itemLabel="Select One" itemValue=""/>
+                         <f:selectItems value="#{banquetManagedBean.selectfacilityTypenames}"/>
+                         <p:ajax update="price" listener="#{banquetManagedBean.setfacilitneedPrice}"/>
+                     </p:selectOneMenu>
+                     
+                     <p:outputLabel value="Price: "/>
+                     <h:outputText id="price" value="#{banquetManagedBean.facilityneed.price}"/>
+                     
+                     <p:outputLabel value="Quantity: *"/>
+                     <p:inputText value="#{banquetManagedBean.facilityneed.amount}"/>
+                     
+                     <f:facet name="footer">
+                         <p:commandButton value="Add Facility" actionListener="#{banquetManagedBean.addonefacilityneed}"/>
+                         <p:commandButton value="Finish Add Facility" actionListener="#{banquetManagedBean.finishAddFacility}"/>
+
+                     </f:facet>
+                 </h:panelGrid>
+
+             </p:panel>
+                       </h:form>
+
+               <h:form>
+                                <p:commandLink value="skip add facility" actionListener="#{banquetManagedBean.skipaddfacility}"/>
+               </h:form>
+            
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

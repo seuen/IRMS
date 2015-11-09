@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://localhost:8080/ShoppingMallUPOS/ShoppingMallUPOS?wsdl" uri="xml-resources/web-service-references/ShoppingMallUPOS/wsdl/localhost_8080/ShoppingMallUPOS/ShoppingMallUPOS.wsdl"/>
+    <system systemId="http://localhost:8080/ShoppingMallUPOS/ShoppingMallUPOS?xsd=1" uri="xml-resources/web-service-references/ShoppingMallUPOS/wsdl/localhost_8080/ShoppingMallUPOS/ShoppingMallUPOS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/CommonUtilsUPOS/CommonUtilsUPOS?wsdl" uri="wsdl/localhost_8080/CommonUtilsUPOS/CommonUtilsUPOS.wsdl"/>
+    <system systemId="http://localhost:8080/CommonUtilsUPOS/CommonUtilsUPOS?xsd=1" uri="wsdl/localhost_8080/CommonUtilsUPOS/CommonUtilsUPOS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/CommonFunctionsUPOS/CommonFunctionsUPOS?wsdl" uri="wsdl/localhost_8080/CommonFunctionsUPOS/CommonFunctionsUPOS.wsdl"/>
+    <system systemId="http://localhost:8080/CommonFunctionsUPOS/CommonFunctionsUPOS?xsd=1" uri="wsdl/localhost_8080/CommonFunctionsUPOS/CommonFunctionsUPOS.xsd_1.xsd"/>
+</catalog>

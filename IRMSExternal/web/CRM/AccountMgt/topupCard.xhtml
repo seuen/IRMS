@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Member Workspace</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../Templates/subpage2A.xhtml">
+            <ui:define name="content1">
+            <p:graphicImage width="140" height="150" url="http://172.28.179.192:8080/images/CRM/customerPhoto/#{photoUploadManagedBean.member.membership.profilePhoto}.#{photoUploadManagedBean.member.membership.imageType}" />
+                <p></p>
+                <p>Name  : #{accountManagedBean.saveMember.firstName} #{accountManagedBean.saveMember.lastName}</p>
+                <p>Email : #{accountManagedBean.saveMember.emailAddr}</p>
+                <br />
+
+            </ui:define>
+
+            <ui:define name="content2">
+
+                <h:form>
+                <p style=" font-size: large;color: coral; font-weight: bold" >Top Up Membership Card</p>
+                <br /><br />
+                <table width="600">
+                    <tr>
+                        <td width="220" height="30">Your Current Card Value : </td>
+                        <td><h:outputText value="#{shoppingCartManagedBean.memberAccount.membership.cardValue}" /></td>
+                    </tr>
+                    <tr>
+                        <td>Please select the value package: </td>
+                        <td>
+                            <p:selectOneMenu value="#{shoppingCartManagedBean.buyCardValue.topupType}" >  
+                                <f:selectItem itemLabel="Select One" itemValue="" />  
+                                <f:selectItem itemLabel="1000" itemValue="1000" />  
+                                <f:selectItem itemLabel="2000 (2% off)" itemValue="2000" />  
+                                <f:selectItem itemLabel="3000 (5% off)" itemValue="3000" />  
+                                <f:selectItem itemLabel="5000 (8% off)" itemValue="5000" />  
+                                <f:selectItem itemLabel="8000 (10% off)" itemValue="8000" />  
+                                <f:selectItem itemLabel="1000 (12% off)" itemValue="1000" /> 
+                            </p:selectOneMenu>  
+
+                        </td>
+                    </tr>
+                </table>
+                <br />
+                <p:growl autoUpdate="true" showDetail="false" globalOnly="true"/> 
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <p:commandButton style=" font-size: small"  actionListener="#{shoppingCartManagedBean.createBuyCardItem(event)}" value="Top Up" type="submit"/>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

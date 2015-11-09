@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="contents">
+        <h:form id="form">
+                <!--<p:growl id="messages" autoUpdate="true" globalOnly="true"/>-->
+
+                <p:tabMenu activeIndex="0">  
+                    <p:menuitem value="Search Venue Availability" url="/EntertainmentShowWeb/ShowSchedule/SearchShowVenue.xhtml" />  
+                    <p:menuitem value="Add Venue Schdule" url="/EntertainmentShowWeb/ShowSchedule/AddVenueSchedule.xhtml" />
+                    <p:menuitem value="Add ShowInfo" url="/EntertainmentShowWeb/ShowSchedule/AddShowInfo.xhtml" />  
+                </p:tabMenu> 
+
+
+                <h:panelGrid columns="3" cellpadding="9">
+                    <h:outputLabel for="venue" style="font-weight: bold" value="Venue Type: " />
+                    <p:selectOneMenu  required="true"  label="venue"  requiredMessage="Venue is required."  id="venue"  value="#{showInfoManagedBean.venue}">
+                        <f:selectItem  itemLabel="Select One" itemValue="" />
+                        <f:selectItem itemLabel="Theater" itemValue="Theater" />
+                        <f:selectItem itemLabel="Auditorium" itemValue="Auditorium" />              
+                    </p:selectOneMenu>
+                    <p:message for="venue"/>
+
+                    <h:outputLabel for="dateFrom" style="font-weight: bold" value="Starting Date: " />
+                    <p:calendar label="dateFrom" value="#{showInfoManagedBean.dateFrom}" id="dateFrom" required="true" requiredMessage="Starting date is required."/>
+                    <p:message for="dateFrom"/>
+
+                    <h:outputLabel for="dateTo" style="font-weight: bold" value="Ending Date: "/>
+                    <p:calendar label="dateTo" value="#{showInfoManagedBean.dateTo}" id="dateTo" required="true" requiredMessage="Ending date is required."/>
+                    <p:message for="dateTo"/>
+
+                    <h:outputLabel for="timeSlot" style="font-weight: bold" value="Time Slot: " />
+                    <p:selectOneMenu  required="true"  label="timeSlot"  requiredMessage="Time slot is required."  id="timeSlot"  value="#{showInfoManagedBean.timeSlot}">
+                        <f:selectItem  itemLabel="Select One" itemValue="" />
+                        <f:selectItem itemLabel="09:00-13:00" itemValue="slot1" />
+                        <f:selectItem itemLabel="13:00-17:00" itemValue="slot2" />             
+                        <f:selectItem itemLabel="17:00-21:00" itemValue="slot3" />
+                    </p:selectOneMenu>
+                    <p:message for="timeSlot"/>
+
+                    <h:outputLabel for="capacity" style="font-weight: bold" value="Capacity: " />
+                    <p:selectOneMenu  required="true"  label="capacity"  requiredMessage="Capacity is required."  id="capacity"  value="#{showInfoManagedBean.capacity}">
+                        <f:selectItem  itemLabel="Select One" itemValue="" />
+                        <f:selectItem itemLabel="50" itemValue="50"/>
+                        <f:selectItem itemLabel="70" itemValue="70"/>
+                        <f:selectItem itemLabel="100" itemValue="100"/>
+                        <f:selectItem itemLabel="200" itemValue="200"/>
+                    </p:selectOneMenu>
+                    <p:message for="capacity"/>
+
+                </h:panelGrid>
+                <p:commandButton value="Next" actionListener="#{showInfoManagedBean.searchShowVenue()}" />
+      
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <ui:define name="contents">
+        <h1>
+            Welcome to Integrated Client Bill Management SubSystem
+        </h1>
+        <h:body>
+           <h:form id="formMain">
+                <p:tabMenu activeIndex="2">
+                    <p:menuitem value="Home" url="/ConventionExhibitionWeb/ClientBill/allBills.xhtml"/>
+                    <p:menuitem value="View All Unpaid Bills" url="/ConventionExhibitionWeb/ClientBill/allUnpaidBills.xhtml"/>
+                    <p:menuitem value="View By Client" url="/ConventionExhibitionWeb/ClientBill/allClients.xhtml"/>
+                    <p:menuitem value="View All Receipts" url="/ConventionExhibitionWeb/ClientBill/allReceipts.xhtml"/>
+                </p:tabMenu>
+                <p:panel> 
+                    <h:outputText styleClass="STYLE2" value="Here lists all clients integrated billing system of Convention Exhibition Event, Banquet Event, and EntertainmentShow Event. You can export billing information, record bill payment and send bills."/>
+                    <br></br>
+                </p:panel>
+                <p:dataTable id="client" var="client" value="#{clientBillingManagedBean.clients}" emptyMessage="No Client Bills Found.">
+                    <p:column  headerText="Name" sortBy="#{client.lastname}" filterBy="#{client.lastname}" filterStyle="width: 55px;" >
+                        <h:outputText value="#{client.firstname}" /><h:outputText value="#{client.lastname}" />
+                    </p:column>
+
+                    <p:column  headerText="IC" sortBy="#{client.ic}" filterBy="#{client.ic}" filterStyle="width: 55px;" >
+                        <h:outputText value="#{client.ic}" />
+                    </p:column>
+
+                    <p:column  headerText="Email" sortBy="#{client.emailAddr}" filterBy="#{client.emailAddr}" filterStyle="width: 55px;" >
+                        <h:outputText value="#{client.emailAddr}" />
+                    </p:column>
+
+                    <p:column headerText="Phone" sortBy="#{client.phoneNum}" filterBy="#{client.phoneNum}" filterStyle="width: 60px;">
+                        <h:outputText value="#{client.phoneNum}" />
+                    </p:column> 
+                    <p:column headerText="Bills">
+                        <p:commandButton value="Bills" ajax="true" actionListener="#{clientBillingManagedBean.navigateMyBills}">
+                           <f:attribute name="viewClient" value="#{client}"/>
+                        </p:commandButton>
+                    </p:column>  
+                </p:dataTable>
+                <p:growl id="msg" globalOnly="true" autoUpdate="true"/>
+            </h:form>
+        </h:body>
+
+    </ui:define>
+
+    <ui:define name="footer">
+        footer
+    </ui:define>
+
+</ui:composition>
+

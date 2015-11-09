@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Member Segmentation</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../Templates/InternalAggregateTemplate.xhtml">
+
+            <ui:define name="contents">
+                <p:tabMenu activeIndex="2">  
+                    <p:menuitem value="Gender Group" url="memberCharts.xhtml"/>  
+                    <p:menuitem value="Membership Type" url="membershipTypeCharts.xhtml" />  
+                    <p:menuitem value="Age Group" url="ageGroupCharts.xhtml"/>  
+                     
+                </p:tabMenu> 
+                <br></br>
+                <br></br>
+                <h:form>
+                    <table>
+                        <tr>
+                            <td>
+                                <p:pieChart id="customer" value="#{chartsManagedBean.pieModel3}"  legendPosition="w" showDataLabels="true"  
+                                            title="Group By Age" style="width:400px;height:300px" /></td>
+                            <td width="100"></td>
+                            <td>
+                                <p style=" font-size:  medium; color: #F09C11"><strong>Send Targeted Advertisements</strong></p>
+                                <p>
+                                    <p:selectOneMenu value="#{advertiseManagedBean.object}" required="true">
+                                        <f:selectItem itemLabel="Select Age Group" itemValue="" />
+                                        <f:selectItem itemLabel="Below 30" itemValue="age1" />
+                                        <f:selectItem itemLabel="30 to 40" itemValue="age2" />    
+                                        <f:selectItem itemLabel="40 to 50" itemValue="age3" />
+                                        <f:selectItem itemLabel="50 to 60" itemValue="age4" />
+                                        <f:selectItem itemLabel="Above 60" itemValue="age5" />
+                                    </p:selectOneMenu>
+                                    <br /><br /><br />
+                                    <p:commandButton value="Create Email" id="effectsDialogButton" oncomplete="dlg3.show();" />
+                                    <h:form id="form2">
+                                        <p:dialog id="ddd" header="Targeted Advertising Email" widgetVar="dlg3" showEffect="explode" width="800" height="600">
+                                            <table width="750">
+                                                <tr>
+                                                    <td width="170"><p style=" color:  #036fab"><strong>Email Subject :</strong></p></td>
+                                                    <td><h:inputText value="#{advertiseManagedBean.title}"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="170"><p style=" color:  #036fab"><strong>Email Content :</strong></p></td>
+                                                    <td><p:inputTextarea rows="20" cols="70" counter="counter" maxlength="400"      
+                                                                         counterTemplate="{0} characters remaining." autoResize="false" value="#{advertiseManagedBean.content}"/>
+                                                        <p> <h:outputText id="counter"/></p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td><p:commandButton value="Send" oncomplete="dlg3.hide();" actionListener="#{advertiseManagedBean.sendTargeteAd()}"/></td>
+                                                </tr>
+                                            </table>
+                                        </p:dialog>
+                                    </h:form>
+                                </p>
+                            </td>                           
+                        </tr>
+                    </table>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>
+
+
+

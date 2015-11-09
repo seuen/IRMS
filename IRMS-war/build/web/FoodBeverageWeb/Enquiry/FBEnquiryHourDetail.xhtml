@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+  
+    <ui:define name="contents">
+       <h:form>
+           <p:panel header="Enquiry Detail Info">
+             <h:panelGrid columns="2" cellpadding="7" >
+                   <h:outputText value="Client Info" style="font-weight: bold"/>
+                   <br/>
+                   
+                   <h:outputText value="Client Ic: "/>
+                   <h:outputText value="#{fBEnquiryManagedBean.enquiry.client.ic}"/>
+                   
+                   <h:outputText value="Client Name: "/>
+                   <h:outputText value="#{fBEnquiryManagedBean.enquiry.client.firstname} #{fBEnquiryManagedBean.enquiry.client.lastname}"/>
+                   
+                   <h:outputText value="Client Email: "/>
+                   <h:outputText value="#{fBEnquiryManagedBean.enquiry.client.emailAddr}"/>
+                   
+                   <h:outputText value="Client Phone Num: "/>
+                   <h:outputText value="#{fBEnquiryManagedBean.enquiry.client.phoneNum}"/>
+                   
+                   
+                   
+                   <h:outputText value="Enquiry Info" style="font-weight: bold"/>
+                   <br/>
+                   
+                   
+                   <h:outputText value="Enquiry Id: "/>
+                   <h:outputText value="#{fBEnquiryManagedBean.enquiry.id}"/>
+                   
+                   <h:outputText value="RoonType: "/>
+                   <h:outputText value="#{fBEnquiryManagedBean.enquiry.roomtype}"/>
+                   
+                   <h:outputText value="Request Capacity: "/>
+                   <h:outputText value="#{fBEnquiryManagedBean.enquiry.peopleNo}"/>
+                   
+                   <h:outputText value="Request Budget"/>
+                   <h:outputText value="#{fBEnquiryManagedBean.enquiry.budget}"/>
+                   
+                   <h:outputText value="Enquiry Date: "/>
+                   <h:outputText value="#{fBEnquiryManagedBean.enquiry.enquiryDate}">
+                       <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8"/>
+                   </h:outputText>
+                   
+                   <h:outputText value="Start Time "/>
+                   <h:outputText value="#{fBEnquiryManagedBean.enquiry.startTime}">
+                       <f:convertDateTime parent="mm/HH/dd/MM/yyyy" timeZone="GMT+8"/>
+                   </h:outputText>
+                   
+                   <h:outputText value="End Time: "/>
+                   <h:outputText  value="#{fBEnquiryManagedBean.enquiry.endTime}">
+                       <f:convertDateTime pattern="mm/HH/dd/MM/yyyy" timeZone="GMT+8"/>
+                   </h:outputText>
+               </h:panelGrid>
+           </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

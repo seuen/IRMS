@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="contents">
+<!--        <h:form>
+        <p:tabMenu>
+            <p:menuitem value="Check Reservation" url="searchReservation.xhtml"/>
+            <p:menuitem value="Search Room Availability" url="RoomTypeSearch.xhtml"/>
+            <p:menuitem value="Block Room List" url="AddGuestBlock.xhtml"/>
+            <p:menuitem value="Display Stay" url="DisplaytodayStay.xhtml"/>
+        </p:tabMenu>
+        </h:form>-->
+        <h:form id="form">
+            <p:growl autoUpdate="true" globalOnly="true"/>
+
+            <h3>Choose CheckOut Date</h3>
+            <p:calendar value="#{checkOutManagedBean.checkout}" id="checkoutDate" showOn="button"/>
+            <p:commandButton value="Submit"  update=":form:stayList"/>
+            <br/><br/><br/><br/>
+
+            <p:dataTable var="stay" value="#{checkOutManagedBean.stays}" id="stayList">
+                <f:facet name="header">
+                    List of Stays to Check Out Today
+                </f:facet>
+                <p:column headerText="Starting Date">
+                    <h:outputText value="#{stay.dateFrom}">
+                        <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Leaving Date">
+                    <h:outputText value="#{stay.dateTo}">
+                        <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8"/>
+                    </h:outputText>
+                </p:column>
+                
+                <p:column headerText="Room Type">
+                    #{stay.room.roomtype.type}
+                </p:column>
+
+                <p:column headerText="Room Num" filterBy="#{stay.room.roomNum}">
+                    <h:outputText value="#{stay.room.roomNum}"/>
+                </p:column>
+
+                <p:column headerText="Room Status">
+                    <h:outputText value="#{stay.room.status}"/>
+                </p:column>
+
+                <p:column headerText="Charges">
+                    <h:outputText value="#{stay.totalCharges}"/>
+                </p:column>
+                
+                <p:column headerText="Stay Status">
+                    #{stay.status}
+                </p:column>
+
+                <p:column>
+                    <p:commandButton value="View Guests" update="stayList" actionListener="#{checkOutManagedBean.ViewGuest(stay)}"/>
+                </p:column>
+
+                <p:column>
+                    <p:commandButton value="Pay charges" update="stayList" actionListener="#{checkOutManagedBean.payCharges(stay)}"/>
+                </p:column>
+
+                <p:column>
+                    <p:commandButton value="Check Out" update="stayList" actionListener="#{checkOutManagedBean.CheckOut(stay)}"/>
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../Templates/ConventionExhibitionTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="contents">
+        <h:form>
+            <p:growl id="messages" autoUpdate="true" globalOnly="true"/>
+            <p:messages autoUpdate="true" closable="true" />
+            <p:panel id="panel">
+
+                <f:facet name="header">
+                    Event Details
+                </f:facet>
+                <h:panelGrid columns="3">
+                    <p:outputLabel value="Venue type: *" style="font-weight: bold"/>
+                    <p:selectOneMenu id="venuetype" value="#{enquiryManagedBean.enquiry.roomtype}" required="true" requiredMessage="Venue type cannot be empty">
+                        <f:selectItem itemLabel="Exhibition Hall" itemValue="Exhibition Hall"/>
+                        <f:selectItem itemLabel="Convention Hall" itemValue="Convention Hall"/>
+                        <f:selectItem itemLabel="Auditorium" itemValue="Auditorium"/>
+                        <f:selectItem itemLabel="Seminar Room" itemValue="Seminar Room"/>
+                        <f:selectItem itemLabel="Meeting Room" itemValue="Meeting Room"/>
+                        <f:selectItem itemLabel="Open Space" itemValue="Open Space"/>
+                    </p:selectOneMenu>
+                    <br/>
+
+                    <p:outputLabel value="Capacity: *" style="font-weight: bold"/>
+                    <p:selectOneMenu id="capacity" value="#{enquiryManagedBean.enquiry.peopleNo}" required="true" requiredMessage="Capacity cannot be empty">
+                        <f:selectItem itemLabel="10" itemValue="10"/>
+                        <f:selectItem itemLabel="20" itemValue="20"/>
+                        <f:selectItem itemLabel="30" itemValue="30"/>
+                        <f:selectItem itemLabel="50" itemValue="50"/>
+                        <f:selectItem itemLabel="70" itemValue="70"/>
+                        <f:selectItem itemLabel="100" itemValue="100"/>
+                        <f:selectItem itemLabel="200" itemValue="200"/>
+                        <f:selectItem itemLabel="500" itemValue="500"/>
+                    </p:selectOneMenu>
+                    <br/>
+
+                    <p:outputLabel value="Estimate Budget: " style="font-weight: bold"/>
+                    <p:inputText id="estimatebuidget" value="#{enquiryManagedBean.enquiry.budget}"/>
+                    <br/>
+                    
+                     <h:outputLabel value="Special Request: " style="font-weight: bold"/>
+                    <p:inputTextarea value="#{enquiryManagedBean.enquiry.specialrequest}"/>
+                    <br/>
+                </h:panelGrid>
+
+                <p:selectOneRadio id="datetype" value="#{enquiryManagedBean.enquiry.datetype}" layout="custom" required="true" requiredMessage="Date type cannot be empty">
+                    <f:selectItem itemLabel="By Day" itemValue="day"/>
+                    <f:selectItem itemLabel="By Half Day" itemValue="halfday"/>
+                    <f:selectItem itemLabel="By Hour" itemValue="hour"/>
+                </p:selectOneRadio>
+                <p:message for="datetype"/>
+
+                <p:outputLabel value="Date: * " style="font-weight: bold"/>
+
+                <h:panelGrid columns="3">
+                    <p:radioButton id="day" for="datetype" itemIndex="0"/>
+                    <h:outputLabel for="day" value="By Day" style="font-weight: bold"/>
+                    <br/>
+                    <h:outputLabel value="StartingDate: * "/>
+                    <p:calendar value="#{enquiryManagedBean.enquiry.startingDate}" id="startingDate" showOn="button"/>
+                    <br/>
+                    <h:outputLabel value="EndingDate: * "/>
+                    <p:calendar value="#{enquiryManagedBean.enquiry.endingDate}" id="endingDate" showOn="button"/>
+                    <br/>
+
+                    <p:radioButton id="halfday" for="datetype" itemIndex="1"/>
+                    <h:outputLabel for="halfday" value="By Half Day" style="font-weight: bold"/>
+                    <br/>
+                    <h:outputLabel value="Date: *"/>
+                    <p:calendar value="#{enquiryManagedBean.enquiry.eventDate}" id="Date" showOn="button"/>
+                    <br/>
+                    <h:outputLabel value="Period: *"/>
+                    <p:selectOneMenu id="period" value="#{enquiryManagedBean.enquiry.timeslot}">
+                        <f:selectItem itemLabel="morning" itemValue="morning"/>
+                        <f:selectItem itemLabel="afternoon" itemValue="afternoon"/>
+                    </p:selectOneMenu>
+                    <br/>
+
+                    <p:radioButton id="hour" for="datetype" itemIndex="2"/>
+                    <p:outputLabel for="hour" value="By Hour" style="font-weight: bold"/>
+                    <br/>
+                    <h:outputLabel value="Date: *"/>
+                    <p:calendar value="#{enquiryManagedBean.enquiry.eventDate}" id="date" showOn="button"/>
+                    <br/>
+                    <h:outputLabel value="Starting Time: * "/>
+                    <p:calendar value="#{enquiryManagedBean.enquiry.startTime}" pattern="HH:mm" stepMinute="30" minHour="9" maxHour="21" timeOnly="true"/>
+                    <br/>
+                    <h:outputLabel value="Ending Time: * "/>
+                    <p:calendar value="#{enquiryManagedBean.enquiry.endTime}" pattern="HH:mm" stepMinute="30" minHour="9" maxHour="21" timeOnly="true"/>
+                    <br/>
+                
+                   
+                    <f:facet name="footer">
+                        <p:commandButton type="submit" value="Continue" actionListener="#{enquiryManagedBean.checkproposal}"/>
+                    </f:facet>
+                </h:panelGrid>
+
+            </p:panel>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

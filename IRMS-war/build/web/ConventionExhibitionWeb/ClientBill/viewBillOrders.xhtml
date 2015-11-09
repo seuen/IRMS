@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="contents">
+        <h1>
+            Welcome to Integrated Client Bill Management SubSystem
+        </h1>
+        <h:body>
+            <h:form id="formMain">
+                <p:tabMenu activeIndex="4">
+                    <p:menuitem value="Home" url="/ConventionExhibitionWeb/ClientBill/allBills.xhtml"/>
+                    <p:menuitem value="View All Unpaid Bills" url="/ConventionExhibitionWeb/ClientBill/allUnpaidBills.xhtml"/>
+                    <p:menuitem value="View By Client" url="/ConventionExhibitionWeb/ClientBill/allClients.xhtml"/>
+                    <p:menuitem value="View All Receipts" url="/ConventionExhibitionWeb/ClientBill/allReceipts.xhtml"/>
+                    <p:menuitem value="ViewingBill" url="/ConventionExhibitionWeb/ClientBill/viewBillOrders.xhtml"/>
+                </p:tabMenu>
+                <p:panel> 
+                    <h:outputText styleClass="STYLE2" value="Here lists orders in client bill in the integrated billing system of Convention Exhibition Event, Banquet Event, and EntertainmentShow Event. You can view detailed order information and record bill payment."/>
+                    <br></br>
+                </p:panel>
+                <p:dataTable id="order" var="order" value="#{clientBillingManagedBean.billOrders}" emptyMessage="No Bill Orders Found.">
+                    <p:column  headerText="OrderID" sortBy="#{order.id}" filterBy="#{order.id}" filterStyle="width: 55px;" >
+                        <h:outputText value="#{order.id}" />
+                    </p:column>
+
+                    <p:column  headerText="Type" sortBy="#{order.type}" filterBy="#{order.type}" filterStyle="width: 55px;" >
+                        <h:outputText value="#{order.type}" />
+                    </p:column>
+
+                    <p:column  headerText="Description" sortBy="#{order.description}" filterBy="#{order.description}" filterStyle="width: 55px;" >
+                        <h:outputText value="#{order.description}" />
+                    </p:column>
+
+                    <p:column headerText="TotalPrice"  filterBy="#{order.totalprice}">
+                        <h:outputText value="#{order.totalprice}" />
+                    </p:column> 
+
+                    <p:column headerText="OutstandingCharges" filterBy="#{order.totalcharge}" filterStyle="width: 80px;">
+                        <h:outputText value="#{order.totalcharge}">
+                        </h:outputText>          
+                    </p:column>       
+
+                    <p:column headerText="Details">
+                        <p:commandButton value="View" ajax="true" actionListener="#{clientBillingManagedBean.navigateOrderDetails}">
+                            <f:attribute name="viewOrder" value="#{order}"/>
+                        </p:commandButton>
+                    </p:column>  
+                </p:dataTable>
+                <h:panelGrid columns="2">
+                    <p:panel header="Total Bill Price">
+                        <h:outputText value="#{clientBillingManagedBean.viewBill.totalprice}"/>
+                    </p:panel>
+                    <p:panel header="Bill Outstanding Charge">
+                        <h:outputText value="#{clientBillingManagedBean.viewBill.totalcharges}"/>
+                    </p:panel>
+                    <p:panel header="Record Bill Payment">
+                        <p:commandButton value="Pay" actionListener="#{clientBillingManagedBean.recordCheckoutPayment}">
+                        </p:commandButton>
+                    </p:panel> 
+                    <p:panel header="Send Receipt">
+                        <p:commandButton value="Send" update="order" onstart="dialog1.show();" oncomplete="dialog1.hide();" ajax="true" type="submit" actionListener="#{clientBillingManagedBean.sendReceipt}">
+                            <f:attribute name="sendReceipt" value="#{clientBillingManagedBean.viewBill.receipt}"/>
+                        </p:commandButton>
+                    </p:panel>
+                </h:panelGrid>
+                <p:growl id="msg" globalOnly="true" autoUpdate="true"/>
+                <p:dialog id="dialog1" widgetVar="dialog1" modal="true" appendToBody="true">
+                    Email is being sent to the client, please wait...
+                </p:dialog>
+            </h:form>
+        </h:body>
+
+    </ui:define>
+
+    <ui:define name="footer">
+        footer
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="../../resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <link href="../resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <title>Member Management</title>
+        <style type="text/css">
+            <!--
+            .STYLE5 {
+                font-family: Geneva, Arial, Helvetica, sans-serif;
+                color: #0066FF;
+                font-weight: bold;
+                font-size: medium;
+            }
+            -->
+        </style>
+    </h:head>
+
+    <h:body>
+        <p:layout fullPage="true">
+            <p:layoutUnit position ="north" size="100" header="Member Management">
+                <br></br>
+                <h3>Customer Relationship Management</h3> 
+            </p:layoutUnit>
+
+            <p:layoutUnit position="west" size="180"  header="Main Menu">
+                <ui:insert name="leftpanel">
+                    <h:form>
+                        <p:menu>
+                            <p:menuitem value="Search Member"  url="/CRM/MemberAccountMgt/memberList.xhtml"/>                        
+                            <p:menuitem value="Customer Segmentation" url="/CRM/MemberCharts/memberCharts.xhtml"/>                        
+                            <p:menuitem value="Add Package" url="/CRM/PackageMgt/packageType.xhtml"/>                        
+                            <p:menuitem value="Package Management" url="/CRM/PackageMgt/listPackage.xhtml"/>                        
+                            <p:menuitem value="Feedback Management" url="/CRM/FeedbackMgt/feedbackList.xhtml"/>
+                        </p:menu>
+
+
+                    </h:form>
+
+                </ui:insert>
+
+            </p:layoutUnit>
+
+
+            <p:layoutUnit position="center">
+                <ui:insert name="contents">
+                    display your contents here
+                </ui:insert>
+
+            </p:layoutUnit>
+
+            <p:layoutUnit position="south" size="100">
+                <ui:insert name="footer">
+                    <ui:include src="IntranetFooter.xhtml" />
+                </ui:insert>
+            </p:layoutUnit>
+
+        </p:layout>
+
+    </h:body>
+</html>
+

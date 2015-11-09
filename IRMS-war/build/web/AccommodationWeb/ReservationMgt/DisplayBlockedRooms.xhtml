@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="contents">
+        <h:form>
+            <p:panel id="panel" header="Rooms are successfully blocked">
+                <p:dataTable var="stays" value="#{roomManagedBean.stays}">
+                    <f:facet name="header">
+                        Blocked Room Info
+                    </f:facet>
+                    
+                    <p:column headerText="StartingDate">
+                        #{stays.dateFrom}
+                    </p:column>
+                    
+                    <p:column headerText="LeavingDate">
+                        #{stays.dateTo}
+                    </p:column>
+                    
+                    <p:column headerText="RoomType">
+                        #{stays.room.roomtype.type}
+                    </p:column>
+                    
+                    <p:column headerText="RoomNum">
+                        #{stays.room.roomNum}
+                    </p:column>
+                    
+                    <p:column headerText="totalPrice">
+                        #{stays.totalPrice}
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

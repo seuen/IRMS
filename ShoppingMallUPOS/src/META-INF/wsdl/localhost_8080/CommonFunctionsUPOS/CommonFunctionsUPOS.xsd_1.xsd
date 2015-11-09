@@ -1,0 +1,745 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is Metro/2.2.0-1 (tags/2.2.0u1-7139; 2012-06-02T10:55:19+0000) JAXWS-RI/2.2.6-2 JAXWS/2.2 svn-revision#unknown. --><xs:schema xmlns:tns="http://common.soap/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://common.soap/">
+
+<xs:element name="addRestaurantTable" type="tns:addRestaurantTable"/>
+
+<xs:element name="addRestaurantTableResponse" type="tns:addRestaurantTableResponse"/>
+
+<xs:element name="addShoppingMallItem" type="tns:addShoppingMallItem"/>
+
+<xs:element name="addShoppingMallItemResponse" type="tns:addShoppingMallItemResponse"/>
+
+<xs:element name="createDetailOrder" type="tns:createDetailOrder"/>
+
+<xs:element name="createDetailOrderResponse" type="tns:createDetailOrderResponse"/>
+
+<xs:element name="createShopOrder" type="tns:createShopOrder"/>
+
+<xs:element name="createShopOrderResponse" type="tns:createShopOrderResponse"/>
+
+<xs:element name="deleteShopItemByItemId" type="tns:deleteShopItemByItemId"/>
+
+<xs:element name="deleteShopItemByItemIdResponse" type="tns:deleteShopItemByItemIdResponse"/>
+
+<xs:element name="getMemberAccountByNFCCardNum" type="tns:getMemberAccountByNFCCardNum"/>
+
+<xs:element name="getMemberAccountByNFCCardNumResponse" type="tns:getMemberAccountByNFCCardNumResponse"/>
+
+<xs:element name="getShopById" type="tns:getShopById"/>
+
+<xs:element name="getShopByIdResponse" type="tns:getShopByIdResponse"/>
+
+<xs:element name="getShopItemByBarcode" type="tns:getShopItemByBarcode"/>
+
+<xs:element name="getShopItemByBarcodeResponse" type="tns:getShopItemByBarcodeResponse"/>
+
+<xs:element name="getShopItemByItemId" type="tns:getShopItemByItemId"/>
+
+<xs:element name="getShopItemByItemIdResponse" type="tns:getShopItemByItemIdResponse"/>
+
+<xs:element name="getShoppingMallItemsByShopId" type="tns:getShoppingMallItemsByShopId"/>
+
+<xs:element name="getShoppingMallItemsByShopIdResponse" type="tns:getShoppingMallItemsByShopIdResponse"/>
+
+<xs:element name="getTablesByRestaurantId" type="tns:getTablesByRestaurantId"/>
+
+<xs:element name="getTablesByRestaurantIdResponse" type="tns:getTablesByRestaurantIdResponse"/>
+
+<xs:complexType name="getShopItemByItemId">
+<xs:sequence>
+<xs:element name="itemId" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getShopItemByItemIdResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:shopItem" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="shopItem">
+<xs:sequence>
+<xs:element name="barcode" type="xs:long" minOccurs="0"/>
+<xs:element name="category" type="xs:string" minOccurs="0"/>
+<xs:element name="description" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="price" type="xs:float"/>
+<xs:element name="quantity" type="xs:int"/>
+<xs:element name="shop" type="tns:shop" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="shop">
+<xs:sequence>
+<xs:element name="adhocEvents" type="tns:adhocEvent" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="area" type="xs:int"/>
+<xs:element name="category" type="xs:string" minOccurs="0"/>
+<xs:element name="contractStatus" type="xs:string" minOccurs="0"/>
+<xs:element name="contracts" type="tns:contract" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="currentVenues" type="tns:tenantVenue" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="email" type="xs:string" minOccurs="0"/>
+<xs:element name="historyVenues" type="tns:tenantVenue" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="shopId" type="xs:long" minOccurs="0"/>
+<xs:element name="shopName" type="xs:string" minOccurs="0"/>
+<xs:element name="shopOwnerName" type="xs:string" minOccurs="0"/>
+<xs:element name="shopType" type="xs:string" minOccurs="0"/>
+<xs:element name="shoppingItems" type="tns:shopItem" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="status" type="xs:string" minOccurs="0"/>
+<xs:element name="telNum" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="adhocEvent">
+<xs:sequence>
+<xs:element name="charge" type="xs:float"/>
+<xs:element name="description" type="xs:string" minOccurs="0"/>
+<xs:element name="enterDate" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="eventDate" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="eventType" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="shop" type="tns:shop" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="contract">
+<xs:sequence>
+<xs:element name="activated" type="xs:string" minOccurs="0"/>
+<xs:element name="baselineRental" type="xs:float"/>
+<xs:element name="commissionRate" type="xs:float"/>
+<xs:element name="contractDate" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="dateFrom" type="xs:string" minOccurs="0"/>
+<xs:element name="dateTo" type="xs:string" minOccurs="0"/>
+<xs:element name="deposit" type="xs:float"/>
+<xs:element name="firstMonthRental" type="xs:float"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="lastMonthRental" type="xs:float"/>
+<xs:element name="leaseDateFrom" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="leaseDateTo" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="leaseterm" type="xs:int"/>
+<xs:element name="lessee" type="xs:string" minOccurs="0"/>
+<xs:element name="lessor" type="xs:string" minOccurs="0"/>
+<xs:element name="monthlyRental" type="xs:float"/>
+<xs:element name="renewed" type="xs:string" minOccurs="0"/>
+<xs:element name="rentalReports" type="tns:rentalReports" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="shop" type="tns:shop" minOccurs="0"/>
+<xs:element name="totalRental" type="xs:float"/>
+<xs:element name="venue" type="xs:string" minOccurs="0"/>
+<xs:element name="cDate" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="rentalReports">
+<xs:sequence>
+<xs:element name="adhocCharges" type="xs:float"/>
+<xs:element name="commissionFee" type="xs:float"/>
+<xs:element name="commissionRate" type="xs:float"/>
+<xs:element name="contract" type="tns:contract" minOccurs="0"/>
+<xs:element name="deposit" type="xs:float"/>
+<xs:element name="generationDate" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="monthlyRental" type="xs:float"/>
+<xs:element name="name" type="xs:long" minOccurs="0"/>
+<xs:element name="tenantBill" type="tns:tenantBill" minOccurs="0"/>
+<xs:element name="totalCharges" type="xs:float"/>
+<xs:element name="totalSales" type="xs:float"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tenantBill">
+<xs:sequence>
+<xs:element name="adhocCharges" type="xs:float"/>
+<xs:element name="billDate" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="billDateString" type="xs:string" minOccurs="0"/>
+<xs:element name="commissionCharges" type="xs:float"/>
+<xs:element name="commissionRate" type="xs:float"/>
+<xs:element name="deadLine" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="depost" type="xs:float"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="payer" type="xs:string" minOccurs="0"/>
+<xs:element name="receiver" type="xs:string" minOccurs="0"/>
+<xs:element name="rentalCharges" type="xs:float"/>
+<xs:element name="rentalReports" type="tns:rentalReports" minOccurs="0"/>
+<xs:element name="status" type="xs:string" minOccurs="0"/>
+<xs:element name="tenantReceipt" type="tns:tenantReceipt" minOccurs="0"/>
+<xs:element name="totalCharges" type="xs:float"/>
+<xs:element name="totalSales" type="xs:float"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tenantReceipt">
+<xs:sequence>
+<xs:element name="adhocPayment" type="xs:float"/>
+<xs:element name="commissionPayment" type="xs:float"/>
+<xs:element name="depositPayment" type="xs:float"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="payer" type="xs:string" minOccurs="0"/>
+<xs:element name="receiptDate" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="receiptDateString" type="xs:string" minOccurs="0"/>
+<xs:element name="receiver" type="xs:string" minOccurs="0"/>
+<xs:element name="rentalPayment" type="xs:float"/>
+<xs:element name="tenantBill" type="tns:tenantBill" minOccurs="0"/>
+<xs:element name="totalPayment" type="xs:float"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tenantVenue">
+<xs:sequence>
+<xs:element name="area" type="xs:int"/>
+<xs:element name="building" type="xs:string" minOccurs="0"/>
+<xs:element name="combine" type="tns:combine" minOccurs="0"/>
+<xs:element name="combineStatus" type="xs:string" minOccurs="0"/>
+<xs:element name="counter" type="xs:int"/>
+<xs:element name="floor" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:string" minOccurs="0"/>
+<xs:element name="negoAvailability" type="xs:string" minOccurs="0"/>
+<xs:element name="negotiators" type="tns:negotiator" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="occupiedShopId" type="xs:long" minOccurs="0"/>
+<xs:element name="realID" type="xs:long" minOccurs="0"/>
+<xs:element name="sector" type="xs:string" minOccurs="0"/>
+<xs:element name="shop" type="tns:shop" minOccurs="0"/>
+<xs:element name="shops" type="tns:shop" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="status" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="combine">
+<xs:sequence>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="test" type="xs:int"/>
+<xs:element name="venues" type="tns:tenantVenue" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="negotiator">
+<xs:sequence>
+<xs:element name="email" type="xs:string" minOccurs="0"/>
+<xs:element name="negotiatorName" type="xs:string" minOccurs="0"/>
+<xs:element name="shopCategory" type="xs:string" minOccurs="0"/>
+<xs:element name="shopName" type="xs:string" minOccurs="0"/>
+<xs:element name="shopType" type="xs:string" minOccurs="0"/>
+<xs:element name="telNum" type="xs:string" minOccurs="0"/>
+<xs:element name="venues" type="tns:tenantVenue" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getShopById">
+<xs:sequence>
+<xs:element name="shopId" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getShopByIdResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:shop" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getMemberAccountByNFCCardNum">
+<xs:sequence>
+<xs:element name="nfcCardNum" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getMemberAccountByNFCCardNumResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:membership" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="membership">
+<xs:sequence>
+<xs:element name="cardNum" type="xs:string" minOccurs="0"/>
+<xs:element name="cardValue" type="xs:double"/>
+<xs:element name="dateOfIssue" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="loyaltyPoints" type="xs:int"/>
+<xs:element name="member" type="tns:memberAccount" minOccurs="0"/>
+<xs:element name="memberType" type="xs:string" minOccurs="0"/>
+<xs:element name="password" type="xs:string" minOccurs="0"/>
+<xs:element name="profilePhoto" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="memberAccount">
+<xs:sequence>
+<xs:element name="address" type="tns:address" minOccurs="0"/>
+<xs:element name="buyCardValues" type="tns:buyCardValue" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="buyHotelItems" type="tns:buyHotelItem" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="buyShowTicketItems" type="tns:buyShowTicketItem" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="creditCards" type="tns:creditCard" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="dateOfBirth" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="emailAddr" type="xs:string" minOccurs="0"/>
+<xs:element name="feedbacks" type="tns:feedback" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="firstName" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="lastName" type="xs:string" minOccurs="0"/>
+<xs:element name="memberPayments" type="tns:memberPayment" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="membership" type="tns:membership" minOccurs="0"/>
+<xs:element name="monthlyCustomerReports" type="tns:monthlyCustomerReport" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="nationality" type="xs:string" minOccurs="0"/>
+<xs:element name="phoneNum" type="xs:string" minOccurs="0"/>
+<xs:element name="reservations" type="tns:rtReservation" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="shoppingOrder" type="tns:shopOrder" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="title" type="xs:string" minOccurs="0"/>
+<xs:element name="transactionRecords" type="tns:transactionRecord" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="address">
+<xs:sequence>
+<xs:element name="country" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="line1" type="xs:string" minOccurs="0"/>
+<xs:element name="line2" type="xs:string" minOccurs="0"/>
+<xs:element name="postCode" type="xs:string" minOccurs="0"/>
+<xs:element name="receiver" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buyCardValue">
+<xs:sequence>
+<xs:element name="buyTime" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="cardValue" type="xs:double"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="memberAccount" type="tns:memberAccount" minOccurs="0"/>
+<xs:element name="topupType" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buyHotelItem">
+<xs:sequence>
+<xs:element name="currentTime" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="description" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="itemName" type="xs:string" minOccurs="0"/>
+<xs:element name="member" type="tns:memberAccount" minOccurs="0"/>
+<xs:element name="quantity" type="xs:int"/>
+<xs:element name="unitPrice" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buyShowTicketItem">
+<xs:sequence>
+<xs:element name="buyTime" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="memberAccount" type="tns:memberAccount" minOccurs="0"/>
+<xs:element name="quantity" type="xs:int"/>
+<xs:element name="ticketName" type="xs:string" minOccurs="0"/>
+<xs:element name="unitPrice" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="creditCard">
+<xs:sequence>
+<xs:element name="cardHolder" type="xs:string" minOccurs="0"/>
+<xs:element name="creditCardNum" type="xs:string" minOccurs="0"/>
+<xs:element name="cvv" type="xs:string" minOccurs="0"/>
+<xs:element name="dateMonth" type="xs:string" minOccurs="0"/>
+<xs:element name="dateYear" type="xs:string" minOccurs="0"/>
+<xs:element name="issueBank" type="xs:string" minOccurs="0"/>
+<xs:element name="member" type="tns:memberAccount" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="feedback">
+<xs:sequence>
+<xs:element name="content" type="xs:string" minOccurs="0"/>
+<xs:element name="feedbackTime" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="memberAccount" type="tns:memberAccount" minOccurs="0"/>
+<xs:element name="rating" type="xs:int"/>
+<xs:element name="subject" type="xs:string" minOccurs="0"/>
+<xs:element name="subject2" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="memberPayment">
+<xs:sequence>
+<xs:element name="currentDate" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="memberAccount" type="tns:memberAccount" minOccurs="0"/>
+<xs:element name="payByCreditCard" type="xs:double"/>
+<xs:element name="totalAmount" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="monthlyCustomerReport">
+<xs:sequence>
+<xs:element name="accommodationCost" type="xs:double"/>
+<xs:element name="foodCost" type="xs:double"/>
+<xs:element name="generateDate" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="member" type="tns:memberAccount" minOccurs="0"/>
+<xs:element name="monthlyExpense" type="xs:double"/>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="otherCost" type="xs:double"/>
+<xs:element name="shoppingCost" type="xs:double"/>
+<xs:element name="ticketCost" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="rtReservation">
+<xs:sequence>
+<xs:element name="bundleStatus" type="xs:string" minOccurs="0"/>
+<xs:element name="dateFrom" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="dateTo" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="duration" type="xs:int"/>
+<xs:element name="guest" type="tns:guest" minOccurs="0"/>
+<xs:element name="member" type="tns:memberAccount" minOccurs="0"/>
+<xs:element name="reservationNum" type="xs:long" minOccurs="0"/>
+<xs:element name="reserveDate" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="roomQuantity" type="xs:int"/>
+<xs:element name="roomtype" type="tns:roomType" minOccurs="0"/>
+<xs:element name="status" type="xs:string" minOccurs="0"/>
+<xs:element name="type" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="guest">
+<xs:sequence>
+<xs:element name="contactNum" type="xs:string" minOccurs="0"/>
+<xs:element name="dob" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="emailAddress" type="xs:string" minOccurs="0"/>
+<xs:element name="firstName" type="xs:string" minOccurs="0"/>
+<xs:element name="guestAddress" type="tns:guestAddress" minOccurs="0"/>
+<xs:element name="ic" type="xs:string" minOccurs="0"/>
+<xs:element name="lastName" type="xs:string" minOccurs="0"/>
+<xs:element name="reservations" type="tns:rtReservation" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="resreservations" type="tns:resReservation" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="title" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="guestAddress">
+<xs:sequence>
+<xs:element name="address" type="xs:string" minOccurs="0"/>
+<xs:element name="city" type="xs:string" minOccurs="0"/>
+<xs:element name="country" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="zip" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="resReservation">
+<xs:sequence>
+<xs:element name="amount" type="xs:int"/>
+<xs:element name="curDate" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="guest" type="tns:guest" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="resDate" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="tabletype" type="tns:tableType" minOccurs="0"/>
+<xs:element name="timeslot" type="tns:timeslot" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tableType">
+<xs:sequence>
+<xs:element name="availabletables" type="tns:availableTable" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="capacity" type="xs:int"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="reservations" type="tns:resReservation" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="reserveNum" type="xs:int"/>
+<xs:element name="restaurant" type="tns:restaurant" minOccurs="0"/>
+<xs:element name="type" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="availableTable">
+<xs:sequence>
+<xs:element name="availableNum" type="xs:int"/>
+<xs:element name="countDate" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="tabletype" type="tns:tableType" minOccurs="0"/>
+<xs:element name="timeslot" type="tns:timeslot" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="timeslot">
+<xs:sequence>
+<xs:element name="endTime" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="startTime" type="xs:dateTime" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="restaurant">
+<xs:complexContent>
+<xs:extension base="tns:shop">
+<xs:sequence>
+<xs:element name="priceLevel" type="xs:string" minOccurs="0"/>
+<xs:element name="resDescription" type="xs:string" minOccurs="0"/>
+<xs:element name="tabletypes" type="tns:tableType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="timeOfClosing" type="xs:string" minOccurs="0"/>
+<xs:element name="timeOfOpening" type="xs:string" minOccurs="0"/>
+<xs:element name="totalSeats" type="xs:int"/>
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="roomType">
+<xs:sequence>
+<xs:element name="bedNum" type="xs:int"/>
+<xs:element name="detail" type="xs:string" minOccurs="0"/>
+<xs:element name="hotel" type="tns:hotel" minOccurs="0"/>
+<xs:element name="maxGuest" type="xs:int"/>
+<xs:element name="ORatio" type="xs:float"/>
+<xs:element name="pictures" type="tns:picture" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="price_h" type="xs:float"/>
+<xs:element name="price_l" type="xs:float"/>
+<xs:element name="reservationStates" type="tns:reservationState" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="reservations" type="tns:rtReservation" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="rooms" type="tns:room" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="roomtypeId" type="xs:long" minOccurs="0"/>
+<xs:element name="totalNum" type="xs:int"/>
+<xs:element name="type" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="hotel">
+<xs:sequence>
+<xs:element name="address" type="xs:string" minOccurs="0"/>
+<xs:element name="description" type="xs:string" minOccurs="0"/>
+<xs:element name="foodMaterials" type="tns:hotelFoodMaterial" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="items" type="tns:item" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="pictures" type="tns:picture" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="roomTypes" type="tns:roomType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="hotelFoodMaterial">
+<xs:sequence>
+<xs:element name="amount" type="xs:float"/>
+<xs:element name="hotel" type="tns:hotel" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="status" type="xs:string" minOccurs="0"/>
+<xs:element name="type" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="item">
+<xs:sequence>
+<xs:element name="hotel" type="tns:hotel" minOccurs="0"/>
+<xs:element name="itemOrders" type="tns:itemOrder" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="price" type="xs:float" minOccurs="0"/>
+<xs:element name="type" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="itemOrder">
+<xs:sequence>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="item" type="tns:item" minOccurs="0"/>
+<xs:element name="quantity" type="xs:int"/>
+<xs:element name="rsorder" type="tns:rsOrder" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="rsOrder">
+<xs:sequence>
+<xs:element name="dateo" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="itemOrders" type="tns:itemOrder" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="orderNum" type="xs:long" minOccurs="0"/>
+<xs:element name="payStatus" type="xs:string" minOccurs="0"/>
+<xs:element name="stay" type="tns:stay" minOccurs="0"/>
+<xs:element name="totalPrice" type="xs:float" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="stay">
+<xs:sequence>
+<xs:element name="dateFrom" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="dateTo" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="guests" type="tns:guest" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="numGuest" type="xs:int" minOccurs="0"/>
+<xs:element name="room" type="tns:room" minOccurs="0"/>
+<xs:element name="rsOrders" type="tns:rsOrder" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="status" type="xs:boolean"/>
+<xs:element name="stayId" type="xs:long" minOccurs="0"/>
+<xs:element name="totalCharges" type="xs:float"/>
+<xs:element name="totalPrice" type="xs:float" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="room">
+<xs:sequence>
+<xs:element name="floor" type="xs:int"/>
+<xs:element name="HK_status" type="xs:boolean"/>
+<xs:element name="roomId" type="xs:long" minOccurs="0"/>
+<xs:element name="roomNum" type="xs:string" minOccurs="0"/>
+<xs:element name="roomtype" type="tns:roomType" minOccurs="0"/>
+<xs:element name="status" type="xs:string" minOccurs="0"/>
+<xs:element name="stay_status" type="xs:string" minOccurs="0"/>
+<xs:element name="stays" type="tns:stay" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="picture">
+<xs:sequence>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="reservationState">
+<xs:sequence>
+<xs:element name="availableNum" type="xs:int"/>
+<xs:element name="booknum" type="xs:int"/>
+<xs:element name="confirmbook" type="xs:int"/>
+<xs:element name="rdate" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="reservationStateId" type="xs:long" minOccurs="0"/>
+<xs:element name="roomtype" type="tns:roomType" minOccurs="0"/>
+<xs:element name="spareNum" type="xs:int"/>
+<xs:element name="todayconfirm" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="shopOrder">
+<xs:sequence>
+<xs:element name="detailShoppintOrder" type="tns:detailShopOrder" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="discountAmount" type="xs:float"/>
+<xs:element name="grossTotalAmount" type="xs:float"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="loyaltyPoint" type="xs:int"/>
+<xs:element name="memberAccount" type="tns:memberAccount" minOccurs="0"/>
+<xs:element name="netTotalAmount" type="xs:float"/>
+<xs:element name="purchaseDate" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="status" type="xs:string" minOccurs="0"/>
+<xs:element name="taxAmount" type="xs:float"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="detailShopOrder">
+<xs:sequence>
+<xs:element name="barcode" type="xs:long" minOccurs="0"/>
+<xs:element name="category" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="itemId" type="xs:long" minOccurs="0"/>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="purchaseDate" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="quantity" type="xs:int"/>
+<xs:element name="shopId" type="xs:long" minOccurs="0"/>
+<xs:element name="shopName" type="xs:string" minOccurs="0"/>
+<xs:element name="shoppingOrder" type="tns:shopOrder" minOccurs="0"/>
+<xs:element name="totalPrice" type="xs:float"/>
+<xs:element name="unitPrice" type="xs:float"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="transactionRecord">
+<xs:sequence>
+<xs:element name="fromWhere" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="itemName" type="xs:string" minOccurs="0"/>
+<xs:element name="member" type="tns:memberAccount" minOccurs="0"/>
+<xs:element name="payByCreditCard" type="xs:double"/>
+<xs:element name="quantity" type="xs:int"/>
+<xs:element name="totalPrice" type="xs:double"/>
+<xs:element name="transactionTime" type="xs:dateTime" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addRestaurantTable">
+<xs:sequence>
+<xs:element name="restId" type="xs:string" minOccurs="0"/>
+<xs:element name="newTable" type="tns:tableType" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addRestaurantTableResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getShopItemByBarcode">
+<xs:sequence>
+<xs:element name="shopId" type="xs:string" minOccurs="0"/>
+<xs:element name="barcode" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getShopItemByBarcodeResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:shopItem" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="deleteShopItemByItemId">
+<xs:sequence>
+<xs:element name="itemId" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="deleteShopItemByItemIdResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:shopItem" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getShoppingMallItemsByShopId">
+<xs:sequence>
+<xs:element name="shopId" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getShoppingMallItemsByShopIdResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:shopItem" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="createDetailOrder">
+<xs:sequence>
+<xs:element name="shopItem" type="tns:shopItem" minOccurs="0"/>
+<xs:element name="quantity" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="createDetailOrderResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:detailShopOrder" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="createShopOrder">
+<xs:sequence>
+<xs:element name="shopOrder" type="tns:shopOrder" minOccurs="0"/>
+<xs:element name="detailOrders" type="tns:detailShopOrder" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="memberId" type="xs:long" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="createShopOrderResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addShoppingMallItem">
+<xs:sequence>
+<xs:element name="curShop" type="xs:string" minOccurs="0"/>
+<xs:element name="newItem" type="tns:shopItem" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addShoppingMallItemResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:shopItem" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getTablesByRestaurantId">
+<xs:sequence>
+<xs:element name="restId" type="xs:long" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getTablesByRestaurantIdResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:tableType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+    <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                    template="../../Templates/InternalAggregateTemplate.xhtml"
+                    xmlns:h="http://java.sun.com/jsf/html"
+                    xmlns:p="http://primefaces.org/ui">
+        <ui:define name="contents">
+
+            <h:body>
+                <h:form id="formMain">
+
+                    <p:tabMenu activeIndex="3">
+                        <p:menuitem value="Home" url="/ShoppingMallWeb/Rental/rentalManagement.xhtml" />
+                        <p:menuitem value="Instant Report" url="/ShoppingMallWeb/Rental/rentalReports.xhtml" />
+                        <p:menuitem value="History" url="/ShoppingMallWeb/Rental/viewHistoryReports.xhtml"/>
+                        <p:menuitem value="Past Report"  url="/ShoppingMallWeb/Rental/viewHistoryReport.xhtml"/> 
+                    </p:tabMenu>
+                    <p:panel> 
+                        <h:outputText styleClass="STYLE2" value="Here displays the monthly history report of tenancy charges for the selected shop."/>
+                        <br></br>
+                    </p:panel>
+                    <p:panel>
+                        <p:growl id="growl" showDetail="true" />  
+                        <h:panelGrid id="panelGrid" columns="3" cellpadding="10" >  
+                            <h:outputText style="font-weight: bold; font-size: 20px" value="Shop Name: #{ChargesManagedBean.rp.contract.shop.shopName}"/>
+                            <h:outputText style="font-weight: bold; font-size: 20px" value="For month: "/>
+                            <h:outputText style="font-weight: bold; font-size: 20px" value="#{ChargesManagedBean.rp.generationDate}">
+                            <f:convertDateTime pattern="MMM-yyyy" timeZone="GMT+8"/>
+                            </h:outputText>
+                        </h:panelGrid>
+                        <p:fieldset legend="Rental Report" toggleable="true" toggleSpeed="500" collapsed="true"> 
+                            <p:panelGrid   style="margin-top:20px; margin-bottom: 20px; border-color: black; width: 100%" >  
+                                <p:row>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="Venue"/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="#{ChargesManagedBean.rp.contract.venue}"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="Space"/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="80 M*M"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="Deposit Charge"/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="#{ChargesManagedBean.rp.deposit} SGD"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="Rental Charge"/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="#{ChargesManagedBean.rp.monthlyRental} SGD"/>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>  
+                        </p:fieldset> 
+                        <p:fieldset legend="Commission Report" toggleable="true" toggleSpeed="500" collapsed="true">  
+<!--                            <p:ajax event="toggle" listener="#{fieldsetBean.handleToggle}" update="growl" />  -->
+                            <p:panelGrid style="margin-top:20px; margin-bottom: 20px; border-color: black; width: 100%">  
+                                <p:row>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="Total Sales"/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="#{ChargesManagedBean.rp.totalSales} SGD"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="Commission Rate"/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="#{ChargesManagedBean.rp.commissionRate*100} %"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="Commission Fee"/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="#{ChargesManagedBean.rp.commissionFee} SGD"/>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>  
+                        </p:fieldset> 
+                        <p:fieldset legend="Adhoc Charge Report" toggleable="true" toggleSpeed="500" collapsed="true">    
+                            <p:dataTable var="adhocEvent" value="#{ChargesManagedBean.historyMonthlyAdhoc}" emptyMessage="No adhoc event">
+
+                                <p:column  headerText="Event ID"> 
+                                    <h:outputText value="#{adhocEvent.id}" /> 
+                                </p:column>               
+
+                                <p:column   headerText="Shop Name" >
+                                    <h:outputText value="#{adhocEvent.shop.shopName}" /> 
+                                </p:column>
+
+                                <p:column  headerText="Event Type">                        
+                                    <h:outputText value="#{adhocEvent.eventType}" /> 
+                                </p:column>
+
+                                <p:column  headerText="Event Date">
+                                    <h:outputText value="#{adhocEvent.eventDate}" /> 
+                                </p:column>
+
+                                <p:column headerText="Enter Date"> 
+                                    <h:outputText value="#{adhocEvent.enterDate}" /> 
+                                </p:column>
+
+                                <p:column  headerText="Charge"> 
+                                    <h:outputText value="#{adhocEvent.charge}" /> 
+                                </p:column>  
+                            </p:dataTable> 
+         
+                            <p:panel header="Total Adhoc Charges: #{ChargesManagedBean.rp.adhocCharges}" > 
+                            </p:panel>
+                        </p:fieldset> 
+                        <p:fieldset legend="Total Report" toggleable="true" toggleSpeed="500" >  
+                            <p:panelGrid   style="margin-top:20px; margin-bottom: 20px; border-color: black; width: 100%" >  
+                                <p:row>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="Rental Charge"/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="#{ChargesManagedBean.rp.monthlyRental} SGD"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="Deposit"/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="#{ChargesManagedBean.rp.deposit} SGD"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="Commission Fee"/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="#{ChargesManagedBean.rp.commissionFee} SGD"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="Adhoc Charges"/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="#{ChargesManagedBean.rp.adhocCharges} SGD"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="Total"/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText style="font-weight: bold; font-size: 15px" value="#{ChargesManagedBean.rp.totalCharges} SGD"/>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>  
+                        </p:fieldset>
+                    </p:panel>
+                </h:form>
+            </h:body>
+        </ui:define>
+
+        <ui:define name="foot">
+            foot
+        </ui:define>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+        <ui:composition template="../../Templates/InternalAggregateTemplate.xhtml">
+
+            <ui:define name="contents">
+                <h:form id="form">
+                    <p:growl autoUpdate="true" showDetail="false" globalOnly="true"/> 
+
+                    <p:dataTable style="text-align: center" rowKey="#{foodMaterial.id}" var="foodMaterial" value="#{foodMaterialManagedBean.listAllFoodMaterials()}"
+                                 paginator="true" rows="10" selection="#{foodMaterialManagedBean.selectedMaterials}" emptyMessage="No Raw Material found">
+
+                        <f:facet name="header">
+                            View all Raw Materials
+                        </f:facet>
+
+                        <p:column selectionMode="multiple" style="width:0.05%" />
+
+                        <p:column style="width: 3%" sortBy="#{foodMaterial.id}"> 
+                            <f:facet name="header">       
+                                <h:outputText value="Raw Material #" />  
+                            </f:facet>
+                            <h:outputText value="#{foodMaterial.id}"/> 
+                        </p:column>
+
+                        <p:column style="width: 7%" sortBy="#{foodMaterial.name}" filterBy="#{foodMaterial.name}"> 
+                            <f:facet name="header">       
+                                <h:outputText value="Name" />                        
+                            </f:facet>
+                            <h:outputText value="#{foodMaterial.name}" />  
+                        </p:column>
+
+                        <p:column style="width: 7%;" > 
+                            <f:facet name="header">       
+                                <h:outputText value="Raw Material Amount" />  
+                            </f:facet>
+                                <h:outputText value="#{foodMaterial.amount} KG"/>
+                        </p:column>
+                        
+                        <p:column style="width: 7%" filterBy="#{foodMaterial.status}" > 
+                            <f:facet name="header">       
+                                <h:outputText value="Status" />                        
+                            </f:facet>  
+                            <h:outputText value="#{foodMaterial.status}" /> 
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Delete" actionListener="#{foodMaterialManagedBean.deleteFoodMaterial()}"/>
+                        </f:facet>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton id="viewButton" value="Update Amount"
+                                             update=":form:display" oncomplete="materialAmountDialog.show()"/>  
+                        </f:facet>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton id="viewButton1" value="Create Order"
+                                             actionListener="#{foodMaterialManagedBean.createOrder}"
+                                             update=":form:display1" oncomplete="materialAmountDialog1.show()"/>  
+                        </f:facet>
+                    </p:dataTable>
+                    
+                    
+                    <p:dialog id="dialog" header="Update Amount Detail" widgetVar="materialAmountDialog" resizable="false"  
+                              width="700" position="center"  >  
+                        <p:panel id="display">  
+
+                            <p:dataTable liveResize="true" rowKey="#{foodMaterial.id}" selection="#{foodMaterialManagedBean.foodMaterial}" selectionMode="single"
+                                         emptyMessage="No material selected" var="foodMaterial" value="#{foodMaterialManagedBean.selectedMaterials}">
+
+                                <p:column headerText="Name" > 
+                                    <h:outputText value="#{foodMaterial.name}" /> 
+                                </p:column>
+
+                                <p:column headerText="Amount" > 
+                                    <h:outputText value="#{foodMaterial.amount}" /> 
+                                </p:column>
+
+                                <p:column headerText="To update" >
+                                    <p:inputText value="#{foodMaterial.amount}"/>
+                                    <p:commandButton ajax="true" type="submit" value="Ok" action="#{foodMaterialManagedBean.updateAmount(foodMaterial)}"/>
+                                </p:column>
+
+                                <f:facet name="footer">
+                                    <p:commandButton ajax="true" type="submit" value="Confirm" action="#{foodMaterialManagedBean.redirect()}"/>
+                                </f:facet>
+                                
+                            </p:dataTable>  
+                            
+                            
+                        </p:panel>
+                    </p:dialog> 
+                    
+                    <p:dialog id="dialog1" header="Create Order Detail" widgetVar="materialAmountDialog1" resizable="false"  
+                              width="700" position="center"  >  
+                        <p:panel id="display1">  
+
+                            <p:dataTable liveResize="true" rowKey="#{foodMaterial.id}" selection="#{foodMaterialManagedBean.foodMaterial}" selectionMode="single"
+                                         emptyMessage="No material selected" var="foodMaterial" value="#{foodMaterialManagedBean.selectedMaterials}">
+
+                                <p:column headerText="Name" > 
+                                    <h:outputText value="#{foodMaterial.name}" /> 
+                                </p:column>
+
+                                <p:column headerText="Amount" > 
+                                    <h:outputText value="#{foodMaterial.amount}" /> 
+                                </p:column>
+
+                                <p:column headerText="To add" >
+                                    <p:inputText id="amount" value="#{foodMaterialManagedBean.amount}"/>
+                                    <p:commandButton ajax="true" type="submit" value="Set" actionListener="#{foodMaterialManagedBean.addFoodOrder(foodMaterial)}"/>
+                                </p:column>
+
+                                <f:facet name="footer">
+                                    <p:commandButton ajax="true" type="submit" value="Create" action="#{foodMaterialManagedBean.addFoodMaterialOrder()}"/>
+                                </f:facet>
+                                
+                            </p:dataTable>  
+                            
+                            
+                        </p:panel>
+                    </p:dialog> 
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

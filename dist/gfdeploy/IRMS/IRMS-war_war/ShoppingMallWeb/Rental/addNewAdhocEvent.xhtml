@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+    <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                    template="../../Templates/InternalAggregateTemplate.xhtml"
+                    xmlns:h="http://java.sun.com/jsf/html"
+                    xmlns:p="http://primefaces.org/ui">
+        <ui:define name="contents">
+<h:head>
+    <style type="text/css">
+        .ui-growl {
+            right:50px;
+            top:100px;
+        }
+    </style>
+</h:head>
+            <h:body>
+
+                <h:form id="formMain">
+
+                    <p:tabMenu activeIndex="0">
+                        <p:menuitem value="Home" url="/ShoppingMallWeb/Rental/rentalManagement.xhtml"/>
+                        <p:menuitem value="View All Adhoc Events" url="/ShoppingMallWeb/Rental/viewAllAdhocEvents.xhtml"/>
+                    </p:tabMenu>
+                    <p:panel> 
+                        <h:outputText styleClass="STYLE2" value="Here you can record adhoc event and corresponding charges for the selected shop. Please fill in all the fields."/>
+                        <br></br>
+                    </p:panel>
+                    <p:panel header="Add new Adhoc Event to Shop"> 
+                        <p:ajaxStatus style="width:16px;height:16px;">
+                            <f:facet name="start">
+                                <h:graphicImage value="http://www.primefaces.org:8080/showcase/design/ajaxloading.gif" /> 
+                            </f:facet>
+                            <f:facet name="complete">
+                                <h:outputText value="" />
+                            </f:facet>
+                        </p:ajaxStatus>
+
+                        <p:row>
+                            <h:outputText style="font-weight: bold; font-size: 20px" value="Shop Name: #{ChargesManagedBean.shopName}"/>
+                        </p:row>
+                        <br></br>
+                        <h:panelGrid id="panelGrid" columns="3" cellpadding="10">  
+
+                                <h:outputLabel for="eventDate" style="font-weight: bold" value="Adhoc Event Date: " />
+                                <p:calendar label="eventDate" id="eventDate" value="#{ChargesManagedBean.eventDate}" pattern="EEE dd-MMM-yyyy" required="true" requiredMessage="Event Date is requried."/>
+                                <p:message for="eventDate" />  
+
+                                <h:outputLabel for="charge" style="font-weight: bold" value="Amount of Charge: " />
+                                <h:inputText required="true" label="charge" requiredMessage="Charge is required." id="charge" value="#{ChargesManagedBean.charge}">
+                                </h:inputText>
+                                <p:message for="charge" />    
+
+                                <h:outputLabel for="eventType" style="font-weight: bold" value="Adhoc Event Type: " />
+                                <p:selectOneListbox  style="width:155px"  required="true" label="eventType" requiredMessage="Event Type is required." id="eventType" value="#{ChargesManagedBean.eventType}">
+                                    <f:selectItem itemLabel="Select One" itemValue="" />  
+                                    <f:selectItem itemLabel="Utility" itemValue="Utility" />  
+                                    <f:selectItem itemLabel="Service" itemValue="Service" />  
+                                    <f:selectItem itemLabel="Space" itemValue="Space" />  
+                                    <f:selectItem itemLabel="Compensation" itemValue="Compensation" />
+                                    <f:selectItem itemLabel="Combined" itemValue="Combined" />
+                                    <f:selectItem itemLabel="Others" itemValue="Others" />
+                                </p:selectOneListbox>
+                                <p:message for="eventType" />
+
+                                <h:outputLabel for="description" style="font-weight: bold" value="Description: " />
+                                <h:inputTextarea required="true" rows="10" cols="50" label="description" requiredMessage="Description is required." id="description" value="#{ChargesManagedBean.description}">
+                                </h:inputTextarea>
+                                <p:message for="description" /> 
+                                
+                            <p:growl id="msg" globalOnly="true" autoUpdate="true"/>
+                        </h:panelGrid>
+
+                        <p:commandButton  id="btn" value="Save New Adhoc Event" update="panelGrid"  actionListener="#{ChargesManagedBean.saveNewAdhocEvent}" ajax="true">
+                        </p:commandButton>
+
+                    </p:panel>
+                </h:form>
+            </h:body>
+        </ui:define>
+
+        <ui:define name="foot">
+            foot
+        </ui:define>
+
+    </ui:composition>
+</html>

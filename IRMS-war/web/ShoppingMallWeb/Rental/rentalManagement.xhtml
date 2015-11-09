@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Home</title>
+        <style type="text/css">
+            .gritter-notice-wrapper {
+                left:200px;
+                top: 50px; }
+            </style>
+        </h:head>
+        <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                        template="../../Templates/InternalAggregateTemplate.xhtml"
+                        xmlns:h="http://java.sun.com/jsf/html"
+                        xmlns:p="http://primefaces.org/ui">
+            <ui:define name="contents">
+                <h1>
+                    Welcome to Rental Management SubSystem
+                </h1>
+                <h:body>
+                    <h:form id="formMain">
+                    <p:tabMenu activeIndex="0">
+                        <p:menuitem value="Home" url="/ShoppingMallWeb/Rental/rentalManagement.xhtml" />
+                    </p:tabMenu>
+                    <p:panel> 
+                        <h:outputText styleClass="STYLE2" value="Here lists all currently active shops. You can export instant rental reports, review history rental reports as well as record adhoc charges for each tenant."/>
+                        <br></br>
+                    </p:panel>
+                    <p:dataTable id="datatable" var="contract" value="#{contractManagedBean.activeContracts}" >
+                        <p:column headerText="ShopID" sortBy="#{contract.shop.shopId}" filterBy="#{contract.shop.shopId}">
+                            <h:outputText value="#{contract.shop.shopId}" />
+                        </p:column>
+
+                        <p:column headerText="ShopName" sortBy="#{contract.shop.shopName}" filterBy="#{contract.shop.shopName}">
+                            <h:outputText value="#{contract.shop.shopName}" />
+                        </p:column>
+
+                        <p:column headerText="ShopType" sortBy="#{contract.shop.shopType}" filterBy="#{contract.shop.shopType}">
+                            <h:outputText value="#{contract.shop.shopType}" />
+                        </p:column> 
+                        <p:column headerText="MonthlyRental">
+                            <h:outputText value="#{contract.monthlyRental}"/>
+                        </p:column>
+                        <p:column  headerText="Commission">
+                            <h:outputText value="#{contract.commissionRate}" />
+                        </p:column>
+                        <p:column  headerText="Deposit">                  
+                            <h:outputText value="#{contract.deposit}"/>
+                        </p:column>
+                        <p:column  headerText="Adhoc Charges">                  
+                            <p:commandButton action="addNewAdhocEvent.xhtml" value="Add" actionListener="#{ChargesManagedBean.passDown}">
+                                <f:attribute name="passDown" value="#{contract.shop.shopId}" />
+                            </p:commandButton>
+                        </p:column>              
+
+                        <p:column width="100" headerText="Reports">                  
+                            <p:commandButton  value="View" style="float: right" actionListener="#{ChargesManagedBean.navigateRentalReports}">
+                                <f:attribute name="ContractID" value="#{contract.id}"/>
+                            </p:commandButton>
+                        </p:column>  
+                    </p:dataTable>
+                    <h:panelGrid columns="2">
+                        <p:panel header="Export Page Data">
+                            <h:commandLink>  
+                                <p:graphicImage value="/resources/images/pdf.png" />  
+                                <p:dataExporter type="pdf" target="datatable" fileName="tenantVenues" />  
+                            </h:commandLink>
+                            <h:commandLink>  
+                                <p:graphicImage value="/resources/images/xml.png" />  
+                                <p:dataExporter type="xml" target="datatable" fileName="tenantVenues" />  
+                            </h:commandLink>
+                            <h:commandLink>  
+                                <p:graphicImage value="/resources/images/csv.png" />  
+                                <p:dataExporter type="csv" target="datatable" fileName="tenantVenues" />  
+                            </h:commandLink>
+                            <h:commandLink>  
+                                <p:graphicImage value="/resources/images/excel.png" />  
+                                <p:dataExporter type="xls" target="datatable" fileName="tenantVenues" />  
+                            </h:commandLink>
+                        </p:panel>
+
+                    </h:panelGrid>
+                </h:form>
+            </h:body>
+        </ui:define>
+
+        <ui:define name="foot">
+            foot
+        </ui:define>
+
+    </ui:composition>
+</html>

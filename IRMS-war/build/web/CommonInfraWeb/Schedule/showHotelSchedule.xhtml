@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/Templates/InternalAggregateTemplate.xhtml" >
+            <ui:define name="contents" >
+                <h:form id="form">
+                    <p:growl id="messages" showDetail="false" />
+
+                    <p:schedule id="schedule" value="#{scheduleManagedBean.eventModel}" initialDate="#{scheduleManagedBean.tempDate}" widgetVar="myschedule" >
+
+                        <p:ajax event="eventSelect" listener="#{scheduleManagedBean.onEventSelect}" update=":form:shiftDialog" oncomplete="shiftDialog.show()" />                                
+
+                    </p:schedule>
+
+                    <p:dialog id="shiftDialog" widgetVar="shiftDialog" header="Shift details" showEffect="clip" hideEffect="clip" >
+                        <h:outputText value="staff on duty are " />
+
+                        <p:dataTable var="staff" value="#{scheduleManagedBean.staffOnDuty}" >
+                            <p:column headerText="Staff Name">
+                                <h:outputText value="#{staff.firstName} #{staff.lastName}" />
+                            </p:column>
+                        </p:dataTable>
+
+                        <p:commandButton id="submitButton" value="View in Detail" action="viewDetailSchedule"/>
+                        <p:commandButton id="submit" value="Close" oncomplete="shiftDialog.hide();" />
+
+                    </p:dialog>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

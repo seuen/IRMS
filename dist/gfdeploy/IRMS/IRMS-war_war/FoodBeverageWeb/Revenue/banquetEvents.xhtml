@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Home</title>
+        <style type="text/css">
+            .gritter-notice-wrapper {
+                left:200px;
+                top: 50px; }
+            </style>
+        </h:head>
+        <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                        template="../../Templates/InternalAggregateTemplate.xhtml"
+                        xmlns:h="http://java.sun.com/jsf/html"
+                        xmlns:p="http://primefaces.org/ui">
+            <ui:define name="contents">
+                <h1>
+                    Welcome to Food and Beverage Revenue Management SubSystem
+                </h1>
+                <h:body>
+                    <h:form id="formRenew">
+                    <p:tabMenu activeIndex="2">
+                        <p:menuitem value="Tenancy Revenue" url="/FoodBeverageWeb/Revenue/resActiveContracts.xhtml"/>
+                        <p:menuitem value="Banquet Revenue" url="/FoodBeverageWeb/Revenue/banquetRevenue.xhtml"/>
+                        <p:menuitem value="Banquet Details" url="/FoodBeverageWeb/Revenue/banquetEvents.xhtml"/>
+                    </p:tabMenu>
+
+                    <p:ajaxStatus style="width:30px;height: 20px;">
+                        <f:facet name="start">     <h:graphicImage value="../design/ajaxloading.gif" />   </f:facet>
+                        <f:facet name="complete">  <h:outputText value="" />                              </f:facet>
+                    </p:ajaxStatus> 
+                    <p:panel> 
+                        <h:outputText styleClass="STYLE2" value="This page will list all banquets in the specified period. You can check the banquet revenue."/>
+                    </p:panel>
+                    <p:dataTable id="order" var="order" value="#{resRevenueManagedBean.eo}" emptyMessage="No Bill Orders Found.">
+                        <p:column  headerText="OrderID" sortBy="#{order.id}" filterBy="#{order.id}" filterStyle="width: 55px;" >
+                            <h:outputText value="#{order.id}" />
+                        </p:column>
+
+                        <p:column  headerText="Type" sortBy="#{order.type}" filterBy="#{order.type}" filterStyle="width: 55px;" >
+                            <h:outputText value="#{order.type}" />
+                        </p:column>
+
+                        <p:column  headerText="Description" sortBy="#{order.description}" filterBy="#{order.description}" filterStyle="width: 55px;" >
+                            <h:outputText value="#{order.description}" />
+                        </p:column>
+
+                        <p:column headerText="TotalPrice"  filterBy="#{order.totalprice}">
+                            <h:outputText value="#{order.totalprice}" />
+                        </p:column> 
+                    </p:dataTable>
+                    <p:panel header="Total Revenue">
+                        <h:outputText value="#{resRevenueManagedBean.calculateEventRevenues()}">
+                            <f:convertNumber maxFractionDigits="2" groupingUsed="false" />
+                        </h:outputText>
+                    </p:panel>
+                </h:form>
+            </h:body>
+        </ui:define>
+        <ui:define name="foot">
+            foot
+        </ui:define>
+
+    </ui:composition>
+</html>

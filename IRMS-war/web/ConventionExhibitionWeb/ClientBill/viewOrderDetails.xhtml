@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="contents">
+        <h1>
+            Welcome to Integrated Client Bill Management SubSystem
+        </h1>
+        <h:body>
+            <h:form id="formMain">
+                <p:tabMenu activeIndex="5">
+                    <p:menuitem value="Home" url="/ConventionExhibitionWeb/ClientBill/allBills.xhtml"/>
+                    <p:menuitem value="View All Unpaid Bills" url="/ConventionExhibitionWeb/ClientBill/allUnpaidBills.xhtml"/>
+                    <p:menuitem value="View By Client" url="/ConventionExhibitionWeb/ClientBill/allClients.xhtml"/>
+                    <p:menuitem value="View All Receipts" url="/ConventionExhibitionWeb/ClientBill/allReceipts.xhtml"/>
+                    <p:menuitem value="ViewingBill" url="/ConventionExhibitionWeb/ClientBill/viewBillOrders.xhtml"/>
+                    <p:menuitem value="ViewingBillOrder" url="/ConventionExhibitionWeb/ClientBill/viewOrderDetails.xhtml"/>
+                </p:tabMenu>
+                <p:panel> 
+                    <h:outputText styleClass="STYLE2" value="Here lists bill order details of the Convention Exhibition Event, Banquet Event, and EntertainmentShow Event."/>
+                    <br></br>
+                </p:panel>
+
+                <h:panelGrid columns="2" cellpadding="10" border="5"> 
+                    <p:outputLabel for="orderId" style="font-weight: bold; color: #2B547E" value="Order ID: "/>
+                    <h:outputText id="orderId" style="font-weight: bold; color: #2B547E" value="#{clientBillingManagedBean.viewOrder.id}">
+                    </h:outputText>
+
+                    <p:outputLabel for="createDate" style="font-weight: bold; color: #2B547E" value="Creation Date: "/>
+                    <h:outputText id="createDate" style="font-weight: bold; color: #2B547E" value="#{clientBillingManagedBean.viewOrder.createDate}">
+                    </h:outputText>
+
+                    <p:outputLabel for="eventVenue" style="font-weight: bold; color: #2B547E" value="Event Venue: "/>
+                    <h:outputText id="eventVenue" style="font-weight: bold; color: #2B547E" value="#{clientBillingManagedBean.viewOrder.venuetype} #{clientBillingManagedBean.viewOrder.roomnum}">
+                    </h:outputText>
+
+                    <p:outputLabel for="client" style="font-weight: bold; color: #2B547E" value="Client: "/>
+                    <h:outputText id="client" style="font-weight: bold; color: #2B547E" value="#{clientBillingManagedBean.viewOrder.client.firstname} #{clientBillingManagedBean.viewOrder.client.lastname} (#{clientBillingManagedBean.viewOrder.client.ic})">
+                    </h:outputText>
+
+                    <p:outputLabel for="clientContact" style="font-weight: bold; color: #2B547E" value="Client Contact: "/>
+                    <h:outputText id="clientContact" style="font-weight: bold; color: #2B547E" value="#{clientBillingManagedBean.viewOrder.client.emailAddr}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   #{clientBillingManagedBean.viewOrder.client.phoneNum}">
+                    </h:outputText>
+
+                    <p:outputLabel for="eventType" style="font-weight: bold; color: #000000" value="Event Type: "/>
+                    <h:outputText id="eventType" style="font-weight: bold; color: #000000" value="**#{clientBillingManagedBean.viewOrder.type}**">
+                    </h:outputText>   
+
+                    <p:outputLabel for="eventDescription" style="font-weight: bold; color: #2B547E" value="Event Description: "/>
+                    <h:outputText id="eventDescription" style="font-weight: bold; color: #2B547E" value="#{clientBillingManagedBean.viewOrder.description}">
+                    </h:outputText>  
+
+                    <h:outputText style="font-weight: bold; color: #2B547E" value="Price BreakDown: "/>
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="venue" style="font-weight: bold; color: #2B547E" value="Venue Price: "/>
+                        <h:outputText id="venue" style="font-weight: bold; color: #2B547E; float: right" value="#{clientBillingManagedBean.viewOrder.venueprice} SGD" escape="false">
+                        </h:outputText> 
+                        <p:outputLabel for="food" style="font-weight: bold; color: #2B547E" value="Food Price: "/>
+                        <h:outputText id="food" style="font-weight: bold; color: #2B547E; float: right" value="#{clientBillingManagedBean.viewOrder.foodprice} SGD" escape="false">
+                        </h:outputText>
+                        <p:outputLabel for="facility" style="font-weight: bold; color: #2B547E" value="Facility Price: "/>
+                        <h:outputText id="facility" style="font-weight: bold; color: #2B547E; float: right" value="#{clientBillingManagedBean.viewOrder.facilityprice} SGD" escape="false">
+                        </h:outputText>
+                        <p:outputLabel for="staff" style="font-weight: bold; color: #2B547E" value="Staff Support Price: "/>
+                        <h:outputText id="staff" style="font-weight: bold; color: #2B547E; float: right" value="#{clientBillingManagedBean.viewOrder.employeeprice} SGD" escape="false">
+                        </h:outputText>                        
+                    </p:panelGrid>
+
+                    <p:outputLabel for="totalPrice" style="font-weight: bold; color: #D20005" value="Total Price: " />
+                    <h:outputText id="totalPrice" style="font-weight: bold; color: #D20005; float: right" value="#{clientBillingManagedBean.viewOrder.totalprice}">
+                    </h:outputText>  
+
+                    <p:outputLabel for="outstandingCharge" style="font-weight: bold; color: #D20005" value="Outstanding Charge: "/>
+                    <h:outputText id="outstandingCharge" style="font-weight: bold; color: #D20005; float: right" value="#{clientBillingManagedBean.viewOrder.totalcharge}">
+                    </h:outputText>  
+                </h:panelGrid>
+            </h:form>
+        </h:body>
+
+    </ui:define>
+
+    <ui:define name="footer">
+        footer
+    </ui:define>
+
+</ui:composition>

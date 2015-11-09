@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<f:view beforePhase="#{facesViewManagedBean.defaultBeforePhaseListener}">
+    <body>
+
+        <ui:composition template="./../Templates/hotelTemplate.xhtml">
+            
+            <ui:define name="content1">
+                <h:form id="form">
+                    <p:growl autoUpdate="true" globalOnly="true"/> 
+                    <h3><strong><h:outputText value="STEP 3: Choose a room type"/></strong></h3>
+                    <p:panel style="width: 100%; background: transparent; border: transparent;">
+                        <p:dataTable var="roomType" value="#{exReservationManagedBean.listAllRoomTypes()}" emptyMessage="No Room Type Available"
+                                 paginator="true" rows="10" rowKey="#{roomType.roomtypeId}" selection="#{exReservationManagedBean.roomType}">
+                            
+                        <p:column selectionMode="single"/>  
+                        
+                        <p:column sortBy="#{roomType.hotel.name}" > 
+                            <f:facet name="header">       
+                                <h:outputText value="Hotel Name" />                        
+                            </f:facet>
+                            <h:outputText value="#{roomType.hotel.name}" /> 
+                        </p:column>
+
+                        <p:column > 
+                            <f:facet name="header">       
+                                <h:outputText value="Room Type" />                        
+                            </f:facet>
+                            <h:outputText value="#{roomType.type}" /> 
+                        </p:column> 
+
+                        <p:column > 
+                            <f:facet name="header">       
+                                <h:outputText value="Price" />                        
+                            </f:facet>
+                            <h:outputText value="#{roomType.price_l}" /> 
+                        </p:column>  
+
+                        <p:column width="100"> 
+                            <f:facet name="header">
+                                <h:outputText value="Room Quantity" />
+                            </f:facet>
+                            <p:inplace id="roomQuantity" editor="true"> 
+                                <p:ajax event="save" listener="#{exReservationManagedBean.saveQuantity}" update="roomQuantity"/>
+                                <p:inputText value="#{exReservationManagedBean.roomQuantity}" required="true" label="Quantity"/>  
+                            </p:inplace> 
+                        </p:column>
+
+                    </p:dataTable>  
+                    <br/>
+                    
+                    <p:button value="Back" outcome="ExSearchHotelRoom.xhtml"/>
+                    &nbsp;&nbsp;
+                    <p:commandButton  ajax="true" type="submit" actionListener="#{shoppingCartManagedBean.createHotelItem(event)}" value="Add To Shopping Cart" />
+                    
+                  </p:panel>
+                </h:form>
+               
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</f:view>  
+</html>

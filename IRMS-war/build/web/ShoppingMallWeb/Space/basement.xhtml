@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+
+    <ui:define name="contents">
+        
+        <h1>
+            Welcome to Shopping Mall Space Management SubSystem
+        </h1>
+            <p:tabMenu activeIndex="1">
+                <p:menuitem value="Home" url="/ShoppingMallWeb/Space/viewAllVenues.xhtml"/>
+                <p:menuitem value="Basement" url="/ShoppingMallWeb/Space/basement.xhtml"/>
+                <p:menuitem value="1st Floor" url="/ShoppingMallWeb/Space/levelOne.xhtml"/>
+                <p:menuitem value="2nd Floor" url="/ShoppingMallWeb/Space/levelTwo.xhtml"/>
+                <p:menuitem value="3rd Floor" url="/ShoppingMallWeb/Space/levelThree.xhtml"/>
+                <p:menuitem value="4th Floor" url="/ShoppingMallWeb/Space/levelFour.xhtml"/>
+                <p:menuitem value="5th Floor" url="/ShoppingMallWeb/Space/levelFive.xhtml"/>
+            </p:tabMenu>
+
+        <h:form>
+            <p:ajaxStatus style="width:30px;height: 20px;">
+                <f:facet name="start">     <h:graphicImage value="../design/ajaxloading.gif" />   </f:facet>
+                <f:facet name="complete">  <h:outputText value="" />                              </f:facet>
+            </p:ajaxStatus>  
+
+            <p:panel> 
+                <h:outputText styleClass="STYLE2" value="Here lists all venues in Shopping Mall. You can add, delete, modify, view venue information as well as record negotiations of venues."/>
+                <br></br>
+            </p:panel>
+            <p:panel id="panel">
+                <p:growl autoUpdate="true" />
+
+                <p:dataTable id="datatable" var="venue" value="#{shopVenueManagedBean.basement}" paginator="true" emptyMessage="No venue in Shopping Centre yet.">
+
+                    <p:column headerText="Unit ID"  sortBy="#{venue.id}" filterBy="#{venue.id}" filterStyle="width: 40px;" >
+                        <f:facet name="header">  
+                            <h:outputText value="Unit ID" />  
+                        </f:facet>
+                        <h:outputText value="#{venue.id}" />
+                    </p:column>
+
+                    <p:column headerText="Rank" sortBy="#{venue.sector}" filterBy="#{venue.sector}" filterStyle="width: 40px;" >
+                        <f:facet name="header">  
+                            <h:outputText value="Rank" />  
+                        </f:facet>
+                        <h:outputText value="#{venue.sector}" />
+                    </p:column>
+
+
+                    <p:column headerText="Area" sortBy="#{venue.area}" filterBy="#{venue.area}" filterStyle="width: 40px;" >
+                        <f:facet name="header">  
+                            <h:outputText value="Area" />  
+                        </f:facet>
+                        <h:outputText value="#{venue.area}" />
+                    </p:column>
+
+                    <p:column headerText="ShopID" sortBy="#{venue.occupiedShopId}" filterBy="#{venue.occupiedShopId}" filterStyle="width: 50px;" >
+                        <f:facet name="header">  
+                            <h:outputText value="ShopID" />  
+                        </f:facet>
+                        <h:outputText value="#{venue.occupiedShopId}" />
+                    </p:column>
+                    
+                    <p:column headerText="NegoStatus" sortBy="#{venue.negoAvailability}" filterBy="#{venue.negoAvailability}" filterStyle="width: 50px;">
+                        <f:facet name="header">  
+                            <h:outputText value="NegoStatus" />  
+                        </f:facet>                     
+                        <h:outputText value="#{venue.negoAvailability}" />
+                    </p:column>   
+
+                    <p:column exportable="false" headerText="Action" >
+                        <p:commandButton  value="Negotiations" style="float: right" actionListener="#{shopVenueManagedBean.navigateMyNegotiations}">
+                            <f:attribute name="negoVenue" value="#{venue}"/>
+                        </p:commandButton>  
+                    </p:column>
+
+                    <p:column headerText="VenueInfo" exportable="false">
+                        <p:commandButton  value="details" style="float: right" actionListener="#{shopVenueManagedBean.navigateSpaceInfo}">
+                            <f:attribute name="viewVenue" value="#{venue}" />
+                        </p:commandButton>                                                 
+                    </p:column>
+
+                    <p:column  id ="delete" headerText="Delete" exportable="false">
+                        <p:commandButton  value="delete" update="datatable"  style="float: right" actionListener="#{shopVenueManagedBean.deleteVenueInTable}" ajax="true">
+                            <f:attribute name="venueId" value="#{venue.realID}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+            <h:panelGrid columns="2">
+                <p:panel header="Export Page Data">
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/images/pdf.png" />  
+                        <p:dataExporter type="pdf" target="datatable" fileName="tenantVenues" />  
+                    </h:commandLink>
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/images/xml.png" />  
+                        <p:dataExporter type="xml" target="datatable" fileName="tenantVenues" />  
+                    </h:commandLink>
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/images/csv.png" />  
+                        <p:dataExporter type="csv" target="datatable" fileName="tenantVenues" />  
+                    </h:commandLink>
+                    <h:commandLink>  
+                        <p:graphicImage value="/resources/images/excel.png" />  
+                        <p:dataExporter type="xls" target="datatable" fileName="tenantVenues" />  
+                    </h:commandLink>
+                </p:panel>
+                <p:panel header="Create Outlet Space" style=" width: 190px; height: 70px">
+                    <p:commandButton value="Creation Form" update="datatable"  style="float: none" actionListener="#{shopVenueManagedBean.navigateNewVenue}" ajax="true"/>
+                </p:panel>
+            </h:panelGrid>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

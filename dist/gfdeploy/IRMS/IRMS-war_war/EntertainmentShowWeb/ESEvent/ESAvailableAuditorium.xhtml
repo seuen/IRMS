@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../Templates/InternalAggregateTemplate.xhtml">
+
+           
+            <ui:define name="contents">
+                 <h:form>
+               <p:dataTable id="availableAuditorium" value="#{eSEventManagedBean.auditoriums}" var="openspaces"
+                           paginator="true" rows="5" sortMode="multiple" rowKey="#{openspaces.id}"
+                           selection="#{eSEventManagedBean.selectAuditorium}">
+                  <f:facet name="header">
+Available Auditorium                   
+                 </f:facet>
+                  
+                  <p:column selectionMode="single" style="width: 2%"/>
+                  <p:column headerText="Location" filterBy="#{openspaces.roomNo}" sortBy="#{openspaces.roomNo}">
+                    #{openspaces.roomNo}
+                </p:column>
+                
+                  <p:column headerText="Space Capacity" sortBy="#{openspaces.capacity}" filterBy="#{openspaces.capacity}">
+                #{openspaces.capacity}
+                </p:column>
+                
+                  <p:column headerText="Day Price" sortBy="#{openspaces.dayprice}" filterBy="#{openspaces.dayprice}">
+                #{openspaces.dayprice}
+                </p:column>
+                  
+                  <f:facet name="footer">
+                      <p:commandButton id="AddEvent" value="Add Event" actionListener="#{eSEventManagedBean.setEventAuditoirum}"/>
+                      
+                  </f:facet>
+            </p:dataTable>
+        </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

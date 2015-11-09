@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../Templates/InternalAggregateTemplate.xhtml">
+
+            <ui:define name="contents">
+                <h:form id="form">
+                    <p:growl autoUpdate="true" showDetail="false" globalOnly="true" />
+
+                    <p:tabMenu activeIndex="2">  
+                        <p:menuitem value="Search Venue Availability" url="/EntertainmentShowWeb/ShowSchedule/SearchShowVenue.xhtml" />  
+                        <p:menuitem value="Add Venue Schdule" url="/EntertainmentShowWeb/ShowSchedule/AddVenueSchedule.xhtml" />
+                        <p:menuitem value="Add ShowInfo" url="/EntertainmentShowWeb/ShowSchedule/AddShowInfo.xhtml" />  
+                    </p:tabMenu> 
+
+                        <p:growl autoUpdate="true" globalOnly="true" />
+                        <p:dataTable rowKey="#{showInfo.id}" var="showInfo" value="#{showInfoManagedBean.allShowInfos}"
+                                     paginator="true" rows="10" selection="#{showInfoManagedBean.theShowInfo}" selectionMode="single" emptyMessage="No Show Information Found">
+                            <f:facet name ="header">
+                                View All Show Information
+                            </f:facet>    
+
+                            <p:column headerText="ID" >
+                                <h:outputText value="#{showInfo.id}" />
+                            </p:column>
+
+                            <p:column headerText="Name" sortBy="#{showInfo.name}" filterBy="#{showInfo.name}" > 
+                                <h:outputText value="#{showInfo.name}" />
+                            </p:column>
+
+
+                            <p:column headerText="Start Date" sortBy="#{showInfo.startDate}" filterBy="#{showInfo.startDate}" > 
+                                <h:outputText value="#{showInfo.startDate}">
+                                    <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="End Date" sortBy="#{showInfo.endDate}" filterBy="#{showInfo.endDate}" > 
+                                <h:outputText value="#{showInfo.endDate}">
+                                    <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="Duration" sortBy="#{showInfo.duration}" filterBy="#{showInfo.duration}" > 
+                                <h:outputText value="#{showInfo.duration}" />
+                            </p:column>
+
+                            <f:facet name="footer">
+                                <p:commandButton value="View Shows" actionListener="#{showInfoManagedBean.viewAllShow()}"/>
+                            </f:facet>
+                        </p:dataTable>
+                        
+                        <br/><br/>
+                        
+                        <p:dataTable rowKey="#{show.id}" var="show" value="#{showInfoManagedBean.shows}"
+                                     selection="#{showInfoManagedBean.theShow}" selectionMode="single" emptyMessage="No Show found">
+                            <f:facet name="header">
+                                View all [#{showInfoManagedBean.theShowInfo.name}] Shows
+                            </f:facet>
+
+                            <p:column style="width: 7%" headerText="Show Name" > 
+                                <h:outputText value="#{show.showInfo.name}"/> 
+                            </p:column>
+
+                            <p:column style="width: 7%" headerText="Theater Number" > 
+                                <h:outputText value="#{show.showInfo.theater.roomNo}#{show.showInfo.auditorium.roomNo}"/> 
+                            </p:column>
+
+                            <p:column style="width: 20%" headerText="Start Time"> 
+                                <h:outputText value="#{show.startTime}">
+                                    <f:convertDateTime pattern="hh:ss" timeZone="GMT+8"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column style="width: 7%" headerText="Duration" > 
+                                <h:outputText value="#{show.duration}"/> 
+                            </p:column>
+
+                            <f:facet name="footer">
+                                <p:commandButton value="View Sections" actionListener="#{showInfoManagedBean.viewAllSectionTicket()}"/>
+                            </f:facet>
+                        </p:dataTable>  
+                        
+                        <br/><br/>
+                        <p:growl autoUpdate="true" globalOnly="true"/>
+                        <p:dataTable rowKey="#{sectionTicket.id}" var="sectionTicket" value="#{showInfoManagedBean.sectionTickets}"
+                                     paginator="true" rows="10" selection="#{showInfoManagedBean.theSectionTicket}" selectionMode="single" emptyMessage="No Section Ticket info found">
+
+                            <f:facet name="header">
+                                View all [#{showInfoManagedBean.theShowInfo.name} selected show] Section Ticket Information
+                            </f:facet> 
+
+                            <p:column  headerText="Section Number" > 
+                                <h:outputText value="#{sectionTicket.seatSection.num}"/> 
+                            </p:column>
+
+                            <p:column  headerText="Status" > 
+                                <h:outputText value="#{sectionTicket.status}"/> 
+                            </p:column>
+
+                            <p:column  headerText="Available Num" > 
+                                <h:outputText value="#{sectionTicket.availableNum}"/> 
+                            </p:column>
+                            
+                            <p:column headerText="Price">
+                            <p:inplace id="price" editor="true" style="font-weight: bold; color: #036fab">
+                                <p:ajax event="save" listener="#{showInfoManagedBean.updateSectionTicket(sectionTicket)}" update="price" />  
+                                <p:inputText value="#{sectionTicket.price}" required="true"/>
+                            </p:inplace>
+                            </p:column>
+
+                            <f:facet name="footer">
+                                <p:commandButton value="View" />   
+                            </f:facet>
+
+                        </p:dataTable> 
+
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

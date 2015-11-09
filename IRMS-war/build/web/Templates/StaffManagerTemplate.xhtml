@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <title>StaffManagementWorkspace</title>
+    </h:head>
+
+    <h:body>
+
+        <p:layout fullPage="true">
+
+            <p:layoutUnit position="north" header="#{staffManagedBean.welcome}" style="font-size: 30px">
+
+            </p:layoutUnit>
+
+            <p:layoutUnit position="west" header="Functions">
+                <ui:insert name="leftpanel">
+                    <h:form>
+                        <p:menu>
+                            <p:menuitem value="Create New Staff" outcome="createStaff" />
+                            <p:menuitem value="Manage All Roles" outcome="manageAllRoles" action="#{staffManagedBean.retrieveAllStaffTitleFromDB}" />
+                            <p:menuitem value="Manage All Staff" outcome="manageAllStaff" action="#{staffManagedBean.retrieveAllStaffFromDB}" />
+                            <p:menuitem value="Manage All Staff Accounts" outcome="manageAllStaffAccount" action="#{staffManagedBean.retrieveAllStaffAccountFromDB()}" />
+                            <p:menuitem value="View Self Schedule" outcome="viewSelfSchedule" />                           
+
+                        </p:menu>
+                    </h:form>
+                </ui:insert>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center">
+                <ui:include src="staffCommonFunc.xhtml" />
+                <ui:insert name="contents">
+                    Display contents here.
+                </ui:insert>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="east" header="Common Functions">
+                <ui:insert name="rightpanel">                    
+                    <ui:include src="StaffWidgets.xhtml" />
+                </ui:insert>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="south">
+                <ui:insert name="footer">
+                    <ui:include src="IntranetFooter.xhtml" />
+                </ui:insert>
+            </p:layoutUnit>
+
+        </p:layout>
+
+    </h:body>
+
+</html>

@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+      
+    <ui:define name="contents">
+       
+    
+        <h:form>
+            <p:panel id="panel" header="Add new ticket type">             
+                
+           <p:growl autoUpdate="true" showDetail="false" globalOnly="true"/> 
+          
+           <h:panelGrid columns="3" cellpadding="9">
+               
+           <h:outputLabel for="ticketName" style="font-weight: bold" value="Ticket Name: " />
+           <h:inputText required="true" label="ticketName" requiredMessage="Ticket Name is required." id="ticketName" value="#{attractionTicketManagedBean.ticketType.name}">
+           </h:inputText>
+           <p:message for="ticketName" />
+           
+            <h:outputLabel for="ticketPrice" style="font-weight: bold" value="Ticket Price: " />
+            <h:inputText required="true" label="ticketPrice" requiredMessage="Ticket Price is required." id="ticketPrice" value="#{attractionTicketManagedBean.ticketType.price}">
+           </h:inputText>
+           <p:message for="ticketPrice" />
+           
+            <h:outputLabel for="maxNum" style="font-weight: bold" value="Daily Max Amount: " />
+            <h:inputText required="true" label="maxNum" requiredMessage="Daily Max Amount is required." id="maxNum" value="#{attractionTicketManagedBean.ticketType.maxNumber}">
+           </h:inputText>
+           <p:message for="maxNum" />
+        
+           <h:outputLabel for="attraction" style="font-weight: bold" value="Attraction: " />
+           <p:selectOneMenu  required="true"  label="attraction"  requiredMessage="Attraction is required."  id="attraction"  value="#{attractionTicketManagedBean.attractionName}">
+              <f:selectItem itemLabel="Select One" itemValue="" />
+              <f:selectItem itemLabel="Disney World" itemValue="Disney World" />
+              <f:selectItem itemLabel="Harry Potter Theme Park" itemValue="Harry Potter Theme Park" />
+              <f:selectItem itemLabel="Marine Life Travel"  itemValue="Marine Life Travel" />
+              <f:selectItem itemLabel="The Botanic Experimental Museum"  itemValue="The Botanic Experimental Museum" />
+           </p:selectOneMenu>
+           <p:message for="attraction" />
+           </h:panelGrid>
+           
+           <p:commandButton id="btn"  value="Add" update="panel" actionListener="#{attractionTicketManagedBean.addTicketType()}" ajax="true"> </p:commandButton>
+        
+           </p:panel>                  
+        </h:form>
+    </ui:define>
+
+    
+
+</ui:composition>

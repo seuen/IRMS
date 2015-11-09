@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+
+    <ui:define name="contents">
+        <h1>
+            Welcome to Shopping Mall Contract Management SubSystem
+        </h1>
+            <p:tabMenu activeIndex="4">
+                <p:menuitem value="Home" url="/ShoppingMallWeb/Contract/viewAllContracts.xhtml"/>
+                <p:menuitem value="Shops" url="/ShoppingMallWeb/Contract/viewShops.xhtml"/>
+                <p:menuitem value="Inactivated" url="/ShoppingMallWeb/Contract/viewAllInactiveContracts.xhtml"/>
+                <p:menuitem value="Activated" url="/ShoppingMallWeb/Contract/viewActiveContracts.xhtml"/>
+                <p:menuitem value="CreateContract" url="/ShoppingMallWeb/Contract/viewAllNegotiators.xhtml"/>
+            </p:tabMenu>
+
+        <h:form id="mainCon">
+            <p:ajaxStatus style="width:30px;height: 20px;">
+                <f:facet name="start">     <h:graphicImage value="../design/ajaxloading.gif" />   </f:facet>
+                <f:facet name="complete">  <h:outputText value="" />                              </f:facet>
+            </p:ajaxStatus>  
+            <p:panel> 
+                <h:outputText styleClass="STYLE2" value="Here lists all venues under negotiation. You can choose multiple venues to create a single contract based on the negotiation records."/>
+                <br></br>
+                <br></br> 
+            </p:panel>
+
+            <p:panel id="panel">
+                <p:growl autoUpdate="true" globalOnly="true" />
+
+                <p:dataTable id="datatable" var="venue" value="#{contractManagedBean.selectedNego.venues}" rowKey="#{venue.realID}" selection="#{contractManagedBean.selectedVenues}" selectionMode="multiple" paginator="true" emptyMessage="No venue for contract creation.">
+                    <p:column headerText="Unit ID"  sortBy="#{venue.id}" filterBy="#{venue.id}" filterStyle="width: 40px;" >
+                        <f:facet name="header">  
+                            <h:outputText value="Unit ID" />  
+                        </f:facet>
+                        <h:outputText value="#{venue.id}" />
+                    </p:column>
+
+                    <p:column headerText="Floor" sortBy="#{venue.floor}" filterBy="#{venue.floor}" filterStyle="width: 40px;" >
+                        <f:facet name="header">  
+                            <h:outputText value="Floor" />  
+                        </f:facet>
+                        <h:outputText value="#{venue.floor}" />
+                    </p:column>
+
+                    <p:column headerText="Rank" sortBy="#{venue.sector}" filterBy="#{venue.sector}" filterStyle="width: 40px;" >
+                        <f:facet name="header">  
+                            <h:outputText value="Rank" />  
+                        </f:facet>
+                        <h:outputText value="#{venue.sector}" />
+                    </p:column>
+
+                    <p:column headerText="Area" sortBy="#{venue.area}" filterBy="#{venue.area}" filterStyle="width: 40px;" >
+                        <f:facet name="header">  
+                            <h:outputText value="Area" />  
+                        </f:facet>
+                        <h:outputText value="#{venue.area}" />
+                    </p:column>
+
+                    <p:column headerText="Status" sortBy="#{venue.status}" filterBy="#{venue.status}" filterStyle="width: 50px;" >
+                        <f:facet name="header">  
+                            <h:outputText value="Status" />  
+                        </f:facet>
+                        <h:outputText value="#{venue.status}" />
+                    </p:column>            
+                </p:dataTable>
+            </p:panel>
+            <p:commandButton  id="back" value="Back to view negotiators" style=" float:  left" actionListener="#{contractManagedBean.navigateAllNegotiators}">
+            </p:commandButton>
+            <p:commandButton value="Create Contract" update=":subForm"  style="float: right"  ajax="true" oncomplete="newContract.show();"/>
+
+        </h:form>
+
+        <p:dialog  rendered="true" widgetVar="newContract" id="createBox" header="Create New Contract for negotiator #{contractManagedBean.selectedNego.negotiatorName}" closable="true" modal="true"  appendToBody="true" >
+            <p:growl autoUpdate="true" globalOnly="true"/>
+            <h:form id="subForm">
+                <h2>Shop Name: #{contractManagedBean.selectedNego.shopName}</h2>
+                <h2>Venue: #{contractManagedBean.venueString}</h2>
+                <h2>Total Area: #{contractManagedBean.totalArea}</h2>
+                <h2>Please fill up all fields below.</h2>
+                <h:panelGrid id="createForm" columns="3" cellpadding="10">  
+
+                    <p:outputLabel for="leaseDateFrom" style="font-weight: bold" value="Lease Date From [Eg. 01-Sep-2013]: " />
+                    <p:calendar label="leaseDateFrom" mindate="#{contractManagedBean.tomorrow}" id="leaseDateFrom" value="#{contractManagedBean.leaseDateFrom}" pattern="dd-MMM-yyyy" required="true" requiredMessage="LeaseDateFrom is requried."/>
+                    <p:message for="leaseDateFrom" />  
+
+                    <p:outputLabel for="leaseTerm" style="font-weight: bold" value="Lease Term (Integer Years): " />
+                    <p:inputText label="leaseTerm" id="leaseTerm" value="#{contractManagedBean.leaseTerm}" required="true" requiredMessage="LeaseTerm is requried."/>
+                    <p:message for="leaseTerm" />  
+
+                    <p:outputLabel for="monthlyRental" style="font-weight: bold" value="Negotiated Commercial Rental(/month): " />
+                    <p:inputText required="true" label="monthlyRental" requiredMessage="Monthly Rental is required." id="monthlyRental" value="#{contractManagedBean.monthlyRental}">
+                    </p:inputText>
+                    <p:message for="monthlyRental" />  
+
+                    <p:outputLabel for="commissionRate" style="font-weight: bold" value="Commission Rate(percentage per month): " />
+                    <p:inputText required="true" label="commissionRate " requiredMessage="Commission Rate is required." id="commissionRate" value="#{contractManagedBean.commissionRate}">
+                    </p:inputText>
+                    <p:message for="commissionRate" /> 
+
+                    <p:outputLabel for="deposit" style="font-weight: bold" value="Deposit: " />
+                    <p:inputText required="true"  label="Deposit" requiredMessage="Deposit is required." id="deposit" value="#{contractManagedBean.deposit}">
+                    </p:inputText>
+                    <p:message for="deposit" /> 
+
+
+                    <p:commandButton  id="createSubmit" value="Create" update=":mainCon"  actionListener="#{contractManagedBean.saveContract}" oncomplete="newContract.hide();">
+                    </p:commandButton>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>

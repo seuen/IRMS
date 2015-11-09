@@ -1,0 +1,96 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/Templates/InternalAggregateTemplate.xhtml">
+            <ui:define name="contents">
+
+                <p:panelGrid>
+                    <p:row>
+                        <p:column>
+                            <p:panelGrid columns="2">
+                                <f:facet name="header">
+                                    Staff Information
+                                </f:facet>
+
+                                <h:outputLabel id="firstname" value="First Name: " />
+                                <h:outputText value="#{staffManagedBean.staff.firstName}" />
+
+                                <h:outputLabel id="lastname" value="Last Name: " />
+                                <h:outputText value="#{staffManagedBean.staff.lastName}" />
+
+                                <h:outputLabel id="email" value="E-mail: " />
+                                <h:outputText value="#{staffManagedBean.staff.email}" />
+                            </p:panelGrid>
+                        </p:column>                        
+                    </p:row>
+                </p:panelGrid>
+
+                <br/><br/>
+
+                <h:form id="form">
+                    <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+
+                    <p:dataTable var="tit" value="#{staffManagedBean.titles}" id="TitleList" >
+
+                        <f:facet name="header">
+                            Titles for Staff #{staffManagedBean.staff.firstName} #{staffManagedBean.staff.lastName}
+                        </f:facet>                        
+
+                        <p:column headerText="Position" filterBy="#{tit.position}" filterMatchMode="contains" >
+                            <h:outputText value="#{tit.position}" />
+                        </p:column>
+
+                        <p:column headerText="Work Location" filterBy="#{tit.workLocation}" filterMatchMode="contains" >
+                            <h:outputText value="#{tit.workLocation}" />
+                        </p:column>    
+                        
+                        <p:column headerText="Delete Title">
+                            <p:commandButton value="Delete" actionListener="#{staffManagedBean.deleteExtraTitle(tit)}" update="TitleList" />
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <br/>
+
+                    <p:panelGrid columns="3" id="panel">
+
+                        <f:facet name="header">
+                            Create an Extra Title for Staff
+                        </f:facet>
+
+                        <h:outputLabel for="department" value="Department: *" />
+                        <p:selectOneMenu id="department" value="#{staffManagedBean.department}" required="true">
+                            <f:selectItems value="#{staffManagedBean.departments}" />
+                            <p:ajax listener="#{staffManagedBean.retrieveDynamicWorkLocaitonsForCIR(false)}" update="workLocation position" />
+                        </p:selectOneMenu>
+                        <p:messages for="department" />
+
+                        <h:outputLabel for="workLocation" value="Work Location: *" />                        
+                        <p:selectOneMenu id="workLocation" value="#{staffManagedBean.title.workLocation}" required="true" >
+                            <f:selectItems value="#{staffManagedBean.workLocations}" />
+                            <p:ajax listener="#{staffManagedBean.retrieveDynamicPositionsForCIR(false)}" update="position" />
+                        </p:selectOneMenu>
+                        <p:messages for="workLocation" />
+
+                        <h:outputLabel for="position" value="Position: *" />
+                        <p:selectOneMenu id="position" value="#{staffManagedBean.title.position}" required="true">
+                            <f:selectItems value="#{staffManagedBean.positions}" />
+                        </p:selectOneMenu>
+                        <p:messages for="position" /> 
+
+                        <f:facet name="footer">
+                            <p:commandButton update="form" ajax="true" type="submit" value="Create" actionListener="#{staffManagedBean.saveExtraTitle()}" />
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+            </ui:define>
+        </ui:composition>  
+    </h:body>
+</html>
+

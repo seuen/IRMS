@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+        <ui:composition template="../../Templates/InternalAggregateTemplate.xhtml" >
+
+            <ui:define name="contents">
+                <h:form>
+                    <p:panel  id="panel" >
+                        <f:facet name="header">
+                            Add Food Material
+                        </f:facet> 
+                        <p:growl autoUpdate="true" showDetail="false" globalOnly="true"/> 
+                        <h:panelGrid columns="3" cellpadding="7">
+
+                            <p:outputLabel value="Raw Material Name: *" />
+                            <p:inputText id="name" label="Material Name" value="#{foodMaterialManagedBean.foodMaterial.name}" required="true"/> 
+                            <p:message for="name" />
+                            
+                            <p:outputLabel value="Amount: *" />
+                            <h:panelGrid columns="2">  
+                            <p:inputText id="amount" label="Material Amount" value="#{foodMaterialManagedBean.foodMaterial.amount}" required="true"/>
+                            <h:outputText value="KG"/>
+                            </h:panelGrid>
+                            <p:message for="amount" />
+                            
+                            <p:outputLabel value="Type: *"/>
+                            <p:selectOneMenu id="type" label="Material Type" value="#{foodMaterialManagedBean.foodMaterial.type}">  
+                                <f:selectItem itemLabel="Vegetable" itemValue="Vegetable" />  
+                                <f:selectItem itemLabel="Fruit" itemValue="Fruit" />    
+                                <f:selectItem itemLabel="Meat" itemValue="Meat" /> 
+                                <f:selectItem itemLabel="Beverage" itemValue="Beverage" /> 
+                                <f:selectItem itemLabel="Others" itemValue="Others" /> 
+                            </p:selectOneMenu>
+                            <br/>
+                        
+                            </h:panelGrid>
+                        <p:commandButton update="panel" ajax="true" type="submit" value="Submit" actionListener="#{foodMaterialManagedBean.addFoodMaterial(action)}" /> 
+                       
+                    </p:panel>
+                    
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

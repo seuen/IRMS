@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../Templates/hotelTemplate.xhtml">
+            <ui:define name="content1" class="full">
+                <div align="left">
+                <h:form id="form">
+                        <h3><strong>STEP 2: Choose your preference</strong></h3>
+                        <p:panel  id="panel" style="width: 80%; border: transparent;">
+                            <p:growl autoUpdate="true" globalOnly="true"/> 
+                            <h:panelGrid  columns="2" style="background: transparent; border: transparent; width: 80%">
+
+                                <h:outputLabel value="Checkin Date: *" />
+                                <p:calendar style="width: 50px"  value="#{exReservationManagedBean.dateFrom}" id="dateFrom" required="true" /> 
+
+                                <h:outputLabel value="Checkout Date: *" />
+                                <p:calendar style="width: 50px"  value="#{exReservationManagedBean.dateTo}" id="dateTo"  required="true"/>
+
+                                <h:outputLabel value="Number of guests per room: *"/>
+                                <p:selectOneMenu style="width: 50px" id="guestNum" label="Guest Number" value="#{exReservationManagedBean.guestNum}">  
+                                    <f:selectItem itemLabel="1" itemValue="1" />  
+                                    <f:selectItem itemLabel="2" itemValue="2" />  
+                                    <f:selectItem itemLabel="3" itemValue="3" />  
+                                    <f:selectItem itemLabel="4" itemValue="4" />  
+                                    <f:selectItem itemLabel="5" itemValue="5" />    
+                                </p:selectOneMenu>
+
+                                <h:outputLabel value="Numebr of rooms: *" />
+                                <p:selectOneMenu style="width: 50px" label="Room Quantity" value="#{exReservationManagedBean.roomQuantity}">  
+                                    <f:selectItem itemLabel="1" itemValue="1" />  
+                                    <f:selectItem itemLabel="2" itemValue="2" />  
+                                    <f:selectItem itemLabel="3" itemValue="3" />  
+                                    <f:selectItem itemLabel="4" itemValue="4" />  
+                                    <f:selectItem itemLabel="5" itemValue="5" />  
+                                    <f:selectItem itemLabel="6" itemValue="6" />  
+                                    <f:selectItem itemLabel="7" itemValue="7" />   
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                            <p:commandButton update="panel" ajax="true" type="submit" value="Next" action="#{exReservationManagedBean.addReservation1}" /> 
+
+                        </p:panel>
+
+                </h:form>
+                </div>
+
+            </ui:define>
+
+            <ui:define name="content2">
+
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

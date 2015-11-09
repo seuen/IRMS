@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+   
+
+    <ui:define name="contents">
+        <p:dataTable id="availableOpenSpace" value="#{banquetManagedBean.banquethalls}" var="banquethalls"
+                           paginator="true" rows="5" sortMode="multiple" rowKey="#{banquethalls.id}" selection="#{banquetManagedBean.selectBanquetHall}">
+               <f:facet name="header">
+                      Available Banquet Halls                  
+                </f:facet>
+                  
+                  <p:column selectionMode="single" style="width: 2%"/>
+                  
+                  <p:column headerText="Location" filterBy="#{banquethalls.roomNo}" sortBy="#{banquethalls.roomNo}">
+                    #{banquethalls.roomNo}
+                </p:column>
+                
+                  <p:column headerText="Space Capacity" sortBy="#{banquethalls.capacity}" filterBy="#{banquethalls.capacity}">
+                #{banquethalls.capacity}
+                </p:column>
+                
+                  <p:column headerText="Day Price" sortBy="#{banquethalls.dayprice}" filterBy="#{banquethalls.dayprice}">
+                #{banquethalls.dayprice}
+                </p:column>
+                  
+                  <p:column headerText="Half Day Price" sortBy="#{banquethalls.halfdayprice}" filterBy="#{banquethalls.halfdayprice}">
+                #{banquethalls.halfdayprice}
+                </p:column>
+                  
+                  <p:column headerText="Hour Price" sortBy="#{banquethalls.hourprice}" filterBy="#{banquethalls.hourprice}">
+                #{banquethalls.hourprice}
+                </p:column>
+                  
+                  <f:facet name="footer">
+                      <p:commandButton id="AddEvent" value="Add Event" actionListener="#{banquetManagedBean.setBanquetHall}"/>
+                  </f:facet>
+                  
+        </p:dataTable>
+     </ui:define>
+
+
+</ui:composition>

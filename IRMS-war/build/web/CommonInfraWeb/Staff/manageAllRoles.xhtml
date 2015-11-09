@@ -1,0 +1,221 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <style type="text/css">
+            .cirPanelGrid tr, .cirPanelGrid td {
+                border: none;
+            }
+            .ui-widget-content .ui-datatable .ui-datatable-data td  table.panelgrid td{border-style:none;}
+        </style>
+    </h:head>
+    <h:body>
+        <ui:composition template="/Templates/InternalAggregateTemplate.xhtml">
+            <ui:define name="head-title">
+                <title>
+                    CIR Intranet | Staff Management
+                </title>
+            </ui:define>
+            <ui:define name="contents">
+
+                <h:form id="formCriteria">
+                    <p:messages id="messages1" showDetail="false" autoUpdate="true" closable="true" />
+
+                    <p:panelGrid columns="3" id="panelStaff">
+                        <f:facet name="header">
+                            Selection Criteria
+                        </f:facet>  
+
+                        <h:outputLabel for="manageArea" value="What to Manage: " />
+                        <p:selectOneMenu id="manageArea" value="#{staffAdminManagedBean.managedAreaSelected}" >
+                            <f:selectItems value="#{staffAdminManagedBean.managedAreas}"/>
+                            <p:ajax listener="#{staffAdminManagedBean.updateSelectedAreas}" update=":information panelStaff" />
+                        </p:selectOneMenu>
+                        <p:messages for="manageArea" />
+
+                        <h:outputLabel for="department" value="Department: " />
+                        <p:selectOneMenu id="department" value="#{staffManagedBean.department}" required="true">
+                            <f:selectItems value="#{staffManagedBean.departments}" />
+                            <p:ajax listener="#{staffManagedBean.retrieveDynamicWorkLocaitonsForCIR(true)}" update="workLocation position" />
+                        </p:selectOneMenu>
+                        <p:messages for="department" />
+
+                        <h:outputLabel for="workLocation" value="Work Location: " />                        
+                        <p:selectOneMenu id="workLocation" value="#{staffManagedBean.title.workLocation}" required="true" >
+                            <f:selectItems value="#{staffManagedBean.workLocations}" />
+                            <p:ajax listener="#{staffManagedBean.retrieveDynamicPositionsForCIR(true)}" update="position" />
+                        </p:selectOneMenu>
+                        <p:messages for="workLocation" />
+
+                        <h:outputLabel for="position" value="Position: " />
+                        <p:selectOneMenu id="position" value="#{staffManagedBean.title.position}" required="true">
+                            <f:selectItems value="#{staffManagedBean.positions}" />
+                        </p:selectOneMenu>
+                        <p:messages for="position" />                           
+
+                        <f:facet id="facet" name="footer">
+                            <p:commandButton id="actionButton1" value="Go1" actionListener="#{staffManagedBean.fetchStaffGivenTitle}" update=":information" rendered="#{staffAdminManagedBean.allStaffGeneral}" />
+                            <p:commandButton id="actionButton2" value="Go2" actionListener="#{staffManagedBean.fetchStaffGivenTitle}" update=":information" rendered="#{staffAdminManagedBean.allStaffTitles}"/>
+                            <p:commandButton id="actionButton3" value="Go3" actionListener="#{staffManagedBean.fetchStaffAccountGivenTitle}" update=":information" rendered="#{staffAdminManagedBean.allStaffAccount}" />
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+
+                <br/><br/>
+                <h:form id="information">
+                    <h:form id="formGeneral" rendered="#{staffAdminManagedBean.allStaffGeneral}">
+                        <h1> all staff general</h1>
+                        <p:growl id="messagesAllStaffGeneral" showDetail="false" />
+                        <p:dataTable var="staff" value="#{staffManagedBean.staffWithTitle}" id="staffList" editable="true" style="table-layout: fixed" emptyMessage="No Staff Found under this search criteria" >
+
+                            <f:facet name="header">
+                                Staff Information
+                            </f:facet>
+
+                            <p:ajax event="rowEdit" listener="#{staffManagedBean.onEditStaff}" update=":information:formGeneral:messagesAllStaffGeneral" />
+                            <p:ajax event="rowEditCancel" listener="#{staffManagedBean.onCancelStaff(event)}" update=":information:formGeneral:messagesAllStaffGeneral" />
+
+                            <p:column headerText="First Name" filterBy="#{staff.firstName}" filterMatchMode="contains" width="10%" >
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{staff.firstName}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{staff.firstName}" />
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Last Name" filterBy="#{staff.lastName}" filterMatchMode="contains" width="20%" >
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{staff.lastName}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{staff.lastName}" />
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Email" filterBy="#{staff.email}" filterMatchMode="contains" width="30%">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{staff.email}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{staff.email}" />
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Edit" width="20%">
+                                <p:rowEditor />
+                            </p:column>
+
+                            <p:column headerText="Remove Staff" width="20%">
+                                <p:commandButton value="Remove" update="staffList" id="remove" actionListener="#{staffManagedBean.remove(staff)}" />
+                            </p:column>
+
+                        </p:dataTable>
+                    </h:form>
+
+                    <h:form id="formTitles" rendered="#{staffAdminManagedBean.allStaffTitles}">
+                        <p:growl id="messages" showDetail="false" />
+                        <h1>All Staff Titles</h1>
+                        <p:dataTable var="staff" value="#{staffManagedBean.staffWithTitle}" id="staffList" editable="true" emptyMessage="No Staff Found under this search criteria" >
+
+                            <f:facet name="header">
+                                Staff Role Management
+                            </f:facet>
+
+                            <p:ajax event="rowEdit" listener="#{staffManagedBean.onEditStaff}" update=":formTitles:messages" />
+                            <p:ajax event="rowEditCancel" listener="#{staffManagedBean.onCancelStaff(event)}" update=":formTitles:messages" />
+
+                            <p:column headerText="First Name" filterBy="#{staff.firstName}" filterMatchMode="contains" >
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{staff.firstName}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{staff.firstName}" />
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Last Name" filterBy="#{staff.lastName}" filterMatchMode="contains" >
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{staff.lastName}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{staff.lastName}" />
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Email" filterBy="#{staff.email}" filterMatchMode="contains">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{staff.email}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{staff.email}" />
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column>
+                                <p:rowEditor />
+                            </p:column>
+
+                            <p:column headerText="Manage Extra Roles">
+                                <p:commandButton value="manage" actionListener="#{staffManagedBean.saveStaff(staff)}" disabled="#{staffManagedBean.title.shifts}" />
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+
+                    <h:form id="formAccounts" rendered="#{staffAdminManagedBean.allStaffAccount}">
+                        <h1>All Staff Accounts</h1>
+                        <p:growl id="messages" />
+
+                        <p:dataTable id="dataTable" var="staffAccount" value="#{staffManagedBean.staffAccountsWithTitle}" emptyMessage="No Staff Account Found under this search criteria">
+
+                            <p:column id="staffAccountId" filterBy="#{staffAccount.staffId}" headerText="Staff Account Id" filterMatchMode="exact" >
+                                <h:outputText value="#{staffAccount.staffId}" />
+                            </p:column>
+
+                            <p:column id="staffFirstName" filterBy="#{staffAccount.staff.firstName}" headerText="Staff First Name" filterMatchMode="exact" >
+                                <h:outputText value="#{staffAccount.staff.firstName}" />
+                            </p:column>
+
+                            <p:column id="staffLastName" filterBy="#{staffAccount.staff.lastName}" headerText="Staff Last Name" filterMatchMode="exact" >
+                                <h:outputText value="#{staffAccount.staff.lastName}" />
+                            </p:column>
+
+                            <p:column id="frozen" filterBy="#{staffAccount.frozen}" headerText="Account Frozen Status" filterMatchMode="exact" >
+                                <h:outputText value="#{staffAccount.frozen}" />
+                            </p:column>
+
+                            <p:column id="changeStatus" headerText="Change Staff Account Status" >
+                                <p:commandButton value="reset status" actionListener="#{staffManagedBean.changeStaffAccountStatus(staffAccount)}" update="dataTable" />
+                            </p:column>
+
+                            <p:column id="resetPassword" headerText="Reset Password" >
+                                <p:commandButton value="reset Staff Password" actionListener="#{staffManagedBean.resetStaffPassword(staffAccount)}" update=":form:messages" onstart="dialog1.show()" oncomplete="dialog1.hide()" />
+                            </p:column>
+
+                        </p:dataTable>
+
+                        <p:dialog id="dialog1" widgetVar="dialog1">
+                            Email containing reset password is being sent to the staff, please wait...
+                        </p:dialog>                        
+                    </h:form>
+                </h:form>
+            </ui:define>
+        </ui:composition>    
+    </h:body>
+</html>
+

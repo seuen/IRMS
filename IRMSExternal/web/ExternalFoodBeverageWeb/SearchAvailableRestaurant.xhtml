@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../Templates/foodTemplate1.xhtml">
+            <ui:define name="content1">
+                <h:form>
+                    <p:commandButton value="Make a Banquet Enquiry"  actionListener="#{externalEnquiryManagedBean.navigateEnquiry}"> </p:commandButton>
+                    <p:commandButton value="Make a Table Reservation" actionListener="#{externalTableReserveManagedBean.navigateReserve}"> </p:commandButton>
+                    <p:graphicImage value="/images/food/cir.jpg" />  
+                </h:form>
+            </ui:define>
+            <ui:define name="content2">
+                <h:form id="form">
+                    <p:panel> 
+                        <h:outputText styleClass="STYLE2" value="Make Table Reservation: Step 1 (Search Available Restaurants)."/>
+                        <br></br>
+                        <br></br> 
+                    </p:panel>
+                    <p:growl autoUpdate="true" globalOnly="true"/>
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <p:outputLabel value="Reservation Date: *"/>
+                        <p:calendar value="#{externalTableReserveManagedBean.resDate}" id="reservationDate" showOn="button" required="true"/>
+
+                        <p:outputLabel value="Timeslot: *"/>
+                        <p:selectOneMenu value="#{externalTableReserveManagedBean.timeslotId}" id="timeslot" required="true" requiredMessage="Timeslot cannot be empty">
+                            <f:selectItem itemLabel="Select One" itemValue=" "/>
+                            <f:selectItem itemLabel="10:00 - 12:00" itemValue="1"/>
+                            <f:selectItem itemLabel="12:00 - 14:00" itemValue="2"/>
+                            <f:selectItem itemLabel="15:00-17:00" itemValue="3"/>
+                            <f:selectItem itemLabel=" 17:00 - 19:00" itemValue="4"/>
+                            <f:selectItem itemLabel="19:00 - 21:00" itemValue="5"/>
+                            <f:selectItem itemLabel="21:00 - 23:00" itemValue="6"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Peopel Num: *"/>
+                        <h:inputText value="#{externalTableReserveManagedBean.peoplenum}" required="true" requiredMessage="People Num cannot be empty"/>
+
+                        <p:commandButton value="Search Available Restaurant" update=":form:restaurants" actionListener="#{externalTableReserveManagedBean.getavailablerestaurants}"/>
+                    </h:panelGrid>
+
+                    <p:dataTable id="restaurants" value="#{externalTableReserveManagedBean.availablerestaurants}" var="restaurant"
+                                 rowKey="#{restaurant.shopId}" selection="#{externalTableReserveManagedBean.selectRestaurant}">
+
+                        <f:facet name="header">
+                            Availalble Restaurant
+                        </f:facet>
+                        <p:column selectionMode="single" style="width: 2%"/>
+
+                        <p:column headerText="Category">
+                            #{restaurant.category}
+                        </p:column>
+
+                        <p:column headerText="Name">
+                            #{restaurant.shopName}
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Reserve Table" actionListener="#{externalTableReserveManagedBean.getavailabletabletypes}"/>
+                        </f:facet>
+                    </p:dataTable>
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

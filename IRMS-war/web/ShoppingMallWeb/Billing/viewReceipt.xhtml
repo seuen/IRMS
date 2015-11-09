@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Home</title>
+        <style type="text/css">
+            .gritter-notice-wrapper {
+                left:200px;
+                top: 50px; }
+            </style>
+        </h:head>
+        <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                        template="../../Templates/InternalAggregateTemplate.xhtml"
+                        xmlns:h="http://java.sun.com/jsf/html"
+                        xmlns:p="http://primefaces.org/ui">
+            <ui:define name="contents">
+                <h1>
+                    Welcome to Billing Management SubSystem
+                </h1>
+                <h:body>
+                    <h:form id="formMain">
+                    <p:tabMenu activeIndex="5">
+                        <p:menuitem value="Home" url="/ShoppingMallWeb/Billing/billingManagement.xhtml"/>
+                        <p:menuitem value="View All Unpaid Bills" url="/ShoppingMallWeb/Billing/viewAllUnpaidBills.xhtml"/>
+                        <p:menuitem value="View All Bills" url="/ShoppingMallWeb/Billing/viewAllHistoricalBills.xhtml"/>
+                        <p:menuitem value="View All Receipts" url="/ShoppingMallWeb/Billing/viewAllReceipts.xhtml"/>
+                        <p:menuitem value="View Bad Debts" url="/ShoppingMallWeb/Billing/viewBadDebts.xhtml"/>
+                        <p:menuitem value="Receipt Information" url="/ShoppingMallWeb/Billing/viewReceipt.xhtml"/>
+                    </p:tabMenu>
+                    <p:panel> 
+                        <h:outputText styleClass="STYLE2" value="Here displays the detailed information of the receipt selected. You can view and send the receipt."/>
+                        <br></br>
+                    </p:panel>
+                    <p:panel>
+                        <p:growl id="growl" showDetail="true" />  
+                        <h:panelGrid id="panelGrid" columns="2" cellpadding="10" >  
+                            <h:outputText style="font-weight: bold; font-size: 20px" value="Shop Name: #{billingManagedBean.receipt.tenantBill.rentalReports.contract.shop.shopName}"/>
+                            <h:outputText style="font-weight: bold; font-size: 20px" value="Receipt Number: #{billingManagedBean.receipt.id}"/>
+                            <h:outputText style="font-weight: bold; font-size: 12px" value="Contract ID: #{billingManagedBean.receipt.tenantBill.rentalReports.contract.id}"/>
+                            <h:outputText style="font-weight: bold; font-size: 12px" value="Payment Date: #{billingManagedBean.receipt.receiptDateString}"/>
+                            <h:outputText style="font-weight: bold; font-size: 12px" value="Sent By: #{billingManagedBean.receipt.tenantBill.rentalReports.contract.lessor}"/>
+                        </h:panelGrid>
+                    </p:panel>
+                    <p:panel>
+
+                        <p:commandButton value="Send Receipt" actionListener="#{billingManagedBean.sendReceipt}">
+                            <f:attribute name="b2" value="#{billingManagedBean.receipt.tenantBill}"/>
+                        </p:commandButton>
+                        <p:panelGrid   style="margin-top:20px; margin-bottom: 20px; border-color: black; width: 80%" > 
+                            <p:row>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 15px" value="Rental Payment"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 15px" value="#{billingManagedBean.receipt.rentalPayment} SGD"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 15px" value="Deposit Payment"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 15px" value="#{billingManagedBean.receipt.depositPayment} SGD"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 15px" value="Commission Payment"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 15px" value="#{billingManagedBean.receipt.commissionPayment} SGD"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 15px" value="Adhoc Charge Payment"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 15px" value="#{billingManagedBean.receipt.adhocPayment} SGD"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 15px" value="Total Payment"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText style="font-weight: bold; font-size: 15px" value="#{billingManagedBean.receipt.totalPayment} SGD"/>
+                                </p:column>
+                            </p:row>
+
+                        </p:panelGrid>  
+                    </p:panel>             
+                </h:form>
+            </h:body>
+        </ui:define>
+
+
+        <ui:define name="foot">
+            foot
+        </ui:define>
+
+    </ui:composition>
+</html>

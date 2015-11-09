@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Coral Island Resort HomePage</title>
+<meta name="keywords" content="carousel theme, free templates, image carousel, darkgray, pixelated background, templatemo, CSS, HTML" />
+<meta name="description" content="Carousel Theme with darkgray background - free CSS template provided by templatemo.com" />
+<link href="./../resources/cr/css/templatemo_style.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="./../resources/cr/js/jquery-1-4-2.min.js"></script> 
+<!--script type="text/javascript" src="/jqueryui/js/jquery-ui-1.7.2.custom.min.js"></script--> 
+<script type="text/javascript" src="./../resources/cr/js/jquery-ui.min.js"></script> 
+<script type="text/javascript" src="./../resources/cr/js/showhide.js"></script> 
+<script type="text/JavaScript" src="./../resources/cr/js/jquery.mousewheel.js"></script> 
+
+<link rel="stylesheet" type="text/css" href="./../resources/cr/css/ddsmoothmenu.css" />
+
+<script type="text/javascript" src="./../resources/cr/js/jquery.min.js"></script>
+<script type="text/javascript" src="./../resources/cr/js/ddsmoothmenu.js">
+
+/***********************************************
+* Smooth Navigational Menu- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* This notice MUST stay intact for legal use
+* Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
+***********************************************/
+
+</script>
+
+<script type="text/javascript">
+
+ddsmoothmenu.init({
+	mainmenuid: "templatemo_menu", //menu DIV id
+	orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+	classname: 'ddsmoothmenu', //class added to menu's outer DIV
+	//customtheme: ["#1c5a80", "#18374a"],
+	contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+})
+
+</script> 
+
+<!-- Load the CloudCarousel JavaScript file -->
+<script type="text/JavaScript" src="./../resources/cr/js/cloud-carousel.1.0.5.js"></script>
+ 
+<script type="text/javascript">
+$(document).ready(function(){
+						   
+	// This initialises carousels on the container elements specified, in this case, carousel1.
+	$("#carousel1").CloudCarousel(		
+		{			
+			reflHeight: 40,
+			reflGap:2,
+			titleBox: $('#da-vinci-title'),
+			altBox: $('#da-vinci-alt'),
+			buttonLeft: $('#slider-left-but'),
+			buttonRight: $('#slider-right-but'),
+			yRadius:30,
+			xPos: 480,
+			yPos: 32,
+			speed:0.15,
+		}
+	);
+});
+ 
+</script>
+        <style type="text/css">
+            <!--
+            .STYLE1 {
+                font-size: xx-large;
+                font-weight: bold;
+                color: #E8CFFE;
+            }
+
+            .STYLE2 {
+                font-size: 14px;
+                color: #333333;
+                font-weight: bold;
+            }
+
+            .STYLE3 {
+                font-family: Verdana, Arial, Helvetica, sans-serif;
+                font-weight: bold;
+                color: #006699;
+                font-size: x-large;
+            }
+
+            .STYLE4 {font-family: Verdana, Arial, Helvetica, sans-serif; font-weight: bold; color: #F09C11; font-size: medium; }
+            .STYLE5 {
+                color: #B5CBFF;
+                font-weight: bold;
+                font-style: italic;
+                font-family: Verdana, Arial, Helvetica, sans-serif;
+            }
+            -->
+        </style>
+
+</h:head>
+
+<h:body id="home">
+
+<div id="templatemo_header_wrapper">
+                <div class="STYLE1" id="site_title">Coral Island Resort </div>
+               <br></br>  <br></br>
+            <span class="cleaner STYLE5"> --- We always treat you as our families.</span>
+
+     <div id="templatemo_menu" class="ddsmoothmenu">
+                   <ul>
+                    <li><a href="crmHomepage.html">Home</a></li>
+                    <li><a href="about.html">Hotel</a>
+                        <ul>
+                            <li><span class="top"></span><span class="bottom"></span></li>
+                            <li><a href="#">Sub menu 1</a></li>
+                            <li><a href="#">Sub menu 2</a></li>
+                            <li><a href="#">Sub menu 3</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="portfolio.html">Restaurant</a>
+                        <ul>
+                            <li><span class="top"></span><span class="bottom"></span></li>
+                            <li><a href="http://localhost:8080/IRMS-war/AccommodationWeb/customerhotel.xhtml">Accommodation</a></li>
+                            <li><a href="#">Shopping Mall</a></li>
+                            <li><a href="#">Attraction Show</a></li>
+                            <li><a href="#">Food And Beverage</a></li>
+                            <li><a href="#">Sub menu 5</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="crmHomepage.html">Attraction</a></li>
+                    <li><a href="crmHomepage.html">Entertainment</a></li>
+                    <li><a href="crmHomepage.html">Venue</a></li>
+                    <li><a href="crmHomepage.html">Shopping</a></li>
+                    
+                    <li><a href="#">Membership</a>
+                        <ul>
+                            <li><span class="top"></span><span class="bottom"></span></li>
+                            <li><a href="#">Loyalty Program</a></li>
+                            <li><a href="login.xhtml">Log In</a></li>
+                            <li><a href="signUp.xhtml">Sign Up</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+        <br style="clear: left" />
+    </div> <!-- end of templatemo_menu -->
+    <div class="cleaner"></div>
+</div>	<!-- END of templatemo_header_wrapper -->
+<div id="templatemo_slider">
+	<!-- This is the container for the carousel. -->
+    <div id = "carousel1" style="width:960px; height:280px;background:none;overflow:scroll; margin-top: 20px">            
+        <!-- All images with class of "cloudcarousel" will be turned into carousel items -->
+        <!-- You can place links around these images -->
+        <a href="#" rel="lightbox"><img class="cloudcarousel" src="./../resources/cr/images/slider/01.jpg" alt="CSS Templates 1" title="Website Templates 1" /></a>
+        <a href="#" rel="lightbox"><img class="cloudcarousel" src="./../resources/cr/images/slider/02.jpg" alt="CSS Templates 2" title="Website Templates 2" /></a>
+        <a href="#" rel="lightbox"><img class="cloudcarousel" src="./../resources/cr/images/slider/03.jpg" alt="CSS Templates 3" title="Website Templates 3" /></a>
+        <a href="#" rel="lightbox"><img class="cloudcarousel" src="./../resources/cr/images/slider/04.jpg" alt="CSS Templates 4" title="Website Templates 4" /></a>
+        <a href="#" rel="lightbox"><img class="cloudcarousel" src="./../resources/cr/images/slider/05.jpg" alt="Flash Templates 1" title="Flash Templates 1" /></a>
+        <a href="#" rel="lightbox"><img class="cloudcarousel" src="./../resources/cr/images/slider/06.jpg" alt="Flash Templates 2" title="Flash Templates 2" /></a>
+        <a href="#" rel="lightbox"><img class="cloudcarousel" src="./../resources/cr/images/slider/07.jpg" alt="Flash Templates 3" title="Flash Templates 3" /></a>
+        <a href="#" rel="lightbox"><img class="cloudcarousel" src="./../resources/cr/images/slider/08.jpg" alt="Flash Templates 4" title="Flash Templates 4" /></a>
+    </div>
+    
+    <!-- Define left and right buttons. -->
+    <center>
+    <input id="slider-left-but" type="button" value="" />
+    <input id="slider-right-but" type="button" value="" />
+    </center>
+</div>
+<div id="templatemo_main">
+	
+    <div class="col one_third fp_services">
+    <h2>Welcome</h2>
+    <img src="./../resources/cr/images/CRM/website/homepage1.jpg" width="130" height="100" alt="Image 04 " class="image_fl" />
+        <p><a href="#" target="_parent">Coral Island Resort</a>, Asia’s ultimate destination resort.The resort welcomed over 45 million visitors in its first three years of opening.</p>
+  		<ul class="templatemo_list">
+            <li class="flow">Luxurious accommodation</li>
+            <li class="flow nomr">Resorts World Convention Centre</li>
+            <li class="flow">Celebrity chef restaurants</li>
+            <li class="flow nomr">World-class entertainment and attractions</li>
+        </ul>
+    </div>
+    <div class="col one_third fp_services">
+        <h2>Recent News</h2>
+        <div class="rp_pp">
+            <img src="./../resources/cr/images/CRM/website/homepage2.jpg" width="60" height="60" alt="Image 01" />
+            <a href="#">Our mobile application is released, and 30,000 users have downloaded.</a>
+            <p>Oct 12, 2013 </p>
+            <div class="cleaner"></div>
+        </div>
+        <div class="rp_pp">
+            <img src="./../resources/cr/images/CRM/website/homepage3.jpg" width="60" height="60" alt="Image 02" />
+            <a href="#">New shopping mall X-Mall is open up next month. </a>
+            <p>Sep 21, 2013 </p>
+            <div class="cleaner"></div>
+        </div>
+        <div class="rp_pp">
+            <img src="./../resources/cr/images/CRM/website/homepage4.jpg" width="60" height="60"  alt="Image 03" />
+            <a href="#">The Disney World is closed today for maintainance.  </a>
+            <p>Sep 13, 2013</p>
+            <div class="cleaner"></div>
+        </div>
+    </div>
+    <div class="col one_third no_margin_right fp_services">
+        
+        <h2>Our Voice</h2>
+        <div class="testimonial">
+            <p>Coral Island Resort is the leading business, leisure and entertainment destination in Asia</p>
+            <cite>Rock  <a href="#"><span>- CEO, CIR</span></a></cite></div>
+    	<div class="testimonial">
+            <p>We treat everyone as our family members, and offer the best service.  &amp; .</p>
+    		<cite>John <a href="#"><span>- CRM Manager, CIR</span></a></cite></div>
+    </div>
+    
+    <div class="cleaner"></div>
+</div> <!-- END of templatemo_main -->
+
+<div id="templatemo_bottom_wrapper">
+    <div id="templatemo_bottom">
+    	<div class="col one_third">
+        	<h4><span></span>Resources</h4>
+            <div class="bottom_box">
+                <ul class="footer_list">
+                    <li><a href="#">Lowest Price Guarantee</a></li>
+                    <li><a href="#">Hotel Offers</a></li>
+                    <li><a href="#">Responsible Gaming</a></li>
+                    <li><a href="#">Retail Portal</a></li>
+                    <li><a href="#">Sitemap</a></li>
+                </ul>  
+			</div>
+        </div>
+        <div class="col one_third">
+        	<h4><span></span>Updates</h4>
+            <div class="bottom_box">
+                <ul class="twitter_post">
+                    <li>Click <a href="#">here</a> to download our resort mobile application! </li>
+                    <li>Coral Island Resort is the leading business, leisure and entertainment destination in Asia</li>
+                </ul>
+			</div>
+        </div>
+        <div class="col one_third no_margin_right">
+        	<h4><span></span>About Us</h4>
+            <div class="bottom_box">
+                                <ul class="footer_list">
+             
+                    <li><a href="#">Company Information</a></li>
+                    <li><a href="#">Getting Here</a></li>
+                    <li><a href="#">Corporate Social Responsibility</a></li>
+                    <li><a href="#">Career</a></li>
+                    
+                </ul> 
+               <br />              
+                <div class="footer_social_button">
+                    <a href="#"><img src="./../resources/cr/images/facebook.png" title="facebook" alt="facebook" /></a>
+                    <a href="#"><img src="./../resources/cr/images/flickr.png" title="flickr" alt="flickr" /></a>
+                    <a href="#"><img src="./../resources/cr/images/twitter.png" title="twitter" alt="twitter" /></a>
+                    <a href="#"><img src="./../resources/cr/images/youtube.png" title="youtube" alt="youtube" /></a>
+                    <a href="#"><img src="./../resources/cr/images/feed.png" title="rss" alt="rss" /></a>
+                </div>
+            </div>
+        </div>
+        
+    	<div class="cleaner"></div>
+    </div> <!-- END of tempatemo_bottom -->
+</div> <!-- END of tempatemo_bottom_wrapper -->
+
+<div id="templatemo_footer_wrapper">
+    <div id="templatemo_footer">
+    	Copyright © 2013 Your Coral Island Resort | Designed by IT05
+    </div> <!-- END of templatemo_footer_wrapper -->
+</div> <!-- END of templatemo_footer -->
+
+<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web;_id=155540' language='JavaScript' charset='gb2312'></script></div>
+</h:body>
+</html>

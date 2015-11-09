@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+   
+    <ui:define name="contents">
+         <h:form>
+             <p:tabMenu>
+            <p:menuitem value="Check Reservation" url="/AccommodationWeb/StayMgt/searchReservation.xhtml"/>
+            <p:menuitem value="Search Room Availability" url="/AccommodationWeb/StayMgt/RoomTypeSearch.xhtml"/>
+            <p:menuitem value="Block Room List" url="/AccommodationWeb/ReservationMgt/AddGuestBlock.xhtml"/>
+        </p:tabMenu>
+            <p:panel id="panel" header="Stay has been created successfully">
+               <h:panelGrid columns="2" cellpadding="9">
+                    <h:outputText value="Starting Date : "/>
+                    <h:outputText value="#{checkInManagedBean.stay.dateFrom}">
+                    <f:convertDateTime pattern="EEE yyyy/MM/dd"/>
+                    </h:outputText>
+                    
+                    <h:outputText value="Ending Date : "/>
+                    <h:outputText value="#{checkInManagedBean.stay.dateTo}">
+                        <f:convertDateTime pattern="EEE yyyy/MM/dd"/>
+                    </h:outputText>
+                    
+                    <h:outputText value="RoomType : "/>
+                    <h:outputText value="#{checkInManagedBean.stay.room.roomtype.type}"/>
+
+                    <p:dataTable var="stay" value="#{checkInManagedBean.stays}">
+                        <p:column headerText="Room Num">
+                            <h:outputText value="#{stay.room.roomNum}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <br/>
+                    
+                    <p:dataTable var="guests" value="#{checkInManagedBean.stay.guestnames}">
+                        <f:facet name="header">
+                            Guest Info
+                        </f:facet>
+                        <p:column headerText="Name">
+                            <h:outputText value="#{guests}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <br/>
+                    
+                    <h:outputText value="Total Price : "/>
+                    <h:outputText value="#{checkInManagedBean.totalprice}"/>
+                    
+                </h:panelGrid>
+            </p:panel>
+            
+        </h:form> 
+            
+    </ui:define>
+
+</ui:composition>

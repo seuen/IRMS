@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Carousel Theme - Contact Page</title>
+        <meta name="keywords" content="contact page, contact form, maps, carousel theme, free templates, website templates, templatemo" />
+        <meta name="description" content="Carousel, Contact Page, Contact Form, Maps, free CSS template by templatemo.com" />
+        <link href="./../resources/cr/css/templatemo_style.css" rel="stylesheet" type="text/css" />
+
+        <script type="text/javascript" src="./../resources/cr/js/jquery-1-4-2.min.js"></script> 
+        <!--script type="text/javascript" src="/jqueryui/js/jquery-ui-1.7.2.custom.min.js"></script--> 
+        <script type="text/javascript" src="./../resources/cr/js/jquery-ui.min.js"></script> 
+        <script type="text/javascript" src="./../resources/cr/js/showhide.js"></script> 
+        <script type="text/JavaScript" src="./../resources/cr/js/jquery.mousewheel.js"></script> 
+
+        <link rel="stylesheet" type="text/css" href="./../resources/cr/css/ddsmoothmenu.css" />
+
+        <script type="text/javascript" src="./../resources/cr/js/jquery.min.js"></script>
+        <script type="text/javascript" src="./../resources/cr/js/ddsmoothmenu.js">
+
+            /***********************************************
+             * Smooth Navigational Menu- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+             * This notice MUST stay intact for legal use
+             * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
+             ***********************************************/
+
+        </script>
+
+        <script type="text/javascript">
+
+            ddsmoothmenu.init({
+                mainmenuid: "templatemo_menu", //menu DIV id
+                orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+                classname: 'ddsmoothmenu', //class added to menu's outer DIV
+                //customtheme: ["#1c5a80", "#18374a"],
+                contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+            });
+
+        </script> 
+
+        <style type="text/css">
+            <!--
+            .STYLE1 {
+                font-size: xx-large;
+                font-weight: bold;
+                color: #E8CFFE;
+            }
+
+            .STYLE2 {
+                font-size: 14px;
+                color: #333333;
+                font-weight: bold;
+            }
+
+            -->
+        </style>
+    </h:head>
+
+
+    <h:body id="subpage">
+
+        <div id="templatemo_header_wrapper">
+            <div class="STYLE1">
+                Coral Island Resort	</div>
+            <div id="templatemo_menu" class="ddsmoothmenu">
+                <ul>
+                    <li><a href="crTemplate.xhtml" class="selected">Home</a></li>
+                    <li><a href="about.html">About</a>
+                        <ul>
+                            <li><span class="top"></span><span class="bottom"></span></li>
+                            <li><a href="#">Our History</a></li>
+                            <li><a href="#">Our Vision</a></li>
+                            <li><a href="#">Contact Us</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="portfolio.html">All in CIR</a>
+                        <ul>
+                            <li><span class="top"></span><span class="bottom"></span></li>
+                            <li><a href="#">Accommodation</a></li>
+                            <li><a href="#">Shopping Mall Center</a></li>
+                            <li><a href="#">Entertainment Shows</a></li>
+                            <li><a href="#">Attractions</a></li>
+                            <li><a href="#">Exhibition and Convention Center</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Membership</a>
+                        <ul>
+                            <li><span class="top"></span><span class="bottom"></span></li>
+                            <li><a href="#">Loyalty Program</a></li>
+                            <li><a href="login.xhtml">Log In</a></li>
+                            <li><a href="signUp.xhtml">New Member Sign Up</a></li>
+
+
+                        </ul>
+
+                    </li>
+
+                </ul>
+                <br style="clear: left" />
+            </div> <!-- end of templatemo_menu -->
+            <div class="cleaner"></div>
+        </div>	<!-- END of templatemo_header_wrapper -->
+
+        <div id="templatemo_main">
+            <h2>Accommodation Center</h2>
+
+            <table width="960">
+                <tr>
+                    <td width="227" >
+                        <div>
+                            <h3>Popular Hotels</h3>
+
+                        </div>
+
+
+                    </td>
+                    <td width="717">
+                        <h3>Popular Hotels</h3>
+                        <h:form>
+                            <p:menu>
+
+                                <p:menuitem value="Singland Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="Singland Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="Coral Bay Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="Coral Bay Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="Crone Plaza Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="Crone Plaza Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="Grand Park Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="Grand Park Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="City Club Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="City Club Hotel"/>
+                                </p:menuitem>
+                            </p:menu>
+                        </h:form>
+
+
+                    </td>
+                </tr>
+            </table>
+        </div> <!-- END of templatemo_main -->
+
+        <div id="templatemo_bottom_wrapper">
+            <div id="templatemo_bottom">
+                <div class="col one_third">
+                    <h4><span></span>Contact Us</h4>
+                    <div class="bottom_box">
+                        <ul class="footer_list">
+                            <li><a href="#">Address</a></li>
+                            <li><a href="#">Our Blog</a></li>
+                            <li><a href="#">Our Email</a></li>
+
+                        </ul>  
+                    </div>
+                </div>
+                <div class="col one_third">
+                    <h4><span></span>Updates</h4>
+                    <div class="bottom_box">
+                        <ul class="twitter_post">
+                            <li>Curabitur nec dui venenatis sem consectetur facilisis. Donec velit nisi, lacinia sed et. </li>
+                            <li>Proin dignissim, diam nec <a href="#">hahah</a> enim lorem tempus orci, ac imperdiet ante purus in justo.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col one_third no_margin_right">
+                    <h4><span></span>About Us</h4>
+                    <div class="bottom_box">
+                        <p><em>Coral Island Resort is the largest integraed resort in Singapore. </em></p><br />              
+                        <div class="footer_social_button">
+                            <a href="#"><img src="./../resources/cr/images/facebook.png" title="facebook" alt="facebook" /></a>
+                            <a href="#"><img src="./../resources/cr/images/flickr.png" title="flickr" alt="flickr" /></a>
+                            <a href="#"><img src="./../resources/cr/images/twitter.png" title="twitter" alt="twitter" /></a>
+                            <a href="#"><img src="./../resources/cr/images/youtube.png" title="youtube" alt="youtube" /></a>
+                            <a href="#"><img src="./../resources/cr/images/feed.png" title="rss" alt="rss" /></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cleaner"></div>
+            </div> <!-- END of tempatemo_bottom -->
+        </div>
+
+        <div id="templatemo_footer_wrapper">
+            <div id="templatemo_footer">
+                Copyright © 2048 Your Company Name | Designed by <a href="http://sc.chinaz.com/" target="_parent">站长素材</a>
+            </div> <!-- END of templatemo_footer_wrapper -->
+        </div> <!-- END of templatemo_footer -->
+
+        <div style="display:none"><script src='#' language='JavaScript' charset='gb2312'></script></div>
+    </h:body>
+</html>

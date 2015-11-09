@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    
+    <ui:define name="contents">
+        <h:form>
+        <p:tabMenu>
+            <p:menuitem value="Check Reservation" url="/AccommodationWeb/StayMgt/searchReservation.xhtml"/>
+            <p:menuitem value="Search Room Availability" url="/AccommodationWeb/StayMgt/RoomTypeSearch.xhtml"/>
+            <p:menuitem value="Block Room List" url="/AccommodationWeb/ReservationMgt/AddGuestBlock.xhtml"/>
+        </p:tabMenu>
+        </h:form>
+        <h:form>
+            <p:growl autoUpdate="true" globalOnly="true"/>
+            <h3>Choose Starting Date</h3>
+            <p:calendar value="#{roomManagedBean.startingDate}" id="startingDate" showOn="button" required="true" requiredMessage="Starting Date cannot be empty"/>
+            <h3>Choose Ending Date</h3>
+            <p:calendar value="#{roomManagedBean.leavingDate}" id="leavingDate" showOn="button" required="true" requiredMessage="Leaving Date cannot be empty"/>
+            <p:commandButton value="Submit"  actionListener="#{roomManagedBean.updateAvailableNum}"/>
+        </h:form>
+        <br/><br/>
+        
+        <h:form id="form">
+            <p:growl autoUpdate="true" globalOnly="true"/>
+            <p:dataTable var="roomtype"  id="roomtypeList" value="#{roomManagedBean.roomtypes}" >
+                
+                <f:facet name="header">
+                    List of all rooms in #{roomManagedBean.hotelId}
+                </f:facet>
+                
+                <p:column headerText="RoomType" style="width: 20%">
+                  #{roomtype.type}
+                </p:column>
+                
+                <p:column headerText="Price_H" style="width: 10%">
+                    #{roomtype.price_h}
+                </p:column>
+                
+                <p:column headerText="Price_L" style="width: 10%">
+                    #{roomtype.price_l}
+                </p:column>
+                
+                <p:column headerText="Available Num" style="width: 20%">
+                    #{roomtype.totalNum}
+                </p:column>
+                
+                <p:column headerText="Room Quantity" style="width: 20%">
+                  <p:inplace id="roomQuantity" editor="true"> 
+                      <p:ajax event="save" listener="#{roomManagedBean.saveQuantity}" update="roomQuantity"/>
+                      <p:inputText value="#{roomManagedBean.roomQuantity}" required="true" label="Quantity"/>  
+                            </p:inplace> 
+                </p:column>
+       
+                <p:column style="width: 10%">
+                    <p:commandButton value="Block Room" update="roomtypeList" actionListener="#{roomManagedBean.blockRoom(roomtype)}"/> 
+                </p:column>
+                          
+                
+            </p:dataTable>
+            
+            <p:commandButton value="Save Block" actionListener="#{roomManagedBean.clearBlock}"/>
+        </h:form>
+        
+        
+    </ui:define>
+
+</ui:composition>

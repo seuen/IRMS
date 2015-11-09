@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+  
+    <ui:define name="contents">
+        <h:form>
+            <p:growl autoUpdate="true" globalOnly="true"/>
+            <p:dataTable id="allreservations" var="reservation" value="#{tableReservationManagedBean.allreservations}"
+                         rowKey="#{reservation.id}" selection="#{tableReservationManagedBean.deletereservation}">
+                <p:column selectionMode="single" style="width: 2%"/>
+                <p:column headerText="Id" filterBy="#{reservation.id}">
+                    #{reservation.id}
+                </p:column>
+                
+                <p:column headerText="Restaurant Name" filterBy="#{reservation.tabletype.restaurant.shopName}">
+                    #{reservation.tabletype.restaurant.shopName}
+                </p:column>
+                
+                <p:column headerText="Table Type" filterBy="#{reservation.tabletype.type}">
+                    #{reservation.tabletype.type}
+                </p:column>
+                <p:column headerText="Amount">
+                #{reservation.amount}
+                </p:column>
+                <p:column headerText="Reservation Date">
+                    <h:outputText value="#{reservation.resDate}">
+                        <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8"/>
+                    </h:outputText>
+                </p:column>
+                
+                <p:column headerText="Start Time">
+                    <h:outputText value="#{reservation.timeslot.endTime}">
+                        <f:convertDateTime pattern="HH:mm" timeZone="GMT+8"/>
+                    </h:outputText>
+                </p:column>
+                
+                <p:column headerText="End Time">
+                    <h:outputText value="#{reservation.timeslot.startTime}">
+                        <f:convertDateTime pattern="HH:mm" timeZone="GMT+8"/>
+                    </h:outputText>
+                </p:column>
+                
+                <p:column headerText="Guest IC" filterBy="#{reservation.guest.ic}">
+                    #{reservation.guest.ic}
+                </p:column>
+                
+                <p:column headerText="Guest Name" filterBy="#{reservation.guest.firstName}">
+                    #{reservation.guest.firstName} #{reservation.guest.lastName}
+                </p:column>
+                
+                <f:facet name="footer">
+                    <p:commandButton value="Delete" update="allreservations" actionListener="#{tableReservationManagedBean.deletereservation}"/>
+                </f:facet>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+
+</ui:composition>

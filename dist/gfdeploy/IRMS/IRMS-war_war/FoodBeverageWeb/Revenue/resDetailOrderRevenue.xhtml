@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Home</title>
+        <style type="text/css">
+            .gritter-notice-wrapper {
+                left:200px;
+                top: 50px; }
+            </style>
+        </h:head>
+        <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                        template="../../Templates/InternalAggregateTemplate.xhtml"
+                        xmlns:h="http://java.sun.com/jsf/html"
+                        xmlns:p="http://primefaces.org/ui">
+            <ui:define name="contents">
+                <h1>
+                    Welcome to Food and Beverage Revenue Management SubSystem
+                </h1>
+                <h:body>
+                    <h:form id="formRenew">
+                    <p:tabMenu activeIndex="2">
+                        <p:menuitem value="Tenancy Revenue" url="/FoodBeverageWeb/Revenue/resActiveContracts.xhtml"/>
+                        <p:menuitem value="Banquet Revenue" url="/FoodBeverageWeb/Revenue/banquetRevenue.xhtml"/>
+                        <p:menuitem value="Tenant's Report" url="/FoodBeverageWeb/Revenue/resDetailOrderRevenue.xhtml"/>
+                    </p:tabMenu>
+
+                    <p:ajaxStatus style="width:30px;height: 20px;">
+                        <f:facet name="start">     <h:graphicImage value="../design/ajaxloading.gif" />   </f:facet>
+                        <f:facet name="complete">  <h:outputText value="" />                              </f:facet>
+                    </p:ajaxStatus> 
+                    <p:panel> 
+                        <h:outputText styleClass="STYLE2" value="Here lists all detailed shop item orders of restaurant #{resRevenueManagedBean.viewContract.shop.shopName}. You can also view revenue and commission charges."/>
+                        <br></br>
+                    </p:panel>
+                    <p:dataTable var="order" id="datatable" value="#{resRevenueManagedBean.dso}" paginator="true" emptyMessage="No records at all.">
+                        <p:column width="300px" headerText="Barcode" sortBy="#{order.barcode}" filterBy="#{order.barcode}">
+                            <h:outputText value="#{order.barcode}" />
+                        </p:column>
+
+                        <p:column  width="300px" headerText="Date" sortBy="#{order.purchaseDate}" filterBy="#{order.purchaseDate}" filterStyle="width: 80px;">
+                            <h:outputText value="#{order.purchaseDate}" >
+                            </h:outputText>
+                        </p:column> 
+
+                        <p:column  width="300px" headerText="UnitPrice" sortBy="#{order.unitPrice}" filterBy="#{order.unitPrice}" filterStyle="width: 80px;">
+                            <h:outputText value="#{order.unitPrice}" >
+                            </h:outputText>
+                        </p:column> 
+
+                        <p:column  width="300px" headerText="Quantity" sortBy="#{order.quantity}" filterBy="#{order.quantity}" filterStyle="width: 80px;">
+                            <h:outputText value="#{order.quantity}" >
+                            </h:outputText>
+                        </p:column> 
+                        <p:column  width="300px" headerText="TotalPrice" sortBy="#{order.totalPrice}" filterBy="#{order.totalPrice}" filterStyle="width: 80px;">
+                            <h:outputText value="#{order.totalPrice}" >
+                            </h:outputText>
+                        </p:column>
+
+                    </p:dataTable>
+                    <p:growl id="msg" globalOnly="true" autoUpdate="true"/>
+                    <br></br>
+<!--                    <p:commandButton value="back" actionListener="#{resRevenueManagedBean.navigateActiveShops}"/>-->
+                    <h:panelGrid columns="3" style=" float: right">
+                        <p:panel header="Export Page Data">
+                            <h:commandLink>  
+                                <p:graphicImage value="/resources/images/pdf.png" />  
+                                <p:dataExporter type="pdf" target="datatable" fileName="ShopsRevenue" />  
+                            </h:commandLink>
+                            <h:commandLink>  
+                                <p:graphicImage value="/resources/images/xml.png" />  
+                                <p:dataExporter type="xml" target="datatable" fileName="ShopsRevenue" />  
+                            </h:commandLink>
+                            <h:commandLink>  
+                                <p:graphicImage value="/resources/images/csv.png" />  
+                                <p:dataExporter type="csv" target="datatable" fileName="ShopsRevenue" />  
+                            </h:commandLink>
+                            <h:commandLink>  
+                                <p:graphicImage value="/resources/images/excel.png" />  
+                                <p:dataExporter type="xls" target="datatable" fileName="ShopsRevenue" />  
+                            </h:commandLink>
+                        </p:panel>
+                        <p:panel header="Total Revenue">
+                            <h:outputText value="#{resRevenueManagedBean.calculateListRevenues()}">
+                                <f:convertNumber maxFractionDigits="2" groupingUsed="false" />
+                            </h:outputText>
+                        </p:panel>
+                        <p:panel header="Total Commission">
+                            <h:outputText value="#{resRevenueManagedBean.calculateListRevenues()*resRevenueManagedBean.viewContract.commissionRate}">
+                                <f:convertNumber maxFractionDigits="2" groupingUsed="false" />
+                            </h:outputText>
+                        </p:panel>
+                    </h:panelGrid>
+                </h:form>
+            </h:body>
+        </ui:define>
+        <ui:define name="foot">
+            foot
+        </ui:define>
+
+    </ui:composition>
+</html>

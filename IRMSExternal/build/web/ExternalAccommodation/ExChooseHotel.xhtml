@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../Templates/hotelTemplate.xhtml">
+            <ui:define name="content1">
+                        
+               <h:form>
+                   
+                   <p>
+                        <h3><strong>STEP 1: Choose a hotel</strong></h3>
+                    </p>   
+                   
+                                <p:commandButton value="Singland Hotel" actionListener="#{exReservationManagedBean.navigateHotelInfo}">                    
+                                    <f:attribute name="hotelId" value="Singland Hotel"/>
+                                </p:commandButton>
+                                <p:commandButton value="Coral Bay Hotel" actionListener="#{exReservationManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="Coral Bay Hotel"/>
+                                </p:commandButton>
+                                <p:commandButton value="Crone Plaza Hotel" actionListener="#{exReservationManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="Crone Plaza Hotel"/>
+                                </p:commandButton>
+                                <p:commandButton value="Grand Park Hotel" actionListener="#{exReservationManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="Grand Park Hotel"/>
+                                </p:commandButton>
+                                <p:commandButton value="City Club Hotel" actionListener="#{exReservationManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="City Club Hotel"/>
+                                </p:commandButton>
+               </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

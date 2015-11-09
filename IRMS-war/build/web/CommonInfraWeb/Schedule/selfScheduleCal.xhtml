@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/Templates/InternalAggregateTemplate.xhtml" >
+            <ui:define name="contents">
+                <h:form id="form">
+                    <p:dataTable id="dataTable" var="schedule" value="#{scheduleManagedBean.schedules}" >
+                        
+                        <p:column id="scheduleYear" headerText="Schedule Year" filterBy="#{schedule.scheduleYear}" filterMatchMode="contains">
+                            <h:outputText value="#{schedule.scheduleYear}" />
+                        </p:column>
+                        
+                        <p:column id="scheduleMonth" headerText="Schedule Month" filterBy="#{schedule.scheduleMonth}" filterMatchMode="contains">
+                            <h:outputText value="#{schedule.scheduleMonth}" />
+                        </p:column>
+                        
+                        <p:column id="workLocation" headerText="Schedule Location" filterBy="#{schedule.workLocation}" filterMatchMode="contains">
+                            <h:outputText value="#{schedule.workLocation}" />
+                        </p:column>
+                        
+                        <p:column id="position" headerText="Schedule Position" filterBy="#{schedule.position}" filterMatchMode="contains">
+                            <h:outputText value="#{schedule.position}" />
+                        </p:column>
+                        
+                        <p:column>
+                            <p:commandButton value="View in Details" actionListener="#{scheduleManagedBean.setUpShiftSchedule(schedule)}" />
+                        </p:column>
+                        
+                        <p:column>
+                            <p:commandButton value="Delete Schedule" actionListener="#{scheduleManagedBean.deleteShiftSchedule(schedule)}" update="dataTable" />
+                        </p:column>
+                        
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

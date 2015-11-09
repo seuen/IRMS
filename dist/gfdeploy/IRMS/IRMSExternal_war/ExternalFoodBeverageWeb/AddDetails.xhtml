@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../Templates/foodTemplate1.xhtml">
+            <ui:define name="content1">
+                <h:form>
+                    <p:commandButton value="Make a Banquet Enquiry"  actionListener="#{externalEnquiryManagedBean.navigateEnquiry}"> </p:commandButton>
+                    <p:commandButton value="Make a Table Reservation" actionListener="#{externalTableReserveManagedBean.navigateReserve}"> </p:commandButton>
+                    <p:graphicImage value="/images/food/cir.jpg" />  
+                </h:form>
+            </ui:define>
+            <ui:define name="content2">
+                <h:form>
+                    <p:panel> 
+                        <h:outputText styleClass="STYLE2" value="Make Table Reservation: Step 3 (Confirm to Make Table Reservation)."/>
+                        <br></br>
+                        <br></br> 
+                    </p:panel>
+                    <p:growl autoUpdate="true" globalOnly="true"/>
+                    <p:panel>
+                        <h:panelGrid columns="2" cellpadding="7">
+                            <p:outputLabel value="Table Amount"/>
+                            <p:selectOneMenu value="#{externalTableReserveManagedBean.tableamount}" required="true" requiredMessage="Please choose Table Acmount">
+                                <f:selectItem itemLabel="Select One" itemValue=" "/>
+                                <f:selectItem itemLabel="1" itemValue="1"/>
+                                <f:selectItem itemLabel="2" itemValue="2"/>
+                                <f:selectItem itemLabel="3" itemValue="3"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Title: *"/>
+                            <p:selectOneMenu value="#{externalTableReserveManagedBean.guest.title}" required="true" requiredMessage="Title cannot be empty">
+                                <f:selectItem itemLabel="Select One" itemValue=" "/>
+                                <f:selectItem itemLabel="Mr." itemValue="Mr."/>
+                                <f:selectItem itemLabel="Mrs." itemValue="Mrs."/>
+                                <f:selectItem itemLabel="Miss" itemValue="Miss"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="IC: *"/>
+                            <h:inputText value="#{externalTableReserveManagedBean.guest.ic}" required="true" requiredMessage="IC cannot be empty"/>
+
+                            <p:outputLabel value="First Name: *"/>
+                            <h:inputText value="#{externalTableReserveManagedBean.guest.firstName}" required="true" requiredMessage="First Name cannot be empty"/>
+
+                            <p:outputLabel value="Last Name: *"/>
+                            <h:inputText value="#{externalTableReserveManagedBean.guest.lastName}" required="true" requiredMessage="Last Name cannot be empty"/>
+
+                            <p:outputLabel value="Email Addr: *"/>
+                            <h:inputText value="#{externalTableReserveManagedBean.guest.emailAddress}" required="true" requiredMessage="Email cannot be empty"/>
+
+                            <p:outputLabel value="Phone Num: *"/>
+                            <h:inputText value="#{externalTableReserveManagedBean.guest.contactNum}" required="true" requiredMessage="Phone Num cannot be empty"/>
+
+                            <f:facet name="footer">
+                                <p:commandButton value="Reserve Now" onstart="dialog1.show();"  oncomplete="dialog1.hide();" ajax="true" type="submit" actionListener="#{externalTableReserveManagedBean.reservetable}"/>
+                            </f:facet>          
+                            <p:dialog id="dialog1" widgetVar="dialog1" modal="true" appendToBody="true">
+                                Email is being sent to the client, please wait...
+                            </p:dialog>
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

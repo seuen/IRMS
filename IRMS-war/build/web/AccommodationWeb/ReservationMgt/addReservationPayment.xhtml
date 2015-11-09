@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    
+   <h:body>
+        <ui:composition template="../../Templates/InternalAggregateTemplate.xhtml">
+
+            <ui:define name="contents">
+                <h:form>
+                    <p:tabMenu activeIndex="4">  
+                    <p:menuitem value="Search" url="/AccommodationWeb/ReservationMgt/addReservationSearch.xhtml" />  
+                    <p:menuitem value="Room details" url="/AccommodationWeb/ReservationMgt/addReservationRoom.xhtml" />
+                    <p:menuitem value="Guest info" url="/AccommodationWeb/ReservationMgt/addReservationGuest.xhtml" />  
+                    <p:menuitem value="Payment info" url="/AccommodationWeb/ReservationMgt/addReservationPayment.xhtml" />  
+                    </p:tabMenu>
+                    
+                    <p:growl autoUpdate="true" globalOnly="true"/> 
+                    <p:panel  id="panel" >
+                        <f:facet name="header">
+                            Payment Information
+                        </f:facet> 
+                    <h:panelGrid columns="3" cellpadding="9">
+                    <p:outputLabel value="Card Number: *" />
+                    <p:inputMask id="cardNumber" mask="9999-9999-9999-9999"/> 
+                    <br/><br/>
+                    <p:outputLabel value="Card Holder: *" />
+                    <p:inputText id="cardHolder" /> 
+                    <br/><br/>
+                    <p:outputLabel value="Expiry Date: *" />
+                    <h:panelGrid columns="3">
+                    <p:selectOneMenu id="month" label="Expriy Month" >  
+                                <f:selectItem itemLabel="Month" itemValue="Month" />  
+                                <f:selectItem itemLabel="Janaury" itemValue="Janaury" />  
+                                <f:selectItem itemLabel="February" itemValue="February" />  
+                                <f:selectItem itemLabel="March" itemValue="March" />  
+                                <f:selectItem itemLabel="April" itemValue="April" /> 
+                                <f:selectItem itemLabel="May" itemValue="May" /> 
+                                <f:selectItem itemLabel="June" itemValue="June" /> 
+                                <f:selectItem itemLabel="July" itemValue="July" /> 
+                                <f:selectItem itemLabel="August" itemValue="August" /> 
+                                <f:selectItem itemLabel="September" itemValue="September" /> 
+                                <f:selectItem itemLabel="October" itemValue="October" /> 
+                                <f:selectItem itemLabel="November" itemValue="November" /> 
+                                <f:selectItem itemLabel="December" itemValue="December" /> 
+                    </p:selectOneMenu>/
+                    <p:selectOneMenu id="year" label="Expriy Year" >  
+                                <f:selectItem itemLabel="Year" itemValue="Year" />  
+                                <f:selectItem itemLabel="2013" itemValue="2013" />  
+                                <f:selectItem itemLabel="2014" itemValue="2014" />  
+                                <f:selectItem itemLabel="2015" itemValue="2015" />  
+                                <f:selectItem itemLabel="2016" itemValue="2016" /> 
+                                <f:selectItem itemLabel="2018" itemValue="2018" /> 
+                                <f:selectItem itemLabel="2019" itemValue="2019" /> 
+                                <f:selectItem itemLabel="2020" itemValue="2020" /> 
+                                <f:selectItem itemLabel="2021" itemValue="2021" /> 
+                                <f:selectItem itemLabel="2022" itemValue="2022" /> 
+                                <f:selectItem itemLabel="2023" itemValue="2023" /> 
+                                <f:selectItem itemLabel="2024" itemValue="2024" /> 
+                                <f:selectItem itemLabel="2025" itemValue="2025" /> 
+                    </p:selectOneMenu>
+                    </h:panelGrid>
+                    <br/><br/>
+                    <p:outputLabel value="CVV:"/>
+                    <p:inputMask id="cvv" mask="999"/> 
+                    <br/><br/>
+                    
+                    <p:commandButton update="panel" ajax="true" type="submit" value="Add" action="#{reservationManagedBean.addReservation()}" />
+                   </h:panelGrid>
+                  </p:panel>      
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

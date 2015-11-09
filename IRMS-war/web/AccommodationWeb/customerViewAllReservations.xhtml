@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <title>Facelets Template</title>
+    </h:head>
+
+    <h:body>
+
+        <ui:composition template="/Templates/hotelExternalTemplate.xhtml" >
+            <!--        <div id="top" class="top">
+                        <ui:define name="top">Coral Island Resort Hotel</ui:define>
+                    </div>-->
+
+            <div>
+                <div id="left">
+                       <ui:define name="left">
+                        <h:form>
+                            <p:menu>
+                                <p:menuitem value="Singland Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">                    <f:attribute name="hotelId" value="Singland Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="Coral Bay Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="Coral Bay Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="Crone Plaza Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="Crone Plaza Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="Grand Park Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="Grand Park Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="City Club Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="City Club Hotel"/>
+                                </p:menuitem>
+                            </p:menu>
+                        </h:form>
+
+                    </ui:define>
+                </div>
+ <div id="content" class="left_content">
+    <ui:define name="content">
+        <h:form id="form">
+                <p:tabMenu activeIndex="4">  
+                       <p:menuitem value="Search" url="customerAddReservationSearch.xhtml" />  
+                        <p:menuitem value="Room details" url="CustomerAddReservationGuest.xhtml" />
+                        <p:menuitem value="Guest info" url="CustomerAddReservationRoom.xhtml" />  
+                        <p:menuitem value="Payment info" url="CustomerAddReservationPayment.xhtml" />  
+                        <p:menuitem value="Display Reservation" url="customerViewAllReservations.xhtml"/>  
+                    </p:tabMenu> 
+            
+                    <p:growl autoUpdate="true" globalOnly="true"/> 
+
+                    <p:dataTable rowKey="#{reservation.reservationNum}" var="reservation" value="#{externalReservationManagedBean.listAllReservation()}" 
+                                 paginator="true" rows="12" selection="#{externalReservationManagedBean.reservation}" selectionMode="single" emptyMessage="No reservation available">
+
+                        <f:facet name="header">
+                            View all reservations
+                        </f:facet>   
+                        <p:column style="width: 7%" filterBy="#{reservation.reservationNum}" > 
+                            <f:facet name="header">       
+                                <h:outputText value="Reservation Number" />                        
+                            </f:facet>
+                            <h:outputText value="#{reservation.reservationNum}" /> 
+                        </p:column>
+
+                        <p:column style="width: 7%" filterBy="#{reservation.roomtype.type}" sortBy="#{reservation.roomtype.type}" > 
+                            <f:facet name="header">       
+                                <h:outputText value="Room Type" />                        
+                            </f:facet>
+                            <h:outputText value="#{reservation.roomtype.type}" /> 
+                        </p:column>
+
+                        <p:column style="width: 7%" sortBy="#{reservation.dateFrom}" > 
+                            <f:facet name="header">       
+                                <h:outputText value="Date From" />  
+                            </f:facet>
+                            <h:outputText value="#{reservation.dateFrom}"> 
+                                <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8" />
+                            </h:outputText>  
+                        </p:column>
+
+                        <p:column style="width: 7%">
+                            <f:facet name="header">       
+                                <h:outputText value="Date To" />                        
+                            </f:facet>
+                            <h:outputText value="#{reservation.dateTo}"> 
+                                <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8" />
+                            </h:outputText> 
+                        </p:column>
+
+                        <p:column style="width: 7%">
+                            <f:facet name="header">       
+                                <h:outputText value="Room Quantity" />                        
+                            </f:facet>
+                            <h:outputText value="#{reservation.roomQuantity}" />
+                        </p:column>
+
+                        <p:column style="width: 7%">
+                            <f:facet name="header">       
+                                <h:outputText value="Guest IC" />                        
+                            </f:facet>
+                            <h:outputText value="#{reservation.guest.ic}" />
+                        </p:column>
+
+                        <p:column style="width: 7%" sortBy="#{reservation.status}">
+                            <f:facet name="header">       
+                                <h:outputText value="Status" />                        
+                            </f:facet>
+                            <h:outputText value="#{reservation.status}" />
+                        </p:column>    
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Delete" actionListener="#{externalReservationManagedBean.deleteReservation()}"/>
+                        </f:facet>>
+
+                        <f:facet name="footer">
+                            <p:commandButton id="viewButton1" value="View Reservation"
+                                             update=":form:display1" oncomplete="reservationDialog.show()"/>  
+                        </f:facet>
+
+                        <f:facet name="footer">
+                            <p:commandButton id="viewButton2" value="View Guest"
+                                             update=":form:display2" oncomplete="guestDialog.show()"/>  
+                        </f:facet>
+
+
+                    </p:dataTable>             
+
+                    <p:dialog id="dialog1" header="Reservation Detail" widgetVar="reservationDialog" resizable="false"  
+                              width="500" position="center"  >  
+
+                        <h:panelGrid id="display1" columns="3" cellpadding="4">  
+
+                            <h:outputText value="Reservation number:" />  
+                            <h:outputText value="#{externalReservationManagedBean.reservation.reservationNum}"/>
+                            <br/>
+                            
+                            <h:outputText value="Checkin date:" />  
+                            <h:outputText value="#{externalReservationManagedBean.reservation.dateFrom}"> 
+                                <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8" />
+                            </h:outputText>
+                            <p:calendar value="#{externalReservationManagedBean.dateFrom}" label="DateFrom"/>
+                            
+                            <h:outputText value="Checkout date:" />  
+                            <h:outputText value="#{externalReservationManagedBean.reservation.dateTo}"> 
+                                <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8" />
+                            </h:outputText>
+                            <p:calendar value="#{externalReservationManagedBean.dateTo}" label="DateTo"/>
+                            
+                            <h:outputText value="Reservation date:" />  
+                            <h:outputText value="#{externalReservationManagedBean.reservation.reserveDate}">
+                                <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8" />
+                            </h:outputText>
+                            <br/>
+                            
+                            <h:outputText value="Reservation roomType:"/>
+                            <h:outputText value="#{externalReservationManagedBean.reservation.roomtype.type}"/>
+                            <br/>
+                            
+                            <h:outputText value="Room quantity:" />  
+                            <h:outputText value="#{externalReservationManagedBean.reservation.roomQuantity}"/>
+                            <h:inputText value="#{externalReservationManagedBean.roomQuantity}"/>
+                            
+                            <p:commandButton type="submit" ajax="update" value="Update" actionListener="#{externalReservationManagedBean.updateReservation()}"/>
+                            
+                        </h:panelGrid>  
+                    </p:dialog>  
+
+                    <p:dialog id="dialog2" header="Reservation Detail" widgetVar="guestDialog" resizable="false"  
+                              width="500" position="center" >  
+
+                        <h:panelGrid id="display2" columns="2" cellpadding="4">  
+
+                            <h:outputText value="Guest Name:" />  
+                            <h:outputText value="#{externalReservationManagedBean.reservation.guest.title}.#{externalReservationManagedBean.reservation.guest.lastName} #{reservationManagedBean.reservation.guest.firstName}" />
+
+                            <h:outputText value="Guest IC:" />  
+                            <h:outputText value="#{externalReservationManagedBean.reservation.guest.ic}"/>
+
+                            <h:outputText value="Guest date of birth"/>
+                            <h:outputText value="#{externalReservationManagedBean.reservation.guest.dob}">
+                                <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8" />
+                            </h:outputText>
+                            
+                            <h:outputText value="Guest Email:" />  
+                            <h:outputText value="#{externalReservationManagedBean.reservation.guest.emailAddress}"/>
+
+                        </h:panelGrid>  
+                    </p:dialog>  
+
+                </h:form>
+    </ui:define>
+
+</div>
+            </div>
+        </ui:composition>
+    </h:body>
+
+</html>

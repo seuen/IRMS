@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../Templates/hotelTemplate.xhtml">
+
+            <ui:define name="content2">
+               <h:form>
+                            <p:panel style="width: 100%; background: transparent; border: transparent;">
+                                <p style=" font-size:  large; font-weight:  bolder; color: coral"><h:outputText value="#{exReservationManagedBean.hotelId} Detailed Information"/></p>
+                                
+                                <div>
+                                    <p>
+                                    <h:outputText value="Name: "/>
+                                    <h:outputText value="#{exReservationManagedBean.hotel.name}"/>
+                                        </p>
+                                    <p>
+                                    <h:outputText value="Address* :  "/>
+                                    <h:outputText value="#{exReservationManagedBean.hotel.address}"/>
+                                    </p>
+                                    <p>
+                                    <h:outputText value="Description* :  "/>
+                                    <h:outputText value="#{exReservationManagedBean.hotel.description}"/>
+                                    </p>
+                                </div>    
+                                <p:separator />  
+                                <br/>
+                                <p:button value="book" outcome="ExSearchHotelRoom.xhtml"/>
+                            </p:panel>
+                        </h:form>
+            </ui:define>
+
+            <ui:define name="content1">
+                 <h:form>
+                            <p:menu>
+                                <p:menuitem value="Singland Hotel" actionListener="#{exReservationManagedBean.navigateHotelInfo}">                    
+                                    <f:attribute name="hotelId" value="Singland Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="Coral Bay Hotel" actionListener="#{exReservationManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="Coral Bay Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="Crone Plaza Hotel" actionListener="#{exReservationManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="Crone Plaza Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="Grand Park Hotel" actionListener="#{exReservationManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="Grand Park Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="City Club Hotel" actionListener="#{exReservationManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="City Club Hotel"/>
+                                </p:menuitem>
+                            </p:menu>
+                        </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

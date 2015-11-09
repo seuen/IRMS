@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+
+        <title>Package Mgt</title>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="../../Templates/InternalAggregateTemplate.xhtml">
+            <ui:define name="contents">
+                <h:form id="form">
+                    <p:growl id="messages" showDetail="false" />
+                    <p:dataTable var="pkg" value="#{packageManagedBean.packages}" id='pkgList' editable="true">
+                        <f:facet name="header">
+                            Packages List
+                        </f:facet>
+                        <p:ajax event="rowEdit" listener="#{packageManagedBean.updatePackage(pkg)}" update=":form:messages" /> 
+                        <p:column headerText="Package">
+                            <p:graphicImage width="80" height="70" url="http://172.28.179.192:8080/images/Packages/#{pkg.picName}.#{pkg.imageType}" />
+                        </p:column>
+                        <p:column headerText="ID" filterBy="#{pkg.id}" filterMatchMode="contains">
+                            #{pkg.id}
+                        </p:column>
+                        <p:column headerText="Package Name" filterBy="#{pkg.packageName}" filterMatchMode="contains">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{pkg.packageName}"/></f:facet>
+                                <f:facet name="input"><h:inputText value="#{pkg.packageName}"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Type" filterBy="#{pkg.packageType}" filterMatchMode="contains"> #{pkg.packageType}</p:column>
+                        <p:column headerText="Price" filterBy="#{pkg.price}" filterMatchMode="contains">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{pkg.price}"/></f:facet>
+                                <f:facet name="input"><h:inputText value="#{pkg.price}" /></f:facet>
+                            </p:cellEditor>   
+                        </p:column>
+                        <p:column><p:rowEditor /></p:column>
+                        <p:column>
+                            <p:commandButton id="effectsDialogButton"  update=":form:dddd" value="Detail" oncomplete="dlg3.show();">
+                                <f:setPropertyActionListener target="#{packageManagedBean.selectP}" value="#{pkg}" />
+                            </p:commandButton>
+                            <p:commandButton value="Delete" update="pkgList" id="remove" actionListener="#{packageManagedBean.removePackage(pkg)}"/>
+                        </p:column>
+                    </p:dataTable>
+                      
+
+                    <p:dialog id="dddd" header="Package Details" widgetVar="dlg3" showEffect="explode" height="300" width="600">
+                    
+                        <br /> 
+                        <p:dataTable var="pkgItem" value="#{packageManagedBean.selectP.packageItems}" id="pkgItemList">
+                            <p:column headerText="Item Name">#{pkgItem.itemName}</p:column>
+                            <p:column headerText="Item Price">#{pkgItem.price}</p:column>
+                            <p:column headerText="Quantity">#{pkgItem.quantity}</p:column>
+                            <p:column headerText="Department">#{pkgItem.department}</p:column>
+                        </p:dataTable>
+                        <br /><br />
+                        <p:separator />       
+                        &nbsp;&nbsp;<p:commandButton id="effectsDialogButton" oncomplete="dlg3.hide();" value="Close"/>
+                 
+                    </p:dialog>
+
+</h:form>
+              
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

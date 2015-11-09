@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../Templates/InternalAggregateTemplate.xhtml">
+
+
+            <ui:define name="contents">
+               <h:form>
+            <p:tabMenu>
+            <p:menuitem value="Check Reservation" url="/AccommodationWeb/StayMgt/searchReservation.xhtml"/>
+            <p:menuitem value="Search Room Availability" url="/AccommodationWeb/StayMgt/RoomTypeSearch.xhtml"/>
+            <p:menuitem value="Block Room List" url="/AccommodationWeb/ReservationMgt/AddGuestBlock.xhtml"/>
+         </p:tabMenu>
+            <p:growl id="messages" globalOnly="true" autoUpdate="true"/>
+
+                    <p:panel id="panel">
+                   
+                        <f:facet name="header">
+                           Guest #{checkInManagedBean.guestNo} Information
+                        </f:facet> 
+                        
+                        <h:panelGrid columns="3" cellpadding="9">
+                     
+                        <p:outputLabel for="firstname" value="FirstName: *" />
+                        <p:inputText id="firstname" value="#{checkInManagedBean.firstname}" label="FirstName" required="true" requiredMessage="firstname cannot be empty"/>
+                        <p:message for="firstname"/>
+
+                    
+                    <p:outputLabel for="lastname" value="LastName: *" />
+                    <p:inputText id="lastname" value="#{checkInManagedBean.lastname}" label="LastName" required="true"/>
+                    <p:message for="lastname"/>
+
+                    <p:commandButton update="panel" ajax="true" type="submit" value="Add Guest" actionListener="#{checkInManagedBean.checkGuest}"/>
+                    <p:commandButton update="panel" ajax="true" type="submit" value="Allocate Guest" actionListener="#{checkInManagedBean.displayStay}"/>
+
+                        </h:panelGrid>
+                    </p:panel>
+                    </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

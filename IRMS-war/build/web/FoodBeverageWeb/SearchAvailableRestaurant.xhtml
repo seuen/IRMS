@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../Templates/FoodBeverageTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+   
+    <ui:define name="contents">
+        <h:form id="form">
+            <p:growl autoUpdate="true" globalOnly="true"/>
+            <h:panelGrid columns="2" cellpadding="5">
+            <p:outputLabel value="Reservation Date: *"/>
+            <p:calendar value="#{tableReservationManagedBean.resDate}" id="reservationDate" showOn="button" required="true"/>
+            
+            <p:outputLabel value="Timeslot: *"/>
+            <p:selectOneMenu value="#{tableReservationManagedBean.timeslotId}" id="timeslot" required="true" requiredMessage="Timeslot cannot be empty">
+                <f:selectItem itemLabel="Select One" itemValue=" "/>
+                <f:selectItem itemLabel="10:00 - 12:00" itemValue="1"/>
+                <f:selectItem itemLabel="12:00 - 14:00" itemValue="2"/>
+                <f:selectItem itemLabel="15:00-17:00" itemValue="3"/>
+                <f:selectItem itemLabel=" 17:00 - 19:00" itemValue="4"/>
+                <f:selectItem itemLabel="19:00 - 21:00" itemValue="5"/>
+                 <f:selectItem itemLabel="21:00 - 23:00" itemValue="6"/>
+            </p:selectOneMenu>
+            
+            <p:outputLabel value="Peopel Num: *"/>
+            <h:inputText value="#{tableReservationManagedBean.peoplenum}" required="true" requiredMessage="People Num cannot be empty"/>
+            
+            <p:commandButton value="Search Available Restaurant" update=":form:restaurants" actionListener="#{tableReservationManagedBean.getavailablerestaurants}"/>
+            </h:panelGrid>
+            
+            <p:dataTable id="restaurants" value="#{tableReservationManagedBean.availablerestaurants}" var="restaurant"
+                         rowKey="#{restaurant.shopId}" selection="#{tableReservationManagedBean.selectRestaurant}">
+                
+                <f:facet name="header">
+                    Availalble Restaurant
+                </f:facet>
+                <p:column selectionMode="single" style="width: 2%"/>
+                
+                <p:column headerText="Category">
+                    #{restaurant.category}
+                </p:column>
+                
+                <p:column headerText="Name">
+                    #{restaurant.shopName}
+                </p:column>
+                
+                <f:facet name="footer">
+                    <p:commandButton value="Reserve Table" actionListener="#{tableReservationManagedBean.getavailabletabletypes}"/>
+                </f:facet>
+            </p:dataTable>
+            
+        </h:form>
+    </ui:define>
+
+
+</ui:composition>

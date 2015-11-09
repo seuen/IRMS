@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="contents">
+        <h:form>
+            <p:growl autoUpdate="true" globalOnly="true"/>
+            <p:dataTable id="facilities" var="facility" value="#{facilityManagedBean.allfacilities}" rowKey="#{facility.id}"
+                         selection="#{facilityManagedBean.selectfacilities}">
+                <f:facet name="header">
+                    All Facility Info
+                </f:facet>
+                <p:column selectionMode="multiple" style="width: 2%"/>
+                <p:column headerText="Id">
+                    #{facility.id}
+                </p:column>
+                
+                <p:column headerText="Facility Type">
+                    #{facility.facilityType.type}
+                </p:column>
+                
+                <p:column headerText="Facility Quantity">
+                    #{facility.facilityType.quantity}
+                </p:column>
+                
+                <p:column headerText="Status">
+                    #{facility.status}
+                </p:column>
+                
+                <p:column headerText="Location">
+                    #{facility.location}
+                </p:column>
+                
+                <f:facet name="footer">
+                    <p:commandButton id="DeleteFacility" update="facilities" value="Delete" actionListener="#{facilityManagedBean.deleteFacility}"/>
+                    <p:commandButton id="ReturnFacility" update="facilities" value="Return Back" actionListener="#{facilityManagedBean.returnFacility}"/>
+                </f:facet>
+                
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+
+</ui:composition>

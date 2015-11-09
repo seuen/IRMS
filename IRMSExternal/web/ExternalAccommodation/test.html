@@ -1,0 +1,515 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta charset="utf-8">
+<head>
+<meta name="Content-Type" content="text/html; charset=utf-8">
+<meta property="qc:admins" content="7570776233633">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+
+<link href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="http://www.lianhejinrong.cn/Style/New/css/style.css">
+<link type="text/css" rel="stylesheet" href="http://www.lianhejinrong.cn/Style/JBox/Skins/Red/jbox.css">
+
+<script type="text/javascript" src="/Style/Js/jquery.js"></script>
+<script type="text/javascript" src="/Style/Js/utils.js"></script>
+<script type="text/javascript" src="/Style/H/js/backtotop.js"></script>
+<script type="text/javascript" src="/Style/JBox/jquery.jBox.min.js"></script>
+<script type="text/javascript" src="/Style/JBox/jquery.jBoxConfig.js"></script>
+<script type="text/javascript" src="/Style/js/common.js"></script>
+
+<script type="text/javascript">
+	function makevar(v){
+		var d={};
+		for(i in v){
+			var id = v[i];
+			d[id] = $("#"+id).val();
+			if(!d[id]) d[id] = $("input[name='"+id+"']:checked").val();
+			if(!d[id]) d[id] = $("input[name='"+id+"']").val();
+			if(typeof d[id] == "undefined") d[id] = "";
+		}
+		return d;
+	}
+    function addBookmark(title, url) {
+        if (window.sidebar) {
+            window.sidebar.addPanel(title, url, "");
+        }
+        else if (document.all) {
+            window.external.AddFavorite(url, title);
+        }
+        else if (window.opera && window.print) {
+            return true;
+        }
+    }
+    function SetHome(obj, vrl) {
+        try {
+            obj.style.behavior = 'url(#default#homepage)'; obj.setHomePage(vrl);
+            NavClickStat(1);
+        }
+        catch (e) {
+            if (window.netscape) {
+                try {
+                    netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+                }
+                catch (e) {
+                    alert("抱歉！您的浏览器不支持直接设为首页。请在浏览器地址栏输入“about:config”并回车然后将[signed.applets.codebase_principal_support]设置为“true”，点击“加入收藏”后忽略安全提示，即可设置成功。");
+                }
+                var prefs = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefBranch);
+                prefs.setCharPref('browser.startup.homepage', vrl);
+            }
+        }
+    }
+    // 修复 IE 下 PNG 图片不能透明显示的问题
+    function fixPNG(myImage) {
+        var arVersion = navigator.appVersion.split("MSIE");
+        var version = parseFloat(arVersion[1]);
+        if ((version >= 5.5) && (version < 7) && (document.body.filters))
+        {
+             var imgID = (myImage.id) ? "id='" + myImage.id + "' " : "";
+             var imgClass = (myImage.className) ? "class='" + myImage.className + "' " : "";
+             var imgTitle = (myImage.title) ? "title='" + myImage.title   + "' " : "title='" + myImage.alt + "' ";
+             var imgStyle = "display:inline-block;" + myImage.style.cssText;
+             var strNewHTML = "<span " + imgID + imgClass + imgTitle
+                + " style=\"" + "width:" + myImage.width
+                + "px; height:" + myImage.height
+                + "px;" + imgStyle + ";"
+                + "filter:progid:DXImageTransform.Microsoft.AlphaImageLoader"
+                + "(src=\'" + myImage.src + "\', sizingMethod='scale');\"></span>";
+            myImage.outerHTML = strNewHTML;
+        }
+    } 
+    //弹出层的关闭时间
+    $(".pop .close").live("click", function(){
+        $(this).closest(".pop").remove();
+        if(Common.LightBox.count){
+            Common.LightBox.hide();
+        }
+    });
+</script>
+<title>金房惠利-我要投资-联合金融系统</title>
+<meta name="keywords" content="联合金融">
+<meta name="description" content="联合金融">
+</head>
+<body>
+    <div class="top mb25">
+        <div class="w1000  clearfix text-gray">
+            <span class="fl mr10">您好【Baysy】，欢迎来到联合金融！</span>
+            <span class="hot-line fl">客服热线：400-656-0150</span>
+            <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=2635070082&amp;site=qq&amp;menu=yes" class="fr service" target="_blank">在线客服</a>
+            <em class="mr10 ml10 fr">|</em>
+            <a class="fr ml10" href="/member#msg">【消息<span class="smbhs_color">(0)</span>】</a>
+                <a class="fr" href="/member/common/actlogout/">【退出】</a>
+                <a class="fr" href="/member/index">【Baysy】</a>
+                    </div>
+    </div>
+    <div class="logo clearfix mb25">
+        <h1 class="fl">
+            <a href="/">
+                <img src="/style/New/images/logo.png" alt="logo">
+            </a>
+        </h1>
+        <div class="fr guide"><a href="/xszd/lhjr.html">新手指引</a></div>
+    </div>
+    <div class="nav">
+        <ul class="w1000 clearfix">
+                                        <li>                <a id="indexs" href="/">
+                    <span>首页</span>
+                </a>
+            </li>
+                        <li class="active">
+                            <a id="invest " href="/tinvest.html">
+                    <span>联合理财</span>
+                </a>
+            </li>
+                                        <li>                <a id="" href="/zhongchou.html">
+                    <span>联合众筹</span>
+                </a>
+            </li>
+                                        <li>                <a id="" href="/safe/jztm.html">
+                    <span>安全保障</span>
+                </a>
+            </li>
+                                        <li>                <a id="" href="/lhyj/zxzt.html">
+                    <span>联合E家</span>
+                </a>
+            </li>
+                                        <li>                <a id="" href="/aboutus/gsjj.html">
+                    <span>关于我们</span>
+                </a>
+            </li>
+                                        <li>                <a id="help" href="/help/help_center.html">
+                    <span>帮助中心</span>
+                </a>
+            </li>
+                                        <li>                <a id="members" href="/member/index.html">
+                    <span>我的账户</span>
+                </a>
+            </li>
+                    </ul>
+        <script type="text/javascript">
+            var uri = "/tinvest/51.html";
+            if(uri == "/index.html"){
+                $(".nav li:eq(0)").addClass("active");
+            }
+            $(".nav li:last").addClass("act").find("a").addClass("act-a");
+        </script>
+    </div>
+<div class="content w1000">
+    <div class="confirm mt20 mb20">
+        <h3 class="tit-box clearfix">
+            <span class="fl"><span class="fs24">金房惠利</span>
+            <span class="fs20">LHJR-JFHL0215</span></span>
+            <a href="/hetong/61.html" class="fr agrm" target="_blank">查看协议范本</a>
+        </h3>
+        <div class="border-cont clearfix">
+            <div class="fl cont-l">
+                <ul class="clearfix lyt-mes lyt-mes1">
+                    <li>
+                        <span class="bk">项目总额</span>
+                        <strong class="bk fs20 text-red">10万元</strong>
+                    </li>
+                    <li>
+                        <span class="bk">约定年化利率</span>
+                        <strong class="bk fs20 text-red">10.50%</strong>
+                    </li>
+                    <li>
+                        <span class="bk">融资期限</span>
+                        <strong class="bk fs20 text-red">
+                            2天                        </strong>
+                    </li>
+                </ul>
+                <ul class="lyt-box lyt-fl clearfix mt20">
+                    <li class="clearfix">
+                        <span class="item-title">保障方式：</span>
+                        <div class="item-con">100%本息保障</div>
+                    </li>
+                    <li class="clearfix">
+                        <span class="item-title">发布日期：</span>
+                        <div class="item-con">2015-06-22</div>
+                    </li>
+                    <li class="clearfix">
+                        <span class="item-title">还款方式：</span>
+                        <div class="item-con">按天到期还款</div>
+                    </li>
+                    <li class="clearfix">
+                        <span class="item-title">截止日期：</span>
+                        <div class="item-con">
+                                                    </div>
+                    </li>
+                    <li class="clearfix">
+                        <span class="item-title">增信机构：</span>
+                        <div class="item-con">
+                             暂无担保机构                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <span class="item-title">投资进度：</span>
+                        <div class="item-con">
+                                                            <span class="progress p-w20"></span>
+                                                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="fl cont-r">
+                <span class="bk mb20">还需金额（元）</span>
+                <strong class="bk text-red fs24">99800                </strong>
+                <p class="mt20 clearfix">
+                    <span class="fl">
+                            <span>账户金额（元）：</span>
+                            <span class="text-red">0</span>
+                        </span>
+                        <a href="/member/charge#fragment-1" class="text-blue fr">充值</a>
+                                    </p>
+                <div class="posr mt20">
+                    <input id="investNum" type="text" class="input" placeholder="不低于100，填写整数元">
+                    <span class="unit">元</span>
+                </div>
+                <div class="mt10">
+                    <a id="tinvestSubmit" href="javascript:void(0);" class="btn">立即投标</a>
+                                        <a href="/help/syjsq.html" class="cal"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix">
+            <div class="fl" style="width:700px;font-size: 14px;line-height: 30px;">
+                <ul id="smbhs_xq_qtitle" class="tab clearfix mb20">
+                    <li class="cur">
+                        <a href="#smbhs_fly1">商业概述</a>
+                    </li>
+                    <li>
+                        <a href="#smbhs_fly2">资产情况</a>
+                    </li>
+                    <li>
+                        <a href="#smbhs_fly3">资金用途</a>
+                    </li>
+                    <li>
+                        <a href="#smbhs_fly4">风险控制</a>
+                    </li>
+                    <li>
+                        <a href="#smbhs_fly5">投资记录</a>
+                    </li>
+                    <li>
+                        <a href="#smbhs_fly6">用户讨论</a>
+                    </li>
+                </ul>
+                <div id="smbhs_fly1">
+                    <div style="  margin-top: 25px;
+  margin-bottom: 9px;
+  font-size: 18px;
+  font-weight: 700;  border-top: 3px solid #F7B388;padding-top:5px;">
+                        <span>商业概述</span>
+                    </div>
+                    <div><p style="width:100px;margin-top: 25px;
+  margin-bottom: 9px;
+  border-left: 2px solid #FD771B;
+  line-height:18px;font-size: 16px;
+  font-weight: 700;
+  color: #777676;text-indent:7px">
+  
+  <b>产品概述</b>
+  
+  </p><p><span style="font-size:14px;"><span style="font-family:microsoft yahei;">保定隆远房地产发开有限公司（“保定隆远”）为香港上市公司隆基泰和实业有限公司（“隆基泰和”）全资子公司。保定隆远旗下全资子公司唐山东润新城房地产开发有限公司（“东润新城”）于2015年3月开盘位于唐山市路北区凤凰新城商业圈的铂悦山项目。该项目由隆基泰和投资，目前已经全部封顶，并且80%的房屋已经成功出售。</span></span></p><p><span style="font-size:14px;"><span style="font-family:microsoft yahei;">&nbsp;</span></span></p><p><span style="font-size:14px;"><span style="font-family:microsoft yahei;">部分业主按揭购房，即东润新城与业主签订购房协议后收到业主支付的首付款，剩余房款确认为对业主的应收账款，待业主的购房贷款审核通过后由银行直接支付给东润新城。 鉴于购房贷款的审核、放款需要一定的操作时间，保定隆远拟就东润新城的该部分应收账款进行融资以提高资金使用效率。</span></span></p><p><span style="font-size:14px;"><span style="font-family:microsoft yahei;">&nbsp;</span></span></p><p><span style="font-size:14px;"><span style="font-family:microsoft yahei;">隆基泰和集团为本次融资提供全额担保。</span></span></p><p><span style="font-size:14px;"><span style="font-family:microsoft yahei;">&nbsp;</span></span></p><p><span style="font-size:14px;"><span style="font-family:microsoft yahei;"><b><u>隆基泰和简介</u></b></span></span></p><p><span style="font-size:14px;"><span style="font-family:microsoft yahei;">隆基泰和集团，成立于1995年，是一家致力于中国新型城镇化建设、商业运营、高新技术及金融产业投资发展的大型产融财团。历经20余年发展，现拥有30余家分、子公司，总资产达448亿元，2014年实现营业收入506亿元，员工22766人，间接创造就业岗位近百万个，具有国家房地产开发一级资质，国家建筑业企业特级资质。公司已于2015年5月在香港主板上市（股票代码：01281）。</span></span></p><p style="margin-top:9.0pt;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;margin-bottom:.0001pt;"><span style="font-size:14px;"><span style="font-family:microsoft yahei;">公司官网：<a href="http://www.ljth.com/">http://www.ljth.com</a></span></span></p><p><span style="font-size:14px;"><span style="font-family:microsoft yahei;">&nbsp;</span></span></p><p><span style="font-size:14px;"><span style="font-family:microsoft yahei;"><b><u>铂悦山项目简介</u></b></span></span></p><p><span style="font-size:14px;"><span style="font-family:microsoft yahei;">铂悦山项目位于唐山市路北区凤凰新城商业圈，项目详细信息如下：</span></span></p><p style="margin-left:21pt;text-indent:-21pt;"><span style="font-size:14px;"><span style="font-family:microsoft yahei;">1. &nbsp;<b>开发商：</b><a target="_blank" href="http://newhouse.ts.fang.com/company/1316736649_20130305151151.htm"><span style="color:windowtext;text-decoration:none;">唐山东润新城房地产开发有限公司</span></a></span></span></p><p style="margin-left:21pt;text-indent:-21pt;"><span style="font-size:14px;"><span style="font-family:microsoft yahei;">2. &nbsp;<b>投资商：</b><a target="_blank" href="http://newhouse.ts.fang.com/company/1316736649_20130305151218.htm"><span style="color:windowtext;text-decoration:none;">隆基泰和实业集团</span></a></span></span></p><p style="margin-left:21pt;text-indent:-21pt;"><span style="font-size:14px;"><span style="font-family:microsoft yahei;">3. &nbsp;<b>物业管理公司：</b><a target="_blank" href="http://newhouse.ts.fang.com/company/1316736649_20130326161107.htm"><span style="color:windowtext;text-decoration:none;">河北隆泰物业服务有限公司</span></a></span></span></p><p style="margin-left:21pt;text-indent:-21pt;"><span style="font-size:14px;"><span style="font-family:microsoft yahei;">4. &nbsp;<b>预售许可证：</b>&nbsp;（唐）房预售证第1255号</span></span></p><p style="margin-left:21pt;text-indent:-21pt;"><span style="font-size:14px;"><span style="font-family:microsoft yahei;">5. &nbsp;<b>户 </b><b>数：</b>3,088户</span></span></p><p style="margin-left:21pt;text-indent:-21pt;"><span style="font-size:14px;"><span style="font-family:microsoft yahei;">6. &nbsp;<b>容 </b><b>积 </b><b>率：</b>&nbsp;2.25</span></span></p><p style="margin-left:21pt;text-indent:-21pt;"><span style="font-size:14px;"><span style="font-family:microsoft yahei;">7. &nbsp;<b>绿化率</b>：58.67%</span></span></p><p style="margin-left:21pt;text-indent:-21pt;"><span style="font-size:14px;"><span style="font-family:microsoft yahei;">8. &nbsp;<b>占地面积：</b>210,139平方米</span></span></p><p style="margin-left:21pt;text-indent:-21pt;"><span style="font-size:14px;"><span style="font-family:microsoft yahei;">9. &nbsp;<b>建筑面积：</b>603,945平方米</span></span></p><p style="margin-left:21pt;text-indent:-21pt;"><span style="font-size:14px;"><span style="font-family:microsoft yahei;">10. &nbsp;<b>按揭银行：</b>中国工商银行</span></span></p><p style="margin-left:21.0pt;text-indent:-21.0pt;"><span style="font-size:14px;">&nbsp;</span></p><p style="margin-left:21.0pt;text-indent:-21.0pt;"><span style="font-size:14px;">&nbsp;</span></p></div>
+                </div>
+                <div id="smbhs_fly2">
+                    <div class="detail-h">
+                        <span>资产情况</span>
+                    </div>
+                    <div><p><span style="font-size:14px;"><span style="font-family:microsoft yahei;">保定隆远拟用到账的业主购房贷款偿还本次融资本息。</span></span></p><p>&nbsp;</p></div>
+                </div>
+                <div id="smbhs_fly3">
+                    <div class="detail-h">
+                        <span>资金用途</span>
+                    </div>
+                    <div><p><span style="font-size:14px;"><span style="font-family:microsoft yahei;"><span style="color:rgb(51, 51, 51);">解决东润新城短期流动资金需求。</span></span></span></p><p>&nbsp;</p></div>
+                </div>
+                <div id="smbhs_fly4">
+                    <div class="detail-h">
+                        <span>风险控制</span>
+                    </div>
+                    <div><p style="margin-left:18pt;text-indent:-18pt;"><span style="font-size:14px;"><span style="font-family:microsoft yahei;">1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 现场查看项目施工进度，确保项目按照合同约定正常施工；</span></span></p><p style="margin-left:18pt;text-indent:-18pt;"><span style="font-size:14px;"><span style="font-family:microsoft yahei;">2.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 在唐山市住建局官网查看项目预售许可证，确认该项目可以出售；</span></span></p><p style="margin-left:18pt;text-indent:-18pt;"><span style="font-size:14px;"><span style="font-family:microsoft yahei;">3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 检查购房合同及收付款发票，确认本次融资对应的房屋已经真实出售，并且业主已经支付首付款；</span></span></p><p style="margin-left:18pt;text-indent:-18pt;"><span style="font-size:14px;"><span style="font-family:microsoft yahei;">4.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 了解融资方及担保方的基本情况及财务状况，确认其还款能力。</span></span></p><p style="margin-left:18pt;text-indent:-18pt;">&nbsp;</p></div>
+                </div>
+                <div id="smbhs_fly5">
+                    <div class="detail-h">
+                        <span>投资记录</span>
+                    </div>
+                    <div>
+                        <table border="0" cellspacing="0" cellpadding="0" style="width:620px;">
+                            <tbody><tr>
+                                <td align="center" valign="top" style=" padding-bottom:5px;">
+                                    <table class="tdBordert" border="0" cellspacing="0" width="98%">
+                                        <thead>
+                                            <tr style="background-color:#E4E4E4">
+                                                <th height="25" align="left" valign="middle">　认购人
+                                                </th>
+                                                <th align="left" valign="middle">认购金额
+                                                </th>
+                                                <th align="left" valign="middle">认购方式
+                                                </th>
+                                                <th align="left" valign="middle">认购时间
+                                                </th>
+                                                <th align="left" valign="middle">状态
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="investrecord">
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="pages" style="width:620px; margin-left:0;">  </div>
+                                </td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                </div>
+                <div id="smbhs_fly6">
+                    <div class="detail-h">
+                        <span>用户讨论</span>
+                    </div>
+                    <div>
+                        <table style="width:620px;" border="0" cellspacing="0" cellpadding="0">
+                            <tbody><tr>
+                                <td valign="top" style="padding-bottom:5px;" id="scomment">
+                                                                        <div class="page ajaxpagebar" data="scomment" style="margin-left:10px"></div>
+                                </td>
+                            </tr>
+                        </tbody></table>
+                        <table style="width:620px;" border="0" cellspacing="0" cellpadding="0">
+                            <tbody><tr>
+                                <td height="170" align="center" valign="middle">
+                                    <table style="width:620px" border="0" cellspacing="0" cellpadding="0" height="150">
+                                        <tbody><tr>
+                                            <td height="40" colspan="2" align="left" valign="middle"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:380px;overflow:visible;">
+                                                <textarea name="comments" id="comments" cols="30" rows="4" style="width: 380px; height: 125px; margin: 0px;"></textarea>
+                                            </td>
+                                            <td style="width:240px;">
+                                                <a href="javascript:;" onclick="addComment();" class="bot09"><img src="http://www.lianhejinrong.cn/Style/H/images/comment.gif"></a>
+                                            </td>
+                                        </tr>
+                                    </tbody></table>
+                                </td>
+                            </tr>
+                        </tbody></table>
+                    </div>
+                </div>
+            </div>
+            <div class="fl" style="padding-top:20px;padding-left:30px;width:270px;">
+                <div>
+                    <div class="detail-h">
+                        <span>相关资料</span>
+  
+                    </div>
+                    <ul>
+                                            </ul>
+                </div>
+            </div>
+
+        </div>
+        </div>
+<script type="text/javascript" language="javascript">
+$(document).ready(function() {
+    ajax_show(1);
+    $("#smbhs_xq_qtitle li").on("click", function() {
+        $(this).addClass("cur").siblings("li").removeClass("cur");
+        $($(this).attr("hreff")).show().siblings("div").hide();
+    });
+    $("#tinvestSubmit").on("click", function() {
+        var tendValue = $("#investNum").val(),
+            borrow_min = 0,
+            borrow_max = 0,
+            moneySur = 99800;
+        if (!tendValue) {
+            $.jBox.tip("请输入投标金额");
+            return false;
+        } else if (tendValue < borrow_min) {
+            $.jBox.tip("本标最低投标金额为" + borrow_min + "元，请重新输入投标金额");
+            return false;
+        } else if (tendValue > borrow_max && borrow_max != 0) {
+            $.jBox.tip("本标最大投标总金额为" + borrow_max + "元，请重新输入投标金额");
+            return false;
+        } else if (tendValue > moneySur) {
+            $.jBox.tip("本标剩余投资金额为" + moneySur + "元，请重新输入投标金额");
+            return false;
+        }
+        $(this).attr('href', "http://www.lianhejinrong.cn/tinvest/invest?id=51&money=" + tendValue);
+    });
+});
+//投资记录
+function ajax_show(p) {
+    $.get("http://www.lianhejinrong.cn/tinvest/investRecord?borrow_id=51&p=" + p, function(data) {
+        $("#investrecord").html(data);
+    });
+    $(".pages a").removeClass('current');
+    $(".pages a").eq(p).addClass("current");
+}
+bindpage();
+//刷新讨论信息
+function refreshComment() {
+        var geturl = "http://www.lianhejinrong.cn/tinvest/51.html?type=commentlist&id=51&p=1";
+
+        var id = "scomment";
+        var x = {};
+
+        $.ajax({
+            url: geturl,
+            data: x,
+            timeout: 5000,
+            cache: false,
+            type: "get",
+            dataType: "json",
+            success: function(d, s, r) {
+                if (d) {
+                    $("#" + id).html(d.html);
+                }
+            }
+        });
+    }
+    //绑定分页
+function bindpage() {
+        $('.ajaxpagebar a').click(function() {
+            try {
+                var geturl = $(this).attr('href');
+                var id = $(this).parent().attr('data');
+                var x = {};
+                $.ajax({
+                    url: geturl,
+                    data: x,
+                    timeout: 5000,
+                    cache: false,
+                    type: "get",
+                    dataType: "json",
+                    success: function(d, s, r) {
+                        if (d) $("#" + id).html(d.html); //更新客户端竞拍信息 作个判断，避免报错
+                    }
+                });
+            } catch (e) {};
+            return false;
+        });
+    }
+    //发表讨论
+function addComment() {
+    var tid = 51;
+
+    var cm = $("#comments").val();
+    if (cm == "") {
+        $.jBox.tip("留言内容不能为空", 'tip');
+        return;
+    }
+    $.jBox.tip("提交中......", "loading");
+    $.ajax({
+        url: "http://www.lianhejinrong.cn/tinvest/addcomment",
+        data: {
+            "comment": cm,
+            "tid": tid
+        },
+        timeout: 5000,
+        cache: false,
+        type: "post",
+        dataType: "json",
+        success: function(d, s, r) {
+            if (d) {
+                if (d.status == 1) {
+                    refreshComment();
+                    $.jBox.tip('留言成功');
+                    $("#comments").val('');
+                } else {
+                    $.jBox.tip(d.message, 'fail');
+                }
+            }
+        }
+    });
+}
+</script>
+	<div class="footer bg-gray">
+	    <div class="w1000">
+	        <ul class="clearfix mb25">
+	            <li><a href="/aboutus/gsjj.html">关于我们</a></li>
+	            <li><a href="/aboutus/flsm.html">法律声明</a></li>
+	            <li><a href="/xszd/lhjr.html">新手指引</a></li>
+	            <li><a href="/safe/zcws.html">安全保障</a></li>
+	            <li><a href="/help/help_center.html">帮助中心</a></li>
+	            <li><a href="/help/syjsq.html">收益计算器</a></li>
+	        </ul>
+	        <div class="clearfix">
+	            <div class="fl tel wp60"><span>客服热线：</span><span class="text-orange fs20">400-656-0150</span><span class="note fs14">（工作日8:00-22:00 节假日10:00-20:00）</span></div>
+	            <div class="fl guanzhu">
+	                <div class="weibo"><a href="http://weibo.com/lianhejinrong" target="_blank">关注微博</a>
+	                </div>
+	                <div class="weixin"><a href="javascript:void(0)">关注微信</a>
+	                    <div class="vld"><img src="/style/New/images/mark-code.jpg" alt="二维码"></div>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="email">联系我们：kefu@lianhejinrong.cn</div>
+	    </div>
+	</div>
+	<div class="footer w1000 clearfix text-gray">
+	    <span class="fl">联合金融-联心、合力、大金融  丨  Copyright 2014 lianhejinrong.cn,ALL Rights Reserved</span>
+	    <span class="fr">京ICP 备14054708号 投资有风险，理财需谨慎</span>
+	</div>
+
+</body></html>

@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../crmTemplates/afterLoginTemplate.xhtml">
+            <ui:define name="contents">
+                <h3>Welcome back to your workspace! </h3>
+                <div>
+                    <table width="800" border="0">
+                        <tr>
+                            <td width="600">      
+                                <h4><p:tabMenu activeIndex="0"  >  
+                                        <p:menuitem value="My Profile" styleClass="STYLE2" url="../AccountManagement/afterLogin.xhtml" icon="ui-icon-star"/>  
+                                        <p:menuitem value="Search Transaction" styleClass="STYLE2" url="../AccountManagement/viewTransactionRecords.xhtml" icon="ui-icon-search" />  
+                                        <p:menuitem value="View Report" styleClass="STYLE2" url="/ui/tabMenuDocumentation.jsf" icon="ui-icon-document"/>  
+                                        <p:menuitem value="Edit Profile" styleClass="STYLE2"  url="../AccountManagement/editProfile.xhtml" icon="ui-icon-wrench"/>  
+                                        <p:menuitem value="Feedback" styleClass="STYLE2" url="../AccountManagement/feedback.xhtml" icon="ui-icon-person" />  
+                                    </p:tabMenu> </h4>
+
+                            </td>
+
+                            <td width="200">&nbsp;</td>
+                        </tr>
+                    </table>
+                    <p:dataTable var="transactions" value="#{paymentManagedBean.allRecords}" id="transactionList"
+                                 paginator="true" rows="10" paginatorTemplate="
+                                 {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
+                        <f:facet name="header">
+                            History Transaction Records
+                        </f:facet>
+                        <p:column headerText="ID" filterBy="#{transactions.id}" filterMatchMode="contains">
+                            <h:outputText value="#{transactions.id}"/>
+                        </p:column>
+                        <p:column headerText="Item Name" filterBy="#{transactions.itemName}" filterMatchMode="contains">
+                            <h:outputText value="#{transactions.itemName}"/>
+                        </p:column>
+                        <p:column headerText="Quantity" filterBy="#{transactions.quantity}" filterMatchMode="contains">
+                            <h:outputText value="#{transactions.quantity}"/>
+                        </p:column>
+                        <p:column headerText="Department" filterBy="#{transactions.fromWhere}" filterMatchMode="contains">
+                            <h:outputText value="#{transactions.fromWhere}"/>
+                        </p:column>
+                        <p:column headerText="Transaction Time" filterBy="#{transactions.transactionTime}" filterMatchMode="contains">
+                            <h:outputText value="#{transactions.transactionTime}"/>
+                        </p:column>
+                        <p:column headerText="Total Price" filterBy="#{transactions.totalPrice}" filterMatchMode="contains">
+                            <h:outputText value="#{transactions.totalPrice}"/>
+                        </p:column>
+
+
+                    </p:dataTable>
+
+
+
+
+
+
+                </div>
+
+
+
+                <div class="cleaner h40"></div>
+
+                <div class="cleaner"></div>
+
+                <div class="cleaner"></div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

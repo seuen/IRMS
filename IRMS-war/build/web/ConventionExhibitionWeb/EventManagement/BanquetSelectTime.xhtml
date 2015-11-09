@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="contents">
+        <h:form>
+            <p:growl autoUpdate="true" globalOnly="true"/>
+            <h:panelGrid columns="2">
+            <f:facet name="header">
+                Add Banquet Time
+            </f:facet>
+                
+                <p:outputLabel value="Event Date: *"/>
+                <p:calendar value="#{eventOperationManagedBean.eventDate}" id="date" showOn="button"/>
+                 
+                    <h:outputLabel value="Starting Time: * "/>
+                    <p:calendar value="#{eventOperationManagedBean.startTime}" pattern="HH:mm" stepMinute="30" minHour="9" maxHour="21" timeOnly="true"/>
+                    
+                    <h:outputLabel value="Ending Time: * "/>
+                    <p:calendar value="#{eventOperationManagedBean.endTime}" pattern="HH:mm" stepMinute="30" minHour="9" maxHour="21" timeOnly="true"/>
+                  
+                    
+                    <f:facet name="footer">
+                        <p:commandButton value="Add Banquet" actionListener="#{eventOperationManagedBean.createbanquet}"/>
+                    </f:facet>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+
+
+</ui:composition>

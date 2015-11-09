@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../Templates/foodTemplate1.xhtml">
+            <ui:define name="content1">
+                <h:form>
+                    <p:commandButton value="Make a Banquet Enquiry"  actionListener="#{externalEnquiryManagedBean.navigateEnquiry}"> </p:commandButton>
+                    <p:commandButton value="Make a Table Reservation" actionListener="#{externalTableReserveManagedBean.navigateReserve}"> </p:commandButton>
+                    <p:graphicImage value="/images/food/cir.jpg" />  
+                </h:form>
+            </ui:define>
+            <ui:define name="content2">
+                <h:form>
+                    <p:panel> 
+                        <h:outputText styleClass="STYLE2" value="Make Table Reservation: Step 2 (View Available Table Types)."/>
+                        <br></br>
+                        <br></br> 
+                    </p:panel>
+                    <p:dataTable id="tabletypes" value="#{externalTableReserveManagedBean.availlableTabletypes}" var="tabletypes"
+                                 rowKey="#{tabletypes.id}" selection="#{externalTableReserveManagedBean.selecttabletype}">
+                        <f:facet name="header">
+                            Available tabletypes
+                        </f:facet>
+
+                        <p:column selectionMode="single" style="width: 2%"/>
+
+                        <p:column headerText="Restaurant Name">
+                            #{tabletypes.restaurant.shopName}
+                        </p:column>
+
+                        <p:column headerText="Table Type">
+                            #{tabletypes.type}
+                        </p:column>
+
+                        <p:column headerText="Capacity">
+                            #{tabletypes.capacity}
+                        </p:column>
+
+                        <p:column headerText="Available Num">
+                            #{tabletypes.reserveNum}
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Reserve" actionListener="#{externalTableReserveManagedBean.test}"/>
+                        </f:facet>
+
+
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

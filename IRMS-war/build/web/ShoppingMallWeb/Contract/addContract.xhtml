@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Home</title>
+        <style type="text/css">
+            .gritter-notice-wrapper {
+                left:200px;
+                top: 50px; }
+            </style>
+        </h:head>
+        <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                        template="../../Templates/InternalAggregateTemplate.xhtml"
+                        xmlns:h="http://java.sun.com/jsf/html"
+                        xmlns:p="http://primefaces.org/ui">
+            <ui:define name="contents">
+                <h1>
+                    Welcome to Contract Management SubSystem
+                </h1>
+                <h:body>
+                    <h:form>
+                    <p:tabMenu activeIndex="4">
+                        <p:menuitem value="Home" url="/ShoppingMallWeb/Contract/contractManagement.xhtml"/>
+                        <p:menuitem value="Renew Active Contracts" url="/ShoppingMallWeb/Contract/viewAllActiveContracts.xhtml"/>
+                        <p:menuitem value="View All Contracts" url="/ShoppingMallWeb/Contract/viewAllHistoricalContracts.xhtml"/>
+                        <p:menuitem value="View Shop Contracts" url="/ShoppingMallWeb/Contract/viewMyContracts.xhtml"/>
+                        <p:menuitem value="Add New Contract" url="/ShoppingMallWeb/Contract/addContract.xhtml"/>
+                    </p:tabMenu>
+                      
+                    <p:panel id="panel2" header="Add New Contract"> 
+                        <p:ajaxStatus style="width:16px;height:16px;">
+                            <f:facet name="start">
+                                <h:graphicImage value="http://www.primefaces.org:8080/showcase/design/ajaxloading.gif" /> 
+                            </f:facet>
+                            <f:facet name="complete">
+                                <h:outputText value="" />
+                            </f:facet>
+                        </p:ajaxStatus>
+                        <h2>Shop Name: #{contractManagedBean.shop.shopName}</h2>
+                        <h2>Venue: #{contractManagedBean.venueString}</h2>
+                        <h2>Shop Area：#{contractManagedBean.shop.area}</h2>
+                        
+                        <h:panelGrid id="panelGrid2" columns="3" cellpadding="10">  
+                            <p:outputLabel for="lessee" style="font-weight: bold" value="Lessee: "/>
+                            <p:inputText required="true" label="lessee" requiredMessage="Lessee is required." id="lessee" value="#{contractManagedBean.lessee}">
+                            </p:inputText>
+                            <p:message for="lessee"/>
+
+                            <p:outputLabel for="leaseDateFrom" style="font-weight: bold" value="Lease Date From [Eg. 01-Sep-2013]: " />
+                            <p:calendar label="leaseDateFrom" id="leaseDateFrom" value="#{contractManagedBean.leaseDateFrom}" pattern="dd-MMM-yyyy" required="true" requiredMessage="LeaseDateFrom is requried."/>
+                            <p:message for="leaseDateFrom" />  
+
+                            <p:outputLabel for="leaseTerm" style="font-weight: bold" value="Lease Term (Integer Years): " />
+                            <p:inputText label="leaseTerm" id="leaseTerm" value="#{contractManagedBean.leaseTerm}" required="true" requiredMessage="LeaseTerm is requried."/>
+                            <p:message for="leaseTerm" />  
+
+                            
+                            <p:outputLabel for="baselineRental" style="font-weight: bold" value="Baseline Rental (for each m*m): " />                            
+                            <p:inputText required="true" label="baselineRental" requiredMessage="Baseline Rental is required." id="baselineRental" value="#{contractManagedBean.baselineRental}">
+                            </p:inputText>
+                            <p:message for="baselineRental" /> 
+                            
+
+                            <p:outputLabel for="monthlyRental" style="font-weight: bold" value="Negotiated Commercial Rental(/month): " />
+                            <p:inputText required="true" label="monthlyRental" requiredMessage="Monthly Rental is required." id="monthlyRental" value="#{contractManagedBean.monthlyRental}">
+                            </p:inputText>
+                            <p:message for="monthlyRental" />  
+
+                            <p:outputLabel for="commissionRate" style="font-weight: bold" value="Commission Rate: " />
+                            <p:inputText required="true" label="commissionRate" requiredMessage="Commission Rate is required." id="commissionRate" value="#{contractManagedBean.commissionRate}">
+                            </p:inputText>
+                            <p:message for="commissionRate" /> 
+
+                            <p:outputLabel for="deposit" style="font-weight: bold" value="Deposit: " />
+                            <p:inputText required="true"  label="Deposit" requiredMessage="Deposit is required." id="deposit" value="#{contractManagedBean.deposit}">
+                            </p:inputText>
+                            <p:message for="deposit" /> 
+                            
+                            <p:growl id="msg2" autoUpdate="true" globalOnly="true" />
+                        </h:panelGrid>
+                        <p:commandButton  id="btn2" value="Save New Contract" update="panelGrid2"  actionListener="#{contractManagedBean.saveContract}" ajax="true">
+                        </p:commandButton>
+                </p:panel>
+
+                </h:form>
+            </h:body>
+        </ui:define>
+
+        <ui:define name="foot">
+            foot
+        </ui:define>
+
+    </ui:composition>
+</html>

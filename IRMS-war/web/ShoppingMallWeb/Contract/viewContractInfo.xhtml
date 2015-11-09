@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Home</title>
+        <style type="text/css">
+            .gritter-notice-wrapper {
+                left:200px;
+                top: 50px; }
+            </style>
+        </h:head>
+        <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                        template="../../Templates/InternalAggregateTemplate.xhtml"
+                        xmlns:h="http://java.sun.com/jsf/html"
+                        xmlns:p="http://primefaces.org/ui">
+            <ui:define name="contents">
+                <h:body>
+                    <h:form id="formMain">
+                    <h1>
+                        Welcome to Shopping Mall Contract Management SubSystem
+                    </h1>
+                        <p:tabMenu activeIndex="5">
+                            <p:menuitem value="Home" url="/ShoppingMallWeb/Contract/viewAllContracts.xhtml"/>
+                            <p:menuitem value="Shops" url="/ShoppingMallWeb/Contract/viewShops.xhtml"/>
+                            <p:menuitem value="Inactivated" url="/ShoppingMallWeb/Contract/viewAllInactiveContracts.xhtml"/>
+                            <p:menuitem value="Activated" url="/ShoppingMallWeb/Contract/viewActiveContracts.xhtml"/>
+                            <p:menuitem value="CreateContract" url="/ShoppingMallWeb/Contract/viewAllNegotiators.xhtml"/>
+                             <p:menuitem value="Viewing" url="/ShoppingMallWeb/Contract/viewInactiveContract.xhtml"/>
+                        </p:tabMenu>
+
+                    <p:ajaxStatus style="width:30px;height: 20px;">
+                        <f:facet name="start">     <h:graphicImage value="../design/ajaxloading.gif" />   </f:facet>
+                        <f:facet name="complete">  <h:outputText value="" />                              </f:facet>
+                    </p:ajaxStatus> 
+                    <p:panel id="contract" style="width: 100%; line-height: 200%" header="Contract ID: #{contractManagedBean.contract.id}">
+
+                        <h2 align="center">LEASE AGREEMENT</h2>
+                        <h2 align="center">CIR Shopping Center Space</h2>
+                        <br></br>
+                        <h:outputText style=" font-size: larger"
+                                      value="This Lease Agreement, is entered into this "/>
+                        <h:outputText  style="font-size: larger; font-weight: bold; color: #7b7b7b" value="#{contractManagedBean.contract.contractDate}">
+                            <f:convertDateTime pattern="EEE yyyy/MMM/dd"/>
+                        </h:outputText>
+                        <h:outputText style=" font-size: larger" value=" by and between "/>
+                        <h:outputText style=" font-size: larger; font-weight: bold; color: #7b7b7b" value="#{contractManagedBean.contract.lessor}"/>
+                        <h:outputText style=" font-size: larger" value=", referred to herin as lessor, and "/>
+                        <h:outputText style=" font-size: larger; font-weight: bold; color: #7b7b7b" value="#{contractManagedBean.contract.lessee}"/>
+                        <h:outputText style=" font-size: larger" value=", referred to herin as Lessee."/>
+                        <br></br>
+                        <h2 align="center"> <strong> WITNESSETH:</strong></h2>
+                        <p style=" font-size: larger">&nbsp; &nbsp;1.  <strong>Description of Leased Premises. </strong>Lessor hereby leases to the lessee and the Lessee takes as lessee the premises described as follows:
+                        </p>
+                        <h:outputText style=" font-size: larger" value="Unit number(s) " />
+                        <h:outputText style=" font-size: larger; font-weight: bold" value="#{contractManagedBean.contract.venue}"/> 
+
+                        <h:outputText style=" font-size: larger" value=". (Total area: "/>
+                        <h:outputText style=" font-size: larger; font-weight: bold" value="#{contractManagedBean.contract.shop.area}"/> 
+
+                        <h:outputText style=" font-size: larger" value=") of the CIR Shopping Center, Singapore Coral Island Central, containing air-conditioned space of air-conditioned space,more or less."/>
+                        <br></br>
+                        <p style=" font-size: larger">&nbsp; &nbsp;2.  <strong>Term. </strong></p>
+                        <h:outputText style=" font-size: larger" value="The term of this lease shall be "/>
+                        <h:outputText style=" font-size: larger; font-weight: bold" value="#{contractManagedBean.contract.leaseterm}"/>
+                        <h:outputText style=" font-size: larger" value=" year(s), from "/>
+
+                        <h:outputText style=" font-size: larger; font-weight: bold" value="#{contractManagedBean.contract.dateFrom}"/>
+                        <h:outputText style=" font-size: larger" value=" to "/>
+
+                        <h:outputText style=" font-size: larger; font-weight: bold" value="#{contractManagedBean.contract.dateTo}"/>
+                        <h:outputText style=" font-size: larger" value=", commencing upon Lessee's written acceptance of the premises. In the event construction the premises has not been completed and ready for occupancy within one year of execution of this lease agreement, Lessee shall have the option of terminating this lease by mailing or delivering written notice to the Lessor."/>
+                        <p style=" font-size: larger">&nbsp; &nbsp;3.  <strong>Rental. </strong></p>
+                        <h:outputText style=" font-size: larger" value="The rental for the entire term shall be "/>
+                        <h:outputText style=" font-size: larger; font-weight: bold" value="S$ #{contractManagedBean.contract.totalRental}"/>
+                        <h:outputText style=" font-size: larger" value=", payable at the rate of "/>
+
+                        <h:outputText style=" font-size: larger; font-weight: bold" value="S$ #{contractManagedBean.contract.monthlyRental}"/>
+                        <h:outputText style=" font-size: larger" value=" per month in advance or on the 1st day of each month during the term of this lease. Receipt of the sum of the lease for the first month is acknowledged by the Lessor. Until further notice all rent payments shall be mailed or delivered to Lessor's address at: Coral Island Central Park, Singapore 119224. "/>
+                        <h:outputText style=" font-size: larger" value="The rent above includes the following facilities and services: Electricity, Heat, Water, Hot water, Janitorial, Parking. Any additional charges or services will be counter towards ad-hoc charges (refer to section 4.)"/>
+                        <p style=" font-size: larger">&nbsp; &nbsp;4.  <strong>Adhoc Charges. </strong></p>
+                        <h:outputText style=" font-size: larger" value="Additional services, charges or compensation for damages will be charges as ad-hoc spendings. Payment should be done on the 1st day of subsequent month with the advance rental payment."/>
+                        <p style=" font-size: larger">&nbsp; &nbsp;5.  <strong>Security Deposit. </strong></p>
+                        <h:outputText style=" font-size: larger" value="In addition to the rental shown herin, Lessee has deposited with Lessor the sum of "/>
+
+
+                        <h:outputText style=" font-size: larger; font-weight: bold" value="S$ #{contractManagedBean.contract.deposit}"/>
+                        <h:outputText style=" font-size: larger" value=" on which deposit Lessor is not required to pay interest. Said deposit shall be held as a guaranty that Lessee will perform all convenants of this lease, including prompt payment of rental when due."/>
+                        <p style=" font-size: larger">&nbsp; &nbsp;6.  <strong>Monthly Commission Fee. </strong></p>
+                        <h:outputText style=" font-size: larger" value="Each month's sales revenue will be subjected to a monthly conmission fee,which equals to monthly sales revenue times the monthly commission rate: "/>                       
+                        <h:outputText style=" font-size: larger; font-weight: bold" value="#{contractManagedBean.contract.commissionRate*100}">
+                            <f:convertNumber pattern="#0.00" />
+                        </h:outputText>
+                        <h:outputText style=" font-size: larger" value="%."/>
+
+                        <p style=" font-size: larger">&nbsp; &nbsp;7.  <strong>Termination policy </strong></p>
+                        <h:outputText style=" font-size: larger" value="Tenants who wish to terminate their tenancy must give proper one-month notice. Tenants are liable for the rent to the end of their tenancy legal notice period, and other costs that may have incurred, according to the Residential Tenancy Act. However, Lessor has an obligation to mitigate its losses. Lessor reserves the right to terminate tenancy fot those who behaves against Tenancy Laws.  "/>
+
+                        <br></br><br></br><br></br><br></br>
+                    </p:panel> 
+                </h:form>
+            </h:body>
+        </ui:define>
+
+        <ui:define name="foot">
+            foot
+        </ui:define>
+
+    </ui:composition>
+</html>

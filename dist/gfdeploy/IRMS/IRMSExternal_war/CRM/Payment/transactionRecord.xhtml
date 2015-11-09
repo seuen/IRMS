@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Member Workspace</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../Templates/subpageFull.xhtml">
+
+            <ui:define name="content1">
+
+                <p style=" font-size: large;color: coral; font-weight: bold" >History Transaction Records</p>
+                <h:form id="form">
+                    <p:dataTable var="transactions" value="#{externalPaymentManagedBean.allRecords}" id="transactionList"
+                                 paginator="true" rows="10" paginatorTemplate="
+                                 {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15" style="
+                                 width: 850px">
+
+                        <p:column headerText="ID" width="7%" filterBy="#{transactions.id}" filterMatchMode="contains">
+                            <h:outputText value="#{transactions.id}"/>
+                        </p:column>
+                        <p:column headerText="Item Name" filterBy="#{transactions.itemName}" filterMatchMode="contains">
+                            <h:outputText value="#{transactions.itemName}"/>
+                        </p:column>
+                        <p:column headerText="Quantity" width="10%" filterBy="#{transactions.quantity}" filterMatchMode="contains">
+                            <h:outputText value="#{transactions.quantity}"/>
+                        </p:column>
+                        <p:column headerText="Department" filterBy="#{transactions.fromWhere}" filterMatchMode="contains">
+                            <h:outputText value="#{transactions.fromWhere}"/>
+                        </p:column>
+                        <p:column headerText="Transaction Time" filterBy="#{transactions.transactionTime}" filterMatchMode="contains">
+                            <h:outputText value="#{transactions.transactionTime.year}"/>/<h:outputText value="#{transactions.transactionTime.month}" />/<h:outputText value="#{transactions.transactionTime.date}"/>
+                        </p:column>
+                        <p:column headerText="Total Price" filterBy="#{transactions.totalPrice}" filterMatchMode="contains">
+                            $ <h:outputText value="#{transactions.totalPrice}"/>
+                        </p:column>
+
+
+                    </p:dataTable>
+           
+
+               </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

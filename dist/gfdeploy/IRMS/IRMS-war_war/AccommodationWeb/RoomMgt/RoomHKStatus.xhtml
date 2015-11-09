@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="contents">
+        <h:form>
+            <p:growl autoUpdate="true" globalOnly="true"/>
+            <p:dataTable var="rooms" value="#{roomManagedBean.rooms}" paginator="true" rows="10" rowKey="#{rooms.roomId}"
+                      filteredValue="#{roomManagedBean.filteredRooms}" id="roomsTable"
+                      selection="#{roomManagedBean.selectedRooms}">
+                
+                <f:facet name="header">
+                    List of all rooms in #{roomManagedBean.hotelId}
+                </f:facet>
+             <p:column selectionMode="multiple" style="width: 2%"/>
+                
+             <p:column headerText="RoomType"  filterBy="#{rooms.roomtype.type}">
+                    #{rooms.roomtype.type}
+                </p:column>
+                
+                <p:column headerText="RoomNum" filterBy="#{rooms.roomNum}">
+                #{rooms.roomNum}
+                </p:column>
+                
+                <p:column headerText="RoomStatus" filterBy="#{rooms.status}">
+                #{rooms.status}
+                </p:column>
+                
+                <p:column headerText="StayStatus" filterBy="#{rooms.stay_status}">
+                #{rooms.stay_status}
+                </p:column>
+             
+             <p:column headerText="HK_Status" filterBy="#{rooms.HK_status}">
+                 #{rooms.HK_status}                 
+             </p:column>
+             
+             <f:facet name="footer">
+                 <p:commandButton id="DirtyRoom" value="Report Dirty Room" actionListener="#{roomManagedBean.dirtyRoom}"/>
+                 <p:commandButton id="CleanRoom" value="Clean Room" actionListener="#{roomManagedBean.cleanRoom}"/>
+
+             </f:facet>
+                          
+                
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

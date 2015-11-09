@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../crmTemplates/afterLoginTemplate.xhtml">
+            <ui:define name="contents">
+                
+                <br></br>
+                <span class="STYLE2">&nbsp;&nbsp;&nbsp;Please Select your credit card </span>
+                <br></br>
+                <br></br>
+                <div>
+                    <h:form id="form">
+                        <p:dataTable id="creditCards" var="creditcard" value="#{paymentManagedBean.allCreditCards}" 
+                                     selection="#{paymentManagedBean.creditCard}" selectionMode="single"
+                                     rowKey="#{creditcard.creditCardNum}">
+                            <p:column headerText="Creditcard No.">
+                                **** **** **** <h:outputText value="#{creditcard.creditCardNum.substring(15)}"/>
+                            </p:column>
+                            <p:column headerText="Card Holder">
+                                <h:outputText value="#{creditcard.cardHolder}"/>
+                            </p:column>
+                            <p:column headerText="Expire Date">
+                                <h:outputText value="#{creditcard.dateMonth}"/>&nbsp;<h:outputText value="#{creditcard.dateYear}" />
+                            </p:column>
+                            <p:column headerText="Issue Bank">
+                                <h:outputText value="#{creditcard.issueBank}"/>
+                            </p:column>
+<!--                            <p:column>
+                                <p:commandButton value="Remove" id="remove" actionListener="#{paymentManagedBean.removeCreditCard}"/>
+                            </p:column>-->
+                            
+                            <f:facet name="footer">
+                                <p:commandButton value="Select"/>
+                            </f:facet>
+                        </p:dataTable> 
+                    </h:form>
+                </div>
+
+                <div class="cleaner h40"></div>
+
+                <div class="cleaner"></div>
+
+                <div class="cleaner"></div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

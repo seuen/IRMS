@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Home</title>
+        <style type="text/css">
+            .gritter-notice-wrapper {
+                left:200px;
+                top: 50px; }
+            </style>
+        </h:head>
+        <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                        template="../../Templates/InternalAggregateTemplate.xhtml"
+                        xmlns:h="http://java.sun.com/jsf/html"
+                        xmlns:p="http://primefaces.org/ui">
+            <ui:define name="contents">
+                <h1>
+                    Welcome to Convention and Exhibition Center Revenue Management SubSystem
+                </h1>
+                <h:body>
+                    <h:form id="formRenew">
+                    <p:tabMenu activeIndex="0">
+                        <p:menuitem value="Event Revenue" url="/ConventionExhibitionWeb/Revenue/ceRevenue.xhtml"/>
+                    </p:tabMenu>
+
+                    <p:ajaxStatus style="width:30px;height: 20px;">
+                        <f:facet name="start">     <h:graphicImage value="../design/ajaxloading.gif" />   </f:facet>
+                        <f:facet name="complete">  <h:outputText value="" />                              </f:facet>
+                    </p:ajaxStatus> 
+                    <p:panel> 
+                        <h:outputText styleClass="STYLE2" value="Next page will list all convention exhibition event orders in the specified period. You can check the convention exhibition revenue."/>
+                    </p:panel>
+                    <p:panel style=" float: next">
+                        <h:outputText value="Choose Start Date" style="font-weight: bold" />
+                        <p:calendar  label="startDate" id="startDate" value="#{ceRevenueManagedBean.start}"/>
+                        <h:outputText value="Choose End Date" style="font-weight: bold" />
+                        <p:calendar label="endDate" id="endDate" value="#{ceRevenueManagedBean.end}"/>
+                    </p:panel>
+
+                        <p:commandButton  value="CurrMonthReport" actionListener="#{ceRevenueManagedBean.navigateCurMonthER}">
+                        </p:commandButton> 
+                        <p:commandButton  value="CurrYearReport"  actionListener="#{ceRevenueManagedBean.navigateCurYearER}">
+                        </p:commandButton>
+
+                        <p:commandButton  value="PeriodReport"  actionListener="#{ceRevenueManagedBean.navigatePeriodEventRevenue}">
+                        </p:commandButton>
+                </h:form>
+            </h:body>
+        </ui:define>
+        <ui:define name="foot">
+            foot
+        </ui:define>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Home</title>
+        <style type="text/css">
+            .gritter-notice-wrapper {
+                left:200px;
+                top: 50px; }
+            </style>
+        </h:head>
+        <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                        template="../../Templates/InternalAggregateTemplate.xhtml"
+                        xmlns:h="http://java.sun.com/jsf/html"
+                        xmlns:p="http://primefaces.org/ui">
+            <ui:define name="contents">
+
+                <h:form id="formMain">
+                <h1>
+                    Welcome to Food and Beverage Contract Management SubSystem
+                </h1>
+                <p:tabMenu activeIndex="3">
+                    <p:menuitem value="Home" url="/FoodBeverageWeb/Contract/viewAllResContracts.xhtml"/>
+                    <p:menuitem value="Restaurants" url="/FoodBeverageWeb/Contract/viewRestaurants.xhtml"/>
+                    <p:menuitem value="Inactivated" url="/FoodBeverageWeb/Contract/viewAllResInactiveContracts.xhtml"/>
+                    <p:menuitem value="Activated" url="/FoodBeverageWeb/Contract/viewAllResActiveContracts.xhtml"/>
+                    <p:menuitem value="CreateContract" url="/FoodBeverageWeb/Contract/viewAllResNegotiators.xhtml"/>
+                </p:tabMenu>
+
+                <p:ajaxStatus style="width:30px;height: 20px;">
+                    <f:facet name="start">     <h:graphicImage value="../design/ajaxloading.gif" />   </f:facet>
+                    <f:facet name="complete">  <h:outputText value="" />                              </f:facet>
+                </p:ajaxStatus> 
+                <p:panel> 
+                    <h:outputText styleClass="STYLE2" value="Here lists all active contracts in the system. You can search for a contract, view contract details as well as send the contract to tenants."/>
+                    <br></br>
+                </p:panel>
+                <h:form>
+                    <p:dataTable  var="contract" value="#{resContractManagedBean.activeContracts}" paginator="true" emptyMessage="No contracts at all.">
+                        <p:column width="200px" headerText="ContractID" sortBy="#{contract.id}" filterBy="#{contract.id}">
+                            <h:outputText value="#{contract.id}" />
+                        </p:column>
+
+                        <p:column width="300px" headerText="ShopName" sortBy="#{contract.shop.shopName}" filterBy="#{contract.shop.shopName}">
+                            <h:outputText value="#{contract.shop.shopName}" />
+                        </p:column>
+
+                        <p:column  width="300px" headerText="TermFrom" sortBy="#{contract.dateFrom}" filterBy="#{contract.dateFrom}" filterStyle="width: 80px;">
+                            <h:outputText value="#{contract.dateFrom}" >
+                            </h:outputText>
+                        </p:column> 
+
+                        <p:column headerText="TermTo" sortBy="#{contract.dateTo}" filterBy="#{contract.dateTo}" filterStyle="width: 80px;">
+                            <h:outputText value="#{contract.dateTo}" >
+                            </h:outputText>
+                        </p:column> 
+
+                        <p:column headerText="Status" sortBy="#{contract.activated}" filterBy="#{contract.activated}" filterStyle="width: 70px;">
+                            <h:outputText value="#{contract.activated}" />
+                        </p:column>                              
+                        <p:column headerText="Renew">
+                            <p:commandButton  id="renewPopupBoxButton" value="Renew"  update=":subRenewForm" style="float: right" onclick="renewBox.show();">
+                                <f:setPropertyActionListener value="#{contract}" target="#{resContractManagedBean.selectedContract}" />
+                            </p:commandButton> 
+                        </p:column>
+                        <p:column headerText="Details">
+                            <p:commandButton type="submit" ajax="true" value="Details" style="float: right" actionListener="#{resContractManagedBean.navigateContractInfo}">
+                                <f:attribute name="viewContract" value="#{contract}" />
+                            </p:commandButton>
+                        </p:column>
+                        <p:column headerText="Send">
+
+                            <p:commandButton style="float: right" onstart="dialog1.show();" oncomplete="dialog1.hide();" value="Send" ajax="true" type="submit" actionListener="#{resContractManagedBean.sendContract}">
+                                <f:attribute name="c" value="#{contract}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                    <p:dialog id="dialog1" widgetVar="dialog1" modal="true" appendToBody="true">
+                        Email is being sent to the tenant, please wait...
+                    </p:dialog>
+                </h:form>
+                <p:growl id="msg" globalOnly="true" autoUpdate="true"/>
+            </h:form>
+               <p:dialog widgetVar="renewBox" id="renewPopupBox" header="Renew Contract" closable="true" modal="true" height="660"  appendToBody="true" onShow="true">  
+                    <h:form id="subRenewForm">
+                        <h2>Shop Name: #{resContractManagedBean.selectedContract.shop.shopName}</h2>
+                        <h2>Venue: #{resContractManagedBean.selectedContract.venue}</h2>
+                        <h2>Original ConractId: #{resContractManagedBean.selectedContract.id}</h2>
+
+                        <h:panelGrid id="panelGrid3" columns="2" cellpadding="10" width="600px">  
+                            <p:outputLabel for="lessee" style="font-weight: bold; color: #D20005" value="LESSEE: "/>
+                            <h:outputText id="lessee" style="font-weight: bold; color: #D20005" value="#{resContractManagedBean.selectedContract.lessee}">
+                            </h:outputText>
+
+                            <p:outputLabel for="leaseDateFrom" style="font-weight: bold; color: #D20005" value="NEW LEASE DATE IS: " />
+                            <h:outputText id="leaseDateFrom" style="font-weight: bold; color: #D20005" value="THE DAY AFTER #{resContractManagedBean.selectedContract.dateTo}">
+                            </h:outputText>
+
+                            <p:outputLabel for="leaseTerm" style="font-weight: bold" value="Lease Term (Integer Years): " />
+                            <p:inputText label="leaseTerm" id="leaseTerm" value="#{resContractManagedBean.leaseTerm}" required="true" requiredMessage="LeaseTerm is requried."/>
+
+                            <p:outputLabel for="monthlyRental" style="font-weight: bold" value="Negotiated Commercial Rental(/month): " />
+                            <p:inputText required="true" label="monthlyRental" requiredMessage="Monthly Rental is required." id="monthlyRental" value="#{resContractManagedBean.monthlyRental}">
+                            </p:inputText>
+
+
+                            <p:outputLabel for="commissionRate" style="font-weight: bold" value="Commission Rate(percentage per month): " />
+                            <p:inputText required="true" label="commissionRate" requiredMessage="Commission Rate is required." id="commissionRate" value="#{resContractManagedBean.commissionRate}">
+                            </p:inputText>
+
+                            <p:outputLabel for="deposit" style="font-weight: bold" value="Deposit: " />
+                            <p:inputText required="true"  label="Deposit" requiredMessage="Deposit is required." id="deposit" value="#{resContractManagedBean.deposit}">
+                            </p:inputText>
+                            <p:commandButton  id="btn3" value="Save New Contract" update=":subRenewForm"  actionListener="#{resContractManagedBean.renewContract(contract)}" oncomplete="renewBox.hide()">
+                            </p:commandButton>
+                        </h:panelGrid>
+                        <p:growl id="msg2" autoUpdate="true" />
+                    </h:form>
+                </p:dialog>
+
+        </ui:define>
+
+        <ui:define name="foot">
+            foot
+        </ui:define>
+
+    </ui:composition>
+</html>

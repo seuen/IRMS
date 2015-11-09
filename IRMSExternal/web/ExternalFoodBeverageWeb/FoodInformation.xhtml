@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../Templates/foodTemplate1.xhtml">
+            <ui:define name="content1">
+                <h:form>
+                    <p:commandButton value="Make a Banquet Enquiry"  actionListener="#{externalEnquiryManagedBean.navigateEnquiry}"> </p:commandButton>
+                    <p:commandButton value="Make a Table Reservation" actionListener="#{externalTableReserveManagedBean.navigateReserve}"> </p:commandButton>
+                    <p:graphicImage value="/images/food/cir.jpg" />  
+                </h:form>
+            </ui:define>
+            <ui:define name="content2">
+                <p:fieldset toggleable="true" collapsed="false" legend="Mixture of restaurants provide widest range of choice">  
+                    <h:panelGrid columns="1">  
+                        <p:graphicImage value="/images/food/meishi.jpg"/>  
+                        <h:outputText  style=" float: contour"
+                            value="Wide Choice in Coral Island Resort! We serve you best food in Asia.
+                            There is a wide range of choices of food and drinks, raning from Chiense, Japanes, Korean, Thail Food to Western as well as bars and cafes. Casual food courts and high standard restaurants are both presenting in CIR resort for you to choose from." />  
+                    </h:panelGrid>  
+                </p:fieldset>
+                 <p:fieldset toggleable="true" collapsed="false" legend="Asian Cuisine">  
+                    <h:panelGrid columns="1" cellpadding="10">  
+                        <h:outputText value="Coral Island Resort provides various famous cuisines from Asia, including Chinese hotpot and dishes, Korean cuisine, Japanese cuisine as well as famous dishes from southeast Asia, such as Thailand and Malyasia. Delicious eastern taste." />  
+                        <p:graphicImage value="/images/food/Chinese.jpg" />  
+                    </h:panelGrid>  
+                 </p:fieldset>  
+                 <p:fieldset toggleable="true" collapsed="false" legend="Western Cuisine">  
+                    <h:panelGrid columns="1" cellpadding="10">  
+                        <p:graphicImage value="/images/food/Western.jpg"/>  
+                        <h:outputText value="Western cuisine in Coral Island Resort is very popular among not only tourisists but also local residents. Restaurants hire world-class chief to serve the best for our customers. Bars and cafes are also available from afternoon onwards." />  
+                    </h:panelGrid>  
+                </p:fieldset>  
+
+                <p:fieldset toggleable="true" collapsed="false" legend="Casual Food Courts">  
+                    <h:panelGrid columns="1" cellpadding="10">  
+                        <h:outputText value="Casual Food Courts provide you with the widest choices. Outlets include cuisines from all over the world, from Chinese cuisine, Japanese dishes, to Italian food and even middle-east food since we have an international mixture." />  
+                     <p:graphicImage value="/images/food/Fcourt.jpg"/> 
+                    </h:panelGrid>  
+                </p:fieldset> 
+
+                <p:fieldset toggleable="true" collapsed="false" legend="Best Restaurants in Asia">  
+                    <h:panelGrid columns="1" cellpadding="10">  
+                        <p:graphicImage value="/images/food/Hres.jpg" />  
+                        <h:outputText value="High class restaurants in the resort have the best chief in the world. If you wish to held important banquets and other events, do consider our high end restaurants catered for you. CIR will always be your best choice!" />  
+                    </h:panelGrid>  
+                </p:fieldset> 
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

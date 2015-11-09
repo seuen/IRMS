@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        
+        <title>Package Mgt</title>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="../../Templates/InternalAggregateTemplate.xhtml">
+            <ui:define name="contents">
+                <br></br><br></br>
+                <div>
+                    <span class="STYLE5">Please select a package type below. </span>
+                </div>
+                <br></br>
+                <table>
+                    <tr>
+                        <td height="200" width="250" align="center"><h:graphicImage url="../../resources/images/CRM/package/p1.jpg" height="170" width="220"/></td>
+                        <td width="250" align="center"><h:graphicImage url="../../resources/images/CRM/package/p2.jpg" height="170" width="220"/></td>
+                        <td width="250" align="center"><h:graphicImage url="../../resources/images/CRM/package/p3.jpg" height="170" width="220"/></td>
+                        <td width="250" align="center"><h:graphicImage url="../../resources/images/CRM/package/p4.jpg" height="170" width="220"/></td>
+                    </tr>
+                    <tr >
+                        <td height="50" align="center"><p:button value="Hotel + Restaurant" href="package1.xhtml"/></td>
+                        <td align="center"><p:button value="Hote + Ticket" href="package2.xhtml"/></td>
+                        <td align="center"><p:button value="Ticket + Restaurant" href="package3.xhtml"/></td>
+                        <td align="center"><p:button value="Hotel + Restaurant + Ticket" href="package4.xhtml"/></td>
+                    </tr>
+
+                </table>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

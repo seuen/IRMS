@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="contents">
+        <h:form>
+            <p:growl autoUpdate="true" globalOnly="true"/>
+            <p:dataTable id="availableExihibitionHalls" value="#{venueManagedBean.exhibitionsections}" var="exhibitionsections"
+                         paginator="true" rows="5" rowKey="#{exhibitionsections.id}" 
+                         selection="#{venueManagedBean.selectexhibitions}">
+                <f:facet name="header">
+Available Exhibition Halls                    
+                </f:facet>
+                <p:column selectionMode="multiple" style="width: 2%"/>
+                <p:column headerText="SectionNo">
+                    #{exhibitionsections.sectionNo}
+                </p:column>
+                
+                <p:column headerText="RoomNum" filterBy="#{exhibitionsections.exhibitionhall.roomNo}" >
+                    #{exhibitionsections.exhibitionhall.roomNo}
+                </p:column>
+                
+                <p:column headerText="Room Capacity" filterBy="#{exhibitionsections.exhibitionhall.capacity}">
+                #{exhibitionsections.exhibitionhall.capacity}
+                </p:column>
+                
+                <p:column headerText="Section Capacity" filterBy="#{exhibitionsections.capacity}">
+                #{exhibitionsections.capacity}
+                </p:column>
+                
+                <p:column headerText="Section Day Price" filterBy="#{exhibitionsections.dayprice}">
+                #{exhibitionsections.dayprice}
+                </p:column>
+                
+              <p:column headerText="Neighbours">
+                  <p:dataTable id="neighbours" value="#{exhibitionsections.neigbours}" var="neighbours">
+                          <p:column>
+                              #{neighbours.sectionNo}
+                          </p:column>
+                      </p:dataTable>
+                  </p:column>
+                  <f:facet name="footer">
+                      <p:commandButton id="QuotationButton" value="CreateQuotation" actionListener="#{venueManagedBean.createExhibitionQupotation}"/>
+                        </f:facet>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+
+

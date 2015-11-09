@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="contents">
+          <h:form>
+            <p:panel>
+                <h:panelGrid columns="2" cellpadding="7">
+                    <p:outputLabel value="Event Id: "/>
+                    <h:outputText value="#{banquetOperationManagedBean.selecteventorder.id}"/>    
+                    
+                    <p:outputLabel value="Event Name"/>
+                    <h:outputText value="#{banquetOperationManagedBean.selecteventorder.description}"/>
+                    
+                    <p:outputLabel value="Venue"/>
+                    <h:outputText value="#{banquetOperationManagedBean.selecteventorder.venuetype} #{banquetOperationManagedBean.selecteventorder.roomnum}"/>
+                    
+                    <p:outputLabel value="Venue Price"/>
+                    <h:outputText value="#{banquetOperationManagedBean.selecteventorder.venueprice}"/>
+                    
+                    <p:outputLabel value="Date Type"/>
+                    <h:outputText value="#{banquetOperationManagedBean.selecteventorder.datetype}"/>
+                    
+                    <p:outputLabel value="Start Date"/>
+                    <h:outputText value="#{banquetOperationManagedBean.selecteventorder.daytime.startingDate}">
+                       <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8"/>
+                   </h:outputText>
+                    
+                    <p:outputLabel value="End Date"/>
+                    <h:outputText value="#{banquetOperationManagedBean.selecteventorder.daytime.endingDate}">
+                        <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8"/>
+                    </h:outputText>
+                    
+                    <p:outputLabel value="Event Date"/>
+                    <h:outputText value="#{banquetOperationManagedBean.selecteventorder.halfdaytime.eventdate}">
+                        <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8"/>
+                    </h:outputText>
+                    
+                    <p:outputLabel value="Timeslot"/>
+                    <h:outputText value="#{banquetOperationManagedBean.selecteventorder.halfdaytime.eventPeriod}"/>
+                    
+                    <p:outputLabel value="Start Time"/>
+                    <h:outputText value="#{banquetOperationManagedBean.selecteventorder.hourtime.startTime}">
+                        <f:convertDateTime pattern="mm/HH/dd/MM/yyyy" timeZone="GMT+8"/>
+                    </h:outputText>
+                    
+                     <p:outputLabel value="End Time"/>
+                     <h:outputText value="#{banquetOperationManagedBean.selecteventorder.hourtime.endTime}">
+                        <f:convertDateTime pattern="mm/HH/dd/MM/yyyy" timeZone="GMT+8"/>
+                    </h:outputText>
+                    
+                    
+                    <p:dataTable var="Employee" value="#{banquetOperationManagedBean.selecteventorder.employeesNeed}">
+                        <p:column headerText="Employee Type">
+                            #{Employee.type}
+                        </p:column>
+                        
+                        <p:column headerText="Amount">
+                            #{Employee.amount}
+                        </p:column>
+                        
+                        <p:column headerText="Price">
+                            #{Employee.price}
+                        </p:column>
+                        <p:summaryRow>
+                            <p:column colspan="2" style="text-align: right">
+                                Employee Total Price: 
+                            </p:column>
+                            <p:column>
+                                #{banquetOperationManagedBean.selecteventorder.employeeprice}
+                            </p:column>
+                        </p:summaryRow>
+                    </p:dataTable>
+                    <br/>
+                    
+                    <p:dataTable var="Facility" value="#{banquetOperationManagedBean.selecteventorder.facilitiesNeed}">
+                        <p:column headerText="Facility Type">
+                            #{Facility.type}
+                        </p:column>
+                        
+                        <p:column headerText="Amount">
+                            #{Facility.amount}
+                        </p:column>
+                        
+                        <p:column headerText="Unit Price">
+                            #{Facility.price}
+                        </p:column>
+                        
+                        <p:column headerText="Total Price">
+                            #{Facility.totalprice}
+                        </p:column>
+                        
+                        <p:summaryRow>
+                            <p:column colspan="3" style="text-align: right">
+                                Facility Total Price:
+                            </p:column>
+                            <p:column>
+                                #{banquetOperationManagedBean.selecteventorder.facilityprice}
+                            </p:column>
+                        </p:summaryRow>
+                    </p:dataTable>
+                    <br/>
+                    
+                    <p:outputLabel value="Total Price"/>
+                    <h:outputText value="#{banquetOperationManagedBean.selecteventorder.totalprice}"/>
+                    
+                    <p:outputLabel value="OutStanding Charges"/>
+                     <h:outputText value="#{banquetOperationManagedBean.selecteventorder.totalcharge}"/>
+                   
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../Templates/InternalAggregateTemplate.xhtml">
+
+            
+            <ui:define name="contents">
+                <h:form>
+                    <p:dataTable id="availableAuditoriums" value="#{venueManagedBean.auditoriums}" var="auditoriums"
+                                 paginator="true" rows="5" sortMode="multiple" rowKey="#{auditoriums.id}" 
+                                 selection="#{venueManagedBean.selectauditorium}">
+                <f:facet name="header">
+                        Available Auditoriums                   
+                </f:facet>
+                        <p:column selectionMode="single" style="width: 2%"/>
+                        
+                        <p:column headerText="RoomNum" filterBy="#{auditoriums.roomNo}" sortBy="#{auditoriums.roomNo}">
+                    #{auditoriums.roomNo}
+                </p:column>
+                
+                        <p:column headerText="Room Capacity" sortBy="#{auditoriums.capacity}" filterBy="#{auditoriums.capacity}">
+                #{auditoriums.capacity}
+                </p:column>
+               
+                        <p:column headerText="Day Price" sortBy="#{auditoriums.dayprice}" filterBy="#{auditoriums.dayprice}">
+                #{auditoriums.dayprice}
+                </p:column>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton id="QuotationButton" value="CreateQuotation" actionListener="#{venueManagedBean.createAuditoriumQuotation}"/>
+                        </f:facet>
+               
+            </p:dataTable>
+        </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

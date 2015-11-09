@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="../../resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <ui:insert name="head-title">
+            <title>IRMS Intranet| Homepage</title>
+        </ui:insert>  
+
+    </h:head>
+
+    <h:body>
+
+        <p:layout fullPage="true">
+
+            <p:layoutUnit position="north" header="#{staffManagedBean.welcome}" style="font-size: 20px">                
+            </p:layoutUnit>
+
+            <p:layoutUnit position="west" header="Functions">
+                <ui:insert name="leftpanel">
+                    <h:form>                        
+                        <!--Accommondation-->
+                        <p:menu rendered="#{loginManagedBean.checkAdminRight('Hotel')}">                            
+                            <p:menuitem value="Hotel Information Mgt" outcome="/AccommodationWeb/HotelInfoMgt/hotelInfo"/>   
+                            <p:menuitem value="Check in" outcome="/AccommodationWeb/StayMgt/CheckIn"/>
+                            <p:menuitem value="Check out" outcome="/AccommodationWeb/StayMgt/CheckOut"/>
+
+                            <p:menuitem value="Housekeeping Mgt" outcome="/AccommodationWeb/RoomMgt/RoomHKStatus"/>
+
+                            <p:submenu label="Reservation Mgt" >  
+                                <p:menuitem value="Add Reservation" outcome="/AccommodationWeb/ReservationMgt/addReservationSearch"/>
+                                <p:menuitem value="List All Reservation" outcome="/AccommodationWeb/StayMgt/viewAllReservations"/>  
+                                <p:menuitem value="Block Room List" url="/AccommodationWeb/ReservationMgt/AddGuestBlock.xhtml"/>
+                            </p:submenu>
+
+                            <p:submenu label="Room Service Mgt" >  
+                                <p:menuitem value="Add Room Order" outcome="/AccommodationWeb/RoomServiceMgt/addRoomOrder"/>
+                                <p:menuitem value="List All Order" outcome="/AccommodationWeb/RoomServiceMgt/viewAllRoomOrder"/>   
+                            </p:submenu>
+
+                            <p:submenu label="Raw Material Mgt" >  
+                                <p:menuitem value="Add Raw Material" outcome="/AccommodationWeb/FoodMaterialMgt/AddFoodMaterial"/>
+                                <p:menuitem value="List All Raw Material" outcome="/AccommodationWeb/FoodMaterialMgt/ViewAllFoodMaterial"/>   
+                                <p:menuitem value="List All Unavailable Raw Material" outcome="/AccommodationWeb/FoodMaterialMgt/ViewAllUnavailableFoodMaterial"/> 
+                            </p:submenu>
+
+                        </p:menu>
+
+                        <!--        Shopping Mall-->
+                        <p:menu rendered="#{loginManagedBean.checkAdminRight('ShoppingMallManager')}">
+                            <p:menuitem value="Home Page" url="/ShoppingMallWeb/Space/ShoppingMallManagerPage.xhtml"/>
+                            <p:menuitem value="View Notifications" url="/ShoppingMallWeb/Notification/viewNotifications.xhtml"/>
+                            <p:menuitem value="Space Management" url="/ShoppingMallWeb/Space/viewAllVenues.xhtml"/>
+                            <p:menuitem value="Shop Infomation" url="/ShoppingMallWeb/TenantInfo/viewAllTenants.xhtml" />
+                            <p:menuitem value="Contract Management" url="/ShoppingMallWeb/Contract/viewAllContracts.xhtml"/>
+                            <p:menuitem value="Rental Management" url="/ShoppingMallWeb/Rental/rentalManagement.xhtml"/>
+                            <p:menuitem value="Billing Management" url="/ShoppingMallWeb/Billing/billingManagement.xhtml"/>                   
+                            <p:menuitem value="Revenue Management" url="/ShoppingMallWeb/Revenue/activeContracts.xhtml"/>                  
+                        </p:menu>
+
+                        <p:menu rendered="#{loginManagedBean.checkAdminRight('ShoppingMallStaff')}">
+                            <p:menuitem value="Home Page" url="/ShoppingMallWeb/Space/ShoppingMallHomePage.xhtml"/>
+                            <p:menuitem value="Space Management" url="/ShoppingMallWeb/Space/viewAllVenues.xhtml"/>
+                            <p:menuitem value="Shop Infomation" url="/ShoppingMallWeb/TenantInfo/viewAllTenants.xhtml" />
+                            <p:menuitem value="Contract Management" url="/ShoppingMallWeb/Contract/viewAllContracts.xhtml"/>
+                            <p:menuitem value="Rental Management" url="/ShoppingMallWeb/Rental/rentalManagement.xhtml"/>
+                            <p:menuitem value="Billing Management" url="/ShoppingMallWeb/Billing/billingManagement.xhtml"/>                   
+                        </p:menu>
+
+                        <!-- Attraction -->
+                        <p:menu rendered="#{loginManagedBean.checkAdminRight('CIR AttractionManager')}">
+                            <p:menuitem value="Homepage" outcome="/AttractionWeb/AttractionInfo/AttractionHomePage.xhtml"/> 
+                            <p:submenu label="Attraction Info Mgt" >  
+                                <p:menuitem value="List All Attraction" outcome="/AttractionWeb/AttractionInfo/ViewAllAttraction.xhtml"/>
+                                <p:menuitem value="List All AttraSections" outcome="/AttractionWeb/AttractionInfo/ViewAllAttraSections.xhtml"/>
+                                <p:menuitem value="List All Schedules" outcome="/AttractionWeb/AttractionInfo/ViewAttractionSchedule.xhtml"/>
+                            </p:submenu>
+                            <p:submenu label="Ticket Mgt" >  
+                                <p:menuitem value="Add Ticket Type" outcome="/AttractionWeb/AttraTicketInfo/AddTicketType.xhtml"/>
+                                <p:menuitem value="List All Ticket Type" outcome="/AttractionWeb/AttraTicketInfo/ViewAllTicketType.xhtml"/>   
+                                <p:menuitem value="Sell Ticket" outcome="/AttractionWeb/AttraTicketInfo/SellAttractionTicket.xhtml"/>   
+                            </p:submenu>
+                            
+                            <p:submenu label="Bundle Mgt" >  
+                                <p:menuitem value="Create New Bundle" outcome="/AttractionWeb/AttraTicketInfo/CreateBundle.xhtml"/>
+                                <p:menuitem value="List All Bundles" outcome="/AttractionWeb/AttraTicketInfo/ViewAllBundle.xhtml"/>   
+                            </p:submenu>
+                        </p:menu>
+
+                        <!-- Convention -->
+                        <p:menu rendered="#{loginManagedBean.checkAdminRight('Convention')}">
+                            <p:menuitem value="Send Quotation" url="/ConventionExhibitionWeb/VenueManagement/SearchVenue.xhtml"/> 
+                            <p:menuitem value="View Unread Enquiry" url="/ConventionExhibitionWeb/EnquiryManagement/viewUnreadEnquiry.xhtml"/>
+                           <p:menuitem value="Add Proposal" url="/ConventionExhibitionWeb/AddProposal.xhtml"/>
+                            <p:menuitem value="Add Facility Type" url="/ConventionExhibitionWeb/FacilityManagement/AddCEfacilityType.xhtml"/>
+                            <p:menuitem value="Add Facility" url="/ConventionExhibitionWeb/FacilityManagement/AddCEfacility.xhtml"/>
+                            <p:menuitem value="View All Facility" url="/ConventionExhibitionWeb/FacilityManagement/ViewAllFacility.xhtml"/>
+                            <p:menuitem value="Add Event" url="/ConventionExhibitionWeb/EventManagement/EventSearchVenue.xhtml"/>
+                            <p:menuitem value="View Event" url="/ConventionExhibitionWeb/EventManagement/ViewAllEvent.xhtml"/>
+                            <p:menuitem value="View Today Event" url="/ConventionExhibitionWeb/EventManagement/ViewTodayEvents.xhtml"/>                            
+                            <p:menuitem value="View Venue Schedule" url="/ConventionExhibitionWeb/VenueManagement/viewVenueSchedule.xhtml"/>
+                            <p:menuitem value="Client Bill Management" url="/ConventionExhibitionWeb/ClientBill/allBills.xhtml"/>
+                            <p:menuitem value="Revenue Management" url="/ConventionExhibitionWeb/Revenue/ceRevenue.xhtml"/>
+                        </p:menu>
+
+                        <!-- Entertainment -->
+                        <p:menu rendered="#{loginManagedBean.checkAdminRight('CIR EntertainmentManager')}">
+                            <p:submenu label="Show Schedule Mgt" >  
+                                <p:menuitem value="Add Show Schedule" outcome="/EntertainmentShowWeb/ShowSchedule/SearchShowVenue.xhtml" />
+                                <p:menuitem value="Update Show Info" outcome="/EntertainmentShowWeb/ShowSchedule/AddShowInfo.xhtml" />
+                                <p:menuitem value="List All Show Info" outcome="/EntertainmentShowWeb/ShowSchedule/ViewAllShowInfo.xhtml" />
+
+                            </p:submenu>
+                            <p:submenu label="Ticketing Mgt" >  
+                                <p:menuitem value="Buy Ticket" outcome="/EntertainmentShowWeb/Ticketing/ViewAllShows.xhtml" />
+                            </p:submenu>
+
+                            <p:submenu label="Client billing" >  
+                                <p:menuitem value="Client Bill Management" url="/ConventionExhibitionWeb/ClientBill/allBills.xhtml"/>
+                                <p:menuitem value="Revenue Management" url="/EntertainmentShowWeb/Revenue/internalTktRevenue.xhtml"/>
+                            </p:submenu>
+
+                            <p:submenu label="Entertainment Show Reservation">
+                                <p:menuitem value="Reserve Entertainment Show" url="/EntertainmentShowWeb/ESEvent/ESSearchVenue.xhtml"/>
+                            </p:submenu>
+                        </p:menu>
+
+                        <!-- CRM -->
+                        <p:menu rendered="#{loginManagedBean.checkAdminRight('CIR CRMManager')}">
+                            <p:submenu>
+                                <p:menuitem value="Search Feedback"  url="/CRM/FeedbackMgt/feedbackList.xhtml" />                        
+                                <p:menuitem value="Feedback Statistics" url="/CRM/FeedbackMgt/feedbackStat.xhtml"/>                        
+                            </p:submenu>
+                            <p:submenu>
+                                <p:menuitem value="Search Member"  url="/CRM/MemberAccountMgt/memberList.xhtml"/>                        
+                                <p:menuitem value="Customer Segmentation" url="/CRM/MemberCharts/memberCharts.xhtml"/>                        
+                                <p:menuitem value="Add Package" url="/CRM/PackageMgt/packageType.xhtml"/>                        
+                                <p:menuitem value="Package Management" url="/CRM/PackageMgt/listPackage.xhtml"/>                        
+                                <p:menuitem value="Feedback Management" url="/CRM/FeedbackMgt/feedbackList.xhtml"/>
+                            </p:submenu>
+                        </p:menu>
+
+                        <!-- F&B Manager -->
+                        <p:menu rendered="#{loginManagedBean.checkAdminRight('CIR FoodBeverageManager')}">
+                            <p:menuitem value="Home Page" url="/FoodBeverageWeb/Space/FoodBeverageHomePage.xhtml"/>
+                            <p:menuitem value="View Notifications" url="/FoodBeverageWeb/Notification/viewResNotifications.xhtml"/>
+                            <p:menuitem value="Space Management" url="/FoodBeverageWeb/Space/viewAllResVenues.xhtml"/>
+                            <p:menuitem value="Shop Information" url="/FoodBeverageWeb/TenantInfo/viewAllResTenants.xhtml" />
+                            <p:menuitem value="Contract Management" url="/FoodBeverageWeb/Contract/viewAllResContracts.xhtml"/>
+                            <p:menuitem value="Rental Management" url="/FoodBeverageWeb/Rental/resRentalManagement.xhtml"/>
+                            <p:menuitem value="Billing Management" url="/FoodBeverageWeb/Billing/resBillingManagement.xhtml"/>  
+                            <p:menuitem value="Revenue Management" url="/FoodBeverageWeb/Revenue/resActiveContracts.xhtml"/>  
+                            <p:menuitem value="Add Banquet Event" url="/FoodBeverageWeb/Banquet/BanquetSearchVenue.xhtml"/>
+                            <p:menuitem value="View All Banquet Orders" url="/FoodBeverageWeb/Banquet/viewAllBanquetEvent.xhtml"/>
+                            <p:menuitem value="View Today Banquet Orders" url="/FoodBeverageWeb/Banquet/viewTodayBanquetEvent.xhtml"/>
+                            <p:menuitem value="Add Menu Item" url="/FoodBeverageWeb/Banquet/AddMenuItem.xhtml"/>
+                            <p:menuitem value="view All Table Reservations" url="/FoodBeverageWeb/TableReservation/viewAllTableReservation.xhtml"/>
+                        </p:menu>
+
+                        <!-- F&B Staff -->
+                        <p:menu rendered="#{loginManagedBean.checkAdminRight('CIR FoodBeverageStaff')}">
+                            <p:menuitem value="Home Page" url="/FoodBeverageWeb/Space/FoodBeverageHomePage.xhtml"/>
+                            <p:menuitem value="Space Management" url="/FoodBeverageWeb/Space/viewAllResVenues.xhtml"/>
+                            <p:menuitem value="Shop Information" url="/FoodBeverageWeb/TenantInfo/viewAllResTenants.xhtml" />
+                            <p:menuitem value="Contract Management" url="/FoodBeverageWeb/Contract/viewAllResContracts.xhtml"/>
+                            <p:menuitem value="Rental Management" url="/FoodBeverageWeb/Rental/resRentalManagement.xhtml"/>
+                            <p:menuitem value="Billing Management" url="/FoodBeverageWeb/Billing/resBillingManagement.xhtml"/>   
+                            <p:menuitem value="Add Banquet Event" url="/FoodBeverageWeb/Banquet/BanquetSearchVenue.xhtml"/>
+                            <p:menuitem value="View All Banquet Orders" url="/FoodBeverageWeb/Banquet/viewAllBanquetEvent.xhtml"/>
+                            <p:menuitem value="View Today Banquet Orders" url="/FoodBeverageWeb/Banquet/viewTodayBanquetEvent.xhtml"/>
+                            <p:menuitem value="Add Menu Item" url="/FoodBeverageWeb/Banquet/AddMenuItem.xhtml"/>
+                            <p:menuitem value="view All Table Reservations" url="/FoodBeverageWeb/TableReservation/viewAllTableReservation.xhtml"/>
+                            <p:menuitem value="View Today Table Reservations" url="/FoodBeverageWeb/TableReservation/viewTodayTableReservation.xhtml"/>
+
+                        </p:menu>
+
+                    </h:form>
+                </ui:insert>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center"> 
+                <ui:include src="./../Templates/staffCommonFunc.xhtml" />
+                <ui:insert name="contents">
+                    Display contents here.
+                </ui:insert>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="east" header="Common Functions">
+                <ui:insert name="rightpanel">                    
+                    <ui:include src="./../Templates/StaffWidgets.xhtml" />
+                </ui:insert>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="south">
+                <ui:insert name="footer">
+                    <ui:include src="./../Templates/IntranetFooter.xhtml" />
+                </ui:insert>
+            </p:layoutUnit>
+
+        </p:layout>
+    </h:body>
+
+</html>

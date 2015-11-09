@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="contents">
+        <h:form>
+            
+            <p:dataTable id="facilityte" var="facilityType" value="#{facilityManagedBean.allfacilityTypes}" rowKey="#{facilityType.id}"
+                         selection="#{facilityManagedBean.facility.facilityType}">
+                <f:facet name="header">
+                Facility Type
+            </f:facet>
+                <p:column selectionMode="single" style="width: 2%"/>
+                <p:column headerText="Type id" filterBy="#{facilityType.id}">
+                    #{facilityType.id}
+                </p:column>
+                <p:column headerText="Type Name" filterBy="#{facilityType.type}">
+                    #{facilityType.type}
+                </p:column>
+                <p:column headerText="Quantity">
+                    #{facilityType.quantity}
+                </p:column>
+                
+                <f:facet name="footer">
+                    <p:commandButton id="ChoosefacilityType" value="Add Facility" action="AddFacilityDetail.xhtml"/>
+                </f:facet>
+           
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

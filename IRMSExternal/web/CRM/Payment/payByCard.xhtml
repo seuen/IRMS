@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Member Workspace</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../Templates/subpage2A.xhtml">
+            <ui:define name="content1">
+              <p:graphicImage width="140" height="150" url="http://172.28.179.192:8080/images/CRM/customerPhoto/#{photoUploadManagedBean.member.membership.profilePhoto}.#{photoUploadManagedBean.member.membership.imageType}" />
+
+                <p></p>
+                <p>Name  : #{accountManagedBean.saveMember.firstName} #{accountManagedBean.saveMember.lastName}</p>
+                <p>Email : #{accountManagedBean.saveMember.emailAddr}</p>
+                <br />
+
+            </ui:define>
+
+            <ui:define name="content2">
+                <h:form>
+                    <p style=" font-size: large;color: coral; font-weight: bold" >Pay by membership card value</p>
+                    <table>
+                        <tr>
+                            <td>Total amount:</td>
+                            <td>#{shoppingCartManagedBean.totalAmount}</td>
+                        </tr>
+                        <tr>
+                            <td>Your current card value: </td>
+                            <td>#{accountManagedBean.saveMember.membership.cardValue}</td>
+                        </tr>
+                        <tr>
+                            <td>Please indicate value you want to pay by card</td>
+                            <td><h:inputText value="#{externalPaymentManagedBean.payByCard}" required="true" /></td>
+                        </tr>
+                    </table>
+                    <br />
+                    <p:growl autoUpdate="true" showDetail="false" globalOnly="true"/> 
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p:button style="font-size: small" value="Back" href="paymentMode.xhtml"/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:commandButton style="font-size:small" actionListener="#{externalPaymentManagedBean.checkPayByCard()}" value="Submit"/>
+                </h:form>    
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

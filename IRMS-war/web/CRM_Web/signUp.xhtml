@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Member Sign Up</title>
+        <style type="text/css">
+            <!--
+            .STYLE1 {
+                font-size: xx-large;
+                font-weight: bold;
+                color: #E8CFFE;
+            }
+
+            .STYLE2 {
+                font-size: 14px;
+                color: #333333;
+                font-weight: bold;
+            }
+
+            .STYLE3 {
+                font-family: Verdana, Arial, Helvetica, sans-serif;
+                font-weight: bold;
+                color: #006699;
+                font-size: medium;
+                font-style: italic;
+            }
+
+            -->
+        </style>
+    </h:head>
+    <h:body>
+        <ui:composition template="../crmTemplates/contentTemplate.xhtml" >
+
+            <ui:define name="contents">
+                <table width="950">
+                    <tr>
+                        <td></td><td></td><td></td>
+                        <td align="top">
+                            <p:imageSwitch effect="fade" style="float: inside">  
+                                <ui:repeat value="#{imageManagedBean.images1}" var="images1">      
+                                    <p:graphicImage width="450" height="250" value="/resources/cr/images/CRM/website/#{images1}"/>  
+                                </ui:repeat>  
+                            </p:imageSwitch> 
+                            <br></br>
+                            <span class="STYLE3">New Member Sign Up</span>
+                            <br></br>
+                            <br></br>
+                            <br></br>
+                            <h:form>
+                                <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+                                <table>
+                                    <tr>
+                                        <td> * <h:outputText value="Title: " /> </td>
+                                        <td><p:selectOneMenu value="#{memberAccountManagedBean.member.title}" required="true" >  
+                                                <f:selectItem itemLabel="Select One" itemValue="" />  
+                                                <f:selectItem itemLabel="Mr." itemValue="Mr." />  
+                                                <f:selectItem itemLabel="Miss." itemValue="Miss" />  
+                                                <f:selectItem itemLabel="Mrs." itemValue="Mrs." />  
+                                            </p:selectOneMenu>  </td>
+                                    </tr>
+                                    <tr>
+                                        <td> * <p:outputLabel value="First Name:   " /></td>
+                                        <td><p:inputText value="#{memberAccountManagedBean.member.firstName}" required="true" /> </td>
+                                    </tr>
+                                    <tr>
+                                        <td> * <p:outputLabel value="Last Name:    " /></td>
+                                        <td> <p:inputText value="#{memberAccountManagedBean.member.lastName}" required="true" /> </td>
+                                    </tr>
+                                    <tr>
+                                        <td> * <p:outputLabel value="Password:     " /></td>
+                                        <td><h:inputSecret value="#{memberAccountManagedBean.membership.password}"  required="true"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td> * <p:outputLabel value ="Date of Birth:  "/></td>
+                                        <td><p:calendar  yearRange="1900:2020" value="#{memberAccountManagedBean.member.dateOfBirth}" id="cal" navigator="true" showButtonPanel="true" required="true"/> </td>
+                                    </tr>
+                                    <tr>
+                                        <td> * <p:outputLabel value="Email Address:" /></td>
+                                        <td><h:inputText  value="#{memberAccountManagedBean.member.emailAddr}" required="true"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td> * <p:outputLabel value="Phone Numer:  " /></td>
+                                        <td> <h:inputText value="#{memberAccountManagedBean.member.phoneNum}" required="true" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td> &nbsp;&nbsp;&nbsp;<p:outputLabel value="Nationality:  " /></td>
+                                        <td><h:inputText value="#{memberAccountManagedBean.member.nationality}" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;&nbsp;&nbsp;<p:outputLabel value="Address Line1:  " /></td>
+                                        <td><h:inputText value="#{memberAccountManagedBean.address.line1}" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td> &nbsp;&nbsp;&nbsp;<p:outputLabel value="Address Line2:  " /></td>
+                                        <td><h:inputText value="#{memberAccountManagedBean.address.line2}" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;&nbsp;&nbsp;<p:outputLabel value="Address Country:  " /></td>
+                                        <td><h:inputText value="#{memberAccountManagedBean.address.country}" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;&nbsp;&nbsp;<p:outputLabel value="Postcode:  " /></td>
+                                        <td><h:inputText value="#{memberAccountManagedBean.address.postCode}" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td> &nbsp;&nbsp;&nbsp;<p:commandButton value="Register" actionListener="#{memberAccountManagedBean.signUp(action)}" type="submit"/></td>
+                                    </tr>
+                                </table>
+
+                            </h:form></td>
+                        <td width="30"></td>
+                        <td width="480" align="top">
+            
+                            <div align="center">
+                                <p:panel header="Events and Promotions" style=" width: 320px" toggleable="true" toggleOrientation="horizontal">
+
+                                    <p:graphicImage width="280" height="150" value="/resources/cr/images/CRM/website/package1.gif"/> 
+
+                                    <p style=" font-size: small">Get away from the humdrum of your daily routine, and find out what is in store at CIR.</p>
+                                    <p style=" font-size:  small"><a href="#">Find out now >></a></p> 
+                                </p:panel>
+                            </div>
+                            <br></br><br></br>                
+                            <div align="center">
+                                <p:panel header="Loyalty Program" style=" width: 320px" toggleable="true" toggleOrientation="horizontal">
+
+                                    <p:graphicImage width="280" height="150" value="/resources/cr/images/CRM/website/loyaltyCard.jpg"/> 
+                                    <p style=" font-size: small">Our loyalty program is every moment truly rewarded in so many incredible ways. Join now.</p>
+                                    <p style=" font-size:  small"><a href="#">Learn More >></a></p> 
+                                </p:panel>
+                            </div>
+                            
+                            
+<!--                             <br></br><br></br>     
+                            <div align="center">
+                                <p:panel header="Special Events" style=" width: 320px" toggleable="true" toggleOrientation="horizontal">
+
+                                    <p:graphicImage width="280" height="150" value="/resources/cr/images/CRM/website/seaSong.jpg"/> 
+                                    <p style=" font-size: small">Get ready to fall under the spell of the world's first permanent show set in the sea.</p>
+                                    <p style=" font-size:  small"><a href="#">Learn More >></a></p> 
+                                </p:panel>
+                            </div>-->
+                            <br></br><br></br> <br></br><br></br> <br></br><br></br>
+
+                        </td>
+                    </tr>
+                </table>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

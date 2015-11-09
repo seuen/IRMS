@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Search Member</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../Templates/InternalAggregateTemplate.xhtml">
+            <ui:define name="contents">
+                <h:form id="form">
+                    <p:dataTable var="member" value="#{memberManagedBean.allMember}" id="memberList"
+                                 paginator="true" rows="10" paginatorTemplate="
+                                 {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
+                        <f:facet name="header">
+                            Member List
+                        </f:facet>
+                        
+                        <p:column style="width: 7%" headerText="MemberAccount ID" filterBy="#{member.id}" filterMatchMode="contains">
+                            <h:outputText value="#{member.id}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Last Name" filterBy="#{member.lastName}" filterMatchMode="contains">
+                            <h:outputText value="#{member.lastName}"/>
+                        </p:column>
+                        <p:column headerText="First Name" filterBy="#{member.firstName}" filterMatchMode="contains">
+                            <h:outputText value="#{member.firstName}"/>
+                        </p:column>
+                        <p:column headerText="Membership Type" filterBy="#{member.membership.memberType}" filterMatchMode="contains">
+                            <h:outputText value="#{member.membership.memberType}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <p:commandButton id="effectsDialogButton" update=":form:dia" value="See More" oncomplete="dlg3.show();">
+                                <f:setPropertyActionListener target='#{memberManagedBean.selectedMember}' value="#{member}"/>
+                            </p:commandButton>
+                        </p:column>
+                        
+                    </p:dataTable>
+                    
+                    <p:dialog id="dia" header="Member Detail Info" widgetVar="dlg3" showEffect="explode" height="350" width="500">
+                        <table border="1px" style="border-collapse:collapse">
+                            <tr>
+                                <td width="150">
+                                    <strong>Email Address :</strong> 
+                                </td>
+                                <td width="350">#{memberManagedBean.selectedMember.emailAddr}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Date of Birth :</strong>
+                                </td>
+                                <td>#{memberManagedBean.selectedMember.dateOfBirth}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Nationality :</strong>
+                                </td>
+                                <td>#{memberManagedBean.selectedMember.nationality}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Phone Number : </strong>
+                                </td>
+                                <td>#{memberManagedBean.selectedMember.phoneNum}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Addtress : </strong></td>
+                                <td>
+                                #{memberManagedBean.selectedMember.address.line1},
+                                    <br></br>
+                                    #{memberManagedBean.selectedMember.address.line2},
+                                    <br></br>
+                                    #{memberManagedBean.selectedMember.address.country},
+                                    <br></br>
+                                    #{memberManagedBean.selectedMember.address.postCode}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Loyalty Points : </strong></td>
+                                <td>#{memberManagedBean.selectedMember.membership.loyaltyPoints}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Loyalty Card Value :</strong></td>
+                                <td>#{memberManagedBean.selectedMember.membership.cardValue}</td>
+                            </tr>
+                        </table>
+                    </p:dialog>
+                    
+                    
+                </h:form>
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

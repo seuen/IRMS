@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../Templates/InternalAggregateTemplate.xhtml">
+
+            <ui:define name="contents">
+                <h:form>
+            <p:growl autoUpdate="true" globalOnly="true"/>
+            <h:panelGrid id="eventdetails" columns="2" cellpadding="8">
+                <f:facet name="header">
+                    Event Details
+                </f:facet>
+                
+                 <p:outputLabel value="Event Venue"/>
+                <h:outputText value="#{eSEventManagedBean.event.venuetype} #{eSEventManagedBean.event.roomnum}"/>
+                
+                <p:outputLabel value="Capacity"/>
+                <h:outputText value="#{eSEventManagedBean.event.capacity}"/>
+                
+                <p:outputLabel value="Venue Price"/>
+                <h:outputText value="#{eSEventManagedBean.event.venueprice}"/>
+                
+                  <p:outputLabel value="Start Date"/> 
+                <h:outputText value="#{eSEventManagedBean.startingDate}">
+                    <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8"/>
+                </h:outputText>
+                
+                <p:outputLabel value="End Date"/>
+                <h:outputText value="#{eSEventManagedBean.endingDate}">
+                    <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8"/>
+                </h:outputText>
+                
+                  <p:outputLabel value="Client IC"/>
+                <h:outputText value="#{eSEventManagedBean.event.client.ic}"/>
+                
+                <p:outputLabel value="Client Name"/>
+                <h:outputText value="#{eSEventManagedBean.event.client.firstname} #{eSEventManagedBean.event.client.lastname}"/>
+                
+                    <p:outputLabel value="Event Total Price"/>
+                <h:outputText value="#{eSEventManagedBean.event.totalprice}"/>
+        
+                <p:outputLabel value="Event Description"/>
+                <h:inputTextarea value="#{eSEventManagedBean.event.description}" required="true"/>
+                
+                <p:outputLabel value="Commission Rate:"/>
+                <h:inputText value="#{eSEventManagedBean.commissionrate}" required="true"/>
+                
+                <h:outputLabel value="Starting Time: * "/>
+                <p:calendar value="#{eSEventManagedBean.startTime}" pattern="HH:mm" stepMinute="30" minHour="9" maxHour="21" timeOnly="true" required="true"/>
+                    
+                    <h:outputLabel value="Ending Time: * "/>
+                    <p:calendar value="#{eSEventManagedBean.endTime}" pattern="HH:mm" stepMinute="30" minHour="9" maxHour="21" timeOnly="true" required="true"/>
+                   
+                      <p:outputLabel value="Deposit Amout"/>
+                <h:inputText value="#{eSEventManagedBean.deposit}" required="true" requiredMessage="Deposit Amount cannot be empty"/>
+              
+                <f:facet name="footer">
+                    <p:commandButton value="Pay Deposit" actionListener="#{eSEventManagedBean.createEvent}"/>
+                </f:facet>
+            </h:panelGrid>
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

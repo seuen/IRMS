@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Feedback Management</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../Templates/InternalAggregateTemplate.xhtml">
+            <ui:define name="contents">
+                <h:form id="form">
+                    <p:dataTable var="feedback" value="#{memberFeedbackManagedBean.allFeedbacks}" id="feedbackList"
+                                 paginator="true" rows="10" paginatorTemplate="
+                                 {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
+                        <f:facet name="header">
+                            Feedback List
+                        </f:facet>
+                        
+                        <p:column style="width: 7%" headerText="Feedback ID" filterBy="#{feedback.id}" filterMatchMode="contains">
+                            <h:outputText value="#{feedback.id}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Subject" filterBy="#{feedback.subject}" filterMatchMode="contains">
+                            <h:outputText value="#{feedback.subject}"/>
+                        </p:column>
+                        <p:column headerText="Subject2" filterBy="#{feedback.subject2}" filterMatchMode="contains">
+                            <h:outputText value="#{feedback.subject2}"/>
+                        </p:column>
+                        <p:column headerText="Service Rating" filterBy="#{feedback.rating}" filterMatchMode="contains">
+                            <h:outputText value="#{feedback.rating}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <p:commandButton id="effectsDialogButton" update=":form:dia" value="See More" oncomplete="dlg3.show();">
+                                <f:setPropertyActionListener target='#{memberFeedbackManagedBean.seletedFb}' value="#{feedback}"/>
+                            </p:commandButton>
+                        </p:column>
+                        
+                    </p:dataTable>
+                    
+                    <p:dialog id="dia" header="Member Detail Info" widgetVar="dlg3" showEffect="explode" height="350" width="500">
+                        <table border="1px" style="border-collapse:collapse">
+                            <tr>
+                                <td width="150">
+                                    <strong>Subject :</strong> 
+                                </td>
+                                <td width="350">#{memberFeedbackManagedBean.seletedFb.subject} : #{memberFeedbackManagedBean.seletedFb.subject2}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Feedback Time :</strong>
+                                </td>
+                                <td>#{memberFeedbackManagedBean.seletedFb.feedbackTime}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Content :</strong>
+                                </td>
+                                <td>#{memberFeedbackManagedBean.seletedFb.content}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Sender ID: </strong>
+                                </td>
+                                <td>#{memberFeedbackManagedBean.seletedFb.memberAccount.id}</td>
+                            </tr>
+         
+                        </table>
+                    </p:dialog>
+                    
+                    
+                </h:form>
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

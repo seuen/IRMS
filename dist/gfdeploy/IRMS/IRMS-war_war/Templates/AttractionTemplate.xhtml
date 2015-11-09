@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="../../resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="../../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <title>Attraction Management</title>
+    </h:head>
+
+    <h:body>
+        <p:layout fullPage="true">
+            <p:layoutUnit position ="north" size="70" header="Attraction Management">
+                <ui:insert name="header">
+                    <h:outputLabel value="hello, welcome to attraction management"/>
+
+                </ui:insert>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="west" size="170"  header="Function">
+                <ui:insert name="leftpanel">
+                    <h:form>
+                        <p:menu>
+                            <p:menuitem value="Homepage" outcome="/AttractionWeb/AttractionInfo/AttractionHomePage.xhtml"/> 
+                             <p:submenu label="Attraction Info Mgt" >  
+                                <p:menuitem value="List All Attraction" outcome="/AttractionWeb/AttractionInfo/ViewAllAttraction.xhtml"/>
+                                <p:menuitem value="List All AttraSections" outcome="/AttractionWeb/AttractionInfo/ViewAllAttraSections.xhtml"/>
+                                <p:menuitem value="List All Schedules" outcome="/AttractionWeb/AttractionInfo/ViewAttraSchedule.xhtml"/>
+                            </p:submenu>
+
+                            <p:submenu label="Ticket Mgt" >  
+                                <p:menuitem value="Add Ticket Type" outcome="/AttractionWeb/AttraTicketInfo/AddTicketType.xhtml"/>
+                                <p:menuitem value="List All Ticket Type" outcome="/AttractionWeb/AttraTicketInfo/ViewAllTicketType.xhtml"/>   
+                                 <p:menuitem value="Sell Ticket" outcome="/AttractionWeb/AttraTicketInfo/SellAttractionTicket.xhtml"/>   
+                                  <p:menuitem value="Dieney World" outcome="/AttractionWeb/AttraTicketInfo/SellDisneyWorldTicket.xhtml"/>
+                            </p:submenu>
+                            
+                             <p:submenu label="Bundle Mgt" >  
+                                <p:menuitem value="Create New Bundle" outcome="/AttractionWeb/AttraTicketInfo/CreateBundle.xhtml"/>
+                                <p:menuitem value="List All Bundles" outcome="/AttractionWeb/AttraTicketInfo/ViewAllBundle.xhtml"/>   
+                            </p:submenu>
+
+                            <p:menuitem value="Logout" action="#{staffManagedBean.backToLogin()}" />
+
+                        </p:menu>
+                    </h:form>    
+                </ui:insert>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center">
+                <ui:insert name="contents">
+                    display your contect here
+                </ui:insert>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="south" size="50">
+                <ui:insert name ="foot">
+                    <ui:include src="IntranetFooter.xhtml"/>
+                </ui:insert>
+            </p:layoutUnit>
+
+        </p:layout>
+    </h:body>
+
+</html>

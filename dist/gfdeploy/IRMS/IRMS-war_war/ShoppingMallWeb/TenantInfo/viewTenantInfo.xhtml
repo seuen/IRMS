@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+    <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                    template="../../Templates/InternalAggregateTemplate.xhtml"
+                    xmlns:h="http://java.sun.com/jsf/html"
+                    xmlns:p="http://primefaces.org/ui">
+        <ui:define name="contents">
+            <h:head>
+                <style type="text/css">
+                    .ui-growl {
+                        right:50px;
+                        top:100px;
+                    }
+                </style>
+            </h:head>
+            <h:body>
+                <h1>
+                    Welcome to Shopping Mall Tenant Information SubSystem
+                </h1>
+                <h:form id="formMain">
+
+                    <p:tabMenu activeIndex="3">
+                        <p:menuitem value="Home" url="/ShoppingMallWeb/TenantInfo/viewAllTenants.xhtml"/>
+                        <p:menuitem value="Current Shops" url="/ShoppingMallWeb/TenantInfo/viewAllActiveShops.xhtml"/>
+                        <p:menuitem value="History Shops" url="/ShoppingMallWeb/TenantInfo/viewAllHistoryShops.xhtml"/>
+                        <p:menuitem value="View Shop Information" url="/ShoppingMallWeb/TenantInfo/viewTenantInfo.xhtml"/>
+                    </p:tabMenu>
+
+                    <p:panel header="View Tenant Information"> 
+                        <p:ajaxStatus style="width:16px;height:16px;">
+                            <f:facet name="start">
+                                <h:graphicImage value="http://www.primefaces.org:8080/showcase/design/ajaxloading.gif" /> 
+                            </f:facet>
+                            <f:facet name="complete">
+                                <h:outputText value="" />
+                            </f:facet>
+                        </p:ajaxStatus>
+                        <p:panel> 
+                            <h:outputText styleClass="STYLE2" value="Here dislays shop's detailed information. You can click to edit blue fields."/>
+                            <br></br>
+                        </p:panel>
+                    </p:panel>
+                    <p:panel>
+                        <h:panelGrid columns="2" columnClasses="column"  cellpadding="9">
+
+                            <h:outputLabel value="ID" />
+                            <h:outputText value="#{shopVenueManagedBean.viewShop.shopId}" />
+
+                            <h:outputLabel value="Shop Name" />
+                            <h:outputText value="#{shopVenueManagedBean.viewShop.shopName}" />
+
+
+                            <h:outputLabel value="Shop Type" />
+                            <h:outputText value="#{shopVenueManagedBean.viewShop.shopType}" />
+
+                            <h:outputLabel value="Shop Area" />
+                            <h:outputText value="#{shopVenueManagedBean.viewShop.area}" />
+
+                            <h:outputLabel value="*Manager Name" />
+                            <p:inplace id="shopOwnerName" editor="true"  style=" font-weight: bold; color: #036fab">
+                                <p:ajax event="save" listener="#{shopVenueManagedBean.updateShop()}" update="shopOwnerName" />
+                                <p:inputText value="#{shopVenueManagedBean.viewShop.shopOwnerName}" required="true" label="text"/>
+                            </p:inplace>
+
+                            <h:outputLabel value="*Contact email" />
+                            <p:inplace id="email" editor="true"  style=" font-weight: bold; color: #036fab">
+                                <p:ajax event="save" listener="#{shopVenueManagedBean.updateShop()}" update="email" />
+                                <p:inputText value="#{shopVenueManagedBean.viewShop.email}" required="true" label="text"/>
+                            </p:inplace>
+
+
+                            <h:outputLabel value="*Contact telNmum" />
+                            <p:inplace id="telNum" editor="true" style=" font-weight: bold; color: #036fab">
+                                <p:ajax event="save" listener="#{shopVenueManagedBean.updateShop()}" update="telNum" />
+                                <p:inputText value="#{shopVenueManagedBean.viewShop.telNum}" required="true" label="text" />
+                            </p:inplace>
+
+                            <h:outputLabel value="Contract Status" />
+                            <h:outputText value="#{shopVenueManagedBean.viewShop.contractStatus}" />
+                        </h:panelGrid>
+                        <p:growl id="message" autoUpdate="true" globalOnly="true" />
+                    </p:panel>
+                </h:form>
+
+            </h:body>
+        </ui:define>
+
+        <ui:define name="foot">
+            foot
+        </ui:define>
+
+    </ui:composition>
+</html>

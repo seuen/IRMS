@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Sign In</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../Templates/subpage2.xhtml">
+            <ui:define name="content1">
+                <h:form>
+                    <p:messages id="messages"  showDetail="false" autoUpdate="true" closable="true" />
+                    <p style=" font-size:  large; font-weight:  bolder">Membership Sign In</p>
+                    <br />
+                    <label for="author"><strong>&nbsp;&nbsp; * Member ID:</strong></label> 
+
+                    &nbsp;&nbsp; <p:inputText style=" width: 170px" value="#{accountManagedBean.member.id}" required="true" /> 
+                    <br></br>
+
+                    <div class="cleaner h10"></div>
+                    <label for="email">&nbsp;&nbsp;<strong>* Password:</strong></label> 
+
+                    &nbsp;&nbsp;&nbsp;<h:inputSecret value="#{accountManagedBean.membership.password}"  required="true" style=" width: 170px"  />
+                    <p><a href="signUp.xhtml">Do not have member account? </a></p>
+                    <br />
+                    <p:button  value="Back" />
+                    &nbsp;&nbsp;<p:commandButton  value="Login"  action="#{accountManagedBean.login(action)}" type="submit"/>
+                </h:form>
+
+            </ui:define>
+            <ui:define name="content2">
+                <h:graphicImage url="../images/blog/blog2.jpg"/>
+                <br /><br />
+                <p style=" font-size: large; font-weight:  bold; color:  coral">Welcome to your Coral Island Resort</p>
+                <br />
+                <strong> Please sign in </strong> to your workspace and enjoy the wonderful experience with us! 
+                <p><a href="#"><strong>Find more</strong></a> exciting information about our loyalty program.</p>
+                <br /><br />
+                Not a Coral Island Resort member?  Come and <a href="#"><strong>join us</strong></a> Now.
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

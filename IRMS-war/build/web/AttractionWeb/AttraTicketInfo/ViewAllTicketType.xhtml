@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTM8' ?L 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="header">
+        header
+    </ui:define>
+
+
+    <ui:define name="contents">
+        <h:form id="form1">
+
+            <p:growl autoUpdate="true" globalOnly="true"/> 
+            <p:dataTable rowKey="#{ticketType.id}" var="ticketType" value="#{attractionTicketManagedBean.allTicketTypes}"
+                         paginator="true" rows="10" selection="#{attractionTicketManagedBean.theTicketType}" selectionMode="single" emptyMessage="No Ticke Information Found">
+
+                <f:facet name ="header">
+                    View All Ticket Types
+                </f:facet>
+
+                <p:column headerText="ID" sortBy="#{ticketType.id}" filterBy="#{ticketType.id}">
+                    <h:outputText value="#{ticketType.id}"/>
+                </p:column>
+
+                <p:column headerText="Attraction Name" sortBy="#{ticketType.attraction.name}" filterBy="#{ticketType.attraction.name}">
+                    <h:outputText value="#{ticketType.attraction.name}"/>
+                </p:column>
+
+                <p:column headerText="TicketType" sortBy="#{ticketType.name}" filterBy="#{ticketType.name}">
+                    <h:outputText value="#{ticketType.name}"/>
+                </p:column>
+
+                <p:column headerText="Price" sortBy="#{ticketType.price}" filterBy="#{ticketType.price}">
+                    <h:outputText value="#{ticketType.price}"/>
+                </p:column>           
+
+                <f:facet name="footer">
+                    <p:commandButton id="viewButton" value ="Update detail" update=":form1 :form2" oncomplete="attraTicketDialog.show() " />
+                     <p:commandButton update=":form1" value="Delete TicketType"  actionListener="#{attractionTicketManagedBean.deleteTicketType()}">
+                    
+                    </p:commandButton>
+                     
+                </f:facet>          
+
+            </p:dataTable>
+        </h:form>
+        <!--             </p:panel>-->
+
+        <p:dialog id="dialog" header="Ticket Type Information Detail" widgetVar="attraTicketDialog" resizable="false" width="700" position="center" closable="false" modal="true" appendToBody="true" >
+            <h:form id="form2">
+                
+                <p:panel id="display">
+                    <h:panelGrid columns="2" cellpadding="4">
+                       
+                     <h:outputLabel value="Ticket Type Id: "/>
+                     <h:outputText value="#{attractionTicketManagedBean.theTicketType.id}" />
+
+
+                        <h:outputLabel value="Name" />
+                        <p:inplace id="ticketName" editor="true" style=" font-weight: bold; color: #036fab">
+                            <p:ajax event="save" listener="#{attractionTicketManagedBean.updateTicketType}" update="ticketName" />
+                            <p:inputText value="#{attractionTicketManagedBean.theTicketType.name}" required="true" label="text" />
+                        </p:inplace>
+
+                        <h:outputLabel value="Price" />
+                        <p:inplace id="price" editor="true" style=" font-weight: bold; color: #036fab">
+                            <p:ajax event="save" listener="#{attractionTicketManagedBean.updateTicketType}" update="price" />
+                            <p:inputText value="#{attractionTicketManagedBean.theTicketType.price}" required="true" label="text" />
+                        </p:inplace>
+                        
+                         <h:outputLabel value="Max Number" />
+                        <p:inplace id="maxNum" editor="true" style=" font-weight: bold; color: #036fab">
+                            <p:ajax event="save" listener="#{attractionTicketManagedBean.updateTicketType}" update="maxNum" />
+                            <p:inputText value="#{attractionTicketManagedBean.theTicketType.maxNumber}" required="true" label="text" />
+                        </p:inplace>
+
+<!--                       
+                        <h:outputLabel value="Purchased Number"/>
+                        <h:outputText value="" />-->
+
+
+                    </h:panelGrid>
+                     <br/>
+                    
+                  <p:commandButton ajax="true" type="submit" value="Update" actionListener="#{attractionTicketManagedBean.reloadTicketType}"/>
+
+                </p:panel>
+            </h:form>
+        </p:dialog>
+
+
+    </ui:define>
+
+
+</ui:composition>

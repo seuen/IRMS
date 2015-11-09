@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    
+   <h:body>
+        <ui:composition template="../../Templates/InternalAggregateTemplate.xhtml" >
+
+            <ui:define name="contents">
+                <h:form>
+             <p:tabMenu>
+            <p:menuitem value="Check Reservation" url="/AccommodationWeb/StayMgt/searchReservation.xhtml"/>
+            <p:menuitem value="Search Room Availability" url="/AccommodationWeb/StayMgt/RoomTypeSearch.xhtml"/>
+            <p:menuitem value="Block Room List" url="/AccommodationWeb/ReservationMgt/AddGuestBlock.xhtml"/>
+        </p:tabMenu>
+                </h:form>
+                <h:form>
+                    <p:growl autoUpdate="true" globalOnly="true" showDetail="true"/>
+                         
+                        
+                    <p:dataTable var="reservation" value="#{reservationManagedBean.guestReservations}" rowKey="#{reservation.reservationNum}"
+                                 paginator="true" rows="20" 
+                                 id="guestreservations" emptyMessage="No reservation">
+                           
+                        <p:column sortBy="#{reservation.reservationNum}" filterBy="#{reservation.reservationNum}" headerText="Reservation Number" > 
+                                <h:outputText value="#{reservation.reservationNum}" /> 
+                            </p:column>
+                    
+                        <p:column sortBy="#{reservation.dateFrom}" headerText="Date From"> 
+                            <h:outputText value="#{reservation.dateFrom}" > 
+                                <f:convertDateTime pattern="EEE yyyy/MM/dd" timeZone="GMT+8"/>
+                                    </h:outputText>
+                            </p:column>
+                                
+                        <p:column sortBy="#{reservation.dateTo}" headerText="Date To">
+                                <h:outputText value="#{reservation.dateTo}" > 
+                                    <f:convertDateTime pattern="EEE yyyy/MM/dd" timeZone="GMT+8"/>
+                                </h:outputText>    
+                            </p:column>
+                                
+                        <p:column sortBy="#{reservation.status}" filterBy="#{reservation.status}" headerText="Status">
+                         
+                                <h:outputText value="#{reservation.status}" />
+                            </p:column>
+                        
+                        <p:column sortBy="#{reservation.type}" filterBy="#{reservation.type}" headerText="Reservation Type">
+                            <h:outputText value="#{reservation.type}"/>
+                    </p:column>
+                                
+                        <p:column sortBy="#{reservation.reservationNum}" headerText="Reservation Date" >    
+                                <h:outputText value="#{reservation.reserveDate}" >
+                                    <f:convertDateTime pattern="EEE yyyy/MM/dd" timeZone="GMT+8"/>
+                                </h:outputText>
+                            </p:column>    
+                            
+                        <p:column sortBy="#{reservation.guest.lastName}" filterBy="#{reservation.guest.lastName}" headerText="Guest Name">
+                                <h:outputText value="#{reservation.guest.firstName}" />&nbsp;
+                                <h:outputText value="#{reservation.guest.lastName}"/>    
+                            </p:column>
+                                
+                        <p:column filterBy="#{reservation.guest.ic}" headerText="Guest IC">
+                                    <h:outputText value="#{reservation.guest.ic}" > 
+                                </h:outputText>
+                            </p:column>
+                        <p:column headerText="Room Type">
+                            #{reservation.roomtype.type}
+                        </p:column>
+                        <p:column>
+                            #{reservation.roomQuantity}
+                        </p:column>
+                        <p:column>
+                            <p:commandButton value=" Check In" actionListener="#{checkInManagedBean.checkIn(reservation)}"/>
+                        </p:column>
+                
+                            </p:dataTable>            
+                       
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Member Workspace</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../Templates/subpage2A.xhtml">
+            <ui:define name="content1">
+   <p:graphicImage width="140" height="150" url="http://172.28.179.192:8080/images/CRM/customerPhoto/#{photoUploadManagedBean.member.membership.profilePhoto}.#{photoUploadManagedBean.member.membership.imageType}" />
+                <p></p>
+                <p>Name  : #{accountManagedBean.saveMember.firstName} #{accountManagedBean.saveMember.lastName}</p>
+                <p>Email : #{accountManagedBean.saveMember.emailAddr}</p>
+                <br />
+
+            </ui:define>
+
+            <ui:define name="content2">
+
+                <p style=" font-size: large;color: coral; font-weight: bold" >Hi! Dear #{accountManagedBean.saveMember.title} #{accountManagedBean.saveMember.lastName},
+                    here is your profile information.</p>
+                <br />
+
+                <!--                                        Member Account ID
+                                                        <p:inplace id="memberId" editor="true">
+                                                            <p:ajax event="save" listener="#{accountManagedBean.save()}" update="memberId"/>  
+                                                            <p:inputText value="#{accountManagedBean.saveMember.id}" required="true" label="text"/>                                        
+                                                        </p:inplace>-->
+
+
+
+                    <table>
+                        
+                <h:form prependId="false">
+                        <tr>
+                            <td width="180">Member ID</td>
+                            <td>                           
+                                <p:inplace id="memberId" editor="true">
+                                    <p:ajax event="save" listener="#{accountManagedBean.save}" update="memberId"/>  
+                                    <p:inputText value="#{accountManagedBean.saveMember.id}" required="true" label="text"/>                                        
+                                </p:inplace>  
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Email Address</td>
+                            <td>
+                                <p:inplace id="emailAddr" editor="true">
+                                    <p:ajax event="save" listener="#{accountManagedBean.save}" update="emailAddr"/>
+                                    <p:inputText value="#{accountManagedBean.saveMember.emailAddr}" required="true" label="text"/>
+                                </p:inplace>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Phone Number</td>
+                            <td>
+                                <p:inplace id="phoneNum" editor="true">
+                                    <p:ajax event="save" listener="#{accountManagedBean.save}" update="phoneNum"/>
+                                    <p:inputText value="#{accountManagedBean.saveMember.phoneNum}" required="true" label="text"/>
+                                </p:inplace>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Address Line1</td>
+                            <td>
+                                <p:inplace id="address1" editor="true">
+                                    <p:ajax event='save' listener="#{accountManagedBean.save}" update="address1"/>                                            
+                                    <p:inputText value="#{accountManagedBean.saveMember.address.line1}" required="true" label="text" />
+                                </p:inplace>  
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Address Line2</td>
+                            <td>
+                                <p:inplace id='address2' editor='true'>
+                                    <p:ajax event='save' listener='#{accountManagedBeans.save}' update='address2'/>
+                                    <p:inputText value="#{accountManagedBean.saveMember.address.line2}" required='true' label='text' />
+                                </p:inplace>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Address Country</td>
+                            <td>
+                                <p:inplace id='country' editor='true'>
+                                    <p:ajax event='save' listener="#{accountManagedBean.save}" update='country'/>
+                                    <p:inputText value="#{accountManagedBean.saveMember.address.country}" required="true" label='text' />
+                                </p:inplace>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Postcode</td>
+                            <td>                               
+                                <p:inplace id='postcode' editor='true'>
+                                    <p:ajax event="save" listener='#{accountManagedBean.save}' update="postcode"/>
+                                    <p:inputText value="#{accountManagedBean.saveMember.address.postCode}" required='true' label="text"/>
+                                </p:inplace>
+                            </td>
+                        </tr>
+                          </h:form>
+                        <tr>
+                            <td>Reset your password?</td>
+                           
+                            <td>  <h:form> <p:commandButton id="effectsDialogButton" oncomplete="dlg3.show();"  style=" font-size:  x-small" icon="ui-icon-pencil" value="Reset"/></h:form>
+                          
+                                <p:dialog id="dddd" header="Titles" widgetVar="dlg3" showEffect="explode" modal="true" appendToBody="true" > 
+                                    <h:form>
+                                          <p:growl autoUpdate="true" showDetail="false" globalOnly="true"/>  
+                                    <p:panelGrid columns="2" >
+                                        <f:facet name="header">
+                                            Reset Password
+                                        </f:facet>
+                                        
+                                        <h:outputLabel for="oldPass" value="Old Password: *" />
+                                        <h:inputSecret id="oldPass" value="#{accountManagedBean.oldPsw}" />
+       
+                                        <h:outputLabel for="newPass" value="New Password: *" />
+                                        <h:inputSecret id="newPass" value="#{accountManagedBean.newPsw1}" required="true" />
+                                                                
+                                        <h:outputLabel for="newPassRe" value="Re-Enter New Password: *" />
+                                        <h:inputSecret id="newPassRe" value="#{accountManagedBean.newPsw2}" required="true" />
+                           
+                                        <f:facet name="footer">
+                                            <p:commandButton style=" font-size: small" value="Reset" type="submit" actionListener="#{accountManagedBean.resetMemberPassword()}" onclick="dlg3.hide();" />
+                                        </f:facet>
+                                        
+                                    </p:panelGrid>
+                                    </h:form>
+                                </p:dialog>
+                           
+                            </td>
+                        </tr>
+                    </table>
+           </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

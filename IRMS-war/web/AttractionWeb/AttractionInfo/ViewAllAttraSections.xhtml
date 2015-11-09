@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+        <ui:composition template="../../Templates/InternalAggregateTemplate.xhtml">
+
+            <ui:define name="contents">
+                <h:form id="form">
+                    <p:growl autoUpdate="true" globalOnly="true"/> 
+
+                    <p:dataTable rowKey="#{attraSection.num}" var="attraSection" value="#{equipmentManagedBean.initViewSections()}" 
+                                 paginator="true" rows="10" selection="#{equipmentManagedBean.attraSection}" selectionMode="single" emptyMessage="No AttraSection info found">
+
+                        <f:facet name="header">
+                            View all Attraction Sections
+                        </f:facet>  
+                        
+                        <p:column style="width: 20%" headerText="Attraction Name"> 
+                            <h:outputText value="#{attraSection.attraction.name}"/> 
+                        </p:column>
+                        
+                        <p:column style="width: 20%" headerText="Attraction Section #"> 
+                            <h:outputText value="#{attraSection.num}"/> 
+                        </p:column>
+                        
+                        <p:column style="width: 20%" headerText="Number of Equipment"> 
+                            <h:outputText value="#{attraSection.totalEquipNum}"/> 
+                        </p:column>
+                        
+                        <p:column style="width: 20%" headerText="Status"> 
+                            <h:outputText value="#{attraSection.status}"/> 
+                        </p:column>
+                        
+                        <p:column style="width: 20%" headerText="Maintain Date"> 
+                            <h:outputText value="#{attraSection.nextDate}">
+                                <f:convertDateTime timeZone="GSM+8" pattern="EEE yyyy/MM/dd"/>
+                            </h:outputText>
+                        </p:column>
+                        
+                        <p:column style="width: 40%" headerText="Equipments"> 
+                            <p:commandButton style="float: right" value="View Equipments" actionListener="#{equipmentManagedBean.ViewAttraSectionEquipments1(attraSection)}"/>
+                        </p:column>
+
+                    </p:dataTable>  
+                </h:form>    
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+        <ui:composition template="/Templates/IntranetDefaultTemplate.xhtml" >
+
+            <ui:define name="contents">
+                <h:form>
+                   <h:outputText value="Title: " />  
+        <p:selectOneMenu value="#{loginManagedBean.username}">  
+            <f:selectItem itemLabel="Select One" itemValue="" />  
+            <f:selectItem itemLabel="Mr." itemValue="1" />  
+            <f:selectItem itemLabel="Miss." itemValue="2" />  
+            <f:selectItem itemLabel="Mrs." itemValue="3" />  
+        </p:selectOneMenu>  
+   
+        <br/><br/>
+                    <p:outputLabel value="First Name" />
+                    <p:inputText value="#{loginManagedBean.member.username}" /> 
+                    <br/><br/>
+                    <p:outputLabel value="Last Name" />
+                    <p:inputText value="#{loginManagedBean.username}" /> 
+                    <br/><br/>
+                    <p:outputLabel value="Password" />
+                    <h:inputSecret value="#{loginManagedBean.password}" />
+                    <br/><br/>
+                    <p:outputLabel value="Email Address" />
+                    <h:inputSecret value="#{loginManagedBean.password}" />
+                    <br/><br/>
+                    <p:commandButton value="Register" action="#{loginManagedBean.login()}" type="submit"/>
+                </h:form>
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

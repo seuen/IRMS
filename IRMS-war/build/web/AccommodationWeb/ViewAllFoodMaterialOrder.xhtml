@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+        <ui:composition template="./../Templates/AccommodationTemplate.xhtml">
+
+            <ui:define name="contents">
+                <h:form id="form">
+                    <p:growl autoUpdate="true" globalOnly="true"/> 
+
+                    <p:dataTable rowKey="#{foodMaterialOrder}" var="foodMaterialOrder" value="#{foodMaterialManagedBean.listAllFoodMaterialOrders()}" 
+                                 paginator="true" rows="10" selection="#{foodMaterialManagedBean.foodMaterialOrder}" selectionMode="single" emptyMessage="No order found">
+
+                        <f:facet name="header">
+                            View all Food Material Orders
+                        </f:facet>  
+
+                        <p:column headerText="Order #" style="width: 3%" sortBy="#{foodMaterialOrder.id}" filterBy="#{foodMaterialOrder.id}"> 
+                            <h:outputText value="#{foodMaterialOrder.id}"/> 
+                        </p:column>
+
+                        <p:column headerText="Order Date" style="width: 7%" sortBy="#{foodMaterialOrder.odate}" > 
+                            <h:outputText value="#{foodMaterialOrder.odate}" > 
+                                <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8" />
+                            </h:outputText>  
+                        </p:column>
+                        
+                        <p:column headerText="Status" style="width: 7%" > 
+                            <h:outputText value="#{foodMaterialOrder.status}" /> 
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Delete" actionListener="#{foodMaterialManagedBean.deleteFoodMaterialOrder()}"/>
+                        </f:facet>
+
+                        <f:facet name="footer">
+                            <p:commandButton id="viewButton" value="View Detail"
+                                             update=":form:display" oncomplete="roomserviceDialog.show()"/>  
+                        </f:facet>
+
+                    </p:dataTable>             
+
+                    <p:dialog id="dialog" header="Order Detail" widgetVar="roomserviceDialog" resizable="false"  
+                              width="700" position="center"  >  
+                        <p:panel id="display">  
+                            <h:panelGrid columns="2" cellpadding="4">  
+
+                                <h:outputText value="Order Number: " />  
+                                <h:outputText value="#{foodMaterialManagedBean.foodMaterialOrder.id}"/>
+
+                                <h:outputText value="Order Date:" />  
+                                <h:outputText value="#{foodMaterialManagedBean.foodMaterialOrder.odate}"> 
+                                    <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8" />
+                                </h:outputText>
+
+                                <h:outputText value="Status: " />  
+                                <h:outputText value="#{foodMaterialManagedBean.foodMaterialOrder.status}"/>
+                            </h:panelGrid>
+
+                            <p:dataTable liveResize="true" var="foodOrder" value="#{foodMaterialManagedBean.foodMaterialOrder.foodOrders}">
+
+                                <p:column headerText="Name" sortBy="#{foodOrder.name}" filterBy="#{foodOrder.name}" > 
+                                    <h:outputText value="#{foodOrder.name}" /> 
+                                </p:column>
+
+                                <p:column headerText="Type" sortBy="#{foodOrder.type}" filterBy="#{foodOrder.type}"> 
+                                    <h:outputText value="#{foodOrder.type}" /> 
+                                </p:column>
+
+                                <p:column headerText="Amount" sortBy="#{foodOrder.amount}" > 
+                                    <h:outputText value="#{foodOrder.amount}" /> 
+                                </p:column>
+
+                                <p:column headerText="To update" >
+                                    <p:commandButton ajax="true" type="submit" value="Update" actionListener="#{foodMaterialManagedBean}"/>
+                                </p:column>
+
+                            </p:dataTable>    
+                        </p:panel>
+                    </p:dialog>  
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

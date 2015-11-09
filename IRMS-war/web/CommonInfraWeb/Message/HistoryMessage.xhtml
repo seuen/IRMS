@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>History Messages</title>
+    </h:head>
+
+    <h:body>
+        <ui:composition template="/Templates/InternalAggregateTemplate.xhtml">
+            <ui:define name="contents">
+                <h:form id="form">
+                    <p:growl id="messages" showDetail="false" />
+                    <p:dataTable var="message" value="#{messageManagedBean.allMessage}" id="messageList">
+                        <f:facet name="header">
+                            Message History Record
+                        </f:facet>
+
+                        <p:column headerText="Sender ID" filterBy="#{message.staffAccount.staffId}" filterMatchMode="contains">                          
+                            <h:outputText value="#{message.staffAccount.staffId}" />                          
+                        </p:column>
+
+                        <p:column headerText="Sender First Name" filterBy="#{message.staffAccount.staff.firstName}"  filterMatchMode='contains'>                         
+                            <h:outputText value="#{message.staffAccount.staff.firstName}" />
+
+                        </p:column>
+
+                        <p:column headerText="Sender Last Name" filterBy="#{message.staffAccount.staff.lastName}" filterMatchMode='contains'>                          
+                            <h:outputText value="#{message.staffAccount.staff.lastName}" />        
+                        </p:column>
+
+                        <p:column headerText="Message Time" sortBy='#{message.messageTime}' filterBy="#{message.messageTime}" filterMatchMode='contains'>                       
+                            <h:outputText value="#{message.messageTime}" >
+
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Message Title" filterBy="#{message.title}" filterMatchMode='contains'>
+                            <h:outputText value="#{message.title}" />
+
+                        </p:column>
+
+                        <p:column>
+
+                            <p:commandButton id="effectsDialogButton" update=":form:dddd" value="Read More" oncomplete="dlg3.show();">
+                                <f:setPropertyActionListener target="#{messageManagedBean.selectedMessage}" value="#{message}" />
+                            </p:commandButton>
+
+
+
+                            <p:commandButton value="Delete" update="messageList" id="remove" actionListener="#{messageManagedBean.removeMessage(message)}" />
+                        </p:column>
+
+
+                    </p:dataTable> 
+
+                    <p:dialog id="dddd" header="Message" widgetVar="dlg3" showEffect="explode" height="100">  
+                        <strong> Message Title: </strong>
+                        <h:outputText value="#{messageManagedBean.selectedMessage.title}" />
+                        <br></br>
+                        <br></br>
+                        <strong>Message Content: </strong>
+                        <br></br>
+                        <h:outputText value="#{messageManagedBean.selectedMessage.content}" />
+                        <br></br>
+                    </p:dialog>  
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+
+</html>
+

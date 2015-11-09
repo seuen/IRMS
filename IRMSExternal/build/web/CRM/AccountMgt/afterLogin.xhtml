@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Member Workspace</title>
+        <style type="text/css">
+            table.hovertable {
+                font-family: verdana,arial,sans-serif;
+                font-size:11px;
+                color:#333333;
+                border-width: 1px;
+                border-color: #999999;
+                border-collapse: collapse;
+            }
+            table.hovertable th {
+                background-color:#c3dde0;
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                border-color: #a9c6c9;
+            }
+            table.hovertable tr {
+                background-color:#d4e3e5;
+            }
+            table.hovertable td {
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                border-color: #a9c6c9;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../Templates/subpage2A.xhtml">
+            <ui:define name="content1">
+                <p:graphicImage width="140" height="150" url="http://172.28.179.192:8080/images/CRM/customerPhoto/#{photoUploadManagedBean.member.membership.profilePhoto}.#{photoUploadManagedBean.member.membership.imageType}" />
+
+                <p></p>
+                <p>Name  : #{accountManagedBean.saveMember.firstName} #{accountManagedBean.saveMember.lastName}</p>
+                <p>Email : #{accountManagedBean.saveMember.emailAddr}</p>
+                <br />
+
+
+
+            </ui:define>
+
+            <ui:define name="content2">
+
+                <p:imageSwitch effect="fade" style="float: inside">  
+                    <ui:repeat value="#{imageManagedBean.images1}" var="images1">      
+                        <p:graphicImage width="500"  value="/images/CRM/website/#{images1}"/>  
+                    </ui:repeat>  
+                </p:imageSwitch> 
+                <br />
+                <p style=" font-size:  large; color:  coral"><strong>&nbsp; Hello, #{accountManagedBean.saveMember.title} #{accountManagedBean.saveMember.lastName}, welcome to your workspace! </strong></p>
+                <br />
+                <table width="400" class="hovertable">
+
+                    <tr height="30" onmouseover="this.style.backgroundColor = '#ffff66';" onmouseout="this.style.backgroundColor = '#d4e3e5';">
+                        <td width="100"><strong>Member ID</strong></td>
+                        <td width="250"><h:outputText value="#{accountManagedBean.saveMember.id}" /></td>
+                    </tr>
+                    <tr height="30" onmouseover="this.style.backgroundColor = '#ffff66';" onmouseout="this.style.backgroundColor = '#d4e3e5';">
+                        <td><strong>Membership ID</strong></td>
+                        <td><h:outputText value="#{accountManagedBean.saveMember.membership.id}" /></td>
+                    </tr>
+                    <tr height="30" onmouseover="this.style.backgroundColor = '#ffff66';" onmouseout="this.style.backgroundColor = '#d4e3e5';">
+                        <td><strong>Membership Type &nbsp;&nbsp;</strong></td>
+                        <td>
+                            <h:outputText value="#{accountManagedBean.saveMember.membership.memberType}" />
+                        </td>
+                    </tr>
+
+                    <tr height="30" onmouseover="this.style.backgroundColor = '#ffff66';" onmouseout="this.style.backgroundColor = '#d4e3e5';">
+                        <td><strong>Loyalty Points </strong></td>
+                        <td><h:outputText value="#{accountManagedBean.saveMember.membership.loyaltyPoints}" /></td>
+                    </tr>
+                    <tr height="30" onmouseover="this.style.backgroundColor = '#ffff66';" onmouseout="this.style.backgroundColor = '#d4e3e5';">
+                        <td><strong>Card Value</strong></td>
+                        <td>
+                            <h:outputText value="#{accountManagedBean.saveMember.membership.cardValue}" />
+                            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+                            <p:button value="Top Up Your Card Value" style=" font-size:  small" href="topupCard.xhtml"/>
+                        </td>
+                    </tr>
+                </table>                     
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

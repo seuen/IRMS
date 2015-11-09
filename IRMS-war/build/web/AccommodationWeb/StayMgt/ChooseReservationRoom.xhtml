@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    
+    <ui:define name="contents">
+        <h:form>
+            <p:tabMenu>
+            <p:menuitem value="Check Reservation" url="/AccommodationWeb/StayMgt/searchReservation.xhtml"/>
+            <p:menuitem value="Search Room Availability" url="/AccommodationWeb/StayMgt/RoomTypeSearch.xhtml"/>
+            <p:menuitem value="Block Room List" url="/AccommodationWeb/ReservationMgt/AddGuestBlock.xhtml"/>
+        </p:tabMenu>
+            <p:growl autoUpdate="true" globalOnly="true"/>
+            <p:dataTable var="rooms" value="#{checkInManagedBean.rooms}" paginator="true" rows="10" rowKey="#{rooms.roomId}"
+                         selection="#{checkInManagedBean.selectedRooms}" id="roomsTable">
+                
+                <f:facet name="header">
+                    List of rooms
+                </f:facet>
+                
+               <p:column selectionMode="multiple" style="width: 2%"/>
+                
+                <p:column headerText="RoomType">
+                    #{rooms.roomtype.type}
+                </p:column>
+                
+                <p:column headerText="RoomNum">
+                #{rooms.roomNum}
+                </p:column>
+                
+                <p:column headerText="RoomStatus">
+                #{rooms.status}
+                </p:column>
+                
+                <p:column headerText="StayStatus">
+                #{rooms.stay_status}
+                </p:column>
+                
+               <f:facet name="footer">
+                    <p:commandButton value="Add Guest" actionListener="#{checkInManagedBean.checkRoom}"/>
+               </f:facet>
+            </p:dataTable>
+                          </h:form>
+    </ui:define>
+
+</ui:composition>

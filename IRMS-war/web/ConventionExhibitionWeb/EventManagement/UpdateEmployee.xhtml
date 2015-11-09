@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <ui:define name="contents">
+        
+          <h:form>
+             <p:panel id="panel">
+                 <p:growl autoUpdate="true" globalOnly="true"/>
+                 
+                 <h:panelGrid columns="2">
+                     <f:facet name="header">
+                         Add Employee Needed
+                     </f:facet>
+                     
+                     <p:outputLabel value="Employee Type: *"/>
+                     <p:selectOneMenu id="Employee" value="#{eventOperationManagedBean.updateemployee.type}" required="true" requiredMessage="Employee Type cannot be empty">
+                         <f:selectItem itemLabel="Select One" itemValue=""/>
+                         <f:selectItems value="#{eventManagedBean.employeeTitleNames}"/>
+                     </p:selectOneMenu>
+                  
+                     <p:outputLabel value="Quantity: *"/>
+                     <p:inputText value="#{eventOperationManagedBean.updateemployee.amount}"/>
+                     
+                     <p:outputLabel value="Total Price: *" />
+                     <p:inputText value="#{eventOperationManagedBean.updateemployee.price}" required="true" requiredMessage="Total Price cannot be empty"/>
+                     
+                     <f:facet name="footer">
+                         <p:commandButton value="Add Employee" actionListener="#{eventOperationManagedBean.addoneemployeeneed}"/>
+                         <p:commandButton value="Finish Add Employee" actionListener="#{eventOperationManagedBean.finishAddEmployeeNeed}"/>
+
+                     </f:facet>
+                 </h:panelGrid>
+
+             </p:panel>
+         </h:form>
+    </ui:define>
+
+</ui:composition>

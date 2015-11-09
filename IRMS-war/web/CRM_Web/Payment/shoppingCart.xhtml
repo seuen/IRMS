@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../crmTemplates/afterLoginTemplate.xhtml">
+            <ui:define name="contents">
+
+                <span class="STYLE2">Shopping Cart</span>
+
+                <div>
+                    <h:form id="form">
+                       
+                        <p:dataTable id="cart" var="cart" value="#{buyItemManagedBean.cardItems}" style=" width: 850px">
+                            <!--                            <p:column selectionMode="multiple" style="width: 2%"/>-->
+                            <p:column headerText="Item" style="width: 30%">
+                                #{cart.topupType}
+                            </p:column>
+                            <p:column headerText="Unit Price" style="width: 15%">
+                                #{cart.cardValue}
+                            </p:column>
+                            <p:column headerText="Quantity" style="width: 15%">
+
+                            </p:column>
+                            <p:column headerText="Total Price" style="width: 20%">
+                                #{cart.cardValue}   
+                            </p:column>
+
+                            <p:column style="width: 18%">
+                                <p:commandButton value="Delete" update="cart" id="remove" actionListener="#{buyItemManagedBean.removeBuyCardValue(cart)}" />
+                            </p:column>
+                            <f:facet name="footer">
+                                Total Amount : $ #{buyItemManagedBean.totalAmount}
+                            </f:facet>
+
+                        </p:dataTable>
+                        <table width="850">
+                            <tr>
+                                <td width="400"></td>
+                                <td width="200"></td>
+                                
+                                <td>
+                                    <p:commandButton id="effectsDialogButton" update=":form:dddd" value="Go for check out" oncomplete="dlg3.show();"/>
+                                    <p:dialog id="dddd" header="Confirm your order" widgetVar="dlg3" showEffect="explode" height="100">  
+                                     Please confirm your order:
+                                     <br></br>
+                                     <br></br>
+                                     <p:commandButton  actionListener="#{buyItemManagedBean.directTo()}" value="confirm"/> 
+                                    </p:dialog>  
+                                    
+
+                                </td>
+                            </tr>
+                        </table>
+                          
+                    </h:form>
+
+
+
+
+
+                </div>
+
+
+
+                <div class="cleaner h40"></div>
+
+                <div class="cleaner"></div>
+
+                <div class="cleaner"></div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

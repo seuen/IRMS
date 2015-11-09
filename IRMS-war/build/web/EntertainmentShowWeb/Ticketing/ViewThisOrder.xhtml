@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../../Templates/EntertainmentShowTemplate.xhtml">
+
+            <ui:define name="leftpanel">
+                leftpanel
+            </ui:define>
+
+            <ui:define name="contents">
+                <h:form>
+                    <p:panelGrid columns="2">
+
+                        <p:row>
+                            <p:column style="font-size:15px;font-weight:bold;">
+                                <h:outputText value="Confirmation number is #{eSTicketManagedBean.thisOrder.id}"/>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column style="width:35%">
+                                <h:outputText value="#{eSTicketManagedBean.tickets}" />
+                            </p:column>
+                        </p:row>
+
+                    </p:panelGrid>
+
+
+
+
+                    <h:panelGrid id="ShowOrder" columns="2" cellpadding="5" >
+                        <h:outputLabel for="ShowOrder" value="Order confirmation number is #{eSTicketManagedBean.thisOrder.id}" /> 
+                        <ui:repeat value="#{eSTicketManagedBean.tickets}" var="ticket" varStatus="status">             
+                            
+                        </ui:repeat>
+                    </h:panelGrid>
+
+
+                </h:form>    
+            </ui:define>
+
+            <ui:define name="foot">
+                foot
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

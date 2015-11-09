@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Member Workspace</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../Templates/subpage2A.xhtml">
+            <ui:define name="content1">
+                <p:graphicImage width="140" height="150" url="http://172.28.179.192:8080/images/CRM/customerPhoto/#{photoUploadManagedBean.member.membership.profilePhoto}.#{photoUploadManagedBean.member.membership.imageType}" />
+
+                <p></p>
+                <p>Name  : #{accountManagedBean.saveMember.firstName} #{accountManagedBean.saveMember.lastName}</p>
+                <p>Email : #{accountManagedBean.saveMember.emailAddr}</p>
+                <br />
+
+            </ui:define>
+
+            <ui:define name="content2">
+                    <table width="800">
+                        <tr>
+                            <td width="300">
+                                <a href="creditCard.xhtml"> <img src="../../resources/cr/images/CRM/website/creditCard.png" width="230" height="150"/></a>
+                               
+                            </td>
+                            <td width="300">
+                                <a href="payByCard.xhtml"> <img src="../../resources/cr/images/CRM/website/loyaltyCard.jpg" width="230" height="150"/></a>
+                            </td>
+                        </tr>  
+                        <tr>
+                            <td><strong>Credit Cards</strong></td>
+                            <td><strong>Loyalty Card Value</strong></td>
+                        </tr>
+                    </table>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

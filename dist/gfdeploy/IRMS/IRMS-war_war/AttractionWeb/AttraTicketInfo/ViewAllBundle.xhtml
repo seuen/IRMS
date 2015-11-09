@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <ui:define name="contents">
+        <h:form id="form1">
+            <p:growl autoUpdate="true" globalOnly="true"/> 
+            <p:dataTable rowKey="#{bundle.id}" var="bundle" value="#{attractionTicketManagedBean.allBundles}"
+                         paginator="true" rows="10" selection="#{attractionTicketManagedBean.theBundle}" selectionMode="single" emptyMessage="No Bundle Information Found">
+                <f:facet name ="header">
+                    View All Bundles
+                </f:facet>    
+
+                <p:column headerText="ID" sortBy="#{bundle.id}" filterBy="#{bundle.id}">
+                    <h:outputText value="#{bundle.id}"/>
+                </p:column>
+
+                <p:column headerText="Name" sortBy="#{bundle.name}" filterBy="#{bundle.name}">
+                    <h:outputText value="#{bundle.name}"/>
+                </p:column>
+
+                <p:column headerText="Price" sortBy="#{bundle.price}" filterBy="#{bundle.price}">
+                    <h:outputText value="#{bundle.price}"/>
+                </p:column>
+
+
+                <f:facet name="footer">
+                    <p:commandButton id="viewButton" value="Update detail" update=":form1 :form2" oncomplete="attraBundleDialog.show()" />
+                    <p:commandButton update=":form1" value="Delete Bundle" actionListener="#{attractionTicketManagedBean.deleteBundle}" >
+                        <f:attribute name="bundleId" value="#{bundle.id}" />
+                    </p:commandButton>
+                </f:facet>
+            </p:dataTable>             
+        </h:form>       
+
+        <p:dialog id="dialog" header="Bundle Information Detail" widgetVar="attraBundleDialog"  resizable="false" width="700" position="center" closable="false" modal="true" appendToBody="true" >
+            <h:form id="form2"> 
+                <p:panel id="display">
+
+                    <h:outputLabel value="Bundle Id: " />
+                    <h:outputText value="#{attractionTicketManagedBean.theBundle.id}" />
+                        <br/>
+
+                        <h:outputLabel value="Name: " />
+                        <p:inplace id="bundleName" editor="true" style=" font-weight: bold; color: #036fab">
+                            <p:ajax event="save" listener="#{attractionTicketManagedBean.updateBundle}" update="bundleName" />
+                            <p:inputText value="#{attractionTicketManagedBean.theBundle.name}" required="true" label="text" />
+                        </p:inplace>
+                        
+                            <br/>
+
+                            <h:outputLabel value="Price: " />
+                             <p:inplace id="bundlePrice" editor="true" style=" font-weight: bold; color: #036fab">
+                            <p:ajax event="save" listener="#{attractionTicketManagedBean.updateBundle}" update="bundlePrice" />
+                            <p:inputText value="#{attractionTicketManagedBean.theBundle.price}" required="true" label="text" />
+                        </p:inplace>
+                  
+                                <br/>
+
+                                <p:dataTable var="pkgTicket" value="#{attractionTicketManagedBean.theBundle.pkgTickets}">
+                                    <p:column headerText="Ticket Type ID">
+                                        <h:outputText value="#{pkgTicket.ticketType.id}" />
+                                    </p:column> 
+
+                                    <p:column headerText="Attraction Name">
+                                        <h:outputText value="#{pkgTicket.ticketType.attraction.name}" />
+                                    </p:column>
+
+                                    <p:column headerText="Ticket Name">
+                                        <h:outputText value="#{pkgTicket.ticketType.name}" />
+                                    </p:column>
+
+                                    <p:column headerText="Quantity">
+                                        <h:outputText value="#{pkgTicket.ticketNumber}" />
+                                    </p:column>        
+                                    
+                                </p:dataTable>
+
+                                 <p:commandButton ajax="true" type="submit" value="Update" actionListener="#{attractionTicketManagedBean.reloadBundle}"/>
+                </p:panel>     
+                                </h:form>
+                                </p:dialog>
+
+                                </ui:define>
+
+
+
+                                </ui:composition>

@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../Templates/EStemplate.xhtml"
+                    xmlns:h="http://java.sun.com/jsf/html"
+                    xmlns:p="http://primefaces.org/ui"
+                    xmlns:f="http://java.sun.com/jsf/core">
+
+        <ui:define name="contents">
+            <h:form>
+                <p:growl id="messages" autoUpdate="true" globalOnly="true"/>
+                <p:messages autoUpdate="true" closable="true" />
+                <p:panel id="panel">
+
+                    <f:facet name="header">
+                        Search Venue Avaliability
+                    </f:facet>
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Title: *" style="font-weight: bold"/>
+                        <p:selectOneMenu id="title" value="#{externalEnquiryManagedBean.client.title}" required="true" requiredMessage="Title cannot be empty">
+                            <f:selectItem itemLabel="Mr.   " itemValue="Mr."/>
+                            <f:selectItem itemLabel="Ms.   " itemValue="Ms"/>
+                            <f:selectItem itemLabel="Mrs    " itemValue="Mrs"/>
+                        </p:selectOneMenu>
+
+
+                        <p:outputLabel value="FirstName: *" style="font-weight: bold"/>
+                        <p:inputText id="firstname" value="#{externalEnquiryManagedBean.client.firstname}" required="true" requiredMessage="FirstName cannot be empty"/>
+
+                        <p:outputLabel value="LastName: *" style="font-weight: bold"/>
+                        <p:inputText id="lastname" value="#{externalEnquiryManagedBean.client.lastname}" required="true" requiredMessage="LastName cannot be empty"/>
+
+                        <p:outputLabel value="NRIC/Passport: *" style="font-weight: bold"/>
+                        <p:inputText id="ic" value="#{externalEnquiryManagedBean.client.ic}" required="true" requiredMessage="NRIC/Passport No. cannot be empty"/>
+
+                        <p:outputLabel value="Email: *" style="font-weight: bold"/>
+                        <p:inputText id="email" value="#{externalEnquiryManagedBean.client.emailAddr}" required="true" requiredMessage="Email Address cannot be empty"/> 
+
+                        <p:outputLabel value="Phone Num: *" style="font-weight: bold"/>
+                        <p:inputText id="phoneNo" value="#{externalEnquiryManagedBean.client.phoneNum}" required="true" requiredMessage="Phone Num cannot be empty"/>
+
+                        <p:outputLabel value="Address:" style="font-weight: bold"/>
+                        <p:inputText id="addr" value="#{externalEnquiryManagedBean.client.addr}"/>
+
+                        <p:outputLabel value="Company:" style="font-weight: bold"/>
+                        <p:inputText id="company" value="#{externalEnquiryManagedBean.client.company}"/>
+
+                        <p:outputLabel value="Industry:" style="font-weight: bold"/>
+                        <p:inputText id="industry" value="#{externalEnquiryManagedBean.client.industry}"/>
+
+                        <f:facet name="footer">
+                            <p:commandButton type="submit" value="Submit Proposal" actionListener="#{externalEnquiryManagedBean.createEnquiry}"/>
+                        </f:facet>
+                    </h:panelGrid>
+
+                </p:panel>
+
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+

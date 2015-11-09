@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <title>Facelets Template</title>
+    </h:head>
+
+    <h:body>
+
+        <ui:composition template="/Templates/hotelExternalTemplate.xhtml" >
+            <!--        <div id="top" class="top">
+                        <ui:define name="top">Coral Island Resort Hotel</ui:define>
+                    </div>-->
+
+            <div>
+                <div id="left">
+                       <ui:define name="left">
+                        <h:form>
+                            <p:menu>
+                                <p:menuitem value="Singland Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">                    <f:attribute name="hotelId" value="Singland Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="Coral Bay Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="Coral Bay Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="Crone Plaza Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="Crone Plaza Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="Grand Park Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="Grand Park Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="City Club Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="City Club Hotel"/>
+                                </p:menuitem>
+                            </p:menu>
+                        </h:form>
+
+                    </ui:define>
+                </div>
+ <div id="content" class="left_content">
+    <ui:define name="content">
+       <h:form>
+           
+                    <p:tabMenu activeIndex="1">  
+                       <p:menuitem value="Search" url="customerAddReservationSearch.xhtml" />  
+                        <p:menuitem value="Room details" url="CustomerAddReservationRoom.xhtml" />
+                        <p:menuitem value="Guest info" url="CustomerAddReservationGuest.xhtml" />  
+                        <p:menuitem value="Payment info" url="CustomerAddReservationPayment.xhtml" />  
+                        <p:menuitem value="Display Reservation" url="customerViewAllReservations.xhtml"/>  
+                    </p:tabMenu>  
+          
+       </h:form>
+
+                <h:form id="form">
+                    <p:growl autoUpdate="true" globalOnly="true"/> 
+                    
+                    <p:panel>
+                        <p:dataTable var="roomType" value="#{externalReservationManagedBean.roomTypes}" emptyMessage="No Room Type Available"
+                                 paginator="true" rows="15" rowKey="#{roomType.roomtypeId}" selection="#{externalReservationManagedBean.roomType}" selectionMode="single">
+
+                        <p:column sortBy="#{roomType.hotel.name}" > 
+                            <f:facet name="header">       
+                                <h:outputText value="Hotel Name" />                        
+                            </f:facet>
+                            <h:outputText value="#{roomType.hotel.name}" /> 
+                        </p:column>
+
+                        <p:column > 
+                            <f:facet name="header">       
+                                <h:outputText value="Room Type" />                        
+                            </f:facet>
+                            <h:outputText value="#{roomType.type}" /> 
+                        </p:column> 
+
+                        <p:column > 
+                            <f:facet name="header">       
+                                <h:outputText value="Price" />                        
+                            </f:facet>
+                            <h:outputText value="#{roomType.price_l}" /> 
+                        </p:column>  
+
+                        <p:column width="100"> 
+                            <f:facet name="header">       
+                                <h:outputText value="Room Available Number" />                        
+                            </f:facet>
+                            <h:outputText value="#{roomType.totalNum}" /> 
+                        </p:column>
+
+                        <p:column width="100"> 
+                            <f:facet name="header">
+                                <h:outputText value="Room Quantity" />
+                            </f:facet>
+                            <p:inplace id="roomQuantity" editor="true"> 
+                                <p:ajax event="save" listener="#{externalReservationManagedBean.saveQuantity}" update="roomQuantity"/>
+                                <p:inputText value="#{externalReservationManagedBean.roomQuantity}" required="true" label="Quantity"/>  
+                            </p:inplace> 
+                        </p:column>
+
+                    </p:dataTable>  
+                    <br/>
+                    <p:button value="Back" outcome="addReservationSearch.xhtml" />
+                    &nbsp;&nbsp;
+                    <p:commandButton  ajax="true" type="submit" value="Next" action="#{externalReservationManagedBean.addReservation2}" />
+                    
+                  </p:panel>
+                </h:form>
+    </ui:define>
+
+</div>
+            </div>
+        </ui:composition>
+    </h:body>
+
+</html>

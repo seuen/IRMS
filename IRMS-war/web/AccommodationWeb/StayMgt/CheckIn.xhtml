@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="contents">
+        <h:form>
+            <p:tabMenu>
+            <p:menuitem value="Check Reservation" url="/AccommodationWeb/StayMgt/searchReservation.xhtml"/>
+            <p:menuitem value="Search Room Availability" url="/AccommodationWeb/StayMgt/RoomTypeSearch.xhtml"/>
+<!--            <p:menuitem value="Block Room List" url="AddGuestBlock.xhtml"/>-->
+            <p:menuitem value="Display Stay" url="/AccommodationWeb/StayMgt/DisplaytodayStay.xhtml"/>
+        </p:tabMenu>
+        </h:form>
+        <h:form id="form">
+            <p:growl autoUpdate="true" globalOnly="true"/>
+            <h3>Choose Leaving Date</h3>
+            <p:calendar value="#{roomManagedBean.leavingDate}" id="leavingDate" showOn="button" required="true"/>
+            <p:commandButton value="Submit" update=":form" actionListener="#{roomManagedBean.updateCheckIn}"/>
+
+       
+         <br/><br/>
+            <p:dataTable var="rooms" value="#{roomManagedBean.rooms}" rowKey="#{rooms.roomId}" paginator="true" rows="7"
+                         filteredValue="#{roomManagedBean.filteredRooms}" id="roomsTable">
+                
+                <f:facet name="header">
+                    List of all rooms in #{roomManagedBean.hotelId}
+                </f:facet>
+                
+                <p:column headerText="RoomType"  filterBy="#{rooms.roomtype.type}">
+                    #{rooms.roomtype.type}
+                </p:column>
+                
+                <p:column headerText="RoomNum" filterBy="#{rooms.roomNum}">
+                #{rooms.roomNum}
+                </p:column>
+                
+                <p:column headerText="RoomStatus" filterBy="#{rooms.status}">
+                #{rooms.status}
+                </p:column>
+                
+                <p:column headerText="StayStatus" filterBy="#{rooms.stay_status}">
+                #{rooms.stay_status}
+                </p:column>
+                
+                <p:column headerText="Available Num" filterBy="#{rooms.roomtype.totalNum}">
+                #{rooms.roomtype.totalNum}
+                </p:column>
+                
+                <p:column>
+                    <p:commandButton value="Add Guest" actionListener="#{roomManagedBean.checkRoom}">
+                        <f:attribute name="room" value="#{rooms}"/>
+                    </p:commandButton>
+                </p:column>
+                          
+                
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

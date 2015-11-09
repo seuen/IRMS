@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+        <ui:composition template="../../Templates/InternalAggregateTemplate.xhtml">
+
+            <ui:define name="contents">
+
+                <h:form id="form1">
+                    <p:growl autoUpdate="true" globalOnly="true"/>
+                    <p:dataTable id="display1" rowKey="#{showInfo.id}" var="showInfo" value="#{eSTicketManagedBean.viewAllShowInfo()}"
+                                 selection="#{eSTicketManagedBean.selectShowInfo}" selectionMode="single" emptyMessage="No Show info found">
+
+                        <f:facet name="header">
+                            View all Show Information
+                        </f:facet> 
+
+                        <p:column style="width: 7%" headerText="Show Info Name" filterBy="#{showInfo.name}"> 
+                            <h:outputText value="#{showInfo.name}"/> 
+                        </p:column>
+
+                        <p:column style="width: 7%" headerText="Type" filterBy="#{showInfo.type}" > 
+                            <h:outputText value="#{showInfo.type}"/> 
+                        </p:column>
+
+                        <p:column style="width: 20%" headerText="Date From"> 
+                            <h:outputText value="#{showInfo.startDate}">
+                                <f:convertDateTime timeZone="GSM+8" pattern="EEE yyyy/MM/dd"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column style="width: 20%" headerText="Date To"> 
+                            <h:outputText value="#{showInfo.endDate}">
+                                <f:convertDateTime timeZone="GSM+8" pattern="EEE yyyy/MM/dd"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column style="width: 7%" headerText="Address" > 
+                            <h:outputText value="#{showInfo.auditorium.roomNo}"/>
+                            <h:outputText value="#{showInfo.theater.roomNo}"/> 
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="View Available Slots" update=":form1 :form2" actionListener="#{eSTicketManagedBean.viewAllShow()}"/>   
+                        </f:facet>
+
+                    </p:dataTable> 
+
+                </h:form>
+                <br/>
+
+                <h:form id="form2" rendered="#{eSTicketManagedBean.displayShow}">
+                    <p:growl autoUpdate="true" globalOnly="true"/>
+                    <p:dataTable rowKey="#{show.id}" var="show" value="#{eSTicketManagedBean.shows}"
+                                 selection="#{eSTicketManagedBean.selectShow}" selectionMode="single" emptyMessage="No Show found">
+                        <f:facet name="header">
+                            View all [#{eSTicketManagedBean.selectShowInfo.name}] Show schedules
+                        </f:facet>
+
+                        <p:column style="width: 7%" headerText="Show Name" > 
+                            <h:outputText value="#{show.name}"/> 
+                        </p:column>
+
+                        <p:column style="width: 7%" headerText="Theater Number" > 
+                            <h:outputText value="#{show.type}"/> 
+                        </p:column>
+
+                        <p:column style="width: 20%" headerText="Date From"> 
+                            <h:outputText value="#{show.startTime}">
+                                <f:convertDateTime timeZone="GSM+8" pattern="EEE yyyy/MM/dd"/>
+                            </h:outputText>
+                        </p:column>
+                        
+                        <p:column style="width: 7%" headerText="Duration" > 
+                            <h:outputText value="#{show.duration}"/> 
+                        </p:column>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton value="View Sections" update=":form2 :form3" actionListener="#{eSTicketManagedBean.viewAllSectionTicket()}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </h:form>
+                
+                <h:form id="form3" rendered="#{eSTicketManagedBean.displaySection}">
+                    <p:growl autoUpdate="true" globalOnly="true"/>
+                    <p:dataTable rowKey="#{sectionTicket.id}" var="sectionTicket" value="#{eSTicketManagedBean.sectionTickets}"
+                                 paginator="true" rows="10" selection="#{eSTicketManagedBean.selectSectionTicket}" selectionMode="single" emptyMessage="No Section Ticket info found">
+
+                        <f:facet name="header">
+                            View all [#{eSTicketManagedBean.selectShowInfo.name} at #{eSTicketManagedBean.selectShow.startTime.toGMTString()}] Section Ticket Information
+                        </f:facet> 
+
+                        <p:column style="width: 7%" headerText="Show Name" > 
+                            <h:outputText value="#{sectionTicket.show.name}"/> 
+                        </p:column>
+
+                        <p:column style="width: 7%" headerText="Section Number" > 
+                            <h:outputText value="#{sectionTicket.seatSection.num}"/> 
+                        </p:column>
+
+                        <p:column style="width: 7%" headerText="Price" > 
+                            <h:outputText value="#{sectionTicket.price}"/> 
+                        </p:column>
+
+                        <p:column style="width: 7%" headerText="Status" > 
+                            <h:outputText value="#{sectionTicket.status}"/> 
+                        </p:column>
+
+                        <p:column style="width: 7%" headerText="Available Num" > 
+                            <h:outputText value="#{sectionTicket.availableNum}"/> 
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="View Seats" update=":form3 :form4" actionListener="#{eSTicketManagedBean.viewAllSeat()}"/>   
+                        </f:facet>
+
+                    </p:dataTable> 
+
+                </h:form>
+                
+                <h:form id="form4" rendered="#{eSTicketManagedBean.displaySeat}">
+                    <p:growl autoUpdate="true" globalOnly="true"/>
+                    <p:dataTable rowKey="#{seat.id}" var="seat" value="#{eSTicketManagedBean.seats}"
+                                 selection="#{eSTicketManagedBean.selectSeats}" emptyMessage="No Seat info found">
+                        <f:facet name="header">
+                            View all [#{eSTicketManagedBean.selectSectionTicket.seatSection.num}] Seat Info
+                        </f:facet> 
+
+                        <p:column selectionMode="multiple" style="width:0.05%" />
+
+                        <p:column style="width: 7%" headerText="Seat number" > 
+                            <h:outputText value="row #{seat.rowNum}: seat#{seat.seatNum}"/> 
+                        </p:column>
+                        
+                        <p:column style="width: 7%" headerText="Seat availability" > 
+                            <h:outputText value="#{seat.status}"/> 
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Buy Tickets" actionListener="#{eSTicketManagedBean.blockSeats()}" />
+                        </f:facet>
+                    </p:dataTable>
+                </h:form>
+                
+            </ui:define>
+
+            <ui:define name="foot">
+                foot
+            </ui:define>
+
+
+        </ui:composition>
+    </h:body>
+
+</html>

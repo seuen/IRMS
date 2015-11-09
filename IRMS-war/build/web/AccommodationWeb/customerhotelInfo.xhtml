@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <title>Facelets Template</title>
+    </h:head>
+
+    <h:body>
+
+        <ui:composition template="/Templates/hotelExternalTemplate.xhtml" >
+            <!--        <div id="top" class="top">
+                        <ui:define name="top">Coral Island Resort Hotel</ui:define>
+                    </div>-->
+
+            <div>
+                <div id="left">
+                    <ui:define name="left">
+                        <h:form>
+                            <p:menu>
+                                <p:menuitem value="Singland Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">                    <f:attribute name="hotelId" value="Singland Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="Coral Bay Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="Coral Bay Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="Crone Plaza Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="Crone Plaza Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="Grand Park Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="Grand Park Hotel"/>
+                                </p:menuitem>
+                                <p:menuitem value="City Club Hotel" actionListener="#{externalHotelManagedBean.navigateHotelInfo}">
+                                    <f:attribute name="hotelId" value="City Club Hotel"/>
+                                </p:menuitem>
+                            </p:menu>
+                        </h:form>
+
+                    </ui:define>
+                </div>
+
+                <div id="content" class="left_content">
+                    <ui:define name="content">
+                        <h:form>
+                            <p:panel header="#{externalHotelManagedBean.hotelId} Detailed Information">
+                                <h:panelGrid columns="2" columnClasses="column" cellpadding="7">
+                                    <h:outputText value="Name: "/>
+                                    <h:outputText value="#{externalHotelManagedBean.hotel.name}"/>
+                                    <h:outputText value="Address* : "/>
+                                    <h:outputText value="#{externalHotelManagedBean.hotel.address}"/>
+                                    <h:outputText value="Description* : "/>
+                                    <h:outputText value="#{externalHotelManagedBean.hotel.description}"/>
+                                </h:panelGrid>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                            </p:panel>
+                            <p:button value="Book Now" outcome="customerAddReservationSearch.xhtml"/>
+                        </h:form>
+
+                    </ui:define>
+                </div>
+            </div>
+        </ui:composition>
+    </h:body>
+
+</html>

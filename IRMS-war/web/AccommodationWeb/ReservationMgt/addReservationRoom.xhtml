@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+        <ui:composition template="../../Templates/InternalAggregateTemplate.xhtml" >
+
+            <ui:define name="contents">
+                <h:form>
+                    <p:tabMenu activeIndex="1">  
+                        <p:menuitem value="Search" url="/AccommodationWeb/ReservationMgt/addReservationSearch.xhtml" />  
+                        <p:menuitem value="Room details" url="/AccommodationWeb/ReservationMgt/addReservationRoom.xhtml" />
+                        <p:menuitem value="Guest info" url="/AccommodationWeb/ReservationMgt/addReservationGuest.xhtml" />  
+                        <p:menuitem value="Payment info" url="/AccommodationWeb/ReservationMgt/addReservationPayment.xhtml" />  
+                    </p:tabMenu> 
+                </h:form>
+
+                <h:form id="form">
+                    <p:growl autoUpdate="true" globalOnly="true"/> 
+                    
+                    <p:panel>
+                    <p:dataTable var="roomType" value="#{reservationManagedBean.roomTypes}" emptyMessage="No Room Type Available"
+                                 paginator="true" rows="15" rowKey="#{roomType.roomtypeId}" selection="#{reservationManagedBean.roomType}" selectionMode="single">
+
+                        <p:column sortBy="#{roomType.hotel.name}" > 
+                            <f:facet name="header">       
+                                <h:outputText value="Hotel Name" />                        
+                            </f:facet>
+                            <h:outputText value="#{roomType.hotel.name}" /> 
+                        </p:column>
+
+                        <p:column > 
+                            <f:facet name="header">       
+                                <h:outputText value="Room Type" />                        
+                            </f:facet>
+                            <h:outputText value="#{roomType.type}" /> 
+                        </p:column> 
+
+                        <p:column > 
+                            <f:facet name="header">       
+                                <h:outputText value="Price" />                        
+                            </f:facet>
+                            <h:outputText value="#{roomType.price_l}" /> 
+                        </p:column>  
+
+                        <p:column width="100"> 
+                            <f:facet name="header">       
+                                <h:outputText value="Room Available Number" />                        
+                            </f:facet>
+                            <h:outputText value="#{roomType.totalNum}" /> 
+                        </p:column>
+
+                        <p:column width="100"> 
+                            <f:facet name="header">
+                                <h:outputText value="Room Quantity" />
+                            </f:facet>
+                            <p:inplace id="roomQuantity" editor="true"> 
+                                <p:ajax event="save" listener="#{reservationManagedBean.saveQuantity}" update="roomQuantity"/>
+                                <p:inputText value="#{reservationManagedBean.roomQuantity}" required="true" label="Quantity"/>  
+                            </p:inplace> 
+                        </p:column>
+
+                    </p:dataTable>  
+                    <br/>
+                    <p:button value="Back" outcome="/AccommodationWeb/ReservationMgt/addReservationSearch.xhtml" />
+                    &nbsp;&nbsp;
+                    <p:commandButton  ajax="true" type="submit" value="Next" action="#{reservationManagedBean.addReservation2()}" />
+                    
+                  </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

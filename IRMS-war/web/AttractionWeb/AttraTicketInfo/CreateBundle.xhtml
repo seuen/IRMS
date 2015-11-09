@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+  
+
+    <ui:define name="contents">
+       
+        <h:form id="form1">
+             <p:panel id="panel" header="Create New Bundle"> 
+               <p:growl autoUpdate="true" showDetail="false" globalOnly="true"/> 
+                
+                 <p:dataTable var="ticketType" value="#{attractionTicketManagedBean.allTicketTypes}" paginator="true" rowKey="#{ticketType.id}" selection="#{attractionTicketManagedBean.selectedTicketTypes}">
+           <p:column selectionMode="multiple" style="width:2%" />
+ 
+                <p:column headerText="ID" sortBy="#{ticketType.id}" filterBy="#{ticketType.id}">
+                    <h:outputText value="#{ticketType.id}"/>
+               </p:column>
+                
+                <p:column headerText="Attraction Name" sortBy="#{ticketType.attraction.name}" filterBy="#{ticketType.attraction.name}">
+                    <h:outputText value="#{ticketType.attraction.name}"/>
+               </p:column>
+                
+                <p:column headerText="Ticket Type Name" sortBy="#{ticketType.name}" filterBy="#{ticketType.name}">
+                    <h:outputText value="#{ticketType.name}"/>
+               </p:column>
+                
+                <p:column headerText="Price" sortBy="#{ticketType.price}" filterBy="#{ticketType.price}">
+                    <h:outputText value="#{ticketType.price}"/>
+               </p:column>
+                
+               
+                 </p:dataTable>
+                  <p:commandButton id="multiViewButton" value="Create Bundle" update=":form1 :form2"  actionListener="#{attractionTicketManagedBean.createNewPkgTickets()}"  oncomplete="createBundleDialog.show()"/>
+                   </p:panel>
+            
+              
+                 </h:form>
+        
+                 <p:dialog id="dialog" header="Input Bundle Information" widgetVar="createBundleDialog" resizable="false" width="700" position="center"  modal="true" appendToBody="true" closable="false" >
+                    <h:form id="form2">
+                        <p:panel id="panel">
+                          
+                                
+                       
+             
+                <p:dataTable var="pkgTicket" value="#{attractionTicketManagedBean.pkgTickets}">
+                    <p:column headerText="ID">
+                        <h:outputText value="#{pkgTicket.ticketType.id}" />
+                    </p:column>
+                    
+                    <p:column headerText="Attraction Name">
+                        <h:outputText value="#{pkgTicket.ticketType.attraction.name}" />
+                    </p:column>
+                    
+                     <p:column headerText="Ticket Name">
+                         <h:outputText value="#{pkgTicket.ticketType.name}" />
+                    </p:column>
+                    
+                  <p:column headerText="Quantity">
+                     
+         
+<!--                      <h:outputLabel value="Price" />-->
+                      
+<p:selectOneMenu  required="true"  label="ticketQuantity"  requiredMessage="Quantity is required."  id="ticketQuantity"  value="#{pkgTicket.ticketNumber}">
+              <f:selectItem itemLabel="Select One" itemValue="" />
+              <f:selectItem itemLabel="1" itemValue="1" />
+              <f:selectItem itemLabel="2" itemValue="2" />
+               <f:selectItem itemLabel="3" itemValue="3" />
+                <f:selectItem itemLabel="4" itemValue="4" />
+                 <f:selectItem itemLabel="5" itemValue="5" />
+                  <f:selectItem itemLabel="6" itemValue="6" />
+                   <f:selectItem itemLabel="7" itemValue="7" />
+                    <f:selectItem itemLabel="8" itemValue="8" />
+                  <f:selectItem itemLabel="9" itemValue="9" />
+                   <f:selectItem itemLabel="10" itemValue="10" />
+                     <p:ajax  listener="#{attractionTicketManagedBean.computeOriTotal()}" update=":form2" />
+         </p:selectOneMenu>
+
+                  </p:column>
+                </p:dataTable>
+                    <h:outputLabel for="originalPrice" style="font-weight: bold" value="Original Price: " />
+                        <h:outputText value="#{attractionTicketManagedBean.originalTotalPrice}" />
+                            
+                        <br/>
+                    <h:outputLabel for="bundleName" style="font-weight: bold" value="Bundle Name: " />
+                    <h:inputText required="true" label="bundleName" requiredMessage="Bundle Name is required." id="bundleName" value="#{attractionTicketManagedBean.bundleName}" />
+                  <br/>
+                                        
+                   <h:outputLabel for="bundlePrice" style="font-weight: bold" value="Bundle Price: " />
+                    <h:inputText required="true" label="bundlePrice" requiredMessage="Bundle Price is required." id="bundlePrice" value="#{attractionTicketManagedBean.bundlePrice}" />
+                <br/>
+                               <p:commandButton id="createBundle" value="Create"  actionListener="#{attractionTicketManagedBean.createBundle}"/>
+                               <p:commandButton id="reloadBundle" value="Close"  actionListener="#{attractionTicketManagedBean.reloadBundle}"/>
+                        </p:panel>   
+                    
+                   </h:form>
+                 </p:dialog>
+    </ui:define>
+
+  
+</ui:composition>

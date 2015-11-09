@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../Templates/FoodBeverageTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+   
+    <ui:define name="contents">
+        <h:form>
+        <p:dataTable id="tabletypes" value="#{tableReservationManagedBean.availlableTabletypes}" var="tabletypes"
+                     rowKey="#{tabletypes.id}" selection="#{tableReservationManagedBean.selecttabletype}">
+            <f:facet name="header">
+                Available tabletypes
+            </f:facet>
+            
+            <p:column selectionMode="single" style="width: 2%"/>
+            
+            <p:column headerText="Restaurant Name">
+                #{tabletypes.restaurant.shopName}
+            </p:column>
+            
+            <p:column headerText="Table Type">
+                #{tabletypes.type}
+            </p:column>
+            
+            <p:column headerText="Capacity">
+                #{tabletypes.capacity}
+            </p:column>
+            
+            <p:column headerText="Available Num">
+                #{tabletypes.reserveNum}
+            </p:column>
+            
+            <f:facet name="footer">
+                <p:commandButton value="Reserve" actionListener="#{tableReservationManagedBean.test}"/>
+            </f:facet>
+                
+                
+        </p:dataTable>
+        </h:form>
+    </ui:define>
+
+
+</ui:composition>

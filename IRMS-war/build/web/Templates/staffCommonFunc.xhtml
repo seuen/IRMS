@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:form>
+        <p:menubar autoDisplay="false">
+            <p:submenu label="Staff Management" rendered="#{loginManagedBean.checkAdminRight('Manager')}" icon="ui-icon-person" >
+                <p:menuitem value="Create Staff" url="../../CommonInfraWeb/Staff/createStaff.xhtml" />
+                <p:menuitem value="Manage Staff" actionListener="#{staffManagedBean.initiateManageStaffPage()}" />                                   
+            </p:submenu>            
+            <p:submenu label="Staff Schedule Management" rendered="#{loginManagedBean.checkAdminRight('Manager')}" icon="ui-icon-clock" >
+                <p:menuitem value="Create Schedule" actionListener="#{staffManagedBean.initiateCreateSchedulePage()}" />                    
+                <p:menuitem value="Manage All Schedules" url="../../CommonInfraWeb/Schedule/manageAllSchedules.xhtml" />
+            </p:submenu>
+            <p:submenu label="Account Management" icon="ui-icon-contact">
+                <p:menuitem value="Main Page" url="../../CommonInfraWeb/Staff/accountManagement.xhtml" />
+                <p:menuitem value="View Account Info" url="../../CommonInfraWeb/Staff/viewStaffAccountInfo.xhtml" />
+                <p:menuitem value="Update Account Info" url="../../CommonInfraWeb/Staff/updateStaffAccountInfo.xhtml" />
+                <p:menuitem value="Manage Tasks" url="../../CommonInfraWeb/Message/TaskManagement.xhtml" />
+            </p:submenu>
+            <p:submenu label="Internal Communication" icon="ui-icon-mail-closed">
+                <p:menuitem value="Main Page" url="../../CommonInfraWeb/Message/MessageManagement.xhtml" />
+                <p:menuitem value="Send Message" url="../../CommonInfraWeb/Message/Message.xhtml" />
+                <p:menuitem value="View History Messages" url="../../CommonInfraWeb/Message/HistoryMessage.xhtml" />
+                <p:menuitem value="Create Announcement" url="../../CommonInfraWeb/Message/Announcement.xhtml" />
+                <p:menuitem value="View Announcement" url="../../CommonInfraWeb/Message/ViewAnnouncement.xhtml" />  
+            </p:submenu>                      
+
+            <p:menuitem value="Logout" action="#{staffManagedBean.backToLogin()}" icon="ui-icon-arrowthickstop-1-w"/>
+        </p:menubar>      
+    </h:form>
+</html>
+

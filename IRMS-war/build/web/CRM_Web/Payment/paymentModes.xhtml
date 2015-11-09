@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../crmTemplates/afterLoginTemplate.xhtml">
+            <ui:define name="contents">
+                <span class="STYLE2">Please select your payment modes </span>
+
+                <div>
+                    <table width="800">
+                        <tr>
+                            <td width="300">
+                                <a href="creditCard.xhtml"> <img src="../../resources/cr/images/CRM/website/creditCard.png" width="230" height="150"/></a>
+                                <br></br>
+                                 Credit Cards
+                            </td>
+                            <td width="300">
+                                <img src="../../resources/cr/images/CRM/website/loyaltyCard.jpg" width="230" height="150"/>
+                            <br></br>
+                           Loyalty Card Value
+                            </td>
+                        </tr>                       
+                    </table>
+
+                </div>
+
+                <div class="cleaner h40"></div>
+
+                <div class="cleaner"></div>
+
+                <div class="cleaner"></div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

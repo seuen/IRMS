@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+    <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                    template="../../Templates/InternalAggregateTemplate.xhtml"
+                    xmlns:h="http://java.sun.com/jsf/html"
+                    xmlns:p="http://primefaces.org/ui">
+        <ui:define name="contents">
+
+            <h:body>
+                <h:form id="formMain">
+
+                    <p:tabMenu activeIndex="1">
+                        <p:menuitem value="Home" url="/FoodBeverageWeb/Rental/resRentalManagement.xhtml" /> 
+                        <p:menuitem value="View All Adhoc Events" url="/FoodBeverageWeb/Rental/viewAllResAdhocEvents.xhtml"/> 
+                    </p:tabMenu>
+                    <p:panel> 
+                        <h:outputText styleClass="STYLE2" value="Here lists all records of adhoc events and their corresponding charges captured in the system"/>
+                        <br></br>
+                    </p:panel>
+                    <p:panel>
+                        <p:dataTable id="dt" var="adhocEvent" value="#{resChargesManagedBean.allAdhoc}" paginator="true" emptyMessage="No adhoc event">
+
+
+                            <p:column sortBy="#{adhocEvent.id}" headerText="Event ID"> 
+                                <h:outputText value="#{adhocEvent.id}" /> 
+                            </p:column>               
+
+                            <p:column sortBy="#{adhocEvent.shop.shopId}" headerText="Shop ID" filterBy="#{adhocEvent.shop.shopId}"> 
+                                <h:outputText value="#{adhocEvent.shop.shopId}" /> 
+                            </p:column>
+
+                            <p:column  sortBy="#{adhocEvent.shop.shopName}" headerText="Shop Name" filterBy="#{adhocEvent.shop.shopName}">
+                                <h:outputText value="#{adhocEvent.shop.shopName}" /> 
+                            </p:column>
+
+                            <p:column sortBy="#{adhocEvent.eventType}" headerText="Event Type">                        
+                                <h:outputText value="#{adhocEvent.eventType}" /> 
+                            </p:column>
+
+                            <p:column sortBy="#{adhocEvent.eventDate}" headerText="Event Date">
+                                <h:outputText value="#{adhocEvent.eventDate}" >
+                                <f:convertDateTime pattern="EEE yyyy/MMM/dd" timeZone="GMT+8"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column sortBy="#{adhocEvent.enterDate}" headerText="Enter Date"> 
+                                <h:outputText value="#{adhocEvent.enterDate}" >
+                                    <f:convertDateTime pattern="EEE yyyy/MMM/dd"/>
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column sortBy="#{adhocEvent.charge}" headerText="Charge"> 
+                                <h:outputText value="#{adhocEvent.charge}" /> 
+                            </p:column>  
+                        </p:dataTable>    
+<!--                                            <h:commandLink>  
+                        <p:graphicImage value="/resources/images/floorplan.jpg" />  
+                        <p:dataExporter type="pdf" target="dt" fileName="contract" />  
+                    </h:commandLink> -->
+                    </p:panel>
+                </h:form>
+            </h:body>
+        </ui:define>
+
+        <ui:define name="foot">
+            foot
+        </ui:define>
+
+    </ui:composition>
+
+</html>

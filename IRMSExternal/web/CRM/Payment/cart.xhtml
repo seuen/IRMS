@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Member Workspace</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../../Templates/subpageFull.xhtml">
+
+            <ui:define name="content1">
+
+                <p style=" font-size: large;color: coral; font-weight: bold" >Shopping Cart</p>
+                <h:form id="form">
+
+                    <p:dataTable id="cart" var="cart" value="#{shoppingCartManagedBean.cardItems}" style=" width: 850px">
+                        <!--                            <p:column selectionMode="multiple" style="width: 2%"/>-->
+                        <p:column headerText="Card Value" style="width: 150px">
+                            #{cart.topupType}
+                        </p:column>
+                        <p:column headerText="Unit Price" style="width: 100px">
+                            #{cart.cardValue}
+                        </p:column>
+                        <p:column headerText="Quantity" style="width: 70px">
+
+                        </p:column>
+                        <p:column headerText="Total Price" style="width: 80px">
+                            #{cart.cardValue}   
+                        </p:column>
+                        <p:growl autoUpdate="true" showDetail="false" globalOnly="true"/> 
+                        <p:column style="width: 100px">
+                            <p:commandButton value="Delete" update=":form" id="remove" actionListener="#{shoppingCartManagedBean.removeBuyCardValue(cart)}" />
+                        </p:column>
+
+
+                    </p:dataTable>
+                    <p:growl autoUpdate="true" showDetail="false" globalOnly="true"/>    
+                    <p:separator />
+                    <p:dataTable id="cart2" var="cart2" value="#{shoppingCartManagedBean.showItems}" style=" width: 850px">
+                        <p:column headerText="Show Ticket" style="width: 150px">
+                            #{cart2.ticketName}
+                        </p:column>
+                        <p:column headerText="Unit Price" style="width:100px">
+                            #{cart2.unitPrice}
+                        </p:column>
+                        <p:column headerText="Quantity" style="width: 70px">
+                            #{cart2.quantity}
+                        </p:column>
+                        <p:column headerText="Total Price" style="width: 80px">
+                            #{cart2.unitPrice*cart2.quantity}   
+                        </p:column>
+
+                        <p:column style="width: 100px">
+
+                            <p:commandButton value="Delete" update=":form" id="remove" actionListener="#{shoppingCartManagedBean.removeShowTicketItem}">
+                                <f:attribute name="showticket" value="#{cart2}"/>
+                            </p:commandButton>
+
+                        </p:column>
+                    </p:dataTable>
+                    <p:separator />
+                    <p:growl autoUpdate="true" showDetail="false" globalOnly="true"/>   
+                    <p:dataTable id="cart3" var="cart3" value="#{shoppingCartManagedBean.hoteItems}" style="width:850px">
+                        <p:column headerText="Room Info" style="150px">
+                            #{cart3.itemName}
+                        </p:column>
+                        <p:column headerText="Price per night" style="100px">
+                            #{cart3.unitPrice}
+                        </p:column>
+                        <p:column headerText="Quantity">
+                            #{cart3.quantity}
+                        </p:column>
+                        <p:column headerText="Total Price">
+                            #{cart3.unitPrice*cart3.quantity}
+                        </p:column>
+                        <p:column>
+                            <p:commandButton value="Delete" update=":form" id="remove" actionListener="#{shoppingCartManagedBean.removeBuyHotelItem}">
+                                <f:attribute name="hotelRsv" value="#{cart3}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                    <p:separator />
+
+
+                    <p style="font-size: medium; color: coral; font-weight: bold" align="right">Total Amount : $ #{shoppingCartManagedBean.totalAmount}</p>
+
+
+                    <br />
+
+                    &nbsp;&nbsp;      <p:commandButton id="effectsDialogButton" update=":form:dddd" value="Go for check out" oncomplete="dlg3.show();"/>
+                    <p:dialog id="dddd" header="Confirm your order" widgetVar="dlg3" showEffect="explode" height="100">  
+                        Please confirm your order:
+                        <br></br>
+                        <br></br>
+                        <p:commandButton  actionListener="#{shoppingCartManagedBean.directTo()}" value="confirm"/> 
+                    </p:dialog>  
+
+
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
+

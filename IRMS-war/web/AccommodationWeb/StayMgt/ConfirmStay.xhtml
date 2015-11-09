@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="contents">
+        
+        <h:form>
+            <p:tabMenu>
+            <p:menuitem value="Check Reservation" url="/AccommodationWeb/StayMgt/searchReservation.xhtml"/>
+            <p:menuitem value="Search Room Availability" url="/AccommodationWeb/StayMgt/RoomTypeSearch.xhtml"/>
+            <p:menuitem value="Block Room List" url="/AccommodationWeb/ReservationMgt/AddGuestBlock.xhtml"/>
+        </p:tabMenu>
+            <p:panel id="panel" header="Stay Information">
+                <h:panelGrid columns="2" columnClasses="column" cellpadding="9">
+                    <h:outputText value="Starting Date : "/>
+                    <h:outputText value="#{roomManagedBean.startingDate}">
+                        <f:convertDateTime pattern="EEE yyyy/MM/dd" timeZone="GMT+8"/>
+                    </h:outputText>
+                    
+                    <h:outputText value="Ending Date : "/>
+                    <h:outputText value="#{roomManagedBean.leavingDate}">
+                        <f:convertDateTime pattern="EEE yyyy/MM/dd" timeZone="GMT+8"/>
+                    </h:outputText>
+                    
+                    <h:outputText value="RoomType : "/>
+                    <h:outputText value="#{roomManagedBean.room.roomtype.type}"/>
+                    
+                    <h:outputText value="RoomNum : "/>
+                    <h:outputText value="#{roomManagedBean.room.roomNum}"/>
+                    
+                    <h:outputText value="Guest No. : "/>
+                    <h:outputText value="#{roomManagedBean.guestNo}"/>
+                    
+                   
+                    <p:dataTable var="guests" value="#{roomManagedBean.guests}">
+                        <f:facet name="header">
+                            Guest Info
+                        </f:facet>
+                        <p:column headerText="FirstName">
+                            <h:outputText value="#{guests.firstName}"/>
+                        </p:column>
+                        <p:column headerText="LastName">
+                            <h:outputText value="#{guests.lastName}"/>
+                        </p:column>
+                        <p:column headerText="NIRC/Passport No.">
+                            <h:outputText value="#{guests.ic}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <br/>
+                    
+                    <h:outputText value="Total Price : "/>
+                    <h:outputText value="#{roomManagedBean.totalprice}"/>
+                    
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+        <h:form>
+            <p:growl id="messages" autoUpdate="true" globalOnly="true"/>
+            <h:commandButton value="Confirm Stay" actionListener="#{roomManagedBean.createStay}"/>
+            <h:commandButton value="Restart" actionListener="#{roomManagedBean.clear}"/>
+        </h:form>
+        
+        
+        
+    </ui:define>
+
+</ui:composition>

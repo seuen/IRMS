@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui">
+    <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                    template="../../Templates/InternalAggregateTemplate.xhtml"
+                    xmlns:h="http://java.sun.com/jsf/html"
+                    xmlns:p="http://primefaces.org/ui">
+        <ui:define name="contents">
+            <h:head>
+                <style type="text/css">
+                    .ui-growl {
+                        right:50px;
+                        top:100px;
+                    }
+                </style>
+            </h:head>
+            <h:body>
+
+                <h:form id="formMain">
+
+                    <p:tabMenu activeIndex="7">
+                        <p:menuitem value="Home" url="/ShoppingMallWeb/Space/viewAllVenues.xhtml"/>
+                        <p:menuitem value="Basement" url="/ShoppingMallWeb/Space/basement.xhtml"/>
+                        <p:menuitem value="1st Floor" url="/ShoppingMallWeb/Space/levelOne.xhtml"/>
+                        <p:menuitem value="2nd Floor" url="/ShoppingMallWeb/Space/levelTwo.xhtml"/>
+                        <p:menuitem value="3rd Floor" url="/ShoppingMallWeb/Space/levelThree.xhtml"/>
+                        <p:menuitem value="4th Floor" url="/ShoppingMallWeb/Space/levelFour.xhtml"/>
+                        <p:menuitem value="5th Floor" url="/ShoppingMallWeb/Space/levelFive.xhtml"/>
+                        <p:menuitem value="Add New Outlet Space" url="/ShoppingMallWeb/Space/addEmptyVenue.xhtml"/>
+                    </p:tabMenu>
+
+                    <p:panel header="Add New Outlet Space"> 
+                        <p:ajaxStatus style="width:16px;height:16px;">
+                            <f:facet name="start">
+                                <h:graphicImage value="http://www.primefaces.org:8080/showcase/design/ajaxloading.gif" /> 
+                            </f:facet>
+                            <f:facet name="complete">
+                                <h:outputText value="" />
+                            </f:facet>
+                        </p:ajaxStatus>
+                        <h:outputText styleClass="STYLE2" value="Here is the form of venue creation. Please enter all inputs."/>
+                        <br></br>
+                        <br></br>
+                        <p:row>
+                            <h:outputText style="font-weight: bold; font-size: 20px" value="Location: Shopping Mall"/>
+                        </p:row>
+                        <p:growl id="message" autoUpdate="true" />
+                        <h:panelGrid id="venueForm" columns="3" cellpadding="10">   
+                            <h:outputLabel for="floor" style="font-weight: bold" value="Venue Floor: " />
+                            <p:selectOneMenu  required="true" label="floor" requiredMessage="Floor is required." id="floor" value="#{shopVenueManagedBean.newVenue.floor}"> 
+                                <f:selectItem itemLabel=" Basement" itemValue="-1" />  
+                                <f:selectItem itemLabel="1st Floor" itemValue="01" />  
+                                <f:selectItem itemLabel="2nd Floor" itemValue="02" />  
+                                <f:selectItem itemLabel="3rd Floor" itemValue="03" />
+                                <f:selectItem itemLabel="4th Floor" itemValue="04" />
+                                <f:selectItem itemLabel="5th Floor" itemValue="05" />
+                            </p:selectOneMenu>
+                            <p:message for="floor" />
+
+                            <h:outputLabel for="area" style="font-weight: bold" value="Venue Area: " />
+                            <p:selectOneMenu  required="true"  label="area"  requiredMessage="Venue area is required."  id="area"  value="#{shopVenueManagedBean.newVenue.area}">
+                                <f:selectItem itemLabel="Pushcart Slot" itemValue="6" />
+                                <f:selectItem itemLabel="100 m*m" itemValue="100" />
+                                <f:selectItem itemLabel="200 m*m" itemValue="200" />
+                                <f:selectItem itemLabel="300 m*m"  itemValue="300" />
+                                <f:selectItem itemLabel="400 m*m"  itemValue="400" />
+                            </p:selectOneMenu>
+                            <p:message for="area" />
+
+                            <h:outputLabel for="rank" style="font-weight: bold" value="Venue Ranking: " />
+                            <p:selectOneMenu  required="true"  label="rank"  requiredMessage="Venue ranking is required."  id="rank"  value="#{shopVenueManagedBean.newVenue.sector}">
+                                <f:selectItem itemLabel="Tier A" itemValue="A" />
+                                <f:selectItem itemLabel="Tier B" itemValue="B" />
+                                <f:selectItem itemLabel="Tier C"  itemValue="C" />
+                                <f:selectItem itemLabel="Tier D"  itemValue="D" />
+                                <f:selectItem itemLabel="Tier E"  itemValue="E" />
+                            </p:selectOneMenu>
+                            <p:message for="rank" />       
+                        </h:panelGrid>
+                        <p:separator /> 
+                        <p:commandButton  id="newVenue" value="Save New Venue" onclick="newBox.show();" ajax="true"/>                    </p:panel>
+                </h:form>
+                <p:confirmDialog message="Are you sure to create this new tenant venue in Shopping Mall?" widgetVar="newBox" id="newPopupBox" header="Confirmation" appendToBody="true">                                           
+                    <h:form id="subForm">
+                        <p:commandButton value="Yes" actionListener="#{shopVenueManagedBean.saveSpaceInfo}" update=":formMain:venueForm" oncomplete="newBox.hide();" ajax="true"/>
+                        <p:commandButton value="No" onclick="newBox.hide();" type="button" />
+                    </h:form>
+                </p:confirmDialog>
+            </h:body>
+        </ui:define>
+
+        <ui:define name="foot">
+            foot
+        </ui:define>
+
+    </ui:composition>
+</html>

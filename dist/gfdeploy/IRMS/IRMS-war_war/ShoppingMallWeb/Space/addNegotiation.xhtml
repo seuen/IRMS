@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="../../Templates/InternalAggregateTemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+
+    <ui:define name="contents">
+        <h1>
+            Welcome to Shopping Mall Space Management SubSystem
+        </h1>
+        <h:form>
+            <p:tabMenu activeIndex="8">
+                <p:menuitem value="Home" url="/ShoppingMallWeb/Space/viewAllVenues.xhtml"/>
+                <p:menuitem value="Basement" url="/ShoppingMallWeb/Space/basement.xhtml"/>
+                <p:menuitem value="1st Floor" url="/ShoppingMallWeb/Space/levelOne.xhtml"/>
+                <p:menuitem value="2nd Floor" url="/ShoppingMallWeb/Space/levelTwo.xhtml"/>
+                <p:menuitem value="3rd Floor" url="/ShoppingMallWeb/Space/levelThree.xhtml"/>
+                <p:menuitem value="4th Floor" url="/ShoppingMallWeb/Space/levelFour.xhtml"/>
+                <p:menuitem value="5th Floor" url="/ShoppingMallWeb/Space/levelFive.xhtml"/>
+                <p:menuitem value="View Venue Negotiators" url="/ShoppingMallWeb/Space/viewVenueNegotiators.xhtml"/>
+                <p:menuitem value="Create Negotiation" url="/ShoppingMallWeb/Space/addNegotiation.xhtml"/>
+            </p:tabMenu>
+        </h:form>
+
+        <h:form id="mainNego">
+            <p:ajaxStatus style="width:30px;height: 20px;">
+                <f:facet name="start">     <h:graphicImage value="../design/ajaxloading.gif" />   </f:facet>
+                <f:facet name="complete">  <h:outputText value="" />                              </f:facet>
+            </p:ajaxStatus>  
+            <p:panel> 
+                <h:outputText styleClass="STYLE3" value="Negotiation Management of Venue: Shopping Mall #{shopVenueManagedBean.negoVenue.id}."/>
+                <br></br> 
+                <br></br> 
+                <h:outputText styleClass="STYLE2" value="Here lists all negotiators in database. Please select from negotiators repository or create new negotiator to form a negotiation."/>
+                <br></br>
+            </p:panel>
+
+            <p:panel id="panel">
+                <p:growl autoUpdate="true" globalOnly="true" />
+
+                <p:dataTable id="datatable" var="negotiator" value="#{shopVenueManagedBean.allNegotiators}" rowKey="#{negotiator.email}" selection="#{shopVenueManagedBean.selectedNegotiators}" selectionMode="multiple" paginator="true" emptyMessage="No negotiators.">
+
+                    <p:column headerText="Name"  sortBy="#{negotiator.negotiatorName}" filterBy="#{negotiator.negotiatorName}" filterStyle="width: 40px;" >
+                        <f:facet name="header">  
+                            <h:outputText value="Name" />  
+                        </f:facet>
+                        <h:outputText value="#{negotiator.negotiatorName}" />
+                    </p:column>
+
+
+                    <p:column headerText="Email" sortBy="#{negotiator.email}" filterBy="#{negotiator.email}" filterStyle="width: 40px;" >
+                        <f:facet name="header">  
+                            <h:outputText value="Email" />  
+                        </f:facet>
+                        <h:outputText value="#{negotiator.email}" />
+                    </p:column>
+
+                    <p:column headerText="Phone" sortBy="#{negotiator.telNum}" filterBy="#{negotiator.telNum}" filterStyle="width: 40px;" >
+                        <f:facet name="header">  
+                            <h:outputText value="Phone" />  
+                        </f:facet>
+                        <h:outputText value="#{negotiator.telNum}" />
+                    </p:column>
+
+                    <p:column headerText="Type" sortBy="#{negotiator.shopType}" filterBy="#{negotiator.shopType}" filterStyle="width: 50px;" >
+                        <f:facet name="header">  
+                            <h:outputText value="Type" />  
+                        </f:facet>
+                        <h:outputText value="#{negotiator.shopType}" />
+                    </p:column>
+
+                    <p:column headerText="Category" sortBy="#{negotiator.shopCategory}" filterBy="#{negotiator.shopCategory}" filterStyle="width: 50px;">
+                        <f:facet name="header">  
+                            <h:outputText value="Category" />  
+                        </f:facet>                     
+                        <h:outputText value="#{negotiator.shopCategory}" />
+                    </p:column>   
+
+                    <p:column headerText="Shop" sortBy="#{negotiator.shopName}" filterBy="#{negotiator.shopName}" filterStyle="width: 50px;">
+                        <f:facet name="header">  
+                            <h:outputText value="Shop" />  
+                        </f:facet>                     
+                        <h:outputText value="#{negotiator.shopName}" />
+                    </p:column>  
+                </p:dataTable>
+            </p:panel>
+            <p:commandButton value="Form negotiation" style="float: right" actionListener="#{shopVenueManagedBean.createNewNegotiations}" ajax="true"/>
+            <p:commandButton value="Create New Negotiator" update="datatable"  style="float: right" onclick="newNego.show();" ajax="true"/>
+            <p:commandButton  id="back" value="Back to Space Homepage" actionListener="#{shopVenueManagedBean.navigateSpaceVenues}"/>
+        </h:form>
+
+        <p:dialog widgetVar="newNego" id="createBox" header="Create New Negotiator in Repository" closable="true" modal="true"  appendToBody="true" >
+            <p:growl autoUpdate="true" globalOnly="true"/>
+            <h:form id="subForm">
+                <h2>Please fill up all fields below.</h2>
+                <h2>Email will be checked (as key) for duplicate entry.</h2>
+                <h:panelGrid id="createForm" columns="3" cellpadding="10">  
+                    <p:outputLabel for="name" style="font-weight: bold;" value="Name: "/>
+                    <h:inputText id="name" required="true" requiredMessage="Negotiator name is requried." style="font-weight: bold; color: #D20005" value="#{shopVenueManagedBean.newNego.negotiatorName}">
+                    </h:inputText>
+                    <p:message for="name"/>
+
+                    <p:outputLabel for="email" style="font-weight: bold" value="Email: " />
+                    <p:inputText label="email" id="email" value="#{shopVenueManagedBean.newNego.email}" required="true" requiredMessage="Negotiator email is requried."/>
+                    <p:message for="email"/>
+
+                    <p:outputLabel for="phone" style="font-weight: bold" value="Phone: " />                            
+                    <p:inputText required="true" label="phone" requiredMessage="Phone number is required." id="phone" value="#{shopVenueManagedBean.newNego.telNum}">
+                    </p:inputText>
+                    <p:message for="phone"/>
+
+
+                    <p:outputLabel for="type" style="font-weight: bold" value="Shop Type (Shop or Pushcart): " />
+                    <p:selectOneMenu required="true" label="type" requiredMessage="Shop type is required." id="type" value="#{shopVenueManagedBean.newNego.shopType}">
+                        <f:selectItem itemLabel="Shop" itemValue="Shop"/>
+                        <f:selectItem itemLabel="Pushcart" itemValue="Pushcart"/>
+                    </p:selectOneMenu>
+                    <p:message for="type"/>
+
+
+                    <p:outputLabel for="category" style="font-weight: bold" value="Shop Category: " />
+                    <p:selectOneMenu required="true" label="category" requiredMessage="Shop category is required." id="category" value="#{shopVenueManagedBean.newNego.shopCategory}">
+                        <f:selectItem itemLabel="Beauty/Cosmetics" itemValue="Beauty or Cosmetics"/>
+                        <f:selectItem itemLabel="Fashion/Accessories/Shoes" itemValue="Fashion"/>
+                        <f:selectItem itemLabel="Books/Gifts" itemValue="Books or Gifts" />
+                        <f:selectItem itemLabel="Houseware/Furnishing" itemValue="Houseware" />
+                        <f:selectItem itemLabel="Information Technology" itemValue="IT" />
+                        <f:selectItem itemLabel="Food/Beverage" itemValue="Food and Beverage" />
+                    </p:selectOneMenu>
+                    <p:message for="category"/>
+
+                    <p:outputLabel for="shopName" style="font-weight: bold" value="Potential Shop Name: " />
+                    <p:inputText required="true"  label="shopName" requiredMessage="Shop name is required." id="shopName" value="#{shopVenueManagedBean.newNego.shopName}">
+                    </p:inputText>
+                    <p:message for="shopName"/>
+
+                    <p:commandButton  id="createSubmit" value="Create" actionListener="#{shopVenueManagedBean.createNewNegotiator}" update=":mainNego"  oncomplete="newNego.hide();">
+                    </p:commandButton>
+
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>

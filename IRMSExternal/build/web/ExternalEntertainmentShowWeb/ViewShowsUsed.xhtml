@@ -1,0 +1,251 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <body>
+
+        <ui:composition template="./ExternalEStemplate.xhtml">
+
+            <ui:define name="top">
+                top
+            </ui:define>
+
+            <ui:define name="left">
+                left
+            </ui:define>
+
+            <ui:define name="content">      
+
+                <p:growl autoUpdate="true" globalOnly="true"/>
+                <table>   
+                    <tr>   
+                        <td valign="top">
+                            <h:form id="form1">
+                                <h3><strong><h:outputText value="Step 1: Here are all our shows"/></strong></h3>
+                                <p:dataTable rowKey="#{showInfo.id}" var="showInfo" value="#{externalTicketManagedBean.viewAllShowInfo()}"
+                                             selection="#{externalTicketManagedBean.selectShowInfo}" selectionMode="single" emptyMessage="No Show info found">
+
+                                    <p:column style="width: 7%" headerText="Show Info Name" > 
+                                        <h:outputText value="#{showInfo.name}"/> 
+                                    </p:column>
+
+                                    <p:column style="width: 7%" headerText="Type"> 
+                                        <h:outputText value="#{showInfo.type}"/> 
+                                    </p:column>
+
+                                    <p:column style="width: 20%" headerText="Date From"> 
+                                        <h:outputText value="#{showInfo.startDate}">
+                                            <f:convertDateTime timeZone="GSM+8" pattern="EEE yyyy/MM/dd"/>
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column style="width: 20%" headerText="Date To"> 
+                                        <h:outputText value="#{showInfo.endDate}">
+                                            <f:convertDateTime timeZone="GSM+8" pattern="EEE yyyy/MM/dd"/>
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column style="width: 7%" headerText="Address" > 
+                                        <h:outputText value="#{showInfo.auditorium.roomNo}"/>
+                                        <h:outputText value="#{showInfo.theater.roomNo}"/> 
+                                    </p:column>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton value="View Available Slots" update=":form1 :form2" actionListener="#{externalTicketManagedBean.viewAllShow()}"/>   
+                                    </f:facet>
+
+                                </p:dataTable>   
+                            </h:form>  
+
+                        </td> 
+                    </tr>
+
+                    <tr>
+
+                        <td valign="top">
+
+                            <h:form id="form2" rendered="#{externalTicketManagedBean.displayShow}">
+
+                                    <ui:repeat value="#{externalTicketManagedBean.myShows}" var="myShow">
+                                        #{myShow}
+                                    </ui:repeat>
+                                
+                                
+                                <h3><strong><h:outputText value="Step 2: Select one time"/></strong></h3>   
+                                <p:growl autoUpdate="true" globalOnly="true"/> 
+                                <p:panel header="Please select one timeslot:">                       
+                                    <h:selectOneMenu id="sections" value="#{externalTicketManagedBean.selectTime}" >
+                                        <f:selectItem itemLabel="Please Select"/>
+                                        <f:selectItems value="#{externalTicketManagedBean.myShows}" var="s" />
+                                        <p:ajax listener="#{externalTicketManagedBean.viewAllSectionTicket()}" update=":form2 :form3 :form4"/>
+
+                                    </h:selectOneMenu>
+                                    <p:messages for="sections" />
+                                </p:panel>
+                                
+                                <br/><br/>
+
+                                <h:outputText value="test: " />  
+                                <h:selectOneMenu value="#{externalTicketManagedBean.selectTime}">  
+                                    <f:selectItem itemLabel="Select One" itemValue="" />  
+                                    <f:selectItems value="#{externalTicketManagedBean.yourShows}" />  
+                                </h:selectOneMenu>  
+                                
+                                
+
+                                <p:dataTable id="tableShow" rowKey="#{show.id}" var="show" value="#{externalTicketManagedBean.shows}"
+                                             selection="#{externalTicketManagedBean.selectShow}" selectionMode="single" emptyMessage="No Show found">
+                                    <f:facet name="header">
+                                        View all [#{externalTicketManagedBean.selectShowInfo.name}] Show schedules
+                                    </f:facet>
+
+                                    <p:column style="width: 7%" headerText="Show Name" > 
+                                        <h:outputText value="#{show.name}"/> 
+                                    </p:column>
+
+                                    <p:column style="width: 7%" headerText="Theater Number" > 
+                                        <h:outputText value="#{show.type}"/> 
+                                    </p:column>
+
+                                    <p:column style="width: 20%" headerText="Date From"> 
+                                        <h:outputText value="#{show.startTime}">
+                                            <f:convertDateTime timeZone="GSM+8" pattern="EEE yyyy/MM/dd"/>
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column style="width: 7%" headerText="Duration" > 
+                                        <h:outputText value="#{show.duration}"/> 
+                                    </p:column>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton value="View Sections" update=":form2 :form3 :form4" actionListener="#{externalTicketManagedBean.viewAllSectionTicket11()}"/>
+                                    </f:facet>
+                                </p:dataTable>
+                            </h:form>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td valign="top">
+                            <br/>
+                            <h:form id="form3" rendered="#{externalTicketManagedBean.displaySection}">     
+                                <h3><strong><h:outputText value="Step 3: View all sections and choose your preferred place"/></strong></h3>   
+
+
+                            </h:form>  
+
+                        </td>       
+                    </tr>
+
+                    <tr> 
+                        <td valign="top">
+                            <h:form id="form4" rendered="#{externalTicketManagedBean.displaySelectSection}">  
+                                <p:growl autoUpdate="true" globalOnly="true"/>
+                                <p:panel header="Please select one section:"> 
+
+                                    <p:growl autoUpdate="true" globalOnly="true"/>                        
+                                    <h:selectOneMenu style="width: 170px" id="sections" value="#{externalTicketManagedBean.selectSectionNum}">
+                                        <f:selectItem itemLabel="Please Select"/>
+                                        <f:selectItems value="#{externalTicketManagedBean.sectionTickets}" var="sectionTicket" itemLabel="#{sectionTicket.seatSection.num}" itemValue="#{sectionTicket.seatSection.num}"/>
+                                        <p:ajax listener="#{externalTicketManagedBean.viewAllSeat()}" update=":form4 :form5"/>
+                                    </h:selectOneMenu>
+                                </p:panel>
+
+                                <p:dataTable rowKey="#{sectionTicket.id}" var="sectionTicket" value="#{externalTicketManagedBean.sectionTickets}"
+                                             paginator="true" rows="10" selection="#{externalTicketManagedBean.selectSectionTicket}" selectionMode="single" emptyMessage="No Section Ticket info found">
+
+                                    <f:facet name="header">
+                                        View all [#{externalTicketManagedBean.selectShowInfo.name} at #{externalTicketManagedBean.selectShow.startTime.toGMTString()}] Section Ticket Information
+                                    </f:facet> 
+
+                                    <p:column style="width: 7%" headerText="Show Name" > 
+                                        <h:outputText value="#{sectionTicket.show.name}"/> 
+                                    </p:column>
+
+                                    <p:column style="width: 7%" headerText="Section Number" > 
+                                        <h:outputText value="#{sectionTicket.seatSection.num}"/> 
+                                    </p:column>
+
+                                    <p:column style="width: 7%" headerText="Price" > 
+                                        <h:outputText value="#{sectionTicket.price}"/> 
+                                    </p:column>
+
+                                    <p:column style="width: 7%" headerText="Status" > 
+                                        <h:outputText value="#{sectionTicket.status}"/> 
+                                    </p:column>
+
+                                    <p:column style="width: 7%" headerText="Available Num" > 
+                                        <h:outputText value="#{sectionTicket.availableNum}"/> 
+                                    </p:column>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton value="View Seats" update=":form3 :form4" actionListener="#{externalTicketManagedBean.viewAllSeat11()}"/>   
+                                    </f:facet>
+
+                                </p:dataTable> 
+
+                            </h:form>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td valign="top">
+                            <h:form id="form5" rendered="#{externalTicketManagedBean.displaySeat}">
+
+                                <p:growl autoUpdate="true" globalOnly="true"/>
+                                <h3><strong><h:outputText value="Step 4: Choose your seats"/></strong></h3>
+                                <p:dataTable rowKey="#{seat.id}" var="seat" value="#{externalTicketManagedBean.seats}"
+                                             selection="#{externalTicketManagedBean.selectSeats}" emptyMessage="No Seat info found">
+                                    <f:facet name="header">
+                                        View all [#{externalTicketManagedBean.selectSectionTicket.seatSection.num}] Seat Info
+                                    </f:facet> 
+
+                                    <p:column selectionMode="multiple" style="width:0.05%" />
+
+                                    <p:column style="width: 7%" headerText="Seat number" > 
+                                        <h:outputText value="row #{seat.rowNum}: seat#{seat.seatNum}"/> 
+                                    </p:column>
+
+                                    <p:column style="width: 7%" headerText="Seat availability" > 
+                                        <h:outputText value="#{seat.status}"/> 
+                                    </p:column>
+
+                                    <f:facet name="footer">
+                                        <p:commandButton value="Buy Tickets" update=":form5 :form6" actionListener="#{externalTicketManagedBean.blockSeats()}"/>
+                                    </f:facet>
+                                </p:dataTable>
+                            </h:form>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td valign="top">
+                            <h:form id="form6" rendered="#{externalTicketManagedBean.displaySeat}">
+
+                                <p:growl autoUpdate="true" globalOnly="true"/>
+                                <h3><strong><h:outputText value="Step 5: add your details"/></strong></h3>
+
+                                <f:facet name="footer">
+                                    <p:commandButton value="Submit" actionListener="#{externalTicketManagedBean.blockSeats()}"/>
+                                </f:facet>
+
+                            </h:form>
+                        </td>
+                    </tr>
+                </table>
+
+            </ui:define>
+
+            <ui:define name="bottom">
+                bottom
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

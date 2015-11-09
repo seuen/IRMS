@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../Templates/InternalAggregateTemplate.xhtml">
+
+            <ui:define name="contents">
+                <p:panel>
+
+                    <h:form >
+                        <p:growl autoUpdate="true" showDetail="false" globalOnly="true" />
+
+                        <p:tabMenu activeIndex="1">  
+                            <p:menuitem value="Search Venue Availability" url="/EntertainmentShowWeb/ShowSchedule/SearchShowVenue.xhtml" />  
+                            <p:menuitem value="Add Venue Schdule" url="/EntertainmentShowWeb/ShowSchedule/AddVenueSchedule.xhtml" />
+                            <p:menuitem value="Add ShowInfo" url="/EntertainmentShowWeb/ShowSchedule/AddShowInfo.xhtml" />   
+                        </p:tabMenu> 
+
+                        <h:form id="form1" rendered="#{showInfoManagedBean.displayTheater}">
+                            <h:panelGrid columns="3" cellpadding="9">
+                                <h:outputLabel for="showName" style="font-weight: bold" value="Show Name: " />
+                                <p:inputText required="true" label="showName" requiredMessage="Show name is required." id="showName" value="#{showInfoManagedBean.theShowInfo.name}" />
+                                <p:message for="showName" />
+
+                                <h:outputLabel for="showDetail" style="font-weight: bold" value="Show Description: " />
+                                <p:inputTextarea required="true" label="showDetail" requiredMessage="Show Description is required." id="showDetail" value="#{showInfoManagedBean.theShowInfo.detail}" />
+                                <p:message for="showDetail" />
+
+                                <h:outputLabel value="Starting Time: * " style="font-weight: bold"/>
+                                <p:calendar id="startTime" value="#{showInfoManagedBean.startTimeShow}" pattern="HH:mm" stepMinute="30" minHour="9" maxHour="21" timeOnly="true"/>
+                                <p:message for="startTime" />
+                                
+                                <h:outputLabel value="Ending Time: * " style="font-weight: bold"/>
+                                <p:calendar id="endTime" value="#{showInfoManagedBean.endTimeShow}" pattern="HH:mm" stepMinute="30" minHour="9" maxHour="21" timeOnly="true"/>
+                                <p:message for="endTime" />
+
+                                <h:outputLabel for="showType" style="font-weight: bold" value="Show Type: " />
+                                <p:selectOneMenu  required="true"  label="showType"  requiredMessage="Show Type is required."  id="showType"  value="#{showInfoManagedBean.theShowInfo.showType}">
+                                    <f:selectItem itemLabel="Select One" itemValue="" />
+                                    <f:selectItem itemLabel="Dance" itemValue="Dance" />
+                                    <f:selectItem itemLabel="Concert" itemValue="Concert" />              
+                                </p:selectOneMenu>
+                                <p:message for="showType" />
+
+                            </h:panelGrid>
+<!--                        </h:form>    
+
+                        <h:form id="form1" rendered="">-->
+                            <p:growl id="messages" autoUpdate="true" globalOnly="true"/>
+
+                            <p:dataTable rowKey="#{theater.id}" var="theater" value="#{showInfoManagedBean.theaters}"
+                                         paginator="true" rows="10" selection="#{showInfoManagedBean.theTheater}" emptyMessage="No Theater Information Found">
+                                <f:facet name ="header">
+                                    View All Available Theater Information
+                                </f:facet>  
+                                
+                                <p:column selectionMode="single"/>
+
+                                <p:column headerText="ID" >
+                                    <h:outputText value="#{theater.id}" />
+                                </p:column>
+
+                                <p:column headerText="Room Number" >
+                                    <h:outputText value="#{theater.roomNo}" />
+                                </p:column>
+
+                                <p:column headerText="Capacity" >
+                                    <h:outputText value="#{theater.capacity}" />
+                                </p:column>
+
+                                <p:column headerText="Price" >
+                                    <h:outputText value="#{theater.dayPrice}" />
+                                </p:column>
+
+                                <f:facet name="footer">
+                                    <p:commandButton value="Add Schedule" actionListener="#{showInfoManagedBean.addTheaterSchedule()}" />
+                                </f:facet>
+
+                            </p:dataTable>             
+                        </h:form>
+
+
+                        <h:form id="form2" rendered="#{showInfoManagedBean.displayAuditorium}">
+                            <h:panelGrid columns="3" cellpadding="9">
+                                <h:outputLabel for="showName" style="font-weight: bold" value="Show Name: " />
+                                <p:inputText required="true" label="showName" requiredMessage="Show name is required." id="showName" value="#{showInfoManagedBean.theShowInfo.name}" />
+                                <p:message for="showName" />
+
+                                <h:outputLabel for="showDetail" style="font-weight: bold" value="Show Description: " />
+                                <p:inputTextarea required="true" label="showDetail" requiredMessage="Show Description is required." id="showDetail" value="#{showInfoManagedBean.theShowInfo.detail}" />
+                                <p:message for="showDetail" />
+
+                                <h:outputLabel value="Starting Time: * " style="font-weight: bold"/>
+                                <p:calendar id="startTime" value="#{showInfoManagedBean.startTimeShow}" pattern="HH:mm" stepMinute="30" minHour="9" maxHour="21" timeOnly="true"/>
+                                <p:message for="startTime" />
+                                
+                                <h:outputLabel value="Ending Time: * " style="font-weight: bold"/>
+                                <p:calendar id="endTime" value="#{showInfoManagedBean.endTimeShow}" pattern="HH:mm" stepMinute="30" minHour="9" maxHour="21" timeOnly="true"/>
+                                <p:message for="endTime" />
+
+                                <h:outputLabel for="showType" style="font-weight: bold" value="Show Type: " />
+                                <p:selectOneMenu  required="true"  label="showType"  requiredMessage="Show Type is required."  id="showType"  value="#{showInfoManagedBean.theShowInfo.showType}">
+                                    <f:selectItem itemLabel="Select One" itemValue="" />
+                                    <f:selectItem itemLabel="Dance" itemValue="Dance" />
+                                    <f:selectItem itemLabel="Concert" itemValue="Concert" />              
+                                </p:selectOneMenu>
+                                <p:message for="showType" />
+
+                            </h:panelGrid>
+                            
+                            
+                            <p:growl id="messages" autoUpdate="true" globalOnly="true"/>
+                            <p:messages autoUpdate="true" closable="true" />
+
+                            <p:dataTable rowKey="#{auditorium.id}" var="auditorium" value="#{showInfoManagedBean.auditoriums}"
+                                         paginator="true" rows="10" selection="#{showInfoManagedBean.theAuditorium}" selectionMode="single" emptyMessage="No Auditorium Info found">
+                                <f:facet name ="header">
+                                    View All Available Auditorium Information
+                                </f:facet>    
+
+                                <p:column headerText="ID" >
+                                    <h:outputText value="#{auditorium.id}" />
+                                </p:column>
+
+                                <p:column headerText="room Number" >
+                                    <h:outputText value="#{auditorium.roomNo}" />
+                                </p:column>
+
+                                <p:column headerText="Capacity" >
+                                    <h:outputText value="#{auditorium.capacity}" />
+                                </p:column>
+
+                                <p:column headerText="Price" >
+                                    <h:outputText value="#{auditorium.dayprice}" />
+                                </p:column>
+
+
+                                <f:facet name="footer">
+                                    <p:commandButton value="Add Schedule" actionListener="#{showInfoManagedBean.addAuditoriumSchedule()}" />
+                                </f:facet>
+
+                            </p:dataTable>             
+                        </h:form>
+                    </h:form>
+
+                </p:panel>      
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

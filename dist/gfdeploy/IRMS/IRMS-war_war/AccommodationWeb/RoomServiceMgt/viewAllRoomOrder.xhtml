@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+        <ui:composition template="../../Templates/InternalAggregateTemplate.xhtml">
+
+            <ui:define name="contents">
+                <h:form id="form">
+                    <p:growl autoUpdate="true" globalOnly="true"/> 
+
+                    <p:dataTable rowKey="#{order.orderNum}" var="order" value="#{roomServiceManagedBean.listAllOrders()}" 
+                                 paginator="true" rows="10" selection="#{roomServiceManagedBean.order}" selectionMode="single" emptyMessage="No order found">
+
+                        <f:facet name="header">
+                            View all room service orders
+                        </f:facet>  
+
+                        <p:column style="width: 3%" sortBy="#{order.orderNum}" filterBy="#{order.orderNum}"> 
+                            <f:facet name="header">       
+                                <h:outputText value="Order #" />  
+                            </f:facet>
+                            <h:outputText value="#{order.orderNum}"/> 
+                        </p:column>
+
+                        <p:column style="width: 7%" sortBy="#{order.dateo}" > 
+                            <f:facet name="header">       
+                                <h:outputText value="Order Date" />                        
+                            </f:facet>
+                            <h:outputText value="#{order.dateo}" > 
+                                <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8" />
+                            </h:outputText>  
+                        </p:column>
+
+                        <p:column style="width: 7%" filterBy="#{order.stay.room.roomNum}" sortBy="#{order.stay.room.roomNum}" > 
+                            <f:facet name="header">       
+                                <h:outputText value="Room Number" />  
+                            </f:facet>
+                            <h:outputText value="#{order.stay.room.roomNum}"/> 
+                        </p:column>
+
+                        <p:column style="width: 7%" filterBy="#{order.payStatus}" > 
+                            <f:facet name="header">       
+                                <h:outputText value="Payment Status" />                        
+                            </f:facet>
+                            <h:outputText value="#{order.payStatus}" /> 
+                        </p:column>
+
+                        <p:column style="width: 7%" sortBy="#{order.totalPrice}" > 
+                            <f:facet name="header">       
+                                <h:outputText value="Total Price" />  
+                            </f:facet>
+                            <h:outputText value="#{order.totalPrice}"/> 
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Delete" actionListener="#{roomServiceManagedBean.deleteOrder()}"/>
+                        </f:facet>
+
+                        <f:facet name="footer">
+                            <p:commandButton id="viewButton" value="View Detail"
+                                             update=":form:display" oncomplete="roomserviceDialog.show()"/>  
+                        </f:facet>
+
+                    </p:dataTable>             
+
+                    <p:dialog id="dialog" header="Order Detail" widgetVar="roomserviceDialog" resizable="false"  
+                              width="700" position="center"  >  
+                        <p:panel id="display">  
+                            <h:panelGrid columns="2" cellpadding="4">  
+
+                                <h:outputText value="Order Number: " />  
+                                <h:outputText value="#{roomServiceManagedBean.order.orderNum}"/>
+
+                                <h:outputText value="Order Date:" />  
+                                <h:outputText value="#{roomServiceManagedBean.order.dateo}"> 
+                                    <f:convertDateTime pattern="EEE dd/MM/yyyy" timeZone="GMT+8" />
+                                </h:outputText>
+
+                                <h:outputText value="Total Price: " />  
+                                <h:outputText value="S$ #{roomServiceManagedBean.order.totalPrice}"/>
+                            </h:panelGrid>
+
+                            <p:dataTable liveResize="true" var="itemOrder" value="#{roomServiceManagedBean.order.itemOrders}">
+
+                                <p:column sortBy="#{itemOrder.item.name}" > 
+                                    <f:facet name="header">       
+                                        <h:outputText value="Name" />                        
+                                    </f:facet>
+                                    <h:outputText value="#{itemOrder.item.name}" /> 
+                                </p:column>
+
+                                <p:column sortBy="#{itemOrder.item.price}" > 
+                                    <f:facet name="header">       
+                                        <h:outputText value="Price" />                        
+                                    </f:facet>
+                                    <h:outputText value="#{itemOrder.item.price}" /> 
+                                </p:column>
+
+                                <p:column sortBy="#{itemOrder.quantity}" > 
+                                    <f:facet name="header">       
+                                        <h:outputText value="Quantity" />                        
+                                    </f:facet>
+                                    <h:outputText value="#{itemOrder.quantity}" /> 
+                                </p:column>
+
+                                <p:column headerText="To update" >
+                                        <p:selectOneMenu label="Room Quantity" id="qua" value="#{roomServiceManagedBean.qua}">  
+                                            <f:selectItem itemLabel="1" itemValue="1" />  
+                                            <f:selectItem itemLabel="2" itemValue="2" />  
+                                            <f:selectItem itemLabel="3" itemValue="3" />  
+                                            <f:selectItem itemLabel="4" itemValue="4" />  
+                                            <f:selectItem itemLabel="5" itemValue="5" />  
+                                            <f:selectItem itemLabel="6" itemValue="6" />  
+                                            <f:selectItem itemLabel="7" itemValue="7" />
+
+                                        </p:selectOneMenu>
+                                        <p:commandButton ajax="true" type="submit" value="Update" actionListener="#{roomServiceManagedBean.updateOrder(itemOrder)}"/>
+                                </p:column>
+                                
+                            </p:dataTable>    
+                        </p:panel>
+                    </p:dialog>  
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
